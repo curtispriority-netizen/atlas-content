@@ -235,7 +235,8 @@
           "maxLength": 300
         },
         "summary": {
-          "type": "string"
+          "type": "string",
+          "description": "4-6 sentences: what was done, what was found, what it means."
         },
         "pico": {
           "type": "object",
@@ -285,6 +286,129 @@
         "condition": {
           "type": "string",
           "description": "Which playbook condition this item serves, e.g. 'Discogenic low back pain', 'Referred neck pain', 'Achilles tendinopathy', 'Adductor-related groin pain'."
+        },
+        "playbook_step": {
+          "enum": [
+            "screen",
+            "assess",
+            "classify",
+            "measure",
+            "treat",
+            "educate"
+          ]
+        },
+        "bottom_line": {
+          "type": "string",
+          "description": "2-3 sentences a clinician can act on."
+        },
+        "methods": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "design": {
+              "type": "string"
+            },
+            "setting": {
+              "type": "string"
+            },
+            "participants": {
+              "type": "string"
+            },
+            "intervention": {
+              "type": "string"
+            },
+            "comparator": {
+              "type": "string"
+            },
+            "follow_up": {
+              "type": "string"
+            },
+            "primary_outcome": {
+              "type": "string"
+            }
+          }
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "outcome",
+              "result"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "outcome": {
+                "type": "string"
+              },
+              "timepoint": {
+                "type": "string"
+              },
+              "result": {
+                "type": "string"
+              },
+              "effect": {
+                "type": "string",
+                "description": "Effect size with 95% CI, e.g. MD -1.2 (95% CI -2.0 to -0.4)"
+              },
+              "meaning": {
+                "type": "string",
+                "description": "Clinical meaning, e.g. vs MCID"
+              }
+            }
+          }
+        },
+        "how_to_apply": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Concrete steps: dose, frequency, progression, what to say."
+        },
+        "applies_to": {
+          "type": "string"
+        },
+        "not_for": {
+          "type": "string"
+        },
+        "appraisal": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "certainty": {
+              "enum": [
+                "high",
+                "moderate",
+                "low",
+                "very low"
+              ]
+            },
+            "strengths": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "weaknesses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "funding_conflicts": {
+              "type": "string"
+            }
+          }
+        },
+        "patient_explanation": {
+          "type": "string",
+          "description": "1-2 sentences in plain patient language."
+        },
+        "open_questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },

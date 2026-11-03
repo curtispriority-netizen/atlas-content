@@ -1,14 +1,5 @@
 {
   "schema_version": 1,
-  "latest": "2026-W45",
-  "editions": [
-    {
-      "id": "2026-W45",
-      "path": "editions/2026-W45.json",
-      "published_at": "2026-11-03T21:30:00+11:00",
-      "item_count": 3,
-      "has_measure": true,
-      "sample": true
-    }
-  ]
+  "latest": null,
+  "editions": []
 }

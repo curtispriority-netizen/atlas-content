@@ -73,7 +73,7 @@ if pidx_path.exists():
         if data.get("study", {}).get("item_id") != f"mine-{entry['id']}":
             problems.append(f"paper {entry['id']}: study.item_id must be mine-{entry['id']}")
 
-if index["latest"] not in {e["id"] for e in index["editions"]}:
+if index["editions"] and index["latest"] not in {e["id"] for e in index["editions"]}:
     problems.append("index.json: latest is not in editions")
 
 if problems:
