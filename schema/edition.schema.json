@@ -3,33 +3,80 @@
   "$id": "atlas/edition.schema.json",
   "title": "Atlas weekly edition",
   "type": "object",
-  "required": ["schema_version", "edition_id", "published_at", "verdict", "quiet_week", "items", "on_the_radar", "filtered_out", "sources"],
+  "required": [
+    "schema_version",
+    "edition_id",
+    "published_at",
+    "verdict",
+    "quiet_week",
+    "items",
+    "on_the_radar",
+    "filtered_out",
+    "sources"
+  ],
   "additionalProperties": false,
   "properties": {
-    "schema_version": { "const": 1 },
-    "edition_id": { "type": "string", "pattern": "^[0-9]{4}-W[0-9]{2}$" },
-    "published_at": { "type": "string", "format": "date-time" },
-    "sample": { "type": "boolean", "description": "True only for hand-made test editions." },
-    "verdict": { "type": "string", "minLength": 1, "maxLength": 200 },
-    "caveat": { "type": "string", "maxLength": 300 },
-    "quiet_week": { "type": "boolean" },
+    "schema_version": {
+      "const": 1
+    },
+    "edition_id": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-W[0-9]{2}$"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sample": {
+      "type": "boolean",
+      "description": "True only for hand-made test editions."
+    },
+    "verdict": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "caveat": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "quiet_week": {
+      "type": "boolean"
+    },
     "items": {
       "type": "array",
       "minItems": 0,
       "maxItems": 3,
-      "items": { "$ref": "#/$defs/study" }
+      "items": {
+        "$ref": "#/$defs/study"
+      }
     },
-    "measure_of_week": { "$ref": "#/$defs/measure" },
+    "measure_of_week": {
+      "$ref": "#/$defs/measure"
+    },
     "on_the_radar": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["title", "note", "source_ids"],
+        "required": [
+          "title",
+          "note",
+          "source_ids"
+        ],
         "additionalProperties": false,
         "properties": {
-          "title": { "type": "string" },
-          "note": { "type": "string" },
-          "source_ids": { "type": "array", "items": { "type": "string" } }
+          "title": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -37,101 +84,281 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["title", "reason"],
+        "required": [
+          "title",
+          "reason"
+        ],
         "additionalProperties": false,
         "properties": {
-          "title": { "type": "string" },
-          "reason": { "type": "string" },
-          "source_ids": { "type": "array", "items": { "type": "string" } }
+          "title": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "sources": {
       "type": "array",
-      "items": { "$ref": "#/$defs/source" }
+      "items": {
+        "$ref": "#/$defs/source"
+      }
     }
   },
   "$defs": {
-    "confidence": { "enum": ["certain", "likely", "guessing"] },
+    "confidence": {
+      "enum": [
+        "certain",
+        "likely",
+        "guessing"
+      ]
+    },
     "full_text": {
       "type": "object",
-      "required": ["status", "worth_getting"],
+      "required": [
+        "status",
+        "worth_getting"
+      ],
       "additionalProperties": false,
       "properties": {
-        "status": { "enum": ["read", "open_access_unread", "paywalled"] },
-        "worth_getting": { "type": "boolean" },
-        "why": { "type": "string" },
-        "routes": { "type": "array", "items": { "type": "string" } }
+        "status": {
+          "enum": [
+            "read",
+            "open_access_unread",
+            "paywalled"
+          ]
+        },
+        "worth_getting": {
+          "type": "boolean"
+        },
+        "why": {
+          "type": "string"
+        },
+        "routes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "key_number": {
       "type": "object",
-      "required": ["value", "label"],
+      "required": [
+        "value",
+        "label"
+      ],
       "additionalProperties": false,
       "properties": {
-        "value": { "type": "string" },
-        "label": { "type": "string" }
+        "value": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
       }
     },
     "study": {
       "type": "object",
-      "required": ["type", "item_id", "region", "title", "evidence_tag", "confidence", "impact", "impact_line", "summary", "limits", "read_level", "full_text", "source_ids"],
+      "required": [
+        "type",
+        "item_id",
+        "region",
+        "title",
+        "evidence_tag",
+        "confidence",
+        "impact",
+        "impact_line",
+        "summary",
+        "limits",
+        "read_level",
+        "full_text",
+        "source_ids"
+      ],
       "additionalProperties": false,
       "properties": {
-        "type": { "const": "study" },
-        "item_id": { "type": "string", "pattern": "^[0-9]{4}-W[0-9]{2}-[0-9]+$" },
-        "region": { "enum": ["lumbar", "cervical"] },
-        "title": { "type": "string", "maxLength": 140 },
-        "first_published": { "type": "string", "description": "Year or date of the original paper. Lets backfill items show their age." },
-        "evidence_tag": { "enum": ["established", "emerging", "practice_gap"] },
-        "evidence_note": { "type": "string" },
-        "confidence": { "$ref": "#/$defs/confidence" },
-        "confidence_note": { "type": "string" },
-        "impact": { "enum": ["changes_what_i_say", "set_expectations", "know_dont_act"] },
-        "impact_line": { "type": "string", "maxLength": 300 },
-        "summary": { "type": "string" },
+        "type": {
+          "const": "study"
+        },
+        "item_id": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-W[0-9]{2}-[0-9]+$"
+        },
+        "region": {
+          "enum": [
+            "lumbar",
+            "cervical",
+            "lower limb",
+            "hip and groin"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 140
+        },
+        "first_published": {
+          "type": "string",
+          "description": "Year or date of the original paper. Lets backfill items show their age."
+        },
+        "evidence_tag": {
+          "enum": [
+            "established",
+            "emerging",
+            "practice_gap"
+          ]
+        },
+        "evidence_note": {
+          "type": "string"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "confidence_note": {
+          "type": "string"
+        },
+        "impact": {
+          "enum": [
+            "changes_what_i_say",
+            "set_expectations",
+            "know_dont_act"
+          ]
+        },
+        "impact_line": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "summary": {
+          "type": "string"
+        },
         "pico": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "p": { "type": "string" },
-            "i": { "type": "string" },
-            "c": { "type": "string" },
-            "o": { "type": "string" }
+            "p": {
+              "type": "string"
+            },
+            "i": {
+              "type": "string"
+            },
+            "c": {
+              "type": "string"
+            },
+            "o": {
+              "type": "string"
+            }
           }
         },
-        "key_numbers": { "type": "array", "maxItems": 4, "items": { "$ref": "#/$defs/key_number" } },
-        "limits": { "type": "string" },
-        "read_level": { "enum": ["full_text", "abstract", "synopsis"] },
-        "full_text": { "$ref": "#/$defs/full_text" },
-        "source_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+        "key_numbers": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/key_number"
+          }
+        },
+        "limits": {
+          "type": "string"
+        },
+        "read_level": {
+          "enum": [
+            "full_text",
+            "abstract",
+            "synopsis"
+          ]
+        },
+        "full_text": {
+          "$ref": "#/$defs/full_text"
+        },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "condition": {
+          "type": "string",
+          "description": "Which playbook condition this item serves, e.g. 'Discogenic low back pain', 'Referred neck pain', 'Achilles tendinopathy', 'Adductor-related groin pain'."
+        }
       }
     },
     "measure": {
       "type": "object",
-      "required": ["type", "measure_id", "kind", "name", "full_name", "region", "bottom_line", "what_it_measures", "numbers", "pitfalls", "source_ids"],
+      "required": [
+        "type",
+        "measure_id",
+        "kind",
+        "name",
+        "full_name",
+        "region",
+        "bottom_line",
+        "what_it_measures",
+        "numbers",
+        "pitfalls",
+        "source_ids"
+      ],
       "additionalProperties": false,
       "properties": {
-        "type": { "const": "measure" },
-        "measure_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
-        "kind": { "enum": ["prom", "performance_test", "clinical_test"] },
-        "name": { "type": "string" },
-        "full_name": { "type": "string" },
-        "region": { "type": "string" },
-        "confidence": { "$ref": "#/$defs/confidence" },
-        "bottom_line": { "type": "string" },
-        "what_it_measures": { "type": "string" },
-        "how_to_score": { "type": "string" },
+        "type": {
+          "const": "measure"
+        },
+        "measure_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "kind": {
+          "enum": [
+            "prom",
+            "performance_test",
+            "clinical_test"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "bottom_line": {
+          "type": "string"
+        },
+        "what_it_measures": {
+          "type": "string"
+        },
+        "how_to_score": {
+          "type": "string"
+        },
         "variants": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["name", "formula"],
+            "required": [
+              "name",
+              "formula"
+            ],
             "additionalProperties": false,
             "properties": {
-              "name": { "type": "string" },
-              "formula": { "type": "string" },
-              "note": { "type": "string" }
+              "name": {
+                "type": "string"
+              },
+              "formula": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
             }
           }
         },
@@ -139,34 +366,81 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["metric", "value", "population", "source_id"],
+            "required": [
+              "metric",
+              "value",
+              "population",
+              "source_id"
+            ],
             "additionalProperties": false,
             "properties": {
-              "metric": { "type": "string" },
-              "value": { "type": "string" },
-              "population": { "type": "string" },
-              "source_id": { "type": "string" }
+              "metric": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "population": {
+                "type": "string"
+              },
+              "source_id": {
+                "type": "string"
+              }
             }
           }
         },
-        "when_to_use": { "type": "string" },
-        "pitfalls": { "type": "array", "items": { "type": "string" } },
-        "licence": { "type": "string" },
-        "official_link": { "type": "string" },
-        "source_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+        "when_to_use": {
+          "type": "string"
+        },
+        "pitfalls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "licence": {
+          "type": "string"
+        },
+        "official_link": {
+          "type": "string"
+        },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "source": {
       "type": "object",
-      "required": ["id", "citation", "verified"],
+      "required": [
+        "id",
+        "citation",
+        "verified"
+      ],
       "additionalProperties": false,
       "properties": {
-        "id": { "type": "string" },
-        "citation": { "type": "string" },
-        "doi": { "type": "string" },
-        "pmid": { "type": "string" },
-        "url": { "type": "string" },
-        "verified": { "type": "boolean", "description": "True only if the weekly task fetched the record itself and the details matched." }
+        "id": {
+          "type": "string"
+        },
+        "citation": {
+          "type": "string"
+        },
+        "doi": {
+          "type": "string"
+        },
+        "pmid": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean",
+          "description": "True only if the weekly task fetched the record itself and the details matched."
+        }
       }
     }
   }
