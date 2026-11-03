@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "note": "Every study and measure ever included in an edition (items, measure, on the radar, filtered out). The weekly task must not pick anything listed here again. Key = DOI if known, else PMID, else lower-case title.",
+  "shown": [
+    { "key": "antibiotics don't help chronic lbp with disc herniation", "edition": "2026-W45", "where": "item" },
+    { "key": "intradiscal hydrogel vs sham: primary outcome missed", "edition": "2026-W45", "where": "item" },
+    { "key": "conservative care helps early; by 12 months the gap fades", "edition": "2026-W45", "where": "item" },
+    { "key": "measure:hq-ratio", "edition": "2026-W45", "where": "measure" }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "edition_id": "2026-W45",
+  "published_at": "2026-11-03T21:30:00+11:00",
+  "sample": true,
+  "verdict": "Only one item changes what you tell patients, and it's a null result.",
+  "caveat": "Sample edition built from the format test. All three items were read from abstracts or synopses, and sources are not yet verified.",
+  "quiet_week": false,
+  "items": [
+    {
+      "type": "study",
+      "item_id": "2026-W45-1",
+      "region": "lumbar",
+      "title": "Antibiotics don't help chronic LBP with disc herniation",
+      "first_published": "2026-05",
+      "evidence_tag": "emerging",
+      "evidence_note": "single RCT",
+      "confidence": "likely",
+      "impact": "changes_what_i_say",
+      "impact_line": "If a patient asks about antibiotics for Modic changes: a placebo-controlled trial of 170 found no benefit at 12 months and more side effects.",
+      "summary": "Amoxicillin-clavulanate for 90 days gave no pain benefit over placebo at 12 months. Patients with Modic changes did no better. Adverse events were more common on the antibiotic.",
+      "pico": {
+        "p": "Adults with chronic LBP and disc herniation, n = 170",
+        "i": "Amoxicillin-clavulanate for 90 days",
+        "c": "Placebo",
+        "o": "Pain at 12 months; adverse events"
+      },
+      "key_numbers": [
+        { "value": "170", "label": "participants" },
+        { "value": "0.06", "label": "adjusted pain difference, 0–10 scale (95% CI -0.58 to 0.70)" },
+        { "value": "40.0% v 23.5%", "label": "adverse events, antibiotic v placebo" }
+      ],
+      "limits": "One trial. Numbers come from synopses; check the full text before quoting them to a referrer.",
+      "read_level": "synopsis",
+      "full_text": {
+        "status": "paywalled",
+        "worth_getting": true,
+        "why": "Everything above comes from synopses, so subgroup and harms detail is thin.",
+        "routes": ["author copy", "email the corresponding author"]
+      },
+      "source_ids": ["s1"]
+    },
+    {
+      "type": "study",
+      "item_id": "2026-W45-2",
+      "region": "lumbar",
+      "title": "Intradiscal hydrogel vs sham: primary outcome missed",
+      "first_published": "2026",
+      "evidence_tag": "emerging",
+      "evidence_note": "small sham-controlled RCT",
+      "confidence": "likely",
+      "confidence_note": "[Likely] on the numbers, [Guessing] on meaning",
+      "impact": "know_dont_act",
+      "impact_line": "Nothing to change. If a patient raises disc implants, the honest answer is early sham-controlled data with no clear primary-outcome win.",
+      "summary": "A percutaneous hydrogel implant did not clearly beat sham on the primary outcome. A secondary global-improvement measure favoured treatment, but secondary outcomes in a small trial are hypothesis-generating at best.",
+      "key_numbers": [
+        { "value": "49", "label": "participants" },
+        { "value": "P = 0.070", "label": "primary outcome" },
+        { "value": "6/24 v 0/25", "label": "PGIC improvement (secondary)" }
+      ],
+      "limits": "Small, abstract only, and a secondary outcome carries the headline.",
+      "read_level": "abstract",
+      "full_text": {
+        "status": "paywalled",
+        "worth_getting": false,
+        "why": "Know-don't-act item; the abstract is enough for now."
+      },
+      "source_ids": ["s2"]
+    },
+    {
+      "type": "study",
+      "item_id": "2026-W45-3",
+      "region": "lumbar",
+      "title": "Conservative care helps early; by 12 months the gap fades",
+      "first_published": "2026",
+      "evidence_tag": "established",
+      "evidence_note": "network meta-analysis, very low certainty",
+      "confidence": "likely",
+      "impact": "set_expectations",
+      "impact_line": "Frame conservative care as helping most in the first few months, and set expectations that differences between treatments shrink by 12 months.",
+      "summary": "Pools 551 trials and 71,126 patients with chronic non-specific LBP. Short-term benefits appear for exercise, manual therapy, acupuncture, massage, electrotherapy and multidisciplinary care; by 12 months they are hard to find.",
+      "key_numbers": [
+        { "value": "551", "label": "trials" },
+        { "value": "71,126", "label": "patients" }
+      ],
+      "limits": "Very low certainty evidence. Journal not confirmed; read via a summary page.",
+      "read_level": "synopsis",
+      "full_text": {
+        "status": "paywalled",
+        "worth_getting": false,
+        "why": "Source needs confirming first."
+      },
+      "source_ids": ["s3"]
+    }
+  ],
+  "measure_of_week": {
+    "type": "measure",
+    "measure_id": "hq-ratio",
+    "kind": "performance_test",
+    "name": "H:Q ratio",
+    "full_name": "Hamstring-to-quadriceps strength ratio",
+    "region": "knee / thigh",
+    "confidence": "likely",
+    "bottom_line": "Use it to track an imbalance over time in the same athlete. Don't use it alone to call someone high risk.",
+    "what_it_measures": "Hamstring strength relative to quadriceps, usually from isokinetic peak torque.",
+    "variants": [
+      { "name": "Conventional", "formula": "H concentric ÷ Q concentric" },
+      { "name": "Functional", "formula": "H eccentric ÷ Q concentric", "note": "Closer to late-swing demands." }
+    ],
+    "numbers": [
+      {
+        "metric": "Injury prediction",
+        "value": "Very limited evidence that any H:Q ratio independently predicts hamstring or ACL injury",
+        "population": "18 prospective studies, 2,945 participants, 585 hamstring injuries",
+        "source_id": "m1"
+      },
+      {
+        "metric": "Commonly quoted cut-offs",
+        "value": "About 0.6 conventional, about 1.0 functional",
+        "population": "Not stated in the source checked",
+        "source_id": "m2"
+      }
+    ],
+    "when_to_use": "Return-to-sport and in-season monitoring, alongside absolute strength and other modifiable factors.",
+    "pitfalls": [
+      "Ratios change with test velocity. Compare like with like.",
+      "A good ratio can hide two weak muscles. Check absolute torque too.",
+      "Devices and gravity correction differ. Retest on the same setup."
+    ],
+    "source_ids": ["m1", "m2"]
+  },
+  "on_the_radar": [],
+  "filtered_out": [],
+  "sources": [
+    { "id": "s1", "citation": "Antibiotic RCT for chronic LBP with disc herniation. JAMA Netw Open, May 2026.", "verified": false },
+    { "id": "s2", "citation": "Intradiscal hydrogel vs sham RCT. Pain Physician, 2026.", "verified": false },
+    { "id": "s3", "citation": "Belavý et al. Time-course network meta-analysis of conservative care for chronic LBP, 2026. Journal not confirmed.", "verified": false },
+    { "id": "m1", "citation": "Kellis E, Sahinis C, Baltzopoulos V. Is hamstrings-to-quadriceps torque ratio useful for predicting anterior cruciate ligament and hamstring injuries? A systematic and critical review. J Sport Health Sci. 2023;12(3):343–358.", "url": "https://doaj.org/article/2365d67370404762b4458a107751fa58", "verified": true },
+    { "id": "m2", "citation": "Discussion about different cut-off values of conventional hamstring-to-quadriceps ratio used in hamstring injury prediction among professional male football players. PMC5720729.", "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5720729/", "verified": false }
+  ]
+}
