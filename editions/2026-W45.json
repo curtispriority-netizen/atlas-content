@@ -1,0 +1,862 @@
+{
+  "schema_version": 1,
+  "edition_id": "2026-W45",
+  "published_at": "2026-11-03T22:39:46Z",
+  "verdict": "Big Australian sham trial: Achilles HVI, with or without steroid, adds nothing to rehab at 12 months. Plus a CAE dose guide and a small neural slider trial. Quiet week elsewhere.",
+  "caveat": "Inject card is synopsis-level: BMJ full text and PubMed were unreachable this run, so effect sizes and CIs aren't shown. No new discogenic LBP paper was worth a card.",
+  "quiet_week": true,
+  "items": [
+    {
+      "type": "study",
+      "item_id": "2026-W45-1",
+      "region": "lower limb",
+      "condition": "Achilles tendinopathy",
+      "title": "Inject trial: high-volume injection, with or without steroid, no better than sham at 12 months for mid-portion Achilles",
+      "first_published": "2026-10-28",
+      "playbook_step": "treat",
+      "evidence_tag": "established",
+      "evidence_note": "Adds a well-designed, sham-controlled, NHMRC-funded Australian trial to an existing picture of weak, mostly uncontrolled support for high-volume injection. Exercise-based loading stays the first-line treatment.",
+      "confidence": "likely",
+      "confidence_note": "I couldn't open the BMJ full text this run (site blocked the fetch). Design and doses come from the published protocol; results come from the BMJ press release and secondary reports, which give directions of effect but no between-group differences or CIs. The direction is clear. The size of the effects is not verified.",
+      "impact": "changes_what_i_say",
+      "impact_line": "On Monday: stop offering HVI as the 'next step' when loading stalls in mid-portion Achilles. If someone wants a steroid for a race, say it may buy about 6 weeks and may cost them at 6 months.",
+      "summary": "A three-arm, participant- and assessor-blinded RCT at a Melbourne radiology clinic randomised 192 adults with mid-portion Achilles tendinopathy (mean age 49, 55% male, median symptoms 2 years, baseline VISA-A 48.7) to sham, high-volume injection (HVI) without steroid, or HVI with 25 mg hydrocortisone. Every participant got the same 12-week progressive, pain-monitored loading programme plus education and activity-modification advice. At the 52-week primary endpoint (VISA-A), there were no clear differences between sham and either HVI, or between the two HVIs, with 94% follow-up. HVI without steroid didn't beat sham at any timepoint. The steroid version helped a little at 6 weeks but did worse than plain HVI at 26 weeks. HVI adds cost and a procedure without adding benefit on top of good rehab, and steroid trades a short-term gain for a possible mid-term loss.",
+      "bottom_line": "On top of a structured loading programme, HVI (with or without steroid) doesn't improve 12-month pain or function compared with sham. Keep exercise-based loading as the core treatment. Don't refer for HVI to 'unstick' slow responders. If steroid is used for a short-term goal, frame it honestly: a small, brief benefit with a possible downside at around 6 months.",
+      "methods": {
+        "design": "Three-arm parallel RCT with sham control. Participants and outcome assessors blinded. The injecting radiologist was blinded to steroid vs no steroid but could tell when sham was assigned. Registered ACTRN12619001455156. Protocol published 2021 (BMJ Open SEM).",
+        "setting": "Single radiology clinic (Imaging at Olympic Park), Melbourne, Australia. Recruited Dec 2019 to Jul 2022, mainly through social media. Funded by NHMRC (APP1164268).",
+        "participants": "n=192 (sham 64, HVI 63, HVI+steroid 65). Protocol inclusion: age 18 or over; mid-portion Achilles pain for at least 3 months; previous failed treatment; VISA-A below 75; ultrasound-confirmed tendon pathology; normal ankle examination. Exclusions included prior Achilles surgery or rupture, inflammatory arthropathy, fluoroquinolone use in the past 2 years, local injection in the past 3 months, and clotting disorder. Mean age 49, 55% male, median duration 2 years, mean baseline VISA-A 48.7. Activity level not reported in what I read.",
+        "intervention": "Ultrasound-guided HVI between Kager's fat and the anterior tendon: five 10 mL syringes in sequence (~50 mL total). The first syringe held 10 mL 0.5% bupivacaine (plus 25 mg hydrocortisone in the steroid arm). The other four held 10 mL normal saline each. All arms then got an identical 12-week evidence-based, progressively loaded, pain-monitored exercise programme, with education and advice on load progression and regression. Contacts: phone call at week 1, teleconference at week 2, in person at weeks 6 and 12. Exact sets, reps and progression criteria are in supplementary files I didn't read. Adherence not read.",
+        "comparator": "Sham: 2–3 mL 0.5% bupivacaine injected deep to the tendon, at least 10 mm from the Kager's fat interface. Excess injectant was diverted to a syringe through a three-way stopcock so the procedure took the same time. Same rehab programme as the active arms.",
+        "follow_up": "Baseline, 6, 12, 26 and 52 weeks. VISA-A available for 181/192 (94%) at 52 weeks.",
+        "primary_outcome": "VISA-A (0–100, higher is better) at 52 weeks. The sample size assumed a 10-point between-group difference (SD 15.6), with alpha split across three comparisons. 51 per group were needed; 64 per arm were recruited."
+      },
+      "results": [
+        {
+          "outcome": "VISA-A, HVI vs sham",
+          "timepoint": "52 weeks (primary)",
+          "result": "No clear difference.",
+          "effect": "Not read (full text not accessed)",
+          "meaning": "The authors' conclusion implies no difference of the 10-point size the trial was powered for. Whether the CI rules out 10 points is unverified."
+        },
+        {
+          "outcome": "VISA-A, HVI + steroid vs sham",
+          "timepoint": "52 weeks (primary)",
+          "result": "No clear difference.",
+          "effect": "Not read",
+          "meaning": "No long-term benefit from adding steroid."
+        },
+        {
+          "outcome": "VISA-A, HVI + steroid vs sham",
+          "timepoint": "6 weeks",
+          "result": "Small short-term improvement with steroid.",
+          "effect": "Not read",
+          "meaning": "Described as small. Whether it reaches ~10 VISA-A points is unknown."
+        },
+        {
+          "outcome": "VISA-A, HVI + steroid vs HVI alone",
+          "timepoint": "26 weeks",
+          "result": "Steroid group did worse.",
+          "effect": "Not read",
+          "meaning": "Possible mid-term rebound. The authors note some effects may be due to chance."
+        },
+        {
+          "outcome": "Cost-effectiveness (cost per QALY)",
+          "timepoint": "52 weeks",
+          "result": "HVI + steroid gained more QALYs and cost less than sham, but the authors don't think this supports routine use.",
+          "effect": "Not read",
+          "meaning": "Treat it as hypothesis-generating, given no difference on the primary outcome."
+        },
+        {
+          "outcome": "Serious adverse events",
+          "timepoint": "Whole trial",
+          "result": "No serious trial-related adverse events.",
+          "effect": "Counts not read",
+          "meaning": "Safe, but no benefit."
+        }
+      ],
+      "key_numbers": [
+        {
+          "value": "192",
+          "label": "Adults randomised (3 arms)"
+        },
+        {
+          "value": "94%",
+          "label": "VISA-A follow-up at 12 months (181/192)"
+        },
+        {
+          "value": "48.7",
+          "label": "Mean baseline VISA-A"
+        },
+        {
+          "value": "~50 mL",
+          "label": "HVI volume (10 mL bupivacaine ± 25 mg hydrocortisone + 40 mL saline)"
+        }
+      ],
+      "pico": {
+        "p": "Adults with persistent (≥3 months, median 2 years) ultrasound-confirmed mid-portion Achilles tendinopathy that hadn't responded to treatment",
+        "i": "Ultrasound-guided high-volume injection (~50 mL), with or without 25 mg hydrocortisone, plus 12-week loading rehab",
+        "c": "Low-volume sham injection plus identical rehab",
+        "o": "VISA-A at 52 weeks; cost per QALY"
+      },
+      "limits": "I didn't read the full paper this run, so there are no effect sizes or CIs. Single site, recruited mostly through social media. Injectors weren't fully masked. Mean age 49 with long symptom duration, so it isn't a young-athlete sample. Mid-portion only: says nothing about insertional tendinopathy.",
+      "read_level": "synopsis",
+      "full_text": {
+        "status": "open_access_unread",
+        "worth_getting": true,
+        "why": "A practice-changing Australian trial. I need the between-group VISA-A differences and CIs at 6, 26 and 52 weeks, and the exercise dose from the supplement, to tighten this card.",
+        "routes": [
+          "BMJ research articles are free to read: open doi.org/10.1136/bmj-2026-100807 in a browser",
+          "Exercise programme: BMJ supplementary files",
+          "Ask Peter Malliaras (Monash) via ResearchGate"
+        ]
+      },
+      "how_to_apply": [
+        "Keep loading as the backbone: progressive calf loading with a pain-monitoring model (pain allowed if tolerable and settled by the next morning). Plan for at least 12 weeks before calling it a failure.",
+        "When a patient isn't improving, review dose, adherence and load management first (running volume, hills, footwear changes) rather than referring for HVI.",
+        "If a patient asks about 'stripping' or high-volume injections, say a large Australian sham-controlled trial found no extra benefit at 12 months on top of good rehab.",
+        "If steroid is being considered for a short-term goal (an event within about 6 weeks), go through the trade-off: possible small short-term relief, possibly worse at 6 months, and never a cure. Keep loading going regardless.",
+        "Don't change your loading programme because of this trial. It tested injections on top of rehab, not rehab itself."
+      ],
+      "applies_to": "Adults (around 30–65) with persistent mid-portion Achilles tendinopathy who have plateaued on rehab and are considering injection.",
+      "not_for": "Insertional Achilles tendinopathy, partial tears or rupture, inflammatory or systemic tendinopathy, adolescents.",
+      "appraisal": {
+        "appraised_from": "abstract",
+        "tool": "RoB 2",
+        "domains": [
+          {
+            "domain": "Randomisation process",
+            "judgement": "unclear",
+            "reason": "The protocol pre-specifies concealed randomisation, but I didn't read the sequence generation, concealment or baseline balance as reported in the results paper."
+          },
+          {
+            "domain": "Deviations from intended interventions",
+            "judgement": "some concerns",
+            "reason": "Participants were blinded and all arms got identical rehab, but the radiologist could tell when sham was assigned (protocol) and the authors say providers couldn't be masked. Rehab adherence by arm wasn't read."
+          },
+          {
+            "domain": "Missing outcome data",
+            "judgement": "low",
+            "reason": "VISA-A available for 181/192 (94%) at 52 weeks. Attrition by arm not read, but overall loss is small."
+          },
+          {
+            "domain": "Measurement of the outcome",
+            "judgement": "unclear",
+            "reason": "VISA-A is self-reported by blinded participants (protocol), but I didn't see the reported test of blinding success."
+          },
+          {
+            "domain": "Selection of the reported result",
+            "judgement": "low",
+            "reason": "Primary outcome (VISA-A at 52 weeks) and the three comparisons match the 2021 protocol and ANZCTR registration."
+          }
+        ],
+        "overall_risk_of_bias": "some concerns",
+        "grade": [
+          {
+            "domain": "risk of bias",
+            "judgement": "not serious",
+            "reason": "Sham-controlled, participant- and assessor-blinded, 94% follow-up, pre-registered primary outcome. The unclear domains reflect what I could read, not known flaws."
+          },
+          {
+            "domain": "inconsistency",
+            "judgement": "not applicable",
+            "reason": "Single trial."
+          },
+          {
+            "domain": "indirectness",
+            "judgement": "not serious",
+            "reason": "Australian adults with persistent mid-portion tendinopathy, with injections tested on top of rehab, which is exactly the clinical question."
+          },
+          {
+            "domain": "imprecision",
+            "judgement": "serious",
+            "reason": "Sample exceeded the planned information size (51 per arm needed for a 10-point difference), but I didn't see the 95% CIs, so I can't confirm a 10-point benefit is excluded. Downgraded pending the full text."
+          },
+          {
+            "domain": "publication bias",
+            "judgement": "not serious",
+            "reason": "Prospectively registered and published as a null trial in the BMJ."
+          }
+        ],
+        "certainty": "moderate",
+        "clinical_significance": "The trial was powered to detect a 10-point VISA-A difference. That figure comes from earlier trials, and the protocol says no MCID is established for mid-portion Achilles tendinopathy. The reported 12-month differences were 'no clear difference', so the benefit is probably below 10 points, but I haven't seen whether the CI excludes it. No NNT can be derived without responder data. The 6-week steroid benefit is described as small.",
+        "comparator_fairness": "Fair and credible. The sham was a real needle with local anaesthetic under ultrasound, time-matched (excess injectant diverted to a syringe), and every arm got identical rehab and contact. It isn't a straw man: if anything, a local-anaesthetic sham with good rehab is a tough comparator.",
+        "alternative_explanations": "Everyone improved, which is expected given rehab, natural history and regression to the mean from a VISA-A of 48.7. The design isolates the injection effect from these, so they don't explain the null. The 26-week steroid harm could be chance (the authors say so) or a true rebound.",
+        "spin": "Low. The conclusions track the primary outcome. The favourable QALY/cost result for steroid isn't promoted as a reason to use it.",
+        "fit_with_evidence": "Consistent with the 2024 JOSPT Achilles pain, stiffness and muscle power deficits CPG revision (Martin et al.), which puts loading exercise first and gives injections at most weak support. I checked this from prior knowledge, not this run. Earlier HVI evidence was mostly case series and small trials without a sham. This trial extends the evidence and matches the Atlas playbook: load first, injections aren't a shortcut.",
+        "external_validity": "High for Curt's older recreational runners and active adults (mean age 49, long-standing symptoms, Melbourne). Lower for young elite athletes with short symptom duration. Social-media recruitment may select motivated, rehab-experienced people. The rehab was a standard, telehealth-supported programme that a private practice could match.",
+        "would_change_my_mind": "A 12-month VISA-A CI whose upper limit clearly exceeds 10 points in favour of HVI, or a subgroup with neovascularisation or a thick tendon that responds in another sham-controlled trial.",
+        "strengths": [
+          "Sham-controlled, three arms, adequately powered",
+          "Same rehab in all arms isolates the injection effect",
+          "94% 12-month follow-up",
+          "Pre-registered with a published protocol; includes an economic evaluation",
+          "Australian setting"
+        ],
+        "weaknesses": [
+          "Injectors not fully masked to sham",
+          "Single site, recruited mostly through social media",
+          "Effect sizes and CIs not verified in this card",
+          "Mid-portion only"
+        ],
+        "funding_conflicts": "Funded by NHMRC Project Grant APP1164268. The funder had no role in design, conduct or reporting (protocol). Author conflicts not read."
+      },
+      "patient_explanation": "A big Australian study found that injecting a large volume of fluid around the Achilles, with or without cortisone, didn't help any more than a fake injection once people were also doing their exercises. The exercises do the heavy lifting.",
+      "open_questions": [
+        "What were the exact VISA-A differences and CIs at 6, 26 and 52 weeks?",
+        "Did any subgroup (e.g. neovascularisation on ultrasound) respond?",
+        "Was the 26-week steroid disadvantage driven by recurrences?"
+      ],
+      "source_ids": [
+        "inject2026",
+        "inject-protocol",
+        "inject-press",
+        "orchard2026"
+      ]
+    },
+    {
+      "type": "study",
+      "item_id": "2026-W45-2",
+      "region": "hip and groin",
+      "condition": "Adductor-related groin pain",
+      "title": "Copenhagen adduction exercise: systematic review of 10 RCTs, mostly prevention in male footballers",
+      "first_published": "2026 (Apunts Sports Med, Apr–Jun issue)",
+      "playbook_step": "treat",
+      "evidence_tag": "established",
+      "evidence_note": "The prevention and strength effects of the Copenhagen adduction exercise (CAE) are well established. This review adds little new and has weak methods. Its value is the table of doses used across 10 RCTs.",
+      "confidence": "likely",
+      "confidence_note": "Full text read, but the review gives few effect sizes or CIs and has several internal inconsistencies, so I've leaned on the dose table rather than its conclusions.",
+      "impact": "know_dont_act",
+      "impact_line": "On Monday: keep CAE in groin prevention and later-stage rehab. Aim for at least 8 weeks at 2 sessions a week, building past ~200 total reps. Don't treat it as proven stand-alone treatment for established adductor-related groin pain.",
+      "summary": "A PROSPERO-registered systematic review searched four databases (to March 2025, English only) for RCTs of the Copenhagen adduction exercise in athletes or active people. It found 10 RCTs with 1,099 participants, almost all male and mostly footballers. There was no meta-analysis because outcomes were too heterogeneous. The clearest finding came from the in-season prevention trial (Harøy): groin problem prevalence was 13.5% with CAE vs 21.3% in controls, a 41% lower risk. Strength results were mixed: one trial found +35.7% eccentric adduction strength, while others showed no gain over control or over squeeze exercises. Only one trial measured pain and HAGOS in a rehab context. Higher-volume programmes (more than ~200 total reps over 8 weeks or more) seemed more consistent, but this wasn't tested directly.",
+      "bottom_line": "CAE is a sensible, low-cost prevention and strength exercise for male field-sport athletes. The evidence for it as a stand-alone treatment of established adductor-related groin pain is thin. Use the dose ranges here as a guide, and keep comprehensive active rehab (Hölmich-style) as the treatment backbone.",
+      "methods": {
+        "design": "Systematic review of RCTs without meta-analysis. PROSPERO CRD420251020202. Risk of bias assessed with PEDro (5–9/10) and RoB 2. No GRADE.",
+        "setting": "Searched Web of Science, PubMed, Scopus and SPORTDiscus from inception to 10 Mar 2025, English only. Authors from the European University of Madrid, Spain.",
+        "participants": "10 RCTs, n=1,099 (individual trials n=12 to 489). Male athletes in all studies that reported sex (one didn't report it). Mostly football (sub-elite to elite), plus U14 hockey, mixed sports and physically active adults (mean 26.1 years).",
+        "intervention": "CAE alone or within programmes. Doses ranged from 6 weeks at 2/week (12 sets, 55 reps in total) to 28 weeks in-season at 1/week (28 sets, 336–420 reps), and up to 3/week for 6 weeks (54–108 sets, 324–864 reps). The most common pattern was 8 weeks at 2/week. Progression was described only qualitatively.",
+        "comparator": "No intervention or usual training in most trials. Others compared adductor squeeze exercise, Nordic hamstring exercise, or low vs high CAE volume.",
+        "follow_up": "Mostly the end of a 6–16 week programme. One trial followed a 28-week season. Little long-term follow-up.",
+        "primary_outcome": "No single primary outcome: groin injury or problem prevalence or incidence, adductor strength (eccentric hip adduction, squeeze), pain/HAGOS, muscle architecture, ROM and balance."
+      },
+      "results": [
+        {
+          "outcome": "Groin problem prevalence (prevention, Harøy)",
+          "timepoint": "28-week season",
+          "result": "Lower prevalence with CAE (13.5% vs 21.3%); 41% lower risk.",
+          "effect": "Risk reduction 41%. 95% CI not reported in the review.",
+          "meaning": "Clinically worthwhile if real. Approximate NNT about 13 (from the prevalence difference; my calculation, not reported by the authors)."
+        },
+        {
+          "outcome": "Eccentric hip adduction strength (Ishøi)",
+          "timepoint": "8 weeks",
+          "result": "+35.7% with CAE.",
+          "effect": "Between-group CI not reported",
+          "meaning": "Large strength gain in one trial, but not replicated in others (Dawkins, Pippas)."
+        },
+        {
+          "outcome": "Pain and HAGOS (Alsirhani, rehab context)",
+          "timepoint": "8 weeks",
+          "result": "Reduced pain and better HAGOS subscales vs control.",
+          "effect": "Not reported numerically in the review",
+          "meaning": "Can't compare against the HAGOS MCID. A single small trial."
+        },
+        {
+          "outcome": "CAE vs adductor squeeze (Pippas)",
+          "timepoint": "8 weeks",
+          "result": "No between-group difference in eccentric or isometric torque.",
+          "effect": "Not reported",
+          "meaning": "The squeeze may be an acceptable alternative for strength in some athletes."
+        }
+      ],
+      "key_numbers": [
+        {
+          "value": "10 RCTs / 1,099",
+          "label": "Trials and participants (nearly all male)"
+        },
+        {
+          "value": "13.5% vs 21.3%",
+          "label": "Groin problem prevalence, CAE vs control (Harøy, in-season)"
+        },
+        {
+          "value": "+35.7%",
+          "label": "Eccentric adduction strength gain (Ishøi, 8 weeks)"
+        },
+        {
+          "value": ">200 reps, ≥8 wk",
+          "label": "Volume linked to more consistent benefit (indirect)"
+        }
+      ],
+      "pico": {
+        "p": "Male athletes, mostly footballers, mostly without current groin pain",
+        "i": "Copenhagen adduction exercise programmes (6–28 weeks, 1–3 sessions a week)",
+        "c": "No intervention, usual training, squeeze or Nordic exercise",
+        "o": "Groin problems, adductor strength, pain/HAGOS, architecture"
+      },
+      "limits": "No meta-analysis and few CIs. Mostly prevention or strength trials in healthy male footballers, not treatment of adductor-related groin pain. CAE often combined with other training. Several internal inconsistencies (participant counts, PEDro thresholds, a study discussed but not included, a ROM claim in the abstract supported by only one trial).",
+      "read_level": "full_text",
+      "full_text": {
+        "status": "read",
+        "worth_getting": false
+      },
+      "how_to_apply": [
+        "Prevention in male field-sport players: CAE 1–3 times a week through the season. The Harøy-style in-season programme used once a week (~28 sets over 28 weeks).",
+        "For a strength block: 8 weeks at 2 sessions a week, progressing levers (short lever at the knee, then long lever at the ankle) and reps, and building past ~200 total reps.",
+        "In established adductor-related groin pain, start with isometric squeeze and short-lever work, and only progress to long-lever CAE when it's tolerable (pain no more than ~3/10 and settled within 24 hours). Track progress with the 5-second squeeze.",
+        "Don't sell CAE as the cure. Keep a comprehensive active programme (adductor and abdominal strengthening, running progression, change-of-direction work) as the core of treatment.",
+        "For female athletes, use it, but tell them the trial evidence comes almost entirely from men."
+      ],
+      "applies_to": "Male football, AFL and other field-sport players for prevention and strength. A component of later-stage rehab in adductor-related groin pain.",
+      "not_for": "Acute adductor strains or avulsions in the early phase, pubic bone stress injury, hip-related (FAI) or inguinal pain as the main driver, where it shouldn't be used as the only treatment.",
+      "appraisal": {
+        "appraised_from": "full_text",
+        "tool": "AMSTAR 2 (critical domains)",
+        "domains": [
+          {
+            "domain": "Protocol registered before review",
+            "judgement": "low",
+            "reason": "PROSPERO CRD420251020202."
+          },
+          {
+            "domain": "Adequate literature search",
+            "judgement": "some concerns",
+            "reason": "Four databases plus citation searching, but English only and no grey literature or trial registries."
+          },
+          {
+            "domain": "Justified exclusions",
+            "judgement": "unclear",
+            "reason": "No list of excluded full texts with reasons appeared in what I read (18 screened, 8 included from databases)."
+          },
+          {
+            "domain": "Risk of bias assessed in included studies",
+            "judgement": "low",
+            "reason": "PEDro and RoB 2 applied to every trial; most were low risk, with some concerns for randomisation and outcome measurement."
+          },
+          {
+            "domain": "Appropriate meta-analytic methods",
+            "judgement": "some concerns",
+            "reason": "No pooling, which is defensible given the heterogeneity, but the narrative synthesis rarely reports effect sizes or CIs and doesn't follow SWiM-type structured methods."
+          },
+          {
+            "domain": "RoB considered when interpreting results",
+            "judgement": "some concerns",
+            "reason": "Conclusions mix prevention, strength and rehab outcomes without weighting them by trial quality or size."
+          },
+          {
+            "domain": "Publication bias assessed",
+            "judgement": "high",
+            "reason": "Not assessed or discussed."
+          }
+        ],
+        "overall_risk_of_bias": "high",
+        "grade": [
+          {
+            "domain": "risk of bias",
+            "judgement": "not serious",
+            "reason": "The prevention estimate comes from an RCT the review rated mostly low risk of bias."
+          },
+          {
+            "domain": "inconsistency",
+            "judgement": "not serious",
+            "reason": "The two prevention trials point the same way, although only one reports numbers."
+          },
+          {
+            "domain": "indirectness",
+            "judgement": "serious",
+            "reason": "Prevention in uninjured male footballers. The playbook question is treating established adductor-related groin pain in mixed-sex adults."
+          },
+          {
+            "domain": "imprecision",
+            "judgement": "serious",
+            "reason": "No CI reported for the prevention effect in the review, so I can't check whether it crosses no effect."
+          },
+          {
+            "domain": "publication bias",
+            "judgement": "not serious",
+            "reason": "Not assessed, and English-only searching raises the risk, but I didn't downgrade because there was no direct evidence of missing trials."
+          }
+        ],
+        "certainty": "low",
+        "clinical_significance": "A 41% relative reduction in groin problem prevalence (13.5% vs 21.3%) is worthwhile: an approximate NNT of 13 players over a season (my calculation from the prevalences; it's prevalence, not incidence, so treat it as rough). There are no HAGOS numbers, so I can't compare with the HAGOS MCID. The strength gains are inconsistent across trials.",
+        "comparator_fairness": "Mostly no-intervention or usual-training controls, which favour any added exercise. Against an active comparator (squeeze exercise, Pippas), CAE showed no strength advantage.",
+        "alternative_explanations": "Extra adductor-specific training of any kind may explain benefits in no-intervention comparisons. Co-interventions (CAE inside wider programmes) make the isolated effect unclear. Short follow-up means detraining effects are missed (one trial showed architecture gains reversing).",
+        "spin": "Some. The abstract claims CAE consistently improves hip ROM, but only one trial measured it. 'Effective for management of groin pain' overstates what is mostly prevention and strength data in healthy players.",
+        "fit_with_evidence": "Consistent with the Harøy 2019 BJSM prevention RCT and the Doha agreement classification. For treatment, the strongest evidence remains comprehensive active training (Hölmich 1999, Lancet) rather than CAE alone. This matches the Atlas groin playbook: CAE is a tool inside active rehab, not the treatment itself. I checked the review and guideline names from prior knowledge, not this run.",
+        "external_validity": "Good for male football and AFL players in Curt's caseload. Poor for female athletes and recreational adults with established, long-standing groin pain. The intervention is easy to deliver in private practice or at club level.",
+        "would_change_my_mind": "An RCT of CAE-based rehab vs comprehensive active rehab in athletes with established adductor-related groin pain, with HAGOS and return-to-sport outcomes, or a prevention RCT in female players.",
+        "strengths": [
+          "Pre-registered",
+          "Dual risk-of-bias tools",
+          "Useful dose table across 10 RCTs"
+        ],
+        "weaknesses": [
+          "No meta-analysis or GRADE; few CIs",
+          "English only; publication bias not assessed",
+          "Internal inconsistencies in counts and claims",
+          "Almost entirely prevention and strength in healthy men"
+        ],
+        "funding_conflicts": "Faculty of Physical Activity and Sport Science, European University of Madrid. No conflicts declared."
+      },
+      "patient_explanation": "The Copenhagen side-plank-style exercise is good at making the groin muscles stronger and cutting the chance of groin problems in footballers. For an existing groin problem, it's one part of a broader exercise plan, not the whole answer.",
+      "open_questions": [
+        "Does CAE-led rehab beat a squeeze-led programme for return to sport in established groin pain?",
+        "What's the minimum effective maintenance dose in-season?",
+        "Do the effects hold in female athletes?"
+      ],
+      "source_ids": [
+        "cae-sr2026"
+      ]
+    },
+    {
+      "type": "study",
+      "item_id": "2026-W45-3",
+      "region": "cervical",
+      "condition": "Referred neck pain",
+      "title": "Median nerve sliders added to neck isometrics for cervical radiculopathy: small single-centre RCT",
+      "first_published": "2022-12-06",
+      "playbook_step": "treat",
+      "evidence_tag": "emerging",
+      "evidence_note": "Backfill. Neural mobilisation for cervical radiculopathy is supported by small trials and reviews of low certainty. This trial fits that pattern but is at high risk of bias.",
+      "confidence": "likely",
+      "confidence_note": "Full text read on PLOS, but the tables weren't available as text, so I have medians from the text and no between-group CIs.",
+      "impact": "know_dont_act",
+      "impact_line": "On Monday: keep median nerve sliders as a cheap, low-risk add-on for radicular arm pain. Don't promise they speed recovery much beyond good exercise and time.",
+      "summary": "This single-centre RCT in Lahore, Pakistan randomised 88 adults aged 35–50 with 2–6 months of radiating arm symptoms. Diagnosis used a clinical cluster (Spurling's, distraction, ULNT1-median, and ipsilateral rotation). Both groups did resisted cervical isometrics (3×10, 5 s holds, all directions) after a hot pack, 3 times a week for 4 weeks. One group added median nerve sliders (1×10, 3 s holds). At 4 weeks, the slider group had lower pain (median NPRS 3 vs 4) and lower disability (median NDI 14 vs 22), but no difference in neck ROM. Both groups improved a lot. Sliders may add a modest short-term benefit, but the trial is small, short, and has reporting problems.",
+      "bottom_line": "Adding median nerve sliders to neck exercise may reduce pain and disability slightly more over 4 weeks in subacute cervical radiculopathy. The certainty is very low. Sliders are worth including because they're cheap and safe, but the evidence doesn't justify building treatment around them or overselling them.",
+      "methods": {
+        "design": "Two-arm parallel RCT. Registration inconsistent (IRCT20190325043109N1 in Methods; 'RCT20190325043109N1' in the abstract).",
+        "setting": "Physiotherapy department, Mayo Hospital, Lahore, Pakistan. July 2019 to July 2020.",
+        "participants": "n=88 (44 per group), convenience sample. Age 35–50 (mean ~41–42), about 68% female. Radiating symptoms for 2–6 months, diagnosed with a clinical cluster. Excluded: prior cervical surgery, trauma, osteoporosis, hypermobility, circulatory disturbance, tumour. Activity level not reported.",
+        "intervention": "Hot pack for 10 min, then median nerve sliding mobilisation (Butler) in supine: shoulder abduction with lateral rotation, elbow extension, forearm supination, wrist and finger extension, progressing to more abduction with contralateral side flexion. 1 set of 10, 3 s hold. Plus cervical isometrics. 12 sessions, 3 a week for 4 weeks. Home programme and adherence not reported.",
+        "comparator": "Hot pack plus resisted cervical isometrics (flexion, extension, side flexion, rotation; 3×10, 5 s hold, 30 s rest), same schedule.",
+        "follow_up": "Baseline, 2 weeks and 4 weeks. No longer follow-up.",
+        "primary_outcome": "None formally designated. Pain (NPRS), cervical ROM (inclinometer) and NDI (%) are all called the 'main outcome'."
+      },
+      "results": [
+        {
+          "outcome": "Pain (NPRS 0–10)",
+          "timepoint": "4 weeks",
+          "result": "Median 3 (IQR 2–4) with sliders vs 4 (2.25–5) control. Between-group difference significant (p<0.001, Mann–Whitney).",
+          "effect": "Median difference ~1 point; no CI reported",
+          "meaning": "Probably below a 2-point MCID for NPRS (commonly cited; not verified this run). Likely trivial to small."
+        },
+        {
+          "outcome": "Neck Disability Index (%)",
+          "timepoint": "4 weeks",
+          "result": "Median 14 (8.5–20) vs 22 (16–30). Significant at 4 weeks only.",
+          "effect": "Median difference ~8 percentage points; no CI reported",
+          "meaning": "Around commonly cited NDI MCIDs for cervical radiculopathy (inferred from other studies, not verified this run). Possibly meaningful, uncertain."
+        },
+        {
+          "outcome": "Cervical ROM",
+          "timepoint": "2 and 4 weeks",
+          "result": "No between-group difference (p>0.05).",
+          "effect": "Not reported",
+          "meaning": "No ROM advantage, despite the authors' conclusion saying otherwise."
+        }
+      ],
+      "key_numbers": [
+        {
+          "value": "88",
+          "label": "Randomised (44 per group)"
+        },
+        {
+          "value": "3 vs 4",
+          "label": "Median NPRS at 4 weeks, sliders vs control"
+        },
+        {
+          "value": "14 vs 22",
+          "label": "Median NDI % at 4 weeks"
+        },
+        {
+          "value": "12 sessions",
+          "label": "3 a week for 4 weeks"
+        }
+      ],
+      "pico": {
+        "p": "Adults aged 35–50 with 2–6 months of cervical radicular symptoms (clinical cluster positive)",
+        "i": "Median nerve sliders plus cervical isometrics and hot pack",
+        "c": "Cervical isometrics and hot pack",
+        "o": "NPRS, NDI, cervical ROM at 4 weeks"
+      },
+      "limits": "Single centre, convenience sample, 4-week follow-up only, no designated primary outcome, no CIs, LOCF imputation, and the conclusion overclaims ROM. The comparator was relatively thin (isometrics only, no manual therapy or graded activity).",
+      "read_level": "full_text",
+      "full_text": {
+        "status": "read",
+        "worth_getting": false
+      },
+      "how_to_apply": [
+        "In radicular arm pain with a positive cluster (Spurling's, distraction, ULNT1, rotation under 60°), add median nerve sliders: start at 1–2 sets of 10 slow, non-provocative reps, aiming for no lasting increase in arm symptoms.",
+        "Progress from sliders to larger ranges (more shoulder abduction with contralateral side flexion) as irritability settles. Avoid tensioners while symptoms are irritable.",
+        "Keep neck exercise (isometrics, then progressive deep flexor and extensor work) as the base, with activity advice and positions of ease.",
+        "Set expectations: most people improve over weeks to months. Sliders may take the edge off a bit faster, but they aren't the main driver.",
+        "Don't stop or swap out other effective components because of this trial."
+      ],
+      "applies_to": "Adults with subacute (2–6 months) cervical radicular pain without major neurological deficit.",
+      "not_for": "Progressive neurological deficit, myelopathy signs, red flags, or post-surgical cases.",
+      "appraisal": {
+        "appraised_from": "full_text",
+        "tool": "RoB 2",
+        "domains": [
+          {
+            "domain": "Randomisation process",
+            "judgement": "low",
+            "reason": "Computer-generated (Excel) sequence by an independent researcher, with sequentially numbered opaque sealed envelopes. Baseline age and sex similar."
+          },
+          {
+            "domain": "Deviations from intended interventions",
+            "judgement": "some concerns",
+            "reason": "Treating therapist not blinded, and participants could tell the exercise content apart despite separate rooms. Adherence not reported. ITT with LOCF."
+          },
+          {
+            "domain": "Missing outcome data",
+            "judgement": "low",
+            "reason": "5/88 lost (2 vs 3), mainly because of the pandemic."
+          },
+          {
+            "domain": "Measurement of the outcome",
+            "judgement": "some concerns",
+            "reason": "Assessors blinded, but NPRS and NDI are self-reported by participants who knew their own programme."
+          },
+          {
+            "domain": "Selection of the reported result",
+            "judgement": "high",
+            "reason": "No pre-designated primary outcome, registration number inconsistent, and the conclusions report a ROM benefit the results don't show."
+          }
+        ],
+        "overall_risk_of_bias": "high",
+        "grade": [
+          {
+            "domain": "risk of bias",
+            "judgement": "serious",
+            "reason": "High risk in selective reporting, plus concerns in deviations and measurement."
+          },
+          {
+            "domain": "inconsistency",
+            "judgement": "not applicable",
+            "reason": "Single trial."
+          },
+          {
+            "domain": "indirectness",
+            "judgement": "serious",
+            "reason": "Pakistani hospital outpatients aged 35–50, mostly women. The comparator (isometrics plus hot pack) doesn't match typical Australian private-practice care."
+          },
+          {
+            "domain": "imprecision",
+            "judgement": "serious",
+            "reason": "n=88, no between-group CIs. Below the size needed to rule in or out an MCID-level difference with confidence."
+          },
+          {
+            "domain": "publication bias",
+            "judgement": "not serious",
+            "reason": "Can't assess from a single trial. Small positive trials in this area are common, but I didn't downgrade further."
+          }
+        ],
+        "certainty": "very low",
+        "clinical_significance": "The pain difference (~1 point by medians) is likely below a 2-point NPRS MCID (commonly cited; inferred, not verified this run). The NDI difference (~8 percentage points) may approach an MCID but has no CI. A meaningful benefit is neither established nor ruled out. No NNT can be derived.",
+        "comparator_fairness": "Partly fair. Same contact time and schedule, but the comparator is minimal (isometrics and heat) and adds less dose than the intervention arm, so any added component would look better.",
+        "alternative_explanations": "Large within-group improvement in both arms (natural history, regression to the mean). The extra component and attention in the intervention group, plus expectation with unblinded participants, could explain a ~1-point difference.",
+        "spin": "Yes. The conclusion claims a ROM benefit that the results contradict. The abstract emphasises p-values without effect sizes.",
+        "fit_with_evidence": "Consistent with the direction of the 2025 JOSPT network meta-analysis on articular and neural mobilisation for cervical radicular pain (title seen; full text not accessed this run) and earlier small trials. Matches the Atlas referred-neck-pain playbook: neural mobilisation as an adjunct to exercise and education.",
+        "external_validity": "Limited. A hospital population in Pakistan with a narrow age band, mostly female, and probably less active than Curt's caseload. The intervention itself is easy to replicate.",
+        "would_change_my_mind": "A larger, pre-registered trial with designated primary outcomes, a realistic multimodal comparator and 3–12 month follow-up showing a CI that excludes trivial effects.",
+        "strengths": [
+          "Concealed allocation",
+          "Blinded assessors",
+          "Low attrition",
+          "Intervention described in replicable detail"
+        ],
+        "weaknesses": [
+          "No primary outcome or CIs",
+          "4-week follow-up",
+          "Registration inconsistency and conclusion spin",
+          "Thin comparator"
+        ],
+        "funding_conflicts": "No specific funding. No conflicts declared."
+      },
+      "patient_explanation": "Gentle nerve 'sliding' movements for the arm may ease arm pain a little faster when added to neck exercises. They're safe, but they're a helper, not the main fix, and most people improve over time.",
+      "open_questions": [
+        "Do sliders add anything on top of a full multimodal programme (manual therapy, graded exercise, education)?",
+        "Is there a longer-term effect beyond 4 weeks?"
+      ],
+      "source_ids": [
+        "rafiq2022"
+      ]
+    }
+  ],
+  "measure_of_week": {
+    "type": "measure",
+    "measure_id": "odi",
+    "kind": "prom",
+    "name": "ODI",
+    "full_name": "Oswestry Disability Index",
+    "region": "lumbar",
+    "confidence": "likely",
+    "bottom_line": "This is the standard condition-specific disability questionnaire for low back pain. Score it as a percentage. Read change against an MCID of roughly 6–15 points, depending on population and version. Check which version you're using, and don't treat the disability bands as diagnostic.",
+    "what_it_measures": "Self-reported back-related disability across 10 domains: pain intensity, personal care, lifting, walking, sitting, standing, sleep, sex life, social life and travel.",
+    "how_to_score": "Each of the 10 sections has 6 statements scored 0 (least disability) to 5 (most). Add the scores and multiply by 2 to get a percentage (0–100). If a section is missed, divide the total by (5 × the number of sections answered) and multiply by 100. Bands: 0–20% minimal, 21–40% moderate, 41–60% severe, 61–80% crippling, 81–100% bed-bound or exaggerated.",
+    "variants": [
+      {
+        "name": "ODI version 2.1a (current)",
+        "formula": "Sum of 10 items (0–5) × 2 = %",
+        "note": "Version from Fairbank & Pynsent 2000. Use one version consistently for each patient."
+      },
+      {
+        "name": "Modified ODI (Fritz & Irrgang)",
+        "formula": "Sum × 2 = %",
+        "note": "Replaces the sex-life item with an employment/homemaking item. The MCID of 6 points comes from this version."
+      }
+    ],
+    "numbers": [
+      {
+        "metric": "MCID",
+        "value": "6 points",
+        "population": "Fritz & Irrgang 2001 (Phys Ther), modified ODI. Population not stated in the secondary source; primary not read.",
+        "source_id": "odi-wiki"
+      },
+      {
+        "metric": "MCID",
+        "value": "10.5 or 15 points",
+        "population": "Davidson & Keating 2002 (Phys Ther). Population not stated in the secondary source; primary not read.",
+        "source_id": "odi-wiki"
+      },
+      {
+        "metric": "MCID",
+        "value": "12.8 points",
+        "population": "Copay et al. 2008 (Spine J). Population not stated in the secondary source; primary not read.",
+        "source_id": "odi-wiki"
+      },
+      {
+        "metric": "MCID / MDC",
+        "value": "MCID 7.5 points; MDC 4.23 points",
+        "population": "Italian adults with symptomatic lumbar spondylolisthesis, conservative care (Vanti 2017)",
+        "source_id": "odi-sralab"
+      },
+      {
+        "metric": "MCID",
+        "value": "14.3 points (anchor-based)",
+        "population": "Grade I degenerative spondylolisthesis after posterior lumbar surgery (Asher 2018)",
+        "source_id": "odi-sralab"
+      },
+      {
+        "metric": "MCID",
+        "value": "6–10 points",
+        "population": "Heterogeneous spinal conditions (Hung 2018)",
+        "source_id": "odi-sralab"
+      }
+    ],
+    "when_to_use": "Baseline and every 4–6 weeks in persistent or moderate–severe low back pain, including discogenic presentations, especially when disability (not just pain) is the target. For mild, very active patients, it can floor-out, so pair it with the PSFS.",
+    "pitfalls": [
+      "Several versions are in circulation, some with misprints. Mixing versions makes change scores meaningless.",
+      "Floor effect in active, low-disability patients (many athletes score under 20%), so a 'small' change can't show up.",
+      "MCIDs from surgical cohorts (12–15 points) are larger than conservative-care ones (6–7.5). Pick the one that matches your patient.",
+      "Percent vs points: they're the same scale. Some sources also suggest a 30% relative change, which suits high baselines.",
+      "Missed items (often the sex-life item) must be handled with the corrected denominator, not scored as zero."
+    ],
+    "licence": "Copyrighted. Licensing and review copies through Mapi Research Trust (ePROVIDE). Generally free for individual clinical use, but check the terms.",
+    "official_link": "https://eprovide.mapi-trust.org/instruments/oswestry-disability-index",
+    "source_ids": [
+      "odi-wiki",
+      "odi-sralab",
+      "fairbank2000",
+      "vanti2017",
+      "fritz2001"
+    ]
+  },
+  "on_the_radar": [
+    {
+      "title": "Surgical vs nonsurgical treatment for cervical radiculopathy (Norwegian twin RCTs, NEJM Evidence 2025)",
+      "note": "180 patients. At 12 months, the NDI favoured ACDF by 7.4 points in disc herniation and 2.3 in spondylosis, both below the 15-point MCID the trial used (secondary report). Worth getting for a full card: it shapes what we tell radicular patients about surgery.",
+      "source_ids": [
+        "taso2025"
+      ]
+    },
+    {
+      "title": "Pain education for Achilles tendinopathy: clinician and patient perspectives (Front Sports Act Living, 3 Nov 2026)",
+      "note": "Qualitative work on how pain education lands. Useful for the educate step. Not read yet.",
+      "source_ids": [
+        "achilles-edu2026"
+      ]
+    },
+    {
+      "title": "Radial shockwave for immediate pain relief in insertional Achilles tendinopathy: RCT (Clin Rehabil 2026)",
+      "note": "Malliaras group. Tests immediate effects only. Check it before the next insertional card.",
+      "source_ids": [
+        "rswt-iat2026"
+      ]
+    }
+  ],
+  "filtered_out": [
+    {
+      "title": "PRP preparation methods for chronic discogenic low back pain: SR/MA (PM&R, Oct 2026)",
+      "reason": "Injection therapy outside physio scope, and the full text was not accessible.",
+      "source_ids": [
+        "prp-disc2026"
+      ]
+    },
+    {
+      "title": "Modic changes, chronic LBP, lifestyle and mental health: cross-sectional (Eur Spine J, Oct 2026)",
+      "reason": "Cross-sectional, no practice change, paywalled.",
+      "source_ids": [
+        "modic2026"
+      ]
+    },
+    {
+      "title": "Hip adduction/abduction strength and hip/groin presentations in elite AFL players over three seasons (JSAMS, Oct 2026)",
+      "reason": "Relevant and Australian, but I couldn't access the full text or confirm it's more than a conference abstract. Retry next week.",
+      "source_ids": [
+        "afl-strength2026"
+      ]
+    },
+    {
+      "title": "Zadek osteotomy vs open debridement for insertional Achilles in athletes (Foot Ankle Int, Nov 2026)",
+      "reason": "Retrospective surgical cohort; doesn't change physio management.",
+      "source_ids": [
+        "zadek2026"
+      ]
+    },
+    {
+      "title": "Comment on a systematic review of ESWT for Achilles tendinopathy (JOSPT letter, Nov 2026)",
+      "reason": "Letter, not primary evidence.",
+      "source_ids": [
+        "jospt-eswt-letter2026"
+      ]
+    },
+    {
+      "title": "Electroacupuncture for painful cervical spondylotic radiculopathy (Pain Manag, Oct 2026)",
+      "reason": "Outside Curt's treatment scope; full text not checked.",
+      "source_ids": [
+        "ea-csr2026"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "inject2026",
+      "citation": "Inject trial investigators (authors not confirmed this run). Efficacy and cost effectiveness of high volume injections with and without corticosteroid compared with sham for midportion Achilles tendinopathy (Inject trial): randomised controlled trial. BMJ 2026;395. Published 28 Oct 2026.",
+      "doi": "10.1136/bmj-2026-100807",
+      "url": "https://www.bmj.com/content/395/bmj-2026-100807",
+      "verified": true
+    },
+    {
+      "id": "inject-protocol",
+      "citation": "Malliaras P, Connell D, Boesen AP, Kearney RS, Menz HB, Morrissey D, Munteanu SE, Silbernagel KG, Underwood M, Haines TP. Efficacy of high-volume injections with and without corticosteroid compared with sham for Achilles tendinopathy: a protocol for a randomised controlled trial. BMJ Open Sport Exerc Med 2021;7:e001136. ACTRN12619001455156.",
+      "doi": "10.1136/bmjsem-2021-001136",
+      "url": "https://core.ac.uk/download/526727054.pdf",
+      "verified": true
+    },
+    {
+      "id": "inject-press",
+      "citation": "BMJ Group press release. Achilles injections show no meaningful benefit over sham treatment. 28 Oct 2026.",
+      "url": "https://bmjgroup.com/achilles-injections-show-no-meaningful-benefit-over-sham-treatment/",
+      "verified": true
+    },
+    {
+      "id": "orchard2026",
+      "citation": "Orchard J. Corticosteroid injections to treat tendinopathy [editorial]. BMJ 2026;395.",
+      "doi": "10.1136/bmj-2026-101054",
+      "url": "https://www.bmj.com/content/395/bmj-2026-101054",
+      "verified": true
+    },
+    {
+      "id": "cae-sr2026",
+      "citation": "Fernández-Galván LM, López-Nuevo C, Romero-Martínez JA. The influence of Copenhagen adduction exercise on the management of groin pain: a systematic review. Apunts Sports Med 2026;61(230):100514. PROSPERO CRD420251020202.",
+      "doi": "10.1016/j.apunsm.2026.100514",
+      "url": "https://www.apunts.org/en-the-influence-copenhagen-adduction-exercise-articulo-S2666506926000027",
+      "verified": true
+    },
+    {
+      "id": "rafiq2022",
+      "citation": "Rafiq S, Zafar H, Gillani SA, Waqas MS, Zia A, Liaqat S, Rafiq Y. Comparison of neural mobilization and conservative treatment on pain, range of motion, and disability in cervical radiculopathy: a randomized controlled trial. PLoS One 2022;17(12):e0278177.",
+      "doi": "10.1371/journal.pone.0278177",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0278177",
+      "verified": true
+    },
+    {
+      "id": "taso2025",
+      "citation": "Taso M, Sommernes JH, Sundseth J, Pripp AH, Bjorland S, Engebretsen KB, Kolstad F, Zwart JA, Brox JI. Surgical versus nonsurgical treatment for cervical radiculopathy. NEJM Evid 2025;4(4):EVIDoa2400404.",
+      "doi": "10.1056/EVIDoa2400404",
+      "pmid": "40130970",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40130970/",
+      "verified": false
+    },
+    {
+      "id": "achilles-edu2026",
+      "citation": "Pain education for Achilles tendinopathy: perspectives from clinicians and patients. Front Sports Act Living 2026. Published 3 Nov 2026.",
+      "doi": "10.3389/fspor.2026.1973206",
+      "url": "https://doi.org/10.3389/fspor.2026.1973206",
+      "verified": true
+    },
+    {
+      "id": "rswt-iat2026",
+      "citation": "Alsulaimani B, Perraton L, Bourke J, Powers T, Malliaras P. Does radial shockwave therapy lead to immediate improvements in pain in people with insertional Achilles tendinopathy? A randomised controlled trial. Clin Rehabil 2026.",
+      "doi": "10.1177/02692155251394951",
+      "url": "https://journals.sagepub.com/doi/10.1177/02692155251394951",
+      "verified": false
+    },
+    {
+      "id": "prp-disc2026",
+      "citation": "Preparation methods and clinical outcomes of platelet-rich plasma for chronic discogenic low back pain: a systematic review and meta-analysis of randomized controlled trials. PM&R 2026 (online 9 Oct 2026).",
+      "doi": "10.1002/pmrj.70216",
+      "verified": true
+    },
+    {
+      "id": "modic2026",
+      "citation": "Modic changes, chronic low back pain, and lifestyle and mental health factors: a cross-sectional analysis of a cohort study. Eur Spine J 2026 (online 20 Oct 2026).",
+      "doi": "10.1007/s00586-026-10449-7",
+      "verified": true
+    },
+    {
+      "id": "afl-strength2026",
+      "citation": "Association between hip adduction and abduction strength and hip/groin presentations in elite male Australian football athletes: a longitudinal study over three seasons. J Sci Med Sport 2026 (Oct).",
+      "doi": "10.1016/j.jsams.2026.08.108",
+      "verified": true
+    },
+    {
+      "id": "zadek2026",
+      "citation": "Minimally invasive Zadek osteotomy vs open Achilles debridement for insertional Achilles tendinopathy in athletes: a retrospective comparative cohort study. Foot Ankle Int 2026 (online 2 Nov 2026).",
+      "doi": "10.1177/10711007261496892",
+      "verified": true
+    },
+    {
+      "id": "jospt-eswt-letter2026",
+      "citation": "Broad conclusions from a narrow evidence base: comments on a systematic review of ESWT for Achilles tendinopathy. J Orthop Sports Phys Ther 2026 (Nov).",
+      "doi": "10.2519/jospt.2026.0203",
+      "verified": true
+    },
+    {
+      "id": "ea-csr2026",
+      "citation": "Efficacy of electroacupuncture for painful cervical spondylotic radiculopathy and associated changes in ... Pain Manag 2026 (online 30 Oct 2026).",
+      "doi": "10.1080/17581869.2026.2754349",
+      "verified": true
+    },
+    {
+      "id": "odi-sralab",
+      "citation": "Buchler, Beckman, Chikani. Oswestry Disability Index MCID recommendations (Advocate Health Care / Shirley Ryan AbilityLab Rehabilitation Measures), June 2023. Summarises Vanti 2017, Asher 2018, Copay & Cher 2016, Hung 2018.",
+      "url": "https://www.sralab.org/sites/default/files/downloads/2023-07/Oswestry%20MCID%20recommendations%206.2023.pdf",
+      "verified": true
+    },
+    {
+      "id": "odi-wiki",
+      "citation": "Oswestry Disability Index. Wikipedia (secondary summary of structure, scoring, bands and published MCIDs: Fritz & Irrgang 2001; Davidson & Keating 2002; Copay et al. 2008).",
+      "url": "https://en.wikipedia.org/wiki/Oswestry_Disability_Index",
+      "verified": true
+    },
+    {
+      "id": "fairbank2000",
+      "citation": "Fairbank JC, Pynsent PB. The Oswestry Disability Index. Spine 2000;25(22):2940-52.",
+      "doi": "10.1097/00007632-200011150-00017",
+      "verified": false
+    },
+    {
+      "id": "vanti2017",
+      "citation": "Vanti C, et al. Responsiveness and minimum clinically important change of the Oswestry Disability Index in Italian subjects with symptomatic lumbar spondylolisthesis. J Orthop Traumatol 2017;18(2):145-150.",
+      "verified": false
+    },
+    {
+      "id": "fritz2001",
+      "citation": "Fritz JM, Irrgang JJ. A comparison of a modified Oswestry Low Back Pain Disability Questionnaire and the Quebec Back Pain Disability Scale. Phys Ther 2001;81(2):776-88.",
+      "verified": false
+    }
+  ]
+}

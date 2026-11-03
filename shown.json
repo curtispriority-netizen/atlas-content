@@ -1,5 +1,85 @@
 {
   "schema_version": 1,
   "note": "Every study and measure ever included in an edition (items, measure, on the radar, filtered out). The weekly task must not pick anything listed here again. Key = DOI if known, else PMID, else lower-case title.",
-  "shown": []
+  "shown": [
+    {
+      "key": "10.1136/bmj-2026-100807",
+      "title": "Inject trial: high-volume injection, with or without steroid, no better than sham at 12 months for mid-portion Achilles",
+      "edition": "2026-W45",
+      "where": "items"
+    },
+    {
+      "key": "10.1016/j.apunsm.2026.100514",
+      "title": "Copenhagen adduction exercise: systematic review of 10 RCTs, mostly prevention in male footballers",
+      "edition": "2026-W45",
+      "where": "items"
+    },
+    {
+      "key": "10.1371/journal.pone.0278177",
+      "title": "Median nerve sliders added to neck isometrics for cervical radiculopathy: small single-centre RCT",
+      "edition": "2026-W45",
+      "where": "items"
+    },
+    {
+      "key": "odi",
+      "title": "Oswestry Disability Index",
+      "measure_id": "odi",
+      "edition": "2026-W45",
+      "where": "measure"
+    },
+    {
+      "key": "10.1056/EVIDoa2400404",
+      "title": "Surgical vs nonsurgical treatment for cervical radiculopathy (Norwegian twin RCTs, NEJM Evidence 2025)",
+      "edition": "2026-W45",
+      "where": "radar"
+    },
+    {
+      "key": "10.3389/fspor.2026.1973206",
+      "title": "Pain education for Achilles tendinopathy: clinician and patient perspectives (Front Sports Act Living, 3 Nov 2026)",
+      "edition": "2026-W45",
+      "where": "radar"
+    },
+    {
+      "key": "10.1177/02692155251394951",
+      "title": "Radial shockwave for immediate pain relief in insertional Achilles tendinopathy: RCT (Clin Rehabil 2026)",
+      "edition": "2026-W45",
+      "where": "radar"
+    },
+    {
+      "key": "10.1002/pmrj.70216",
+      "title": "PRP preparation methods for chronic discogenic low back pain: SR/MA (PM&R, Oct 2026)",
+      "edition": "2026-W45",
+      "where": "filtered"
+    },
+    {
+      "key": "10.1007/s00586-026-10449-7",
+      "title": "Modic changes, chronic LBP, lifestyle and mental health: cross-sectional (Eur Spine J, Oct 2026)",
+      "edition": "2026-W45",
+      "where": "filtered"
+    },
+    {
+      "key": "10.1016/j.jsams.2026.08.108",
+      "title": "Hip adduction/abduction strength and hip/groin presentations in elite AFL players over three seasons (JSAMS, Oct 2026)",
+      "edition": "2026-W45",
+      "where": "filtered"
+    },
+    {
+      "key": "10.1177/10711007261496892",
+      "title": "Zadek osteotomy vs open debridement for insertional Achilles in athletes (Foot Ankle Int, Nov 2026)",
+      "edition": "2026-W45",
+      "where": "filtered"
+    },
+    {
+      "key": "10.2519/jospt.2026.0203",
+      "title": "Comment on a systematic review of ESWT for Achilles tendinopathy (JOSPT letter, Nov 2026)",
+      "edition": "2026-W45",
+      "where": "filtered"
+    },
+    {
+      "key": "10.1080/17581869.2026.2754349",
+      "title": "Electroacupuncture for painful cervical spondylotic radiculopathy (Pain Manag, Oct 2026)",
+      "edition": "2026-W45",
+      "where": "filtered"
+    }
+  ]
 }

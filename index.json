@@ -1,5 +1,13 @@
 {
   "schema_version": 1,
-  "latest": null,
-  "editions": []
+  "latest": "2026-W45",
+  "editions": [
+    {
+      "id": "2026-W45",
+      "path": "editions/2026-W45.json",
+      "published_at": "2026-11-03T22:39:46Z",
+      "item_count": 3,
+      "verdict": "Big Australian sham trial: Achilles HVI, with or without steroid, adds nothing to rehab at 12 months. Plus a CAE dose guide and a small neural slider trial. Quiet week elsewhere."
+    }
+  ]
 }
