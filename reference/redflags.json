@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "updated": "2026-11-04",
+  "note": "Screening quick-reference for serious spinal pathology. Summarised from named frameworks and studies; check the source before relying on any single item. Not a substitute for clinical judgement or local referral pathways.",
+  "principles": [
+    "Few red flags are informative on their own. Interpret them in combination, within a full history and examination, and against the person's profile (age, sex, history).",
+    "Set an index of suspicion from low to high, then choose an action: no concerning features → trial of therapy; few → therapy with watchful waiting and close monitoring; some → don't start therapy, investigate further or refer urgently; high → don't start therapy, refer as an emergency.",
+    "Safety-net whenever serious pathology is possible but not confirmed: what to watch for, what to do, and how quickly.",
+    "Explain why you're asking screening questions, and follow local emergency and urgent referral pathways."
+  ],
+  "principle_source_ids": ["finucane2020"],
+  "conditions": [
+    {
+      "id": "cauda-equina",
+      "name": "Cauda equina syndrome",
+      "region": "lumbar",
+      "urgency": "emergency",
+      "risk_factors": [
+        "Large central disc herniation, commonly L4–5 or L5–S1",
+        "Age under 50",
+        "Obesity",
+        "Lumbar spinal stenosis",
+        "Any previous lumbar spinal surgery"
+      ],
+      "symptoms": [
+        "Unilateral or bilateral radicular pain",
+        "Progression from unilateral to bilateral, or alternating, leg pain",
+        "Saddle sensory disturbance",
+        "Bladder or bowel disturbance, urinary retention or incontinence",
+        "Sexual dysfunction"
+      ],
+      "signs": [
+        "Saddle sensory deficit to light touch and pinprick",
+        "Abnormal lower-limb neurology",
+        "Reduced anal tone (assessed in secondary care)"
+      ],
+      "action": "Suspected CES: emergency MRI and surgical opinion. If CES isn't present but could develop, safety-net clearly (what symptoms mean go to ED now).",
+      "source_ids": ["finucane2020"]
+    },
+    {
+      "id": "spinal-fracture",
+      "name": "Spinal fracture",
+      "region": "spine",
+      "urgency": "urgent",
+      "risk_factors": [
+        "Osteoporosis, or a family history of it",
+        "Previous osteoporotic or spinal fracture",
+        "Corticosteroid use",
+        "Previous cancer (breast, prostate, lung, kidney, thyroid)",
+        "Significant trauma or fall from height",
+        "Female sex, especially early menopause or late menarche; older age; falls history",
+        "Heavy alcohol use, smoking, vitamin D deficiency, rheumatoid arthritis"
+      ],
+      "symptoms": [
+        "Sudden-onset thoracolumbar pain after low-impact trauma",
+        "Severe or unfamiliar pain",
+        "Neurological symptoms (bilateral, gait, bladder or bowel changes)"
+      ],
+      "signs": [
+        "Midline spinal tenderness",
+        "Spinal deformity or increased kyphosis",
+        "Neurological signs"
+      ],
+      "action": "Don't act on a single red flag. Low risk: treat and monitor. High-risk older person with progressive pain: urgent X-ray. Multiple concerning features or suspected malignancy: urgent whole-spine MRI.",
+      "source_ids": ["finucane2020"]
+    },
+    {
+      "id": "spinal-malignancy",
+      "name": "Spinal malignancy / metastatic spinal cord compression",
+      "region": "spine",
+      "urgency": "urgent",
+      "risk_factors": [
+        "Past history of cancer, especially breast, prostate, lung, kidney or thyroid (higher with advanced stage, large tumours, lymph node involvement)",
+        "About a quarter of people with MSCC have no known primary cancer",
+        "Older age"
+      ],
+      "symptoms": [
+        "Severe, progressive or constant pain",
+        "Band-like pain",
+        "Pain worse lying flat; night pain not eased by changing position",
+        "Systemic symptoms suggesting hypercalcaemia",
+        "Unexplained weight loss (more than 5% in 6 months)",
+        "Neurological symptoms"
+      ],
+      "signs": [
+        "Altered sensation from the trunk down",
+        "Neurological signs",
+        "Spinal tenderness (its absence does not rule out metastasis)"
+      ],
+      "action": "Concerning features: urgent whole-spine MRI. Suspected MSCC: emergency MRI. Blood tests can't reliably rule malignancy in or out. Safety-net.",
+      "source_ids": ["finucane2020"]
+    },
+    {
+      "id": "spinal-infection",
+      "name": "Spinal infection",
+      "region": "spine",
+      "urgency": "urgent",
+      "risk_factors": [
+        "Intravenous drug use",
+        "Recent spinal procedure (post-procedural discitis is up to 30% of cases)",
+        "Older age",
+        "HIV/AIDS or tuberculosis",
+        "Infection with Staphylococcus aureus or Brucella"
+      ],
+      "symptoms": [],
+      "signs": [],
+      "action": "Rare and often missed; discitis most often affects the lumbar spine. The symptom, sign and action tables for infection weren't checked for this card. Read Tables 18–21 of the framework before relying on it.",
+      "source_ids": ["finucane2020"]
+    },
+    {
+      "id": "cervical-arterial",
+      "name": "Cervical arterial dysfunction (vertebrobasilar or internal carotid)",
+      "region": "cervical",
+      "urgency": "emergency",
+      "risk_factors": [
+        "Recent trauma (including mild to moderate, and recent manual therapy)",
+        "Vascular anomaly, family history of stroke",
+        "Smoking, hypertension, high cholesterol",
+        "Migraine, recent infection, oral contraceptive use",
+        "Absence of risk factors does NOT rule it out: spontaneous dissection happens"
+      ],
+      "symptoms": [
+        "Acute neck pain or headache that is unusual for this person",
+        "Visual disturbance; paraesthesia of the face or limbs; dizziness",
+        "Vertebrobasilar: unsteadiness or ataxia, dysarthria or dysphasia, dysphagia, nausea or vomiting, limb weakness, facial palsy, drowsiness or confusion",
+        "Internal carotid: ptosis (often ipsilateral), facial palsy, upper or lower limb weakness, dysphasia"
+      ],
+      "signs": [
+        "Gait disturbance or subtle disequilibrium",
+        "Upper motor neuron signs; cranial nerve dysfunction",
+        "Unusually high blood pressure, interpreted with other findings",
+        "Carotid pulse asymmetry, pulsatile mass or bruit (a normal exam doesn't exclude dissection)"
+      ],
+      "action": "Suspicion supported by history and exam: refer for immediate medical investigation and don't treat with manual therapy. Provocative positional (VBI) testing is no longer recommended. Also consider giant cell arteritis, thunderclap headache (RCVS, subarachnoid haemorrhage) and upper cervical instability.",
+      "source_ids": ["ifompt2020"]
+    },
+    {
+      "id": "cervical-myelopathy",
+      "name": "Cervical myelopathy",
+      "region": "cervical",
+      "urgency": "urgent",
+      "risk_factors": ["Age over 45"],
+      "symptoms": ["Gait change: wide-based, ataxic or spastic gait"],
+      "signs": [
+        "Cluster of 5: gait deviation, positive Hoffmann's, inverted supinator sign, positive Babinski, age over 45",
+        "1 of 5 positive helps rule out (LR− about 0.18); 3 of 5 positive strongly rules in (LR+ about 31)"
+      ],
+      "action": "A positive cluster warrants medical referral and imaging. The cluster numbers here come from a secondary summary and weren't checked against the original paper; confirm before quoting.",
+      "source_ids": ["cook2010"]
+    },
+    {
+      "id": "neck-trauma-imaging",
+      "name": "Neck trauma: does it need imaging? (Canadian C-spine rule)",
+      "region": "cervical",
+      "urgency": "decision rule",
+      "risk_factors": [
+        "High risk (image): age 65 or over, dangerous mechanism, or paraesthesias in the limbs"
+      ],
+      "symptoms": [
+        "Low risk (allows range-of-motion assessment): simple rear-end MVC, sitting position in ED, ambulatory at any time since injury, delayed onset of neck pain, or no midline C-spine tenderness"
+      ],
+      "signs": [
+        "If low risk is present: can they actively rotate 45° left and right? If yes, no imaging needed; if no, image"
+      ],
+      "action": "For alert (GCS 15), stable adults after blunt trauma. In the derivation cohort of 8,924 adults it was 100% sensitive for clinically important C-spine injury (specificity 42.5%).",
+      "source_ids": ["stiell2001"]
+    }
+  ],
+  "sources": [
+    { "id": "finucane2020", "citation": "Finucane LM, Downie A, Mercer C, et al. International framework for red flags for potential serious spinal pathologies. J Orthop Sports Phys Ther. 2020;50(7):350–372.", "doi": "10.2519/jospt.2020.9971", "url": "https://core.ac.uk/download/387934007.pdf", "verified": true },
+    { "id": "ifompt2020", "citation": "Rushton A, Carlesso LC, Flynn T, et al. International IFOMPT Cervical Framework: examination of the cervical region for potential of vascular pathologies of the neck prior to OMT intervention. IFOMPT; 2020.", "url": "https://www.ifompt.org/site/ifompt/IFOMPT%20cervical%20framework%20final%202020.pdf", "verified": true },
+    { "id": "cook2010", "citation": "Cook C, Brown C, Isaacs R, et al. Clustered clinical findings for diagnosis of cervical spine myelopathy. J Man Manip Ther. 2010;18(4):175–180.", "pmid": "22131790", "url": "https://pubmed.ncbi.nlm.nih.gov/22131790/", "verified": false },
+    { "id": "stiell2001", "citation": "Stiell IG, Wells GA, Vandemheen KL, et al. The Canadian C-spine rule for radiography in alert and stable trauma patients. JAMA. 2001;286(15):1841–1848.", "pmid": "11597285", "url": "https://pubmed.ncbi.nlm.nih.gov/11597285/", "verified": true }
+  ]
+}
