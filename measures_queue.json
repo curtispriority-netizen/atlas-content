@@ -1,17 +1,85 @@
 {
-  "note": "Measures for future 'measure of the week' cards, in order. The weekly task takes the first one not already in shown.json. Curt can add to this list.",
+  "note": "Measures for future 'measure of the week' cards, in order (playbook-relevant first). The weekly task takes the first one not already in shown.json. Curt can add to this list.",
   "queue": [
-    { "measure_id": "ndi", "name": "Neck Disability Index", "kind": "prom" },
-    { "measure_id": "odi", "name": "Oswestry Disability Index", "kind": "prom" },
-    { "measure_id": "koos", "name": "Knee injury and Osteoarthritis Outcome Score", "kind": "prom" },
-    { "measure_id": "noos", "name": "Neck OutcOme Score", "kind": "prom" },
-    { "measure_id": "start-back", "name": "STarT Back Screening Tool", "kind": "prom" },
-    { "measure_id": "psfs", "name": "Patient-Specific Functional Scale", "kind": "prom" },
-    { "measure_id": "hop-test-battery", "name": "Single-leg hop test battery and limb symmetry index", "kind": "performance_test" },
-    { "measure_id": "slr", "name": "Straight leg raise", "kind": "clinical_test" },
-    { "measure_id": "spurling", "name": "Spurling's test", "kind": "clinical_test" },
-    { "measure_id": "ulnt1", "name": "Upper limb neurodynamic test 1 (median)", "kind": "clinical_test" },
-    { "measure_id": "cct-flexor", "name": "Craniocervical flexion test", "kind": "performance_test" },
-    { "measure_id": "biering-sorensen", "name": "Biering-Sørensen trunk extensor endurance test", "kind": "performance_test" }
+    {
+      "measure_id": "odi",
+      "name": "Oswestry Disability Index",
+      "kind": "prom"
+    },
+    {
+      "measure_id": "ndi",
+      "name": "Neck Disability Index",
+      "kind": "prom"
+    },
+    {
+      "measure_id": "visa-a",
+      "name": "Victorian Institute of Sport Assessment – Achilles (VISA-A)",
+      "kind": "prom"
+    },
+    {
+      "measure_id": "hagos",
+      "name": "Copenhagen Hip and Groin Outcome Score (HAGOS)",
+      "kind": "prom"
+    },
+    {
+      "measure_id": "adductor-squeeze",
+      "name": "Adductor squeeze test (incl. 5-second squeeze)",
+      "kind": "performance_test"
+    },
+    {
+      "measure_id": "heel-raise-endurance",
+      "name": "Single-leg heel raise endurance test",
+      "kind": "performance_test"
+    },
+    {
+      "measure_id": "koos",
+      "name": "Knee injury and Osteoarthritis Outcome Score",
+      "kind": "prom"
+    },
+    {
+      "measure_id": "noos",
+      "name": "Neck OutcOme Score",
+      "kind": "prom"
+    },
+    {
+      "measure_id": "start-back",
+      "name": "STarT Back Screening Tool",
+      "kind": "prom"
+    },
+    {
+      "measure_id": "psfs",
+      "name": "Patient-Specific Functional Scale",
+      "kind": "prom"
+    },
+    {
+      "measure_id": "hop-test-battery",
+      "name": "Single-leg hop test battery and limb symmetry index",
+      "kind": "performance_test"
+    },
+    {
+      "measure_id": "slr",
+      "name": "Straight leg raise",
+      "kind": "clinical_test"
+    },
+    {
+      "measure_id": "spurling",
+      "name": "Spurling's test",
+      "kind": "clinical_test"
+    },
+    {
+      "measure_id": "ulnt1",
+      "name": "Upper limb neurodynamic test 1 (median)",
+      "kind": "clinical_test"
+    },
+    {
+      "measure_id": "cct-flexor",
+      "name": "Craniocervical flexion test",
+      "kind": "performance_test"
+    },
+    {
+      "measure_id": "biering-sorensen",
+      "name": "Biering-Sørensen trunk extensor endurance test",
+      "kind": "performance_test"
+    }
   ]
 }
