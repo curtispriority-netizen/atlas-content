@@ -397,6 +397,116 @@
             },
             "funding_conflicts": {
               "type": "string"
+            },
+            "appraised_from": {
+              "enum": [
+                "full_text",
+                "abstract"
+              ],
+              "description": "Risk-of-bias domains can't be judged properly from an abstract."
+            },
+            "tool": {
+              "type": "string",
+              "description": "Design-matched tool: RoB 2 (RCT), ROBINS-I (non-randomised), AMSTAR 2 (systematic review), QUADAS-2 (diagnostic accuracy), QUIPS (prognosis), COSMIN (measurement properties), JBI (other)."
+            },
+            "overall_risk_of_bias": {
+              "enum": [
+                "low",
+                "some concerns",
+                "high",
+                "not assessable"
+              ]
+            },
+            "domains": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "domain",
+                  "judgement",
+                  "reason"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "domain": {
+                    "type": "string"
+                  },
+                  "judgement": {
+                    "enum": [
+                      "low",
+                      "some concerns",
+                      "high",
+                      "unclear"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "grade": {
+              "type": "array",
+              "description": "GRADE domains for the primary outcome.",
+              "items": {
+                "type": "object",
+                "required": [
+                  "domain",
+                  "judgement",
+                  "reason"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "domain": {
+                    "enum": [
+                      "risk of bias",
+                      "inconsistency",
+                      "indirectness",
+                      "imprecision",
+                      "publication bias"
+                    ]
+                  },
+                  "judgement": {
+                    "enum": [
+                      "not serious",
+                      "serious",
+                      "very serious",
+                      "not applicable"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "clinical_significance": {
+              "type": "string",
+              "description": "Effect vs MCID/SWC, NNT if derivable, and whether the CI crosses no-effect or the MCID."
+            },
+            "comparator_fairness": {
+              "type": "string",
+              "description": "Was the control credible, dose-matched and attention-matched, or a straw man?"
+            },
+            "alternative_explanations": {
+              "type": "string",
+              "description": "Natural history, regression to the mean, placebo/contextual effects, co-interventions, attrition."
+            },
+            "spin": {
+              "type": "string",
+              "description": "Do the abstract and conclusions match the primary outcome results?"
+            },
+            "fit_with_evidence": {
+              "type": "string",
+              "description": "How this sits against prior systematic reviews, guidelines and the existing playbook."
+            },
+            "external_validity": {
+              "type": "string",
+              "description": "How close the sample, setting and intervention are to an Australian private sports-physio caseload."
+            },
+            "would_change_my_mind": {
+              "type": "string",
+              "description": "What evidence would overturn or strengthen this conclusion."
             }
           }
         },
