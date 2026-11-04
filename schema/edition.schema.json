@@ -441,6 +441,10 @@
                   },
                   "reason": {
                     "type": "string"
+                  },
+                  "support": {
+                    "type": "string",
+                    "description": "Where in the paper the reason comes from (section/page/table) and what it says, paraphrased. 'Not reported' if absent."
                   }
                 }
               }
@@ -507,6 +511,94 @@
             "would_change_my_mind": {
               "type": "string",
               "description": "What evidence would overturn or strengthen this conclusion."
+            },
+            "verification": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "status"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "agrees",
+                    "disagreements",
+                    "not checked"
+                  ]
+                },
+                "checked_by": {
+                  "type": "string",
+                  "description": "e.g. 'independent second pass (full text)'"
+                },
+                "checked_at": {
+                  "type": "string"
+                },
+                "disagreements": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "item",
+                      "first",
+                      "second",
+                      "why"
+                    ],
+                    "properties": {
+                      "item": {
+                        "type": "string"
+                      },
+                      "first": {
+                        "type": "string"
+                      },
+                      "second": {
+                        "type": "string"
+                      },
+                      "why": {
+                        "type": "string"
+                      },
+                      "resolved": {
+                        "type": "string",
+                        "description": "Final call and reason, or 'left open'."
+                      }
+                    }
+                  }
+                },
+                "external": {
+                  "type": "array",
+                  "description": "Expert ratings of this same paper found elsewhere.",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "source",
+                      "rating"
+                    ],
+                    "properties": {
+                      "source": {
+                        "type": "string",
+                        "description": "PEDro, Cochrane review, other systematic review"
+                      },
+                      "rating": {
+                        "type": "string"
+                      },
+                      "note": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "agrees": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                },
+                "external_searched": {
+                  "type": "string",
+                  "description": "Where you looked for external ratings, so 'none found' is meaningful."
+                }
+              }
             }
           }
         },

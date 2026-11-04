@@ -16,7 +16,7 @@ Both scheduled tasks (weekly edition, paper cards) must follow this for every st
 | Measurement properties (an outcome measure) | COSMIN | The properties tested (e.g. reliability, measurement error, construct validity, responsiveness) |
 | Other (cross-sectional, case series, qualitative) | JBI checklist for that design | The checklist's key items |
 
-Each domain: `judgement` (low / some concerns / high / unclear) and a one-sentence `reason` that cites the specific fact (e.g. "Assessors blinded, but 22% loss to follow-up in control vs 8% in intervention, no sensitivity analysis"). Then `overall_risk_of_bias` using the tool's own rule (worst domain usually drives it).
+Each domain: `judgement` (low / some concerns / high / unclear), a one-sentence `reason` that cites the specific fact, and `support`: where in the paper that comes from (section, page or table) and what it says, paraphrased, e.g. "Methods p.4: sealed envelopes, opacity not stated". Write "Not reported" when the paper is silent; a silent domain is `unclear`, never `low`. Reason example (e.g. "Assessors blinded, but 22% loss to follow-up in control vs 8% in intervention, no sensitivity analysis"). Then `overall_risk_of_bias` using the tool's own rule (worst domain usually drives it).
 
 ## 3. GRADE the primary outcome (`grade`)
 Five rows: risk of bias, inconsistency, indirectness, imprecision, publication bias. Each `not serious` / `serious` / `very serious` / `not applicable` with a reason. For a single trial, inconsistency is `not applicable`. Imprecision: say whether the 95% CI crosses no effect and/or the MCID, and whether the sample meets an optimal information size. `certainty` (high / moderate / low / very low) must follow from these rows: start high for RCTs, low for observational, and downgrade one level per serious concern.
@@ -32,6 +32,14 @@ Five rows: risk of bias, inconsistency, indirectness, imprecision, publication b
 
 ## 5. Strengths, weaknesses, funding
 Keep `strengths`, `weaknesses` and `funding_conflicts` (who funded it; any author conflicts relevant to the intervention).
+
+## 6. Verification (full-text cards from Curt's PDFs)
+A second, independent pass checks the first. It is a separate session that sees only the paper's text and the draft appraisal, never the first pass's reasoning process.
+- It re-checks every risk-of-bias domain, every GRADE row, each results number (effect and 95% CI) and the clinical-significance call against the text, using each domain's `support` location.
+- Each disagreement goes in `verification.disagreements` as {item, first, second, why}. The first pass then makes the final call in `resolved` (or "left open"), and the card is updated to the resolved judgement. Never silently drop a disagreement.
+- External anchors: look up the same paper on PEDro (pedro.org.au; RCTs and systematic reviews in physiotherapy, rated by trained raters) and in Cochrane or other major systematic reviews that assessed its risk of bias. Record each in `verification.external` {source, rating, note, url, agrees}. Record where you searched in `external_searched`, so "none found" means something.
+- If an external expert rating conflicts with ours, show both and explain the gap; don't overwrite either.
+- `verification.status`: "agrees" (no material disagreements), "disagreements" (any remain or were resolved), or "not checked".
 
 ## Honesty rules
 - Only use numbers you actually read. If a value isn't reported, say "not reported".
