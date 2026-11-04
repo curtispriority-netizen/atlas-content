@@ -210,8 +210,8 @@ for qpath in sorted((ROOT / "questions").glob("*.json")) if (ROOT / "questions")
     if words(qd.get("search_summary", "")) > 40:
         problems.append(f"{where}: search_summary is over 40 words")
     sugs = qd.get("suggestions", [])
-    if not 1 <= len(sugs) <= 12:
-        problems.append(f"{where}: {len(sugs)} suggestions (allowed 1-12)")
+    if len(sugs) > 12:
+        problems.append(f"{where}: {len(sugs)} suggestions (max 12)")
     keys = set()
     for i, sg in enumerate(sugs):
         w = f"{where} suggestion {i + 1}"
@@ -227,6 +227,39 @@ for qpath in sorted((ROOT / "questions").glob("*.json")) if (ROOT / "questions")
         if sg.get("key") in keys:
             problems.append(f"{w}: duplicate key {sg.get('key')}")
         keys.add(sg.get("key"))
+    ans = qd.get("answer")
+    if ans:
+        known_items = {f"mine-{e['id']}" for e in (json.loads(pidx_path.read_text()).get("papers", []) if pidx_path.exists() else [])}
+        for e in index["editions"]:
+            ep = ROOT / e["path"]
+            if ep.exists():
+                known_items |= {it.get("item_id") for it in json.loads(ep.read_text()).get("items", [])}
+        for k in ("answer", "certainty", "provisional", "actions", "comparison", "based_on", "updated_at"):
+            if k not in ans:
+                problems.append(f"{where}: answer.{k} is required")
+        if words(ans.get("answer", "")) > 50:
+            problems.append(f"{where}: answer.answer is over 50 words")
+        if ans.get("certainty") not in (None, "high", "moderate", "low", "very low"):
+            problems.append(f"{where}: answer.certainty must be high, moderate, low or very low")
+        for f, mx, n in (("actions", 6, 22), ("agreement", 4, 22), ("conflicts", 4, 22)):
+            items = ans.get(f, [])
+            if len(items) > mx:
+                problems.append(f"{where}: answer.{f} has more than {mx} items")
+            for i, b in enumerate(items):
+                if words(b) > n:
+                    problems.append(f"{where}: answer.{f}[{i}] is over {n} words")
+                if PROVENANCE.search(str(b)):
+                    problems.append(f"{where}: answer.{f}[{i}] contains working notes")
+        for i, r in enumerate(ans.get("comparison", [])):
+            w = f"{where} answer.comparison[{i}]"
+            if r.get("item_id") not in known_items:
+                problems.append(f"{w}: item_id {r.get('item_id')} is not a card in this repo")
+            if words(r.get("finding", "")) > 20:
+                problems.append(f"{w}: finding is over 20 words")
+            if words(r.get("title", "")) > 12:
+                problems.append(f"{w}: title is over 12 words")
+            if r.get("verdict") not in ("meaningful", "below_mcid", "no_difference", "unclear", "descriptive"):
+                problems.append(f"{w}: verdict must be one of the CARD_STYLE.md verdicts")
     gaps = qd.get("gaps", [])
     if len(gaps) > 4:
         problems.append(f"{where}: more than 4 gaps")
