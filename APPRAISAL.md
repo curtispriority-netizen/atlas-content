@@ -2,6 +2,8 @@
 
 Both scheduled tasks (weekly edition, paper cards) must follow this for every study's `appraisal` object. The aim is not a score: it is to show Curt the reasoning, domain by domain, so he can interpret the result in context and disagree where he knows better.
 
+**How it is written is set by `CARD_STYLE.md`** (card format 2: bullets, word caps, provenance kept out of clinical fields). This file says *what* to judge; that file says *how to write it*. `scripts/validate.py` enforces both.
+
 ## 1. Say what you appraised from
 `appraised_from`: `full_text` or `abstract`. If abstract only, every risk-of-bias domain that needs the methods section is `unclear` with the reason "not reported in abstract". Never guess a domain as low from an abstract.
 
@@ -39,6 +41,7 @@ A second, independent pass checks the first. It is a separate session that sees 
 - Each disagreement goes in `verification.disagreements` as {item, first, second, why}. The first pass then makes the final call in `resolved` (or "left open"), and the card is updated to the resolved judgement. Never silently drop a disagreement.
 - External anchors: look up the same paper on PEDro (pedro.org.au; RCTs and systematic reviews in physiotherapy, rated by trained raters) and in Cochrane or other major systematic reviews that assessed its risk of bias. Record each in `verification.external` {source, rating, note, url, agrees}. Record where you searched in `external_searched`, so "none found" means something.
 - If an external expert rating conflicts with ours, show both and explain the gap; don't overwrite either.
+- The second pass also checks the card against `CARD_STYLE.md`. Corrections must still meet the caps; reasoning goes in `verification`, never back into the clinical fields.
 - `verification.status`: "agrees" (no material disagreements), "disagreements" (any remain or were resolved), or "not checked".
 
 ## Honesty rules

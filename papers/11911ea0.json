@@ -7,107 +7,131 @@
     "item_id": "mine-11911ea0",
     "region": "lumbar",
     "condition": "Discogenic low back pain",
-    "title": "Lancet LBP Series 1: what low back pain is, how common, how it runs, and why most cases have no identifiable source",
+    "title": "Lancet LBP Series 1: burden, course, and why the source is rarely found",
     "first_published": "2018-03",
     "playbook_step": "educate",
     "evidence_tag": "established",
-    "evidence_note": "A narrative synthesis of mostly systematic-review and cohort evidence. It frames the whole low back pain playbook (non-specific pain, weak imaging-symptom link, red flags that mislead, psychosocial drivers of persistence) rather than testing a treatment. Evidence certainty under GRADE is very low because the source studies are observational and not systematically selected. Even so, the core descriptive messages agree with later guidelines.",
+    "evidence_note": "Narrative synthesis of reviews and cohorts. Frames the whole lumbar playbook; tests no treatment. Core messages match later guidelines.",
     "confidence": "likely",
-    "confidence_note": "Read the full text of your PDF, and an independent second pass checked it. The numbers are as printed in the paper; ten corrections came out of the check (see verification). Parts of Tables 1 and 2 extracted messily, so only cleanly readable cells are quoted. I didn't re-check the underlying reviews it cites.",
+    "confidence_note": "Full text read from your PDF; second pass made 10 corrections. Messy Table 1–2 cells not quoted. Cited reviews not re-checked.",
     "impact": "set_expectations",
-    "impact_line": "Tell patients: most episodes settle within 6 weeks, but about two-thirds still have some pain at 12 months and a third relapse within a year. A scan finding is a weak guide to the pain source. Screen fear-avoidance and distress early.",
-    "summary": "This is a narrative review from the Lancet Low Back Pain Series working group (an international, multi-profession expert panel), with searches of MEDLINE, Scopus and regional databases and a stated preference for systematic reviews, large cohorts, guidelines and Global Burden of Disease 2015 data. It reports that low back pain is the leading cause of disability worldwide (60.1 million years lived with disability in 2015, up 54% since 1990) and that the specific nociceptive source cannot be identified in nearly all cases. Some MRI findings under age 50 are more common in people with pain (for example disc bulge, extrusion, Modic type 1, spondylolysis), but they are also common without pain and imaging has not been shown to improve outcomes. Most episodes improve substantially within 6 weeks, yet around two-thirds of people still report some pain at 3 and 12 months and about a third relapse within a year. Persistent disabling pain is better explained by a mix of pain intensity, leg pain, fear avoidance, distress, catastrophising, work and social factors and central pain processing than by tissue findings. Serious pathology is rare (0.9% in an Australian primary-care sample) and single red flags are poor discriminators.",
-    "bottom_line": "Treat most back pain as a variable, recurrent, long-running condition rather than a series of unrelated episodes, and don't promise a tissue diagnosis for a disc or any other structure. Use a small number of well-weighted flags for serious pathology rather than a long checklist, and screen early for pain intensity, distress and leg or multisite pain, which are the consistent predictors across multivariable models in the paper; fear avoidance helps but its evidence is mixed.",
+    "impact_line": "Most settle by 6 weeks, but most still have some pain at 12 months. Scans don't find the source.",
+    "summary": [
+      "Narrative review by the international Lancet LBP Series working group (paper 1 of 2)",
+      "Draws on systematic reviews, large cohorts, guidelines and GBD 2015; no formal appraisal of sources",
+      "Persistence better explained by pain intensity, leg pain, distress, fear and social factors than tissue findings",
+      "Treatment is covered in paper 2 of the series, not here"
+    ],
+    "bottom_line": "Treat back pain as variable and recurrent, not unrelated episodes. Don't promise a tissue diagnosis. Screen early for pain intensity, distress and leg or multisite pain.",
     "methods": {
-      "design": "Narrative review (Lancet Series paper 1 of 2). No protocol registration, PRISMA flow or formal risk-of-bias assessment reported. Search terms and dates were not given in detail in the text; a workshop in Buxton, UK in June 2016 set the structure.",
-      "setting": "International author group (Denmark, Australia, South Africa, Switzerland, Finland, USA, Germany, Netherlands, UK). Evidence base mostly from high-income countries, with deliberate searching for low- and middle-income country data.",
-      "participants": "No participants of its own. Draws on systematic reviews (for example 33 cohorts, 11,166 people for natural history; 14 case-control studies, 3,097 people for MRI findings), population cohorts, guidelines and GBD 2015.",
-      "intervention": "Not applicable: no treatment tested. Paper 2 of the series covers treatment.",
-      "comparator": "Not applicable.",
-      "follow_up": "Not applicable. Natural-history data come from cohorts followed to 12 months.",
-      "primary_outcome": "None. The paper describes definition, burden, causes, course, risk factors and contributors to disability."
+      "design": [
+        "Narrative review, Lancet Series paper 1 of 2",
+        "No protocol, PRISMA flow or risk-of-bias assessment"
+      ],
+      "setting": [
+        "Authors from 9 countries",
+        "Mostly high-income evidence, some low- and middle-income data"
+      ],
+      "participants": [
+        "None of its own",
+        "Natural history: 33 cohorts, 11,166 people",
+        "MRI: 14 case-control studies, 3,097 people"
+      ],
+      "intervention": "None tested (see paper 2)",
+      "primary_outcome": "None; descriptive (burden, causes, course, risk factors)"
     },
     "results": [
       {
         "outcome": "Global burden",
-        "timepoint": "2015 (GBD 2015)",
-        "result": "Low back pain caused about 60.1 million years lived with disability, up 54% since 1990. Point prevalence of activity-limiting pain was 7.3% (about 540 million people). Fewer than 28% of cases were in the severe or most severe categories but they accounted for 77% of the disability. The body text (p.2360) gives this figure as YLD, but the Key messages box (p.2356) labels the same 60.1 million as DALYs and Figure 3 is plotted in DALYs. The card uses YLD, which matches the cited GBD source.",
-        "effect": "Not a comparative effect",
-        "meaning": "MCID not applicable. Most patients have low disability; a minority carry most of the burden, which supports early identification of the high-risk group."
+        "timepoint": "GBD 2015",
+        "result": "60.1M YLD, up 54% since 1990; point prevalence 7.3%",
+        "meaning": "Minority carries most disability",
+        "verdict": "descriptive",
+        "detail": "Under 28% of cases are severe but carry 77% of disability. About 540 million people at any time. Body text uses YLD; key messages and Figure 3 label the same figure DALYs. Card follows the GBD source (YLD)."
       },
       {
-        "outcome": "Prevalence",
-        "timepoint": "1-year period, adults",
-        "result": "Median 1-year prevalence about 37%, peaking in mid-life and higher in women. Around 40% of 9-18 year olds report having had low back pain.",
-        "effect": "Not reported as an effect",
-        "meaning": "Common in your caseload at all ages, including adolescent athletes."
+        "outcome": "1-year prevalence",
+        "timepoint": "Adults",
+        "result": "~37%, peaks mid-life, higher in women; ~40% of 9–18 year olds",
+        "meaning": "Common at all ages, incl. adolescent athletes",
+        "verdict": "descriptive"
       },
       {
-        "outcome": "Natural history: pain",
-        "timepoint": "6 weeks and 12 months (review of 33 cohorts, 11,166 people)",
-        "result": "Most episodes improve substantially within 6 weeks. By 12 months average pain is low (6 points on a 100-point scale, 95% CI 3 to 10).",
-        "effect": "Mean pain 6/100 (95% CI 3 to 10) at 12 months",
-        "meaning": "Average pain at 12 months is far below any commonly used MCID, but the average hides a persistent minority."
+        "outcome": "Average pain",
+        "timepoint": "12 months",
+        "result": "Most improve a lot by 6 wk; mean pain 6/100",
+        "effect": "6/100 (95% CI 3 to 10)",
+        "meaning": "Average hides a persistent minority",
+        "verdict": "descriptive",
+        "detail": "From a review of 33 cohorts (11,166 people)."
       },
       {
-        "outcome": "Natural history: still in pain",
+        "outcome": "Still some pain",
         "timepoint": "3 and 12 months",
-        "result": "67% still report some pain at 3 months and 65% at 12 months. Cited to two reviews jointly.",
-        "effect": "67% (95% CI 50 to 83) at 3 months; 65% (95% CI 54 to 75) at 12 months",
-        "meaning": "Set the expectation that 'some pain' is the usual state at one year; the goal is function and control, not zero pain."
+        "result": "67% at 3 mo, 65% at 12 mo",
+        "effect": "67% (50 to 83); 65% (54 to 75)",
+        "meaning": "Aim for function and control, not zero pain",
+        "verdict": "descriptive",
+        "detail": "Cited to two prognosis reviews jointly. The ~35% pain-free at 12 months is derived (100 − 65), not stated in the paper."
       },
       {
         "outcome": "Recurrence",
-        "timepoint": "Within 1 year of recovery",
-        "result": "About 33% recur. The authors say robust estimates are lacking (7 studies, 1,780 people).",
-        "effect": "About 33% (no CI given in text)",
-        "meaning": "Low certainty. Supports a relapse-prevention conversation at discharge."
+        "timepoint": "Within 1 year",
+        "result": "~33% recur; authors say estimates aren't robust",
+        "meaning": "Plan relapse prevention at discharge",
+        "verdict": "unclear",
+        "detail": "7 studies, 1,780 people. No CI given in the text."
       },
       {
-        "outcome": "MRI findings vs symptoms (under 50 years)",
-        "timepoint": "Case-control, 14 studies, 3,097 people",
-        "result": "Disc degeneration OR 2.2 (prevalence 34% without pain vs 57% with pain). Disc bulge OR 7.5. Disc protrusion OR 2.7. Disc extrusion OR 4.4. Modic type 1 OR 4.0. Spondylolysis OR 5.1. CIs crossing 1: annular fissure OR 1.8, high intensity zone 2.1, any Modic change 1.6, spondylolisthesis 1.6 and central canal stenosis 20.6.",
-        "effect": "Degeneration 2.2 (1.2 to 4.2); bulge 7.5 (1.3 to 44.6); protrusion 2.7 (1.5 to 4.6); extrusion 4.4 (2.0 to 9.7); Modic 1 4.0 (1.1 to 14.6); spondylolysis 5.1 (1.7 to 15.5); fissure 1.8 (0.97 to 3.3); HIZ 2.1 (0.7 to 6.0); any Modic 1.6 (0.5 to 5.4); spondylolisthesis 1.6 (0.8 to 3.2); canal stenosis 20.6 (0.1 to 798.8)",
-        "meaning": "Associations only. Several CIs are very wide and heterogeneity was mostly high. Prevalence of degeneration, protrusion and bulge is substantial in people without pain, so a finding cannot tell you the pain source."
+        "outcome": "MRI vs symptoms",
+        "timepoint": "Under 50s",
+        "result": "Bulge, extrusion, Modic 1, spondylolysis more common with pain",
+        "effect": "e.g. bulge OR 7.5 (1.3 to 44.6); extrusion 4.4 (2.0 to 9.7)",
+        "meaning": "Common without pain; can't name the source",
+        "verdict": "descriptive",
+        "detail": "Degeneration OR 2.2 (1.2 to 4.2; 34% without vs 57% with pain), protrusion 2.7 (1.5 to 4.6), Modic 1 4.0 (1.1 to 14.6), spondylolysis 5.1 (1.7 to 15.5). CIs crossing 1: fissure 1.8, HIZ 2.1, any Modic 1.6, spondylolisthesis 1.6, canal stenosis 20.6 (0.1 to 798.8). Heterogeneity mostly high."
       },
       {
-        "outcome": "Serious pathology in acute primary care",
-        "timepoint": "New presentations under 2 weeks (Australia, n=1,172)",
-        "result": "Specific causes in 0.9% (11 people), 8 of 11 fractures and 2 of 11 inflammatory disorders. About 80% of people with acute back pain have at least one red flag despite under 1% having serious disease.",
-        "effect": "0.9% prevalence",
-        "meaning": "Single red flags have very low specificity. Use combinations and clinical judgement."
+        "outcome": "Serious pathology",
+        "timepoint": "New presentations under 2 wk",
+        "result": "0.9% (11 of 1,172); 8 of 11 fractures",
+        "meaning": "Single red flags have very low specificity",
+        "verdict": "descriptive",
+        "detail": "Australian primary-care sample. 2 of 11 were inflammatory disorders. About 80% of people with acute back pain have at least one red flag."
       },
       {
-        "outcome": "Prognostic factors for chronic disabling pain",
-        "timepoint": "3-6 and 12 months",
-        "result": "From Table 2 (a non-systematic overview). Fear avoidance: median LR 2.2 (range 1.5 to 4.9) for chronic disabling pain at 3-6 months and 2.5 (2.2 to 2.8) at 12 months in one 4-study review, but a 21-study review found no systematic association with pain or activity limitation at 3-12 months (it did find links with poor work outcomes, OR range 1.05 to 4.64). High pain intensity LR 1.7 at 3-6 months and 1.3 at 12 months. Leg pain LR 1.4 at both. Catastrophising (high) OR 1.56 (95% CI 1.05 to 2.33) for disability at 3-12 months. Number of previous episodes LR 1.0 to 1.1.",
-        "effect": "Positive likelihood ratios as listed",
-        "meaning": "No single factor shifts probability much (LRs mostly 1 to 2.5), and the fear-avoidance evidence is mixed across reviews. The authors flag that the table is not systematic. Use these to inform, not to predict an individual."
+        "outcome": "Single prognostic factors",
+        "timepoint": "3–12 months",
+        "result": "Positive LRs mostly 1 to 2.5; fear-avoidance evidence conflicts",
+        "meaning": "Inform the plan, don't predict a person",
+        "verdict": "descriptive",
+        "detail": "Table 2 is not systematic. Fear avoidance median LR 2.2 at 3–6 mo and 2.5 at 12 mo (4-study review), but a 21-study review found no link with pain or activity (it did with work outcomes). Pain intensity LR 1.7 then 1.3; leg pain 1.4; catastrophising OR 1.56 (1.05 to 2.33); previous episodes LR 1.0 to 1.1."
       },
       {
-        "outcome": "Multivariable prediction",
-        "timepoint": "Validated models (appendix); 50-study review, 33,089 people",
-        "result": "Externally validated multivariable models (detailed in the paper's appendix) consistently pick up pain intensity, psychological distress, and leg or multisite pain as predictors. Separately, a 50-study review found these models explained on average 43% of the variance in seven development samples.",
-        "effect": "43% variance explained",
-        "meaning": "More than half of who goes on to disability is unexplained, and development-sample figures tend to be optimistic, so true performance is likely lower. Prognostic tools should inform decisions, not make them."
+        "outcome": "Multivariable models",
+        "timepoint": "Development samples",
+        "result": "Explain ~43% of variance on average",
+        "meaning": "Over half unexplained; real performance likely lower",
+        "verdict": "descriptive",
+        "detail": "Validated models (appendix) consistently include pain intensity, distress, and leg or multisite pain. The 43% comes from a 50-study review (33,089 people) of seven development samples."
       }
     ],
     "key_numbers": [
       {
-        "label": "Still in some pain at 12 months (95% CI 54 to 75; from two prognosis reviews)",
-        "value": "65%"
+        "value": "65%",
+        "label": "Still in some pain at 12 months"
       },
       {
-        "label": "Recurrence within 1 year (Authors note estimates are not robust)",
-        "value": "about 33%"
+        "value": "~33%",
+        "label": "Recur within 1 year"
       },
       {
-        "label": "Serious cause in acute primary care (Australian sample of 1,172; 8 of 11 were fractures)",
-        "value": "0.9%"
+        "value": "0.9%",
+        "label": "Serious cause, acute primary care"
       },
       {
-        "label": "Fear avoidance LR for chronic disabling pain at 12 months (range 2.2 to 2.8; 4-study review; a 21-study review found no systematic link with pain or activity outcomes)",
-        "value": "2.5"
+        "value": "~80%",
+        "label": "Acute LBP with at least one red flag"
       }
     ],
     "pico": {
@@ -116,7 +140,13 @@
       "c": "Not applicable",
       "o": "Prevalence, disability, natural history, imaging associations, prognostic factors"
     },
-    "limits": "A narrative review: selection of studies was not systematic and no risk-of-bias assessment was done on included work. Prognostic table is explicitly not from a systematic review. Most evidence is from high-income countries. Association data (MRI, risk factors, case-crossover) don't show causation, and the authors say causal pathways remain unclear. It was published in March 2018, so it predates later trials and guideline updates.",
+    "limits": [
+      "Narrative review: source studies not systematically selected or appraised",
+      "Prognostic table is explicitly not from a systematic review",
+      "Mostly high-income, general-population evidence",
+      "Associations only; causal pathways unclear",
+      "Published 2018, so later trials and guidelines aren't included"
+    ],
     "read_level": "full_text",
     "full_text": {
       "status": "read",
@@ -124,60 +154,69 @@
       "why": "Read in full from Curt's PDF."
     },
     "how_to_apply": [
-      "Reset expectations at the first session: most people improve a lot by about 6 weeks, a majority still have some pain at 3 and 12 months, and about a third relapse within a year. Frame success as function, confidence and flare control, not pain-free.",
-      "When a patient asks what is 'causing' the pain, say that for nearly everyone the exact source can't be found, and that imaging findings such as degeneration, bulges and protrusions are common in people with no pain. Don't build a disc diagnosis on a scan. This is context for the Atlas 'discogenic' label: treat it as a working classification, not a confirmed source.",
-      "Do not order or request imaging on a routine basis. The paper states there is no evidence imaging improves outcomes and that guidelines consistently recommend against routine use. Consider it when the clinical picture points to a serious cause or a surgical question.",
-      "Screen early for the factors the paper names as consistent across multivariable prediction models: high initial pain intensity, psychological distress, and leg pain or pain at multiple sites. Add fear avoidance and catastrophising, but know the fear-avoidance evidence is mixed (one 21-study review found no systematic association with pain or activity outcomes). The paper doesn't specify a tool, so use a validated short tool you already trust. Use a positive screen to shift the plan toward graded activity, education and self-efficacy, not to label the patient.",
-      "For red flags, weigh the whole picture. Keep a low threshold for further assessment with new perianal sensory change or bladder symptoms, or severe bilateral radicular pain. Consider fracture in older patients, long-term corticosteroid users or after trauma, and consider axial spondyloarthritis in people aged 20 to 40 with inflammatory features (morning stiffness better with exercise) and refer to rheumatology if suspected.",
-      "What NOT to change: this paper doesn't test any treatment, so it gives no reason to change your exercise dose, manual therapy use or progression criteria. Use it to shape explanation, expectations, imaging stance and screening."
+      "First session: most improve a lot by 6 weeks; most still have some pain at 12 months; a third relapse.",
+      "Frame success as function, confidence and flare control, not pain-free.",
+      "Asked the cause: say the exact source usually can't be found; scan findings are common without pain.",
+      "Treat Atlas 'discogenic' as a working label, not a confirmed source.",
+      "Don't image routinely; image when red flags or a surgical question point to it.",
+      "Screen early: pain intensity, distress, leg or multisite pain. Use a positive screen to shift the plan, not label."
     ],
-    "applies_to": "Adults and adolescents presenting with non-specific low back pain, with or without leg pain, in primary or private musculoskeletal care. Particularly relevant to the education and classification steps of the lumbar playbook.",
-    "not_for": "Deciding treatment choice or dose. Diagnosing a specific tissue source such as 'discogenic' pain. Ruling serious pathology in or out from a single flag. Patients with confirmed fracture, malignancy, infection, cauda equina features or suspected axial spondyloarthritis, who need specific pathways.",
+    "applies_to": [
+      "Adults and adolescents with non-specific LBP, with or without leg pain",
+      "Primary or private MSK care",
+      "Lumbar playbook: educate and classify steps"
+    ],
+    "not_for": [
+      "Choosing treatment or dose",
+      "Diagnosing a tissue source, e.g. discogenic pain",
+      "Ruling serious pathology in or out from one flag",
+      "Fracture, malignancy, infection, cauda equina or suspected axSpA: specific pathways"
+    ],
     "appraisal": {
       "appraised_from": "full_text",
-      "tool": "JBI (critical appraisal checklist for text and opinion papers; adapted for a narrative review)",
+      "tool": "JBI (text and opinion papers, adapted)",
       "domains": [
         {
           "domain": "Source of opinion has standing in the field",
           "judgement": "low",
-          "reason": "Authors are an international group of back pain researchers and clinicians from nine countries, backed by a steering committee and members from many more institutions.",
-          "support": "p.2356 author list and affiliations; p.2365 Working Group steering committee and members from many institutions and countries."
+          "reason": "International researchers and clinicians from nine countries, plus a wide working group.",
+          "support": "Author list p.2356; working group p.2365"
         },
         {
           "domain": "Opinions centre on the population of interest",
           "judgement": "low",
-          "reason": "Squarely about people with low back pain, including adolescents, workers and older adults, and across income settings.",
-          "support": "p.2357 aim paragraph (what LBP is, burden, causes, course) and definition section; prevalence data cover children to older adults."
+          "reason": "Squarely about low back pain across ages and income settings.",
+          "support": "Aim and definition sections, p.2357"
         },
         {
           "domain": "Stated position is the result of an analytical process",
           "judgement": "some concerns",
-          "reason": "Systematic reviews were preferred and sources (MEDLINE, Scopus, Google Scholar, African Index Medicus) are named, but there is no registered protocol, no search dates or strings in the text and no selection or RoB assessment.",
-          "support": "p.2357 approach paragraph: Buxton workshop June 2016; broad terms in MEDLINE and Scopus, plus Google Scholar and African Index Medicus; systematic reviews preferred. No search dates, strings, selection process or quality appraisal reported."
+          "reason": "Databases named and reviews preferred, but no protocol, search dates, selection or RoB.",
+          "support": "Approach paragraph p.2357"
         },
         {
           "domain": "Stated position is logically supported",
           "judgement": "some concerns",
-          "reason": "Mostly consistent with the cited reviews, but the prognostic table is explicitly not systematic and several conclusions rest on association data.",
-          "support": "p.2361 Table 2 footnote says the table is a broad overview not based on a systematic review; p.2363 says the causal pathway for physical risk factors remains unclear."
+          "reason": "Mostly consistent with cited reviews, but prognosis table isn't systematic and much rests on associations.",
+          "support": "Table 2 footnote p.2361; p.2363"
         },
         {
           "domain": "Reference to the extant literature",
           "judgement": "low",
-          "reason": "Over 100 references, mainly systematic reviews, GBD 2015 and large cohorts, with dissenting qualifiers stated (for example imaging findings are common without pain).",
-          "support": "pp.2365-67: 119 references, mostly systematic reviews, GBD 2015 and large cohorts."
+          "reason": "119 references, mainly systematic reviews, GBD 2015 and large cohorts.",
+          "support": "References pp.2365-67"
         },
         {
           "domain": "Inconsistency with the literature is justified",
           "judgement": "some concerns",
-          "reason": "The paper shows conflicting evidence openly (fear-avoidance reviews disagree; Modic type 2 linked to disability but not pain) but doesn't reconcile or weigh it.",
-          "support": "Not reported as a formal step. Some conflicting evidence is shown openly (p.2361 Table 2: 21-study fear-avoidance review found no systematic association with pain or activity limitation; p.2358 Panel 1: Modic type 2 linked to disability but not pain)."
+          "reason": "Shows conflicting evidence openly but doesn't reconcile or weigh it.",
+          "support": "Table 2 p.2361; Panel 1 p.2358"
         },
         {
           "domain": "Conflicts of interest declared",
           "judgement": "unclear",
-          "reason": "The paper points to an appendix for author declarations which was not in the PDF I read.",
-          "support": "p.2365 Declaration of interests: 'See appendix'. Appendix not in the PDF supplied."
+          "reason": "Declarations are in an appendix that wasn't available.",
+          "support": "p.2365: 'See appendix'; appendix not supplied"
         }
       ],
       "overall_risk_of_bias": "some concerns",
@@ -185,52 +224,80 @@
         {
           "domain": "risk of bias",
           "judgement": "serious",
-          "reason": "Narrative review with no systematic selection or appraisal of the source studies; prognostic summary is acknowledged as non-systematic."
+          "reason": "Narrative review; sources not systematically selected or appraised."
         },
         {
           "domain": "inconsistency",
           "judgement": "serious",
-          "reason": "Table 1 grades heterogeneity high for 7 of 11 MRI findings, and Table 2 sets a 4-study fear-avoidance review (LR 2.2 to 2.5) against a 21-study review that found no systematic link with pain or activity limitation."
+          "reason": "High heterogeneity for 7 of 11 MRI findings; fear-avoidance reviews conflict."
         },
         {
           "domain": "indirectness",
           "judgement": "not serious",
-          "reason": "Descriptive evidence on the same population and outcomes of interest. Some evidence comes from low- and middle-income settings and may not transfer to Australia."
+          "reason": "Same population and outcomes; some low- and middle-income data may not transfer."
         },
         {
           "domain": "imprecision",
           "judgement": "serious",
-          "reason": "Several key estimates have wide CIs (disc bulge OR 7.5, 95% CI 1.3 to 44.6; Modic 1 OR 4.0, 1.1 to 14.6; canal stenosis OR 20.6, 0.1 to 798.8), and recurrence (about 33%) has no CI."
+          "reason": "Wide CIs (bulge OR 7.5, 1.3 to 44.6; stenosis 0.1 to 798.8); recurrence has no CI."
         },
         {
           "domain": "publication bias",
           "judgement": "not serious",
-          "reason": "Not assessed in the paper and can't be judged from the text. No downgrade applied, so read this row as 'unknown', not reassurance. It doesn't change the certainty, which is already at the floor."
+          "reason": "Not assessed in the paper. Read as unknown, not reassurance."
         }
       ],
       "certainty": "very low",
-      "clinical_significance": "No treatment effect, so no MCID comparison applies and no NNT can be derived. The clinically useful facts are natural history (average pain about 6/100 at 12 months, yet 65% still report some pain) and the weak diagnostic value of imaging findings and single red flags. Prognostic factors in Table 2 have positive LRs mostly between 1 and 2.5, which shift probability only a small amount, and the fear-avoidance evidence conflicts across reviews. Use them to shape the plan, not to predict an individual.",
-      "comparator_fairness": "Not applicable: there is no intervention or control arm. The comparison groups inside the cited case-control MRI studies are people without pain, and the authors note that age (under 50) matters for interpretation.",
-      "alternative_explanations": "MRI-symptom and risk-factor links are associations that could reflect confounding, reverse causation (pain causing distress or inactivity) or age. The 12-month recovery figures include regression to the mean and natural history by design. The authors themselves state the causal role of risk factors remains unclear.",
-      "spin": "Little spin. The abstract and conclusion match the body: burden is large and growing, nearly all cases are non-specific, most episodes are short but recurrence and persistence are common. The policy line that health care may contribute to burden in high-income countries is an opinion, not a finding of this review. The call for cost-effective, context-specific strategies is not supported by data presented here.",
-      "fit_with_evidence": "Consistent with the Atlas lumbar playbook (non-specific pain, weak imaging-symptom link, psychosocial prognostic factors). The paper itself cites Brinjikji et al 2015 for MRI findings and Foster et al 2018 (Lancet series paper 2) for treatment, and states guidelines consistently recommend against routine imaging. I did not fetch those sources, so treat this as the paper's own account of the literature. It does not support a confirmed 'discogenic' diagnosis: it says no investigation has accurately identified a disc problem as contributing to an individual's pain and that there is no accepted reference standard.",
-      "external_validity": "Reasonable for an Australian private sports-physio caseload on the topics of natural history, imaging stance and psychosocial screening, with Australian data on red flag prevalence (n=1,172 primary care) and Australian authors contributing. Caveats: the pooled data are mixed-age general populations, not active adults or athletes; the MRI associations are for under-50s; and burden and cost sections lean on low- and middle-income and occupational contexts that matter less to your clinic.",
-      "would_change_my_mind": "A prospective, well-powered cohort in active adults showing a clinically testable subgroup (for example disc-related pain) with a validated diagnostic reference standard would weaken the 'source can't be identified' position. Newer cohorts showing meaningfully better or worse 12-month recovery than about 35% pain-free (derived: 100% minus the 65% still in some pain; not stated in the paper) would change the expectation-setting numbers. A trial showing early imaging improves outcomes would overturn the imaging stance.",
+      "clinical_significance": [
+        "No treatment effect, so no MCID or NNT applies",
+        "Useful facts: natural history, and weak diagnostic value of scans and single red flags",
+        "Prognostic LRs mostly 1 to 2.5: small shifts in probability"
+      ],
+      "comparator_fairness": [
+        "No intervention arm",
+        "MRI case-control comparisons are pain-free people; age under 50 matters"
+      ],
+      "alternative_explanations": [
+        "MRI and risk-factor links may reflect confounding, reverse causation or age",
+        "12-month recovery includes natural history and regression to the mean",
+        "Authors say causal roles of risk factors remain unclear"
+      ],
+      "spin": [
+        "Little: abstract and conclusions match the body",
+        "'Health care adds to burden in high-income countries' is opinion, not a finding",
+        "Call for cost-effective, context-specific strategies isn't backed by data here"
+      ],
+      "fit_with_evidence": [
+        "Consistent with the Atlas lumbar playbook",
+        "Cites Brinjikji 2015 (MRI) and Foster 2018 (treatment); guidelines advise against routine imaging",
+        "Doesn't support a confirmed discogenic diagnosis: no accepted reference standard"
+      ],
+      "external_validity": [
+        "✓ Natural history, imaging stance, psychosocial screening",
+        "✓ Australian red-flag data (n=1,172)",
+        "✗ General populations, not athletes",
+        "✗ MRI associations are under-50s only"
+      ],
+      "would_change_my_mind": [
+        "A validated test that identifies a disc source in active adults",
+        "New cohorts showing recovery well away from ~35% pain-free at 12 months",
+        "A trial showing early imaging improves outcomes"
+      ],
       "strengths": [
-        "Broad, multi-professional author group with explicit attention to low- and middle-income evidence",
-        "Prefers systematic reviews and large population data over single studies",
-        "Reports effect sizes with CIs and is open about uncertainty (recurrence estimates, causal pathways, non-systematic prognostic table)",
-        "Practical, quantified statements on red flags, imaging and natural history that map to clinical decisions"
+        "Multi-professional international author group",
+        "Prefers systematic reviews and population data",
+        "Reports CIs and is open about uncertainty",
+        "Quantified statements on red flags, imaging, natural history"
       ],
       "weaknesses": [
-        "Narrative design with no protocol, search dates or selection and quality assessment",
-        "Table 2 prognostic overview is explicitly not based on a systematic review",
-        "Many pooled MRI estimates have wide CIs and high heterogeneity",
-        "Mostly high-income evidence and general-population samples, not athletes",
-        "Published 2018, so later evidence is not included",
-        "No treatment evidence in this paper"
+        "No protocol, search dates or quality assessment",
+        "Prognostic table not systematic",
+        "Wide CIs and high heterogeneity for MRI estimates",
+        "Mostly high-income, general-population samples",
+        "Published 2018; later evidence missing",
+        "No treatment evidence"
       ],
-      "funding_conflicts": "Not reported in the main text; the paper refers to an appendix for author declarations which was not in the PDF supplied, so I could not read it.",
+      "funding_conflicts": "Not in the main text; declarations are in an appendix that wasn't in the PDF.",
       "verification": {
         "status": "disagreements",
         "checked_by": "independent second pass (full text)",
@@ -240,86 +307,94 @@
             "item": "GRADE certainty",
             "first": "moderate",
             "second": "very low",
-            "why": "Observational/descriptive evidence starts low under APPRAISAL.md; the first pass's own rows give 2 serious concerns.",
-            "resolved": "Agreed: very low. Source evidence is observational and unsystematically selected; with serious risk of bias, inconsistency and imprecision, it sits at the floor. Moderate was a rule error."
+            "why": "Observational evidence starts low; three serious concerns.",
+            "resolved": "Agreed: very low. Moderate was a rule error."
           },
           {
             "item": "GRADE inconsistency",
             "first": "not serious",
             "second": "serious",
-            "why": "High heterogeneity for 7 of 11 MRI findings in Table 1, and conflicting fear-avoidance reviews in Table 2.",
-            "resolved": "Agreed: serious. The first reason itself conceded high heterogeneity."
+            "why": "High MRI heterogeneity; conflicting fear-avoidance reviews.",
+            "resolved": "Agreed: serious."
           },
           {
             "item": "GRADE publication bias",
             "first": "not serious",
-            "second": "not assessed; shouldn't read as reassurance",
-            "why": "The paper never assesses it, and the first reason said it couldn't be judged.",
-            "resolved": "Partly agreed. The schema has no 'not assessed' option, so it stays 'not serious' (no downgrade), with the reason rewritten to say 'unknown, not reassurance'. It doesn't affect certainty, which is already very low."
+            "second": "not assessed",
+            "why": "The paper never assesses it.",
+            "resolved": "Kept 'not serious' (no option for not assessed); reason says unknown."
           },
           {
-            "item": "Domain: inconsistency with the literature is justified",
+            "item": "RoB: handling inconsistency",
             "first": "unclear",
             "second": "some concerns",
-            "why": "The paper isn't silent here. It shows conflicting evidence but doesn't reconcile it.",
-            "resolved": "Agreed: some concerns. Overall risk of bias is unchanged at some concerns."
+            "why": "Conflict is shown but not reconciled.",
+            "resolved": "Agreed: some concerns. Overall RoB unchanged."
           },
           {
-            "item": "Results: global burden units",
-            "first": "60.1 million YLD",
-            "second": "Traceable, but the paper labels the same figure as DALYs elsewhere",
-            "why": "Key messages p.2356 and Figure 3 use DALYs; the body text p.2360 uses YLD.",
-            "resolved": "Agreed: kept YLD and added a note on the inconsistency."
+            "item": "Global burden units",
+            "first": "YLD",
+            "second": "YLD and DALY both used",
+            "why": "Key messages and Figure 3 say DALYs.",
+            "resolved": "Kept YLD; note added to the result."
           },
           {
-            "item": "Results: MRI CIs crossing 1",
-            "first": "Only fissure and HIZ listed",
-            "second": "Incomplete",
-            "why": "Any Modic change, spondylolisthesis and canal stenosis also cross 1 in Table 1.",
-            "resolved": "Agreed: all three added."
+            "item": "MRI CIs crossing 1",
+            "first": "fissure, HIZ only",
+            "second": "incomplete",
+            "why": "Modic, spondylolisthesis and stenosis also cross 1.",
+            "resolved": "Agreed: all added."
           },
           {
             "item": "Fear-avoidance null result",
-            "first": "No consistent link",
-            "second": "Overstated",
-            "why": "The 21-study review found no link with pain or activity limitation, but did find links with work outcomes.",
-            "resolved": "Agreed: labels narrowed to pain and activity outcomes, and the work-outcome association added."
+            "first": "no consistent link",
+            "second": "overstated",
+            "why": "Null for pain and activity, not work outcomes.",
+            "resolved": "Agreed: narrowed; work link added."
           },
           {
-            "item": "Multivariable prediction attribution",
-            "first": "Predictors attributed to the 50-study review",
-            "second": "Misattributed",
-            "why": "The predictors come from validated models in the appendix; the 50-study review is cited only for 43% variance explained in development samples.",
-            "resolved": "Agreed: attribution corrected and the development-sample optimism noted."
+            "item": "Prediction model attribution",
+            "first": "50-study review",
+            "second": "misattributed",
+            "why": "Predictors come from appendix models.",
+            "resolved": "Agreed: corrected; optimism noted."
           },
           {
-            "item": "Clinical significance: size of LR shift",
+            "item": "Size of LR shift",
             "first": "moderate",
             "second": "small",
-            "why": "Positive LRs of 2 to 5 are conventionally small shifts, and the fear-avoidance evidence conflicts.",
-            "resolved": "Agreed: changed to small, and dropped 'best single factor'."
+            "why": "LRs of 2 to 5 are small shifts.",
+            "resolved": "Agreed: small."
           },
           {
-            "item": "key_numbers: 65% attribution",
-            "first": "33 cohorts, 11,166 people",
-            "second": "Partly misattributed",
-            "why": "The 33-cohort review supports 6/100; the 67% and 65% are cited to two reviews jointly.",
-            "resolved": "Agreed: label corrected. The derived 35% pain-free is now labelled as derived."
+            "item": "65% attribution",
+            "first": "33-cohort review",
+            "second": "two reviews jointly",
+            "why": "33-cohort review supports 6/100 only.",
+            "resolved": "Agreed: label fixed; 35% marked derived."
           }
         ],
         "external": [],
-        "external_searched": "PEDro (search.pedro.org.au, title search 2026-11-04): no records. Not expected, because PEDro indexes trials, systematic reviews and guidelines, not narrative reviews. Web search for Cochrane or other systematic reviews rating this paper's quality (AMSTAR, risk of bias): none found. Cochrane doesn't appraise narrative reviews. PubMed/Europe PMC classes it as 'review; journal article'."
+        "external_searched": "PEDro title search 2026-11-04: none (doesn't index narrative reviews). No Cochrane or AMSTAR rating found."
       }
     },
-    "patient_explanation": "Most back pain settles over a few weeks, but it often hangs around at a low level or comes back, and that's common. Scan findings like wear or bulges show up in lots of people with no pain, so we focus on getting you moving and confident rather than chasing one cause.",
+    "patient_explanation": "Most back pain settles over a few weeks, but it often hangs around at a low level or comes back, and that's common. Scan findings show up in lots of people with no pain, so we focus on getting you moving and confident.",
     "open_questions": [
-      "Which short screening tool best captures fear avoidance and distress in active adults without over-medicalising them?",
-      "How do the natural-history figures differ in athletes and highly active adults?",
-      "Would a validated clinical rule ever justify a 'discogenic' label, given there is no accepted reference standard?",
-      "What is the relapse rate with and without a structured exercise or education programme after recovery?"
+      "Which short tool best screens fear and distress in active adults?",
+      "Do natural-history figures differ in athletes and highly active adults?",
+      "Could a validated rule ever justify a discogenic label?",
+      "Does a structured programme after recovery cut relapse?"
     ],
     "source_ids": [
       "src1"
+    ],
+    "format": 2,
+    "key_findings": [
+      "Leading cause of disability worldwide: 60.1M YLD in 2015, up 54% since 1990",
+      "Specific pain source can't be identified in nearly all cases",
+      "Most improve by 6 wk; 65% still have some pain at 12 mo; ~33% recur within a year",
+      "MRI findings are common without pain; imaging hasn't been shown to improve outcomes",
+      "Serious pathology 0.9% in Australian primary care; single red flags discriminate poorly"
     ]
   },
   "sources": [

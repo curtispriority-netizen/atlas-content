@@ -215,13 +215,33 @@
           ]
         },
         "evidence_note": {
-          "type": "string"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
         },
         "confidence": {
           "$ref": "#/$defs/confidence"
         },
         "confidence_note": {
-          "type": "string"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
         },
         "impact": {
           "enum": [
@@ -235,8 +255,18 @@
           "maxLength": 300
         },
         "summary": {
-          "type": "string",
-          "description": "4-6 sentences: what was done, what was found, what it means."
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ],
+          "description": "Format 2: 3-5 bullets. Older cards: 4-6 sentences."
         },
         "pico": {
           "type": "object",
@@ -264,7 +294,17 @@
           }
         },
         "limits": {
-          "type": "string"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
         },
         "read_level": {
           "enum": [
@@ -298,7 +338,17 @@
           ]
         },
         "bottom_line": {
-          "type": "string",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ],
           "description": "2-3 sentences a clinician can act on."
         },
         "methods": {
@@ -306,25 +356,95 @@
           "additionalProperties": false,
           "properties": {
             "design": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "setting": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "participants": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "intervention": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "comparator": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "follow_up": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "primary_outcome": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             }
           }
         },
@@ -345,15 +465,57 @@
                 "type": "string"
               },
               "result": {
-                "type": "string"
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                ]
               },
               "effect": {
                 "type": "string",
                 "description": "Effect size with 95% CI, e.g. MD -1.2 (95% CI -2.0 to -0.4)"
               },
               "meaning": {
-                "type": "string",
-                "description": "Clinical meaning, e.g. vs MCID"
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "detail": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "description": "Longer explanation and provenance, shown only on tap."
+              },
+              "verdict": {
+                "enum": [
+                  "meaningful",
+                  "below_mcid",
+                  "no_difference",
+                  "unclear",
+                  "descriptive"
+                ]
               }
             }
           }
@@ -366,10 +528,30 @@
           "description": "Concrete steps: dose, frequency, progression, what to say."
         },
         "applies_to": {
-          "type": "string"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
         },
         "not_for": {
-          "type": "string"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
         },
         "appraisal": {
           "type": "object",
@@ -396,7 +578,17 @@
               }
             },
             "funding_conflicts": {
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "appraised_from": {
               "enum": [
@@ -485,32 +677,95 @@
               }
             },
             "clinical_significance": {
-              "type": "string",
-              "description": "Effect vs MCID/SWC, NNT if derivable, and whether the CI crosses no-effect or the MCID."
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "comparator_fairness": {
-              "type": "string",
-              "description": "Was the control credible, dose-matched and attention-matched, or a straw man?"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "alternative_explanations": {
-              "type": "string",
-              "description": "Natural history, regression to the mean, placebo/contextual effects, co-interventions, attrition."
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "spin": {
-              "type": "string",
-              "description": "Do the abstract and conclusions match the primary outcome results?"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "fit_with_evidence": {
-              "type": "string",
-              "description": "How this sits against prior systematic reviews, guidelines and the existing playbook."
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "external_validity": {
-              "type": "string",
-              "description": "How close the sample, setting and intervention are to an Australian private sports-physio caseload."
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "would_change_my_mind": {
-              "type": "string",
-              "description": "What evidence would overturn or strengthen this conclusion."
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "verification": {
               "type": "object",
@@ -611,6 +866,22 @@
           "items": {
             "type": "string"
           }
+        },
+        "key_findings": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "items": {
+            "type": "string"
+          },
+          "description": "Format 2: the glance layer. See CARD_STYLE.md."
+        },
+        "format": {
+          "enum": [
+            1,
+            2
+          ],
+          "description": "2 = CARD_STYLE.md bullet structure (caps enforced by validate.py)."
         }
       }
     },

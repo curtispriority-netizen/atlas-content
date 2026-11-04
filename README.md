@@ -10,8 +10,9 @@ A weekly Claude scheduled task researches and writes one edition here. The Atlas
 - `editions/YYYY-Www.json`: one edition per week (0–3 studies, an optional measure of the week, on the radar, filtered out, sources).
 - `schema/edition.schema.json`: the rules every edition must follow.
 - `shown.json`: everything ever shown, so nothing repeats.
+- `CARD_STYLE.md`: how every card is written (format 2: bullets, word caps, layers). All tasks follow it; the validator enforces it.
 - `APPRAISAL.md`: how every study is critically appraised (design-matched risk-of-bias tool, GRADE, context). Both tasks follow it.
-- `scripts/validate.py`: checks every edition against the schema. The weekly task must run it and only commit if it passes.
+- `scripts/validate.py`: checks every edition and paper card against the schema and the CARD_STYLE.md caps. Every task must run it and only commit if it passes.
 
 ## Rules
 
