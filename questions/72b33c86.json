@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "question_id": "72b33c86",
+  "question": "isometrics for mid portion Achilles pain",
+  "searched_at": "2026-11-04T09:58:27Z",
+  "search_summary": "Searched PubMed/Europe PMC via web search, PEDro, BJSM and JOSPT guidelines, Cochrane: Achilles tendinopathy/tendinosis AND isometric/static hold/heavy isometric, plus loading guidelines. About 40 records screened.",
+  "pico": {
+    "p": "Adults with mid-portion Achilles tendinopathy, early stage",
+    "i": "Isometric calf loading (e.g. 5 x 45 s heavy holds)",
+    "c": "Isotonic, eccentric or HSR calf loading, or no exercise",
+    "o": "Pain (immediate and short term), VISA-A, return to activity"
+  },
+  "suggestions": [
+    {
+      "key": "10.2519/jospt.2024.0302",
+      "title": "Achilles Pain, Stiffness, and Muscle Power Deficits: Midportion Achilles Tendinopathy Revision – 2024",
+      "citation": "Chimenti RL, Neville C, Houck J, Cuddeford T, Carreira D, Martin RL. Achilles Pain, Stiffness, and Muscle Power Deficits: Midportion Achilles Tendinopathy Revision – 2024. J Orthop Sports Phys Ther 2024.",
+      "doi": "10.2519/jospt.2024.0302",
+      "pmid": "",
+      "year": "2024",
+      "design": "Guideline",
+      "priority": "core",
+      "open_access": true,
+      "why": "Current US physio guideline for mid-portion Achilles; states where isometrics sit in loading recommendations."
+    },
+    {
+      "key": "34187784",
+      "title": "Dutch multidisciplinary guideline on Achilles tendinopathy",
+      "citation": "de Vos RJ, van der Vlist AC, Zwerver J, Meuffels DE, Smithuis F, van Ingen R, et al. Dutch multidisciplinary guideline on Achilles tendinopathy. Br J Sports Med 2021;55(20):1125-34.",
+      "doi": "",
+      "pmid": "34187784",
+      "year": "2021",
+      "design": "Guideline",
+      "priority": "core",
+      "open_access": true,
+      "why": "Pain- and fatigue-guided progression of calf loading for 12+ weeks; doesn't single out isometrics."
+    },
+    {
+      "key": "10.1136/bmjsem-2020-000760",
+      "title": "Effectiveness of isometric exercise in the management of tendinopathy: a systematic review and meta-analysis of randomised trials",
+      "citation": "Clifford C, Challoumas D, Paul L, Syme G, Millar NL. Effectiveness of isometric exercise in the management of tendinopathy: a systematic review and meta-analysis of randomised trials. BMJ Open Sport Exerc Med 2020;6(1):e000760.",
+      "doi": "10.1136/bmjsem-2020-000760",
+      "pmid": "",
+      "year": "2020",
+      "design": "Systematic review",
+      "priority": "core",
+      "open_access": true,
+      "why": "Only review dedicated to isometrics across tendinopathies; 10 RCTs, isometrics not superior to isotonic."
+    },
+    {
+      "key": "10.1111/sms.13728",
+      "title": "Isometric exercises do not provide immediate pain relief in Achilles tendinopathy: a quasi-randomized clinical trial",
+      "citation": "van der Vlist AC, van Veldhoven PLJ, van Oosterom RF, Verhaar JAN, de Vos RJ. Isometric exercises do not provide immediate pain relief in Achilles tendinopathy: a quasi-randomized clinical trial. Scand J Med Sci Sports 2020;30(9):1712-21.",
+      "doi": "10.1111/sms.13728",
+      "pmid": "32474979",
+      "year": "2020",
+      "design": "Other",
+      "priority": "core",
+      "open_access": true,
+      "why": "Only controlled Achilles test of isometric vs isotonic for immediate pain; complements O'Neill 2019 in your library."
+    },
+    {
+      "key": "10.1177/1941738119893996",
+      "title": "Eccentric and isometric exercises in Achilles tendinopathy evaluated by the VISA-A score and shear wave elastography",
+      "citation": "Gatz M, Betsch M, Dirrichs T, Schrading S, Tingart M, Michalik R, Quack V. Eccentric and isometric exercises in Achilles tendinopathy evaluated by the VISA-A score and shear wave elastography. Sports Health 2020;12(4):373-81.",
+      "doi": "10.1177/1941738119893996",
+      "pmid": "32003647",
+      "year": "2020",
+      "design": "RCT",
+      "priority": "useful",
+      "open_access": false,
+      "why": "Only Achilles RCT with an isometric arm over weeks; isometrics added to eccentrics, PEDro 5/10."
+    },
+    {
+      "key": "10.1136/bjsports-2019-101872",
+      "title": "Which treatment is most effective for patients with Achilles tendinopathy? A living systematic review with network meta-analysis of 29 randomised controlled trials",
+      "citation": "van der Vlist AC, Winters M, Weir A, Ardern CL, Welton NJ, Caldwell DM, et al. Which treatment is most effective for patients with Achilles tendinopathy? A living systematic review with network meta-analysis of 29 randomised controlled trials. Br J Sports Med 2020.",
+      "doi": "10.1136/bjsports-2019-101872",
+      "pmid": "",
+      "year": "2020",
+      "design": "Meta-analysis",
+      "priority": "useful",
+      "open_access": true,
+      "why": "Network meta-analysis: no active treatment clearly best; supports starting with any calf loading programme."
+    },
+    {
+      "key": "10.1177/0363546515584760",
+      "title": "Heavy slow resistance versus eccentric training as treatment for Achilles tendinopathy: a randomized controlled trial",
+      "citation": "Beyer R, Kongsgaard M, Hougs Kjaer B, Ohlenschlaeger T, Kjaer M, Magnusson SP. Heavy slow resistance versus eccentric training as treatment for Achilles tendinopathy: a randomized controlled trial. Am J Sports Med 2015;43(7):1704-11.",
+      "doi": "10.1177/0363546515584760",
+      "pmid": "26018970",
+      "year": "2015",
+      "design": "RCT",
+      "priority": "useful",
+      "open_access": false,
+      "why": "Mid-stage alternative: HSR vs eccentrics with 52-week follow-up; the dosing template many use after isometrics."
+    },
+    {
+      "key": "continued sports activity, using a pain-monitoring model, during rehabilitation in patients with achilles tendinopathy: a randomized controlled study",
+      "title": "Continued sports activity, using a pain-monitoring model, during rehabilitation in patients with Achilles tendinopathy: a randomized controlled study",
+      "citation": "Silbernagel KG, Thomeé R, Eriksson BI, Karlsson J. Continued sports activity, using a pain-monitoring model, during rehabilitation in patients with Achilles tendinopathy: a randomized controlled study. Am J Sports Med 2007;35(6):897-906.",
+      "doi": "",
+      "pmid": "",
+      "year": "2007",
+      "design": "RCT",
+      "priority": "useful",
+      "open_access": false,
+      "why": "Source of the pain-monitoring model for early-stage load and activity decisions; PEDro 8/10."
+    },
+    {
+      "key": "10.1136/bjsports-2014-094386",
+      "title": "Isometric exercise induces analgesia and reduces inhibition in patellar tendinopathy",
+      "citation": "Rio E, Kidgell D, Purdam C, Gaida J, Moseley GL, Pearce AJ, Cook J. Isometric exercise induces analgesia and reduces inhibition in patellar tendinopathy. Br J Sports Med 2015;49(19):1277-83.",
+      "doi": "10.1136/bjsports-2014-094386",
+      "pmid": "",
+      "year": "2015",
+      "design": "RCT",
+      "priority": "background",
+      "open_access": false,
+      "why": "Origin of the isometric-analgesia claim: 6 volleyballers, patellar tendon; Achilles studies haven't reproduced it."
+    }
+  ],
+  "gaps": [
+    "No RCT tests isometrics as an early-stage loading programme over weeks in mid-portion Achilles.",
+    "Immediate-analgesia data in Achilles come from small uncontrolled or quasi-randomised studies.",
+    "Trials recruit chronic cases (over 3 months); early, reactive or highly irritable presentations are barely studied.",
+    "No Achilles isometric data in in-season athletes or high-load sports."
+  ],
+  "answer": {
+    "answer": "Don't rely on calf isometrics for pain relief in early mid-portion Achilles: the one checked direct study found no immediate drop. Use them, if at all, as tolerable starting load, then progress. Evidence is very thin.",
+    "certainty": "very low",
+    "provisional": true,
+    "actions": [
+      "Don't promise immediate pain relief from calf isometrics.",
+      "If a reactive tendon tolerates nothing else, start 5 x 45 s holds daily at tolerable load.",
+      "Judge loading on next-morning pain and stiffness, not on an immediate hop retest.",
+      "Keep pain during loading at or below 4/10, settled within 24 hours.",
+      "Progress to isotonic heel raises, then heavy calf loading, as pain allows.",
+      "Don't add isometrics to an eccentric programme expecting extra VISA-A gains."
+    ],
+    "comparison": [
+      {
+        "item_id": "mine-dc9b9f38",
+        "title": "Heavy 45-s calf isometrics: no immediate pain relief",
+        "design": "Single-group pre–post",
+        "n": "16",
+        "finding": "Functional pain 4.2 to 4.9/10 after 5 x 45 s holds; CI excludes a 2-point drop",
+        "verdict": "no_difference",
+        "risk_of_bias": "high",
+        "certainty": "very low"
+      },
+      {
+        "item_id": "mine-8b0dc04b",
+        "title": "Load progression criteria in lower limb tendinopathy",
+        "design": "Systematic review",
+        "n": "30 RCTs",
+        "finding": "One Achilles isometric trial: adding isometrics to eccentrics, VISA-A change 23% vs 20%",
+        "verdict": "no_difference",
+        "risk_of_bias": "high",
+        "certainty": "very low"
+      },
+      {
+        "item_id": "mine-a1962202",
+        "title": "Criteria-gated Achilles rehab protocol",
+        "design": "RCT protocol",
+        "n": "60 planned",
+        "finding": "Isometrics as entry rung (5 x 45 s daily if calf-raise pain >5/10); no results yet",
+        "verdict": "descriptive",
+        "risk_of_bias": "high",
+        "certainty": "very low"
+      },
+      {
+        "item_id": "mine-c23cd768",
+        "title": "Protocol: eccentrics versus controls review",
+        "design": "SR protocol",
+        "n": "0",
+        "finding": "No data; isometrics only an eligible comparator",
+        "verdict": "descriptive",
+        "risk_of_bias": "not assessable",
+        "certainty": "not applicable"
+      },
+      {
+        "item_id": "mine-8f8182f2",
+        "title": "Pole vaulter insertional Achilles case (conference abstract)",
+        "design": "Case report",
+        "n": "1",
+        "finding": "Isometrics in weeks 1–2, undosed, within a package; VISA-A +20 at 4 months",
+        "verdict": "descriptive",
+        "risk_of_bias": "high",
+        "certainty": "very low"
+      },
+      {
+        "item_id": "mine-83f68a53",
+        "title": "Calcific patellar tendinopathy case",
+        "design": "Case report",
+        "n": "1",
+        "finding": "Isometrics in weeks 1–2 within a four-part package; indirect to Achilles",
+        "verdict": "descriptive",
+        "risk_of_bias": "some concerns",
+        "certainty": "very low"
+      }
+    ],
+    "agreement": [
+      "Neither direct Achilles study shows isometrics add pain relief or function over other loading.",
+      "Protocols and cases place isometrics only as a short entry stage before isotonic loading."
+    ],
+    "conflicts": [
+      "Rio's patellar analgesia result isn't reproduced in the Achilles: older, chronic runners and a different tendon.",
+      "No checked study tests isometrics over weeks as the early-stage programme itself."
+    ],
+    "based_on": [
+      "mine-dc9b9f38",
+      "mine-8b0dc04b",
+      "mine-a1962202",
+      "mine-c23cd768",
+      "mine-8f8182f2",
+      "mine-83f68a53"
+    ],
+    "updated_at": "2026-11-04T09:58:27Z"
+  }
+}
