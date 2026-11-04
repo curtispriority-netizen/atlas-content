@@ -192,6 +192,48 @@ if pidx_path.exists():
         else:
             problems.extend(check_card(f"paper {entry['id']}", card))
 
+
+# ---- Question reading lists (questions/<id>.json, see QUESTIONS.md) ----
+DESIGNS = {"Guideline", "Meta-analysis", "Systematic review", "RCT", "Cohort", "Other"}
+for qpath in sorted((ROOT / "questions").glob("*.json")) if (ROOT / "questions").exists() else []:
+    where = f"question {qpath.stem}"
+    try:
+        qd = json.loads(qpath.read_text())
+    except Exception as e:
+        problems.append(f"{where}: not valid JSON ({e})")
+        continue
+    for k in ("schema_version", "question_id", "question", "searched_at", "search_summary", "suggestions", "gaps"):
+        if k not in qd:
+            problems.append(f"{where}: {k} is required")
+    if qd.get("question_id") != qpath.stem:
+        problems.append(f"{where}: question_id must match the file name")
+    if words(qd.get("search_summary", "")) > 40:
+        problems.append(f"{where}: search_summary is over 40 words")
+    sugs = qd.get("suggestions", [])
+    if not 1 <= len(sugs) <= 12:
+        problems.append(f"{where}: {len(sugs)} suggestions (allowed 1-12)")
+    keys = set()
+    for i, sg in enumerate(sugs):
+        w = f"{where} suggestion {i + 1}"
+        for k in ("key", "title", "citation", "year", "priority", "why"):
+            if not sg.get(k):
+                problems.append(f"{w}: {k} is required")
+        if sg.get("priority") not in ("core", "useful", "background"):
+            problems.append(f"{w}: priority must be core, useful or background")
+        if sg.get("design") and sg["design"] not in DESIGNS:
+            problems.append(f"{w}: design must be one of {sorted(DESIGNS)}")
+        if words(sg.get("why", "")) > 20:
+            problems.append(f"{w}: why is over 20 words")
+        if sg.get("key") in keys:
+            problems.append(f"{w}: duplicate key {sg.get('key')}")
+        keys.add(sg.get("key"))
+    gaps = qd.get("gaps", [])
+    if len(gaps) > 4:
+        problems.append(f"{where}: more than 4 gaps")
+    for i, g in enumerate(gaps):
+        if words(g) > 20:
+            problems.append(f"{where}: gaps[{i}] is over 20 words")
+
 if index["editions"] and index["latest"] not in {e["id"] for e in index["editions"]}:
     problems.append("index.json: latest is not in editions")
 
