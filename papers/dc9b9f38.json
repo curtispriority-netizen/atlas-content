@@ -1,0 +1,374 @@
+{
+  "schema_version": 1,
+  "paper_id": "dc9b9f38",
+  "added_at": "2026-11-04T09:17:43.987493Z",
+  "study": {
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-dc9b9f38",
+    "region": "lower limb",
+    "condition": "Achilles tendinopathy",
+    "title": "Heavy 45-s calf isometrics gave no immediate pain relief in mid-portion Achilles tendinopathy",
+    "first_published": "2018-07",
+    "read_level": "full_text",
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read in full from the free full text (PMC6706360, CC BY 4.0), extracted section by section."
+    },
+    "key_findings": [
+      "Rio's patellar dose (5 × 45 s at 70% MVC, 2 min rest) applied to the Achilles",
+      "Hop/heel-raise pain didn't drop: 4.2 to 4.9/10 in those with pain",
+      "95% CI rules out a 2-point mean drop straight after the holds",
+      "Pressure pain threshold and eccentric or fast concentric torque unchanged",
+      "Slow concentric torque up 5.9 Nm, below the 12.7 Nm MDC"
+    ],
+    "summary": [
+      "Single-session pre–post study, 16 adults (mean 48.6 y) with chronic unilateral mid-portion Achilles tendinopathy",
+      "No control group, no blinding, registration not reported; only 9 were painful on functional testing",
+      "Directly tests the immediate-analgesia claim for isometrics in the Achilles, and doesn't support it",
+      "Authors don't recommend heavy 45-s holds for immediate relief as first-stage rehab",
+      "Says nothing about isometrics as a loading programme over weeks"
+    ],
+    "bottom_line": "Don't sell calf isometrics as instant pain relief for mid-portion Achilles pain. If you use them, use them as tolerable early loading, judged on 24-hour response, not on what the hop feels like immediately after.",
+    "key_numbers": [
+      {
+        "value": "4.2 → 4.9",
+        "label": "Functional pain NRS before vs after holds"
+      },
+      {
+        "value": "9 of 16",
+        "label": "Had pain on functional testing"
+      },
+      {
+        "value": "5 × 45 s",
+        "label": "At 70% MVC, 2 min rest"
+      },
+      {
+        "value": "48.6 y",
+        "label": "Mean age, vs 22.5 and 26.9 y in Rio"
+      }
+    ],
+    "methods": {
+      "design": [
+        "Exploratory single-group pre–post, one session",
+        "No comparator, randomisation or blinding",
+        "Registration not reported"
+      ],
+      "setting": [
+        "University lab; site and country not stated",
+        "Recruited through local running clubs"
+      ],
+      "participants": [
+        "16 adults (5 women), mean age 48.6 y",
+        "Unilateral mid-portion tendinopathy over 3 months, ultrasound-confirmed",
+        "Symptoms mean 46.5 mo (range 3.5–178)",
+        "VISA-A 61.3; no current or prior treatment"
+      ],
+      "intervention": [
+        "5 × 45 s isometric plantar flexion at 70% MVC",
+        "2 min rest between holds",
+        "Seated, hip and knee 90°, ankle 10° plantar flexed",
+        "Real-time force feedback on a Wii-board dynamometer"
+      ],
+      "comparator": "None (own baseline)",
+      "follow_up": "Retested immediately after the fifth hold; no later follow-up",
+      "primary_outcome": [
+        "Pain NRS 0–10 on first painful task",
+        "Tasks: bilateral heel raises, then single-leg raises, then single-leg hops",
+        "Also pressure pain threshold and isokinetic torque"
+      ]
+    },
+    "results": [
+      {
+        "outcome": "Functional task pain (NRS)",
+        "timepoint": "Immediately after 5 holds",
+        "result": "4.2 to 4.9/10; no drop",
+        "effect": "Pre minus post −0.7 (95% CI −1.82 to 0.49)",
+        "meaning": "Excludes a 2-point drop (Farrar 2001 MCID)",
+        "verdict": "no_difference",
+        "detail": "Pain analysis appears to use the 9 symptomatic participants (n not labelled in Table 3). Narrative: those under 4/10 fell about 1 point, higher scorers seemed worse. MCID borrowed from chronic pain research (Farrar 2001), cited by the authors."
+      },
+      {
+        "outcome": "Pressure pain threshold",
+        "timepoint": "Immediately after",
+        "result": "446.5 to 411.8 g/mm²; not significant",
+        "effect": "Table: 34.8 (95% CI −49.2 to 118.8)",
+        "meaning": "No local hypoalgesia; no MCID available",
+        "verdict": "no_difference",
+        "detail": "Results text gives a different figure, −32.4 (−46.3 to 111.0), conflicting with the table. Measured with an electronic von Frey device at the most tender point, mean of 3 readings."
+      },
+      {
+        "outcome": "Concentric torque 90°/s",
+        "timepoint": "Immediately after",
+        "result": "47.1 to 53.0 Nm, p = 0.039",
+        "effect": "Pre minus post −5.9 Nm (95% CI −11.4 to 0.33)",
+        "meaning": "CI excludes the 12.7 Nm MDC; within measurement error",
+        "verdict": "no_difference",
+        "detail": "The printed CI crosses zero yet p = 0.039, an internal inconsistency. 2 of 16 exceeded the MDC on visual inspection. MDC from Al-Uzri, cited by the authors."
+      },
+      {
+        "outcome": "Other torque measures",
+        "timepoint": "Immediately after",
+        "result": "Concentric 225°/s and eccentric 90°/s unchanged",
+        "effect": "225°/s 0.2 (−4.8 to 5.3); eccentric −7.5 (−24.1 to 9.1)",
+        "meaning": "No acute motor gain",
+        "verdict": "no_difference",
+        "detail": "Eccentric 98.5 to 106.0 Nm; concentric 225°/s 33.6 to 33.4 Nm. Effect sizes not reported for any outcome."
+      }
+    ],
+    "pico": {
+      "p": "16 adults (mean 48.6 y) with chronic unilateral mid-portion Achilles tendinopathy, recruited from running clubs",
+      "i": "One session of 5 × 45 s isometric plantar flexion at 70% MVC, 2 min rest",
+      "c": "None; own pre-session values",
+      "o": "Immediate pain on heel raise/hop, pressure pain threshold, isokinetic plantar flexor torque"
+    },
+    "limits": [
+      "No control group: can't separate effect from retesting or expectation",
+      "Only 9 of 16 had pain on testing",
+      "Immediate retest only; no 24-hour or multi-week data",
+      "Pressure pain figures conflict between table and text",
+      "One dose and position tested; others might differ"
+    ],
+    "how_to_apply": [
+      "Don't promise immediate pain relief from calf isometrics.",
+      "Don't use an immediate hop or heel-raise retest to judge isometrics.",
+      "If isometrics suit an irritable early patient, frame them as tolerable loading.",
+      "Judge loading by next-morning pain and stiffness, not in-session change.",
+      "Keep progressing towards isotonic calf loading as tolerated."
+    ],
+    "applies_to": [
+      "Chronic mid-portion Achilles tendinopathy in recreational runners",
+      "Middle-aged adults with moderate VISA-A deficit",
+      "Choosing what to tell patients about isometrics"
+    ],
+    "not_for": [
+      "Insertional Achilles tendinopathy",
+      "Isometrics as a multi-week programme",
+      "Patellar tendinopathy or young jumping athletes",
+      "Other isometric doses, angles or loads"
+    ],
+    "appraisal": {
+      "appraised_from": "full_text",
+      "tool": "JBI checklist for quasi-experimental studies",
+      "domains": [
+        {
+          "domain": "Clear cause and effect (temporal order)",
+          "judgement": "low",
+          "reason": "Outcomes measured before and immediately after the holds in one session.",
+          "support": "Methods: baseline tests, intervention, then same tests repeated immediately"
+        },
+        {
+          "domain": "Control group",
+          "judgement": "high",
+          "reason": "No comparator, so retest, warm-up and expectation effects can't be separated from the holds.",
+          "support": "Methods and limitations: exploratory, no comparator"
+        },
+        {
+          "domain": "Multiple measurements before and after",
+          "judgement": "high",
+          "reason": "Single baseline and single post measure; no stable baseline or later follow-up.",
+          "support": "Methods: one pre and one post test"
+        },
+        {
+          "domain": "Similar treatment apart from intervention",
+          "judgement": "some concerns",
+          "reason": "Scripted instructions, but script praised isometrics and participants knew the hypothesis.",
+          "support": "Methods: script cites Australian knee-tendon success; not blinded"
+        },
+        {
+          "domain": "Follow-up complete and attrition described",
+          "judgement": "some concerns",
+          "reason": "All 16 analysed, but per-outcome n not given and pain analysed in 9.",
+          "support": "Results and Table 3: no imputation; n not labelled"
+        },
+        {
+          "domain": "Outcomes measured reliably and the same way",
+          "judgement": "some concerns",
+          "reason": "Same tests pre and post; assessor and blinding not reported; testing stopped at first painful task.",
+          "support": "Methods: assessor not named; Not reported for blinding"
+        },
+        {
+          "domain": "Appropriate statistical analysis",
+          "judgement": "some concerns",
+          "reason": "Paired t-tests suitable, but PPT figures conflict and a CI crossing zero has p = 0.039.",
+          "support": "Table 3 vs Results text; concentric 90°/s row"
+        }
+      ],
+      "overall_risk_of_bias": "high",
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "serious",
+          "reason": "Uncontrolled pre–post, unblinded, positive expectation script."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "not applicable",
+          "reason": "Single study."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "not serious",
+          "reason": "Same condition, dose and acute question; older runners than many sports caseloads."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "serious",
+          "reason": "Pain data from about 9 people; CI excludes a 2-point drop but far below optimal information size."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "not serious",
+          "reason": "Null result published; not formally assessable for one study."
+        }
+      ],
+      "certainty": "very low",
+      "clinical_significance": [
+        "Pain: CI upper limit of improvement 0.49 points, under the 2-point MCID (Farrar 2001, chronic pain)",
+        "So a meaningful average immediate drop is unlikely in this sample",
+        "Individual responders can't be ruled out with about 9 painful participants",
+        "Torque gain 5.9 Nm sits inside the 12.7 Nm MDC; no NNT derivable"
+      ],
+      "comparator_fairness": [
+        "No comparator at all",
+        "Expectation was primed in favour of isometrics, which should have helped them"
+      ],
+      "alternative_explanations": [
+        "Null pain result despite positive priming argues against a hidden placebo boost",
+        "Torque rise may be learning or warm-up from repeated testing",
+        "Testing stopped at first painful task, so floor and ceiling effects possible",
+        "Age and chronicity (mean ~4 y) may blunt any acute response"
+      ],
+      "spin": [
+        "Little: conclusions match the null primary outcome",
+        "'Cannot be recommended' is strong for about 9 with no control",
+        "Significant torque result correctly flagged as below MDC"
+      ],
+      "fit_with_evidence": [
+        "Contradicts Rio 2015 patellar crossover (pain 7 to 0/10)",
+        "Fits Clifford 2020 BMJ Open SEM review: isometrics not superior to isotonic, even immediately",
+        "Supports the Atlas line: load for adaptation, not for instant relief"
+      ],
+      "external_validity": [
+        "✓ Recreational runners with chronic mid-portion pain",
+        "✓ Same dose clinicians copied from Rio",
+        "✗ Older (48.6 y) than young jumping athletes",
+        "✗ Chronic (mean ~4 y), not early-stage or irritable"
+      ],
+      "would_change_my_mind": [
+        "A controlled crossover in Achilles showing a 2-point drop vs isotonic",
+        "Data in acute, highly irritable or younger athletes showing relief",
+        "Multi-week trial showing isometrics beat isotonic for early pain"
+      ],
+      "strengths": [
+        "Directly tests the Rio dose in the Achilles",
+        "Ultrasound-confirmed mid-portion diagnosis",
+        "Real-time force feedback kept 70% MVC",
+        "Uses MCID and MDC to interpret results"
+      ],
+      "weaknesses": [
+        "No control group or blinding",
+        "Pain outcome in only 9 people",
+        "Immediate retest only",
+        "Table–text conflict for pressure pain threshold",
+        "Torque CI and p-value inconsistent",
+        "Registration not reported"
+      ],
+      "funding_conflicts": "No funding. Authors declare no conflicts of interest.",
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "independent second pass (full text)",
+        "checked_at": "2026-11-04T09:54:50Z",
+        "disagreements": [
+          {
+            "item": "Registration status",
+            "first": "Not registered",
+            "second": "Registration not reported",
+            "why": "Paper silent on registration; only ethics approval stated.",
+            "resolved": "Agreed: changed to 'not reported' throughout."
+          },
+          {
+            "item": "Pain analysis n",
+            "first": "n = 9 stated as fact",
+            "second": "n not reported; 9 of 16 symptomatic",
+            "why": "Table 3 gives no n per row.",
+            "resolved": "Agreed: key number now '9 of 16 had pain'; n described as about 9."
+          },
+          {
+            "item": "Concentric 90°/s verdict",
+            "first": "below_mcid",
+            "second": "no_difference",
+            "why": "Printed CI includes zero and excludes the 12.7 Nm MDC.",
+            "resolved": "Agreed: no_difference; p/CI conflict kept in detail."
+          },
+          {
+            "item": "Rio participant ages",
+            "first": "early 20s",
+            "second": "22.5 and 26.9 y",
+            "why": "Discussion gives both group ages.",
+            "resolved": "Agreed: corrected."
+          },
+          {
+            "item": "Rio sample size",
+            "first": "n = 6",
+            "second": "not given in this paper",
+            "why": "Number came from outside the paper.",
+            "resolved": "Agreed: removed."
+          },
+          {
+            "item": "Style: setting and strengths",
+            "first": "ethics body, access route listed",
+            "second": "provenance in clinical fields",
+            "why": "CARD_STYLE provenance rule.",
+            "resolved": "Fixed: setting reworded, access bullet dropped, transfer bullet split."
+          }
+        ],
+        "external": [
+          {
+            "source": "PEDro",
+            "rating": "Not indexed",
+            "note": "Single-group pre-post study; PEDro indexes trials and reviews only.",
+            "url": "https://search.pedro.org.au/search-results?abstract_with_title=heavy+isometric+holds+plantar+flexors+Achilles",
+            "agrees": true
+          },
+          {
+            "source": "Clifford 2020 systematic review (BMJ Open SEM)",
+            "rating": "Not rated (RCTs only)",
+            "note": "Review conclusion, isometrics not superior to isotonic even immediately, matches this card.",
+            "url": "https://doaj.org/article/d325da3c588f4bed824e9ce334763bbb",
+            "agrees": true
+          }
+        ],
+        "external_searched": "PEDro title search: not indexed. Web search for Cochrane or other reviews rating it: none. Clifford 2020 review read as abstract (PMC captcha)."
+      }
+    },
+    "patient_explanation": "Holding a heavy calf contraction doesn't seem to switch Achilles pain off straight away. It can still be a gentle way to start loading the tendon. What matters is how the tendon feels the next morning and how it adapts over weeks.",
+    "open_questions": [
+      "Do isometrics relieve pain in acute, highly irritable Achilles presentations?",
+      "Does a lower load or longer hold behave differently?",
+      "Is next-day tendon response better after isometric or isotonic early loading?",
+      "Do younger athletes respond like Rio's patellar group?"
+    ],
+    "playbook_step": "treat",
+    "evidence_tag": "emerging",
+    "evidence_note": "Small uncontrolled study; with Clifford 2020 it undercuts the immediate-analgesia rationale for isometrics.",
+    "confidence": "likely",
+    "confidence_note": "Full text read via structured extraction, not verbatim; numbers cross-checked across 4 passes. Pain n inferred as 9.",
+    "impact": "changes_what_i_say",
+    "impact_line": "Stop promising instant relief from calf isometrics; use them as tolerable early loading, judged by next-day response.",
+    "source_ids": [
+      "src1"
+    ]
+  },
+  "sources": [
+    {
+      "id": "src1",
+      "citation": "O'Neill S, Radia J, Bird K, Rathleff MS, Bandholm T, Jorgensen M, et al. Acute sensory and motor response to 45-s heavy isometric holds for the plantar flexors in patients with Achilles tendinopathy. Knee Surg Sports Traumatol Arthrosc 2019;27:2765-73.",
+      "doi": "10.1007/s00167-018-5050-z",
+      "pmid": "29974171",
+      "url": "https://doi.org/10.1007/s00167-018-5050-z",
+      "verified": true
+    }
+  ]
+}

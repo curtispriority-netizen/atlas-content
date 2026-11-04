@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "paper_id": "8f8182f2",
+  "added_at": "2026-11-04T09:17:43.981128Z",
+  "study": {
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-8f8182f2",
+    "region": "lower limb",
+    "condition": "Achilles tendinopathy",
+    "title": "One elite vaulter's insertional Achilles case: isometrics mentioned, never dosed or tested",
+    "first_published": "2021-12",
+    "read_level": "full_text",
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Whole collection read from the free PMC full text (PMC8700006); fetch tool paraphrased, so wording is mine. Each abstract is all there is."
+    },
+    "key_findings": [
+      "Collection doesn't answer the isometrics question: no abstract tests isometrics for mid-portion Achilles pain",
+      "Closest: single case, elite pole vaulter, insertional (not mid-portion) Achilles tendinopathy",
+      "Isometrics plus heel lift used for 2 weeks only; dose not reported",
+      "VISA-A up 20 points over 4 months with fenestration plus progressive loading",
+      "One patient, three treatments at once: can't credit isometrics with anything"
+    ],
+    "summary": [
+      "22 conference abstracts from the first IJSPT research forum at OSET, Las Vegas, December 2021",
+      "Card covers abstract 5: Dewald M, tendon fenestration in a professional pole vaulter with insertional Achilles tendinopathy",
+      "Fenestration dry needling twice, isometrics and heel lift for 2 weeks, then weekly-progressed loading for 4 months",
+      "Pain-free running and jumping by 4 months; tendon thinner and stiffer",
+      "Editors say the abstracts can't be judged for rigour and results are preliminary"
+    ],
+    "bottom_line": "Nothing here changes how you use isometrics for early mid-portion Achilles pain. The one relevant case is insertional, elite, uncontrolled and undosed. Keep following the Atlas loading playbook.",
+    "key_numbers": [
+      {
+        "value": "+20",
+        "label": "VISA-A points over 4 months"
+      },
+      {
+        "value": "57%",
+        "label": "Baseline VISA-A"
+      },
+      {
+        "value": "8.0→6.1 mm",
+        "label": "Tendon thickness on ultrasound"
+      },
+      {
+        "value": "n=1",
+        "label": "Single case, no control"
+      }
+    ],
+    "methods": {
+      "design": [
+        "Case study (conference abstract 5 of 22)",
+        "No registration; none expected for a case report"
+      ],
+      "setting": "Not reported; author is at the University of South Dakota, USA",
+      "participants": [
+        "28-year-old female professional pole vaulter",
+        "2-year left insertional Achilles tendinopathy limiting competition"
+      ],
+      "intervention": [
+        "Tendon fenestration dry needling, sessions 1–2: 10 parallel passes toward the insertion from ~2 cm proximal",
+        "Isometrics plus heel lift for the first 2 weeks; dose not reported",
+        "Then loading progressed weekly for 4 months: Silbernagel protocol, then Baxter loading index",
+        "Plus lower-limb strengthening and plyometrics; sets, reps, frequency not reported"
+      ],
+      "comparator": "None",
+      "follow_up": "4 months",
+      "primary_outcome": "VISA-A; also ultrasound thickness and MyotonPro stiffness"
+    },
+    "results": [
+      {
+        "outcome": "VISA-A",
+        "timepoint": "4 months",
+        "result": "Up 20 points from 57%",
+        "meaning": "Beyond stated 6.5-point MCID, but uncontrolled",
+        "verdict": "descriptive",
+        "detail": "Final score not given. Abstract states MCID 6.5 points without citing a source. Single case, so no effect estimate or CI."
+      },
+      {
+        "outcome": "Tendon thickness",
+        "timepoint": "4 months",
+        "result": "8.0 to 6.1 mm (−24%); other side 6.0 mm",
+        "meaning": "Back near the unaffected side",
+        "verdict": "descriptive",
+        "detail": "Ultrasound. Baseline showed no break in fibrillar structure. Assessor and blinding not reported."
+      },
+      {
+        "outcome": "Tendon stiffness",
+        "timepoint": "4 months",
+        "result": "733 to 852 N/m; other side 822 N/m",
+        "meaning": "Surface myotonometry, not tendon mechanics proper",
+        "verdict": "descriptive",
+        "detail": "MyotonPro, mean of 3 readings. Abstract reports a 120 N/m rise; the figures give 119. Stiffness vs VISA-A r=0.75 and vs thickness r=−0.89; number of paired measures not stated."
+      },
+      {
+        "outcome": "Return to sport",
+        "timepoint": "4 months",
+        "result": "Pain-free running and jumping",
+        "verdict": "descriptive",
+        "detail": "Competition return implied by the authors but no competition data given."
+      }
+    ],
+    "pico": {
+      "p": "One 28-year-old elite female pole vaulter with 2-year insertional Achilles tendinopathy",
+      "i": "Tendon fenestration dry needling, 2 weeks of isometrics and heel lift, then progressive loading",
+      "c": "None",
+      "o": "VISA-A, ultrasound thickness, myotonometric stiffness, return to running and jumping at 4 months"
+    },
+    "limits": [
+      "Single uncontrolled case; three treatments given together",
+      "Insertional, not mid-portion, tendinopathy",
+      "Isometric dose, position and load not reported",
+      "Conference abstract only; no full peer-reviewed report"
+    ],
+    "how_to_apply": [
+      "Don't change your early isometric dosing on the strength of this abstract.",
+      "Keep using isometrics as a short, symptom-guided entry to loading, then progress.",
+      "Don't add fenestration dry needling for mid-portion pain based on one insertional case.",
+      "Track VISA-A at baseline and monthly.",
+      "Treat a VISA-A rise of 6.5 points or more as worth noting."
+    ],
+    "applies_to": [
+      "Chronic insertional Achilles tendinopathy in jumping athletes",
+      "Context only: isometrics as a brief entry phase before loading"
+    ],
+    "not_for": [
+      "Deciding isometric dose for mid-portion Achilles pain",
+      "Judging whether isometrics reduce pain",
+      "Justifying dry needling or fenestration"
+    ],
+    "appraisal": {
+      "appraised_from": "abstract",
+      "tool": "JBI critical appraisal checklist for case reports",
+      "domains": [
+        {
+          "domain": "Patient demographics clearly described",
+          "judgement": "low",
+          "reason": "Age, sex, sport, level and side are given.",
+          "support": "Case description: 28-year-old female professional pole vaulter, left side"
+        },
+        {
+          "domain": "History clearly described as a timeline",
+          "judgement": "some concerns",
+          "reason": "Two-year duration given, but prior treatment and training history not reported.",
+          "support": "Case description: 2-year history limiting competition; nothing on past care"
+        },
+        {
+          "domain": "Current clinical condition clearly described",
+          "judgement": "low",
+          "reason": "Pain on palpation, passive dorsiflexion and loaded plantarflexion, plus baseline VISA-A, thickness and stiffness.",
+          "support": "Case description: symptoms, VISA-A 57%, US 8.0 vs 6.0 mm, Myoton values"
+        },
+        {
+          "domain": "Assessment methods and results clearly described",
+          "judgement": "some concerns",
+          "reason": "Tests named (palpation, provocation, VISA-A, ultrasound, MyotonPro mean of 3), but assessor, blinding and reliability not reported.",
+          "support": "Abstract 5 case description: tests listed; assessor and blinding not reported"
+        },
+        {
+          "domain": "Intervention clearly described",
+          "judgement": "some concerns",
+          "reason": "Fenestration technique described; isometric and loading doses not reported.",
+          "support": "Interventions: 10 passes; isometrics 2 weeks; Silbernagel then Baxter, no doses"
+        },
+        {
+          "domain": "Post-intervention condition clearly described",
+          "judgement": "some concerns",
+          "reason": "Change scores given, but final VISA-A and competition outcome not reported.",
+          "support": "Outcomes: VISA-A +20 points, no end value"
+        },
+        {
+          "domain": "Adverse events identified",
+          "judgement": "unclear",
+          "reason": "Not reported in abstract.",
+          "support": "Not reported"
+        },
+        {
+          "domain": "Takeaway lessons provided",
+          "judgement": "some concerns",
+          "reason": "Lessons given, but credit to fenestration isn't separable from loading or natural history.",
+          "support": "Conclusion: fenestration a promising addition; adherence to loading credited"
+        }
+      ],
+      "overall_risk_of_bias": "high",
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "very serious",
+          "reason": "Single uncontrolled case, co-interventions, unblinded outcomes, abstract only."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "not applicable",
+          "reason": "One case."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "very serious",
+          "reason": "Insertional not mid-portion; elite athlete; isometrics never isolated or dosed."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "very serious",
+          "reason": "n=1; no CI possible; far below any optimal information size."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "serious",
+          "reason": "Successful cases are the ones written up as conference abstracts."
+        }
+      ],
+      "certainty": "very low",
+      "clinical_significance": [
+        "VISA-A +20 exceeds the abstract's stated 6.5-point MCID",
+        "The abstract gives no source for that MCID",
+        "Change in one person can't show the effect of any component",
+        "Nothing on isometrics' own effect on pain or function"
+      ],
+      "comparator_fairness": [
+        "No comparator",
+        "Can't separate needling, isometrics, heel lift, loading or time"
+      ],
+      "alternative_explanations": [
+        "Progressive loading alone could explain the change",
+        "Natural history and regression to the mean after a bad spell",
+        "Expectation effects from a novel needling procedure",
+        "Training modification during rehab not reported"
+      ],
+      "spin": [
+        "Concludes fenestration is promising from one case with co-interventions",
+        "Correlations from one person read as mechanism"
+      ],
+      "fit_with_evidence": [
+        "Loading as core treatment fits the Atlas Achilles playbook and current guidelines",
+        "Clifford 2020 review of RCTs: isometrics no better than isotonic loading for pain; this case adds nothing",
+        "Fenestration for Achilles lacks controlled trial support"
+      ],
+      "external_validity": [
+        "✓ Active adult athlete",
+        "✓ Loading progression familiar to Australian clinicians",
+        "✗ Insertional, not mid-portion",
+        "✗ Elite jumper; isometrics undosed"
+      ],
+      "would_change_my_mind": [
+        "A controlled trial isolating early isometrics in mid-portion Achilles pain",
+        "A full case series with isometric dose and pain response per session"
+      ],
+      "strengths": [
+        "Validated outcome (VISA-A) used",
+        "Objective tendon measures at baseline and 4 months",
+        "Named, reproducible loading frameworks",
+        "Fenestration technique described"
+      ],
+      "weaknesses": [
+        "Single case, no control",
+        "Several treatments at once",
+        "No isometric or loading doses",
+        "Final VISA-A not given",
+        "Adverse events not reported",
+        "Abstract only"
+      ],
+      "funding_conflicts": "None stated for the abstract. The forum was sponsored by ATI Physical Therapy and Hyperice; no link to this case stated.",
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "independent second pass (full text)",
+        "checked_at": "2026-11-04T09:54:50Z",
+        "disagreements": [
+          {
+            "item": "Setting",
+            "first": "University of South Dakota department",
+            "second": "not reported",
+            "why": "Only the author's affiliation is given.",
+            "resolved": "Agreed: setting 'not reported'."
+          },
+          {
+            "item": "JBI assessment methods",
+            "first": "unclear",
+            "second": "some concerns",
+            "why": "Tests named; assessor, blinding, reliability not reported.",
+            "resolved": "Agreed: some concerns. Overall RoB stays high."
+          },
+          {
+            "item": "Transfer: care setting",
+            "first": "private-style physio management",
+            "second": "setting not reported",
+            "why": "Abstract never describes the care setting.",
+            "resolved": "Agreed: removed."
+          },
+          {
+            "item": "Style: joined step, search logs",
+            "first": "several",
+            "second": "split step; move logs; name a source",
+            "why": "CARD_STYLE and APPRAISAL section 4.",
+            "resolved": "Fixed; Clifford 2020 review named."
+          }
+        ],
+        "external": [],
+        "external_searched": "site:pedro.org.au searches for the collection and the pole-vaulter case: none (abstracts not indexed). Web search for reviews citing the case: none."
+      }
+    },
+    "patient_explanation": "This was one athlete with pain where the tendon joins the heel. She got better over four months with needling and a gradually harder exercise plan. It doesn't tell us much about holding exercises for pain higher up the tendon.",
+    "open_questions": [
+      "Do early isometrics improve mid-portion Achilles pain more than isotonic loading?",
+      "What isometric dose, if any, gives useful short-term pain relief in early-stage patients?",
+      "Does fenestration add anything to loading in a controlled trial?",
+      "Was this case ever published in full?"
+    ],
+    "playbook_step": "treat",
+    "evidence_tag": "emerging",
+    "evidence_note": "Single conference-abstract case. Loading message matches the playbook; isometrics and needling claims untested here.",
+    "confidence": "likely",
+    "confidence_note": "Whole collection read on PMC via paraphrasing fetches. Other Achilles abstracts (stiffness in runners; Sever's case) lack isometrics. No full paper found.",
+    "impact": "know_dont_act",
+    "impact_line": "Collection has nothing to guide isometrics for mid-portion Achilles pain; one insertional case used them briefly, undosed.",
+    "source_ids": [
+      "src1"
+    ]
+  },
+  "sources": [
+    {
+      "id": "src1",
+      "citation": "Page P, et al. The Inaugural IJSPT and OSET Research Symposium: 2021 Abstracts. Int J Sports Phys Ther 2021;16(6):1595-1607. In: Dewald M. Treatment of a professional pole vaulter with insertional Achilles tendinopathy using tendon fenestration.",
+      "doi": "10.26603/001c.29925",
+      "pmid": "34992945",
+      "url": "https://doi.org/10.26603/001c.29925",
+      "verified": true
+    }
+  ]
+}

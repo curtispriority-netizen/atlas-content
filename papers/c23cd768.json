@@ -1,0 +1,325 @@
+{
+  "schema_version": 1,
+  "paper_id": "c23cd768",
+  "added_at": "2026-11-04T09:17:43.992980Z",
+  "study": {
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-c23cd768",
+    "region": "lower limb",
+    "condition": "Achilles tendinopathy",
+    "title": "Protocol only: planned review of Alfredson eccentrics versus controls, no results",
+    "first_published": "2018-04",
+    "playbook_step": "treat",
+    "evidence_tag": "emerging",
+    "evidence_note": "Protocol for a review; no data. Results appeared in Murphy 2019 (BJSM). Doesn't test isometrics.",
+    "confidence": "likely",
+    "confidence_note": "Full protocol read via publisher HTML as paraphrase. PROSPERO number differs within the text. 2019 results paper seen as abstract only.",
+    "impact": "know_dont_act",
+    "impact_line": "A plan, not a finding. Use the 2019 results paper for eccentric-versus-control effects, not this card.",
+    "key_findings": [
+      "Protocol only: no trials included, no effects, no certainty ratings",
+      "Plans to compare Alfredson eccentrics with wait-and-see, sham, passive physio and other exercise",
+      "Primary outcome VISA-A; pain-only VAS or NRS trials excluded",
+      "No VISA-A MCID is stated",
+      "Isometrics listed as an eligible loading type, but no isometric question is asked"
+    ],
+    "summary": [
+      "PROSPERO-registered protocol for a systematic review and meta-analysis of RCTs and quasi-RCTs",
+      "Adults with mid-portion Achilles tendinopathy over 3 months; insertional excluded",
+      "Search: PubMed and two CINAHL platforms to Dec 2017, plus registers and grey literature",
+      "RoB 2, random-effects mean differences, GRADE and five pre-set sensitivity analyses planned",
+      "Rationale: Alfredson is time-heavy, so an equal but easier protocol would matter"
+    ],
+    "bottom_line": "This paper holds no evidence on whether eccentrics, or isometrics, work. It sets the rules for the 2019 review. Judge that review on its own results.",
+    "key_numbers": [
+      {
+        "value": "0",
+        "label": "Trials analysed (protocol)"
+      },
+      {
+        "value": "4",
+        "label": "Planned comparator types"
+      },
+      {
+        "value": ">3 months",
+        "label": "Minimum symptom duration"
+      },
+      {
+        "value": "Dec 2017",
+        "label": "Planned search end date"
+      }
+    ],
+    "methods": {
+      "design": [
+        "Systematic review and meta-analysis protocol, PRISMA-P 2015",
+        "PROSPERO CRD42018084493"
+      ],
+      "setting": [
+        "Any setting; no language restriction"
+      ],
+      "participants": [
+        "Adults 18+, active or sedentary",
+        "Mid-portion Achilles tendinopathy over 3 months",
+        "Excludes insertional AT and other heel pain"
+      ],
+      "intervention": [
+        "Alfredson heavy eccentric calf training",
+        "No dose or operational definition given"
+      ],
+      "comparator": [
+        "Wait-and-see: no active or passive treatment",
+        "Sham: non-loading exercise, e.g. calf stretch, balance",
+        "Traditional physio: friction, manual therapy, ultrasound, tape",
+        "Other exercise: isometric, concentric, isotonic or other loading"
+      ],
+      "follow_up": "Final timepoint during the loading programme",
+      "primary_outcome": "VISA-A; no secondary outcomes listed"
+    },
+    "results": [
+      {
+        "outcome": "Any effect",
+        "timepoint": "Not applicable: protocol",
+        "result": "None reported; review not yet done",
+        "verdict": "descriptive",
+        "detail": "Murphy MC et al. Br J Sports Med 2019;53:1070-7 (PMID 30636702), 7 RCTs. From its PEDro abstract only: vs natural history MD 20.6 VISA-A (11.7 to 29.5; 1 trial); vs traditional physio 17.70 (3.75 to 31.66; 2 trials); vs other exercise -5.65 (-10.51 to -0.79; 3 trials). Authors say they can't be confident in these estimates."
+      }
+    ],
+    "pico": {
+      "p": "Adults with mid-portion Achilles tendinopathy over 3 months",
+      "i": "Alfredson heavy eccentric calf training",
+      "c": "Wait-and-see, sham exercise, passive physiotherapy, other exercise protocols",
+      "o": "VISA-A at final timepoint during loading"
+    },
+    "limits": [
+      "Protocol: no results, so nothing to apply clinically",
+      "Only PubMed and CINAHL as main databases; no Embase",
+      "Pools only the final timepoint, which varies between trials",
+      "Missing SDs to be borrowed from other trials",
+      "No MCID stated to judge clinical importance"
+    ],
+    "read_level": "full_text",
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read in full from the free full text (Springer/BMC HTML, paraphrased by fetch tool). PMC and PubMed pages blocked; record verified via Europe PMC."
+    },
+    "how_to_apply": [
+      "Don't change practice from this paper; it reports no data.",
+      "For eccentric-versus-control effects, read Murphy 2019 (BJSM) instead.",
+      "For isometrics in early-stage patients, look to isometric trials; this protocol doesn't address them."
+    ],
+    "applies_to": [
+      "Understanding how the Murphy 2019 review was designed",
+      "Checking that review against its pre-registered plan"
+    ],
+    "not_for": [
+      "Choosing a loading protocol",
+      "Deciding on isometrics for early or irritable mid-portion pain",
+      "Insertional Achilles tendinopathy"
+    ],
+    "appraisal": {
+      "appraised_from": "full_text",
+      "tool": "AMSTAR 2 (critical domains, applied to planned methods only)",
+      "domains": [
+        {
+          "domain": "Protocol registered before review",
+          "judgement": "some concerns",
+          "reason": "PROSPERO number given, written inconsistently; registration date relative to the planned search not stated.",
+          "support": "Abstract and Methods: CRD42018084493 vs CRD4201804493 in Methods text"
+        },
+        {
+          "domain": "Adequate literature search",
+          "judgement": "some concerns",
+          "reason": "Two main databases only, no Embase, but registers, grey literature, citation tracking, hand-searching and experts planned.",
+          "support": "Search strategy section: PubMed, CINAHL Ovid and EBSCO to 31 Dec 2017"
+        },
+        {
+          "domain": "Justified exclusions",
+          "judgement": "unclear",
+          "reason": "PRISMA flow planned; no commitment to list excluded full texts with reasons.",
+          "support": "Study selection section: flow diagram only; Not reported"
+        },
+        {
+          "domain": "Risk of bias assessed in included studies",
+          "judgement": "low",
+          "reason": "RoB 2, two independent reviewers, third arbitrates.",
+          "support": "Risk of bias section"
+        },
+        {
+          "domain": "Appropriate meta-analytic methods",
+          "judgement": "some concerns",
+          "reason": "Random-effects MD is fine, but final timepoints of differing length pooled and missing SDs borrowed from other trials.",
+          "support": "Data synthesis and missing data sections"
+        },
+        {
+          "domain": "RoB considered when interpreting results",
+          "judgement": "low",
+          "reason": "Pre-set sensitivity analysis removing high-RoB trials; GRADE planned.",
+          "support": "Sensitivity analysis list item 5; GRADE paragraph"
+        },
+        {
+          "domain": "Publication bias assessed",
+          "judgement": "some concerns",
+          "reason": "Funnel plot and Egger only if 10+ trials, which is unlikely in this field.",
+          "support": "Reporting bias section: threshold of 10 studies"
+        }
+      ],
+      "overall_risk_of_bias": "not assessable",
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "not applicable",
+          "reason": "Protocol: no included trials to rate."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "not applicable",
+          "reason": "No pooled estimate."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "not applicable",
+          "reason": "No evidence body yet; planned PICO is direct for mid-portion AT."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "not applicable",
+          "reason": "No effect or CI reported."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "not applicable",
+          "reason": "No studies to assess."
+        }
+      ],
+      "clinical_significance": [
+        "Protocol names no VISA-A MCID; 6.5 points (McCormack 2015) is a common benchmark",
+        "Completed 2019 review: gains vs natural history and passive physio look meaningful, from 1–2 small trials",
+        "Its eccentric vs other exercise difference is small and likely trivial"
+      ],
+      "comparator_fairness": [
+        "Wait-and-see and passive physio are weak comparators, likely to favour any loading",
+        "Sham defined as non-loading exercise, which keeps contact time comparable",
+        "Other-exercise comparison is the clinically useful one"
+      ],
+      "alternative_explanations": [
+        "Only planned wait-and-see arms can separate natural history",
+        "Pooling different final timepoints may mix short- and longer-term effects"
+      ],
+      "spin": [
+        "Neutral framing: a question, not a claim",
+        "Doesn't over-promise; no results to spin"
+      ],
+      "fit_with_evidence": [
+        "Murphy 2019 BJSM (abstract level): eccentrics beat natural history and passive physio",
+        "Same review: other exercise slightly better than eccentrics, difference likely trivial",
+        "Fits the playbook view that loading matters more than the exact protocol"
+      ],
+      "external_validity": [
+        "✓ Adults, active or sedentary, mid-portion AT over 3 months",
+        "✗ No results to transfer",
+        "✗ Excludes early-stage (under 3 months) presentations",
+        "✗ Isometrics only pooled within 'other exercise', if at all"
+      ],
+      "would_change_my_mind": [
+        "Deviations in the 2019 review from this plan would weaken that review",
+        "A full-text read of the 2019 review changing its abstract-level estimates"
+      ],
+      "strengths": [
+        "Pre-registered and published before results",
+        "Includes wait-and-see and sham comparators missing from earlier reviews",
+        "RoB 2, GRADE and pre-set sensitivity analyses planned",
+        "No language restriction; grey literature searched"
+      ],
+      "weaknesses": [
+        "No results",
+        "No Embase search",
+        "No dose definition of heavy eccentric training",
+        "No MCID for interpretation",
+        "Final timepoints pooled regardless of length",
+        "PROSPERO number inconsistent within text"
+      ],
+      "funding_conflicts": "No study funding stated; BMC waived the open-access fee. Lead author held an Australian Government RTP scholarship. Authors declare no competing interests.",
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "independent second pass (full text)",
+        "checked_at": "2026-11-04T09:54:50Z",
+        "disagreements": [
+          {
+            "item": "Protocol registered before review",
+            "first": "low",
+            "second": "some concerns",
+            "why": "Registration date vs planned search end not stated.",
+            "resolved": "Agreed: some concerns."
+          },
+          {
+            "item": "2019 review confidence wording",
+            "first": "low confidence",
+            "second": "very-low style wording",
+            "why": "Authors say they can't be confident in estimates.",
+            "resolved": "Agreed: authors' own wording used."
+          },
+          {
+            "item": "Spin: 'gold standard' claim",
+            "first": "calls eccentrics gold standard",
+            "second": "not in available text",
+            "why": "Couldn't be confirmed on re-check.",
+            "resolved": "Agreed: removed as unverified."
+          },
+          {
+            "item": "Setting: author nationality",
+            "first": "Australian university authors",
+            "second": "affiliations not reported in notes",
+            "why": "Only an Australian scholarship is noted.",
+            "resolved": "Agreed: removed."
+          },
+          {
+            "item": "Certainty field",
+            "first": "absent",
+            "second": "state 'not applicable'",
+            "why": "APPRAISAL section 3 wants certainty.",
+            "resolved": "Left absent: schema has no 'not applicable'; overall RoB 'not assessable' covers it."
+          },
+          {
+            "item": "Style: filler bullets",
+            "first": "filler rows present",
+            "second": "break no-filler rule",
+            "why": "CARD_STYLE section 2.",
+            "resolved": "Fixed; 2019 review marked abstract-level."
+          }
+        ],
+        "external": [
+          {
+            "source": "Križaj 2022 umbrella review (Appl Sci), AMSTAR 2",
+            "rating": "High confidence, for the completed 2019 review",
+            "note": "Rates Murphy 2019 BJSM, not this protocol; not comparable with our 'not assessable'.",
+            "url": "https://www.mdpi.com/2076-3417/12/23/12132",
+            "agrees": false
+          }
+        ],
+        "external_searched": "PEDro: 2019 review record 58133, no score; protocol not indexed. Umbrella reviews using AMSTAR 2: Križaj 2022. No Cochrane rating. PMC/PubMed unreachable."
+      }
+    },
+    "patient_explanation": "This paper is a plan for a study, not a result. It doesn't tell us which calf exercises work best for your Achilles; the later study it led to suggests most sensible loading programmes help.",
+    "open_questions": [
+      "Did any trial in the 2019 review use isometric loading?",
+      "Did the 2019 review follow this plan, e.g. timepoints and SD imputation?",
+      "How do isometrics compare with eccentrics in symptoms under 3 months?",
+      "What VISA-A MCID did the 2019 review use?"
+    ],
+    "source_ids": [
+      "src1"
+    ]
+  },
+  "sources": [
+    {
+      "id": "src1",
+      "citation": "Murphy M, Travers M, Gibson W. Is heavy eccentric calf training superior to wait-and-see, sham rehabilitation, traditional physiotherapy and other exercise interventions for pain and function in mid-portion Achilles tendinopathy? Syst Rev 2018;7:58.",
+      "doi": "10.1186/s13643-018-0725-6",
+      "pmid": "29653591",
+      "url": "https://doi.org/10.1186/s13643-018-0725-6",
+      "verified": true
+    }
+  ]
+}

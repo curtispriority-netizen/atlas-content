@@ -1,0 +1,359 @@
+{
+  "schema_version": 1,
+  "paper_id": "8b0dc04b",
+  "added_at": "2026-11-04T09:17:43.939333Z",
+  "study": {
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-8b0dc04b",
+    "region": "lower limb",
+    "condition": "Achilles tendinopathy",
+    "title": "Tendon loading: pain-guided progression dominates but isn't shown better than alternatives",
+    "first_published": "2020-11",
+    "playbook_step": "treat",
+    "evidence_tag": "practice_gap",
+    "evidence_note": "Systematic review of 30 RCTs (Achilles, patellar, gluteal). No trial isolates the progression rule; narrative synthesis only.",
+    "confidence": "likely",
+    "confidence_note": "PMC full text via extraction; appendices not read. Table 1 lists 31 trials vs 30 in text; poor-quality count 6 vs 4.",
+    "impact": "know_dont_act",
+    "impact_line": "Pain-monitored progression is convention, not proven superior. Keep it, but don't oversell it. Barely covers Achilles isometrics.",
+    "key_findings": [
+      "20 of 30 RCTs progressed load by tolerated pain, mostly Alfredson-style eccentrics",
+      "No trial compared the same programme with different progression rules",
+      "Achilles isometrics: one trial only; adding isometrics to eccentrics gave no extra benefit",
+      "Staged HSR vs pain-guided eccentrics (Beyer): larger change, not significant",
+      "Trial quality fair: PEDro mean 6.0, range 3 to 8"
+    ],
+    "summary": [
+      "Systematic review of 30 RCTs across Achilles, patellar and gluteal tendinopathy, most of them Achilles",
+      "Classifies progression rules: pain primary (evoke or avoid pain) or pain secondary (stages, fatigue, perception, fixed increase)",
+      "Pain-based rules seem inherited from early eccentric protocols rather than tested",
+      "Authors suggest individualised %RM loading may matter more than staging itself",
+      "Calls for head-to-head trials of progression criteria"
+    ],
+    "bottom_line": "No progression rule is proven better for Achilles tendinopathy. Pain-monitored loading is reasonable convention. This review offers nothing on isometrics for early-stage mid-portion Achilles pain; look to direct trials for that.",
+    "key_numbers": [
+      {
+        "value": "30",
+        "label": "RCTs included, mostly Achilles"
+      },
+      {
+        "value": "20/30",
+        "label": "Used a pain-evoking progression rule"
+      },
+      {
+        "value": "1",
+        "label": "Achilles trial with isometrics"
+      },
+      {
+        "value": "6.0",
+        "label": "Mean PEDro score"
+      }
+    ],
+    "methods": {
+      "design": [
+        "Systematic review of RCTs, narrative synthesis",
+        "PROSPERO CRD42018110997; protocol published"
+      ],
+      "setting": [
+        "PubMed, Embase, Scopus, PEDro to 24 Sep 2020",
+        "No language or date limits"
+      ],
+      "participants": [
+        "Adults 16+ with mid-portion Achilles, patellar or gluteal tendinopathy",
+        "30 RCTs; total participants not reported"
+      ],
+      "intervention": [
+        "Progressive exercise alone with a described load progression rule",
+        "Mostly eccentric; some HSR, concentric, isometric, isotonic"
+      ],
+      "comparator": [
+        "Another exercise programme, other treatments, or wait-and-see"
+      ],
+      "follow_up": "4 to 54 weeks across trials",
+      "primary_outcome": [
+        "Progression criteria used",
+        "Pain, function (VISA), performance"
+      ]
+    },
+    "results": [
+      {
+        "outcome": "Progression rule used",
+        "timepoint": "30 RCTs",
+        "result": "Evoke pain 20, stages 8, perception 4, avoid pain 3",
+        "verdict": "descriptive",
+        "detail": "Fatigue-based 1 (Horstmann), fixed 2.5% weekly increase 2 (Rio, van Ark). Some trials counted under two rules."
+      },
+      {
+        "outcome": "Isometric added to eccentric",
+        "timepoint": "12 weeks (Gatz, Achilles)",
+        "result": "VISA-A change 23% vs 20%, not significant",
+        "effect": "d 0.06; no CI reported",
+        "meaning": "No extra benefit; CI and MCID check unavailable",
+        "verdict": "no_difference",
+        "detail": "Table 2. Both arms progressed on avoid-pain and subjective perception rules. PEDro 5. Not an isometric-for-pain-relief protocol."
+      },
+      {
+        "outcome": "Staged HSR vs eccentric",
+        "timepoint": "52 weeks (Beyer, Achilles)",
+        "result": "VISA-A change 63% vs 47%, not significant",
+        "effect": "d 1.66; no CI reported",
+        "meaning": "Can't judge vs VISA-A MCID (~10 points, inferred)",
+        "verdict": "unclear",
+        "detail": "Table 2. Exercise type and rule both differ, so the rule's effect can't be isolated. Large d yet non-significant suggests d may not be a between-group effect."
+      },
+      {
+        "outcome": "As tolerated vs standard Alfredson",
+        "timepoint": "6 weeks (Stevens and Tan)",
+        "result": "VISA-A change 33% vs 18%, not significant",
+        "effect": "d 0.42; no CI reported",
+        "meaning": "Not significant; can't claim it's no worse",
+        "verdict": "unclear",
+        "detail": "Table 2. Both arms pain-guided. Short follow-up only."
+      },
+      {
+        "outcome": "Eccentric vs wait-and-see",
+        "timepoint": "12–16 weeks (Achilles)",
+        "result": "Eccentric better in both trials",
+        "effect": "d 1.13 (Rompe, VISA-A); 0.89 (Horstmann, palpation VAS)",
+        "meaning": "Loading beats no loading; rule untested",
+        "verdict": "unclear",
+        "detail": "Table 2: Rompe 49% vs 14% VISA-A change; Horstmann 67% vs 28%. No CIs. Extractor flagged Rompe as insertional; the 3-arm Rompe trial was likely mid-portion."
+      },
+      {
+        "outcome": "Isometric vs isotonic, patellar",
+        "timepoint": "4 weeks (Rio; van Ark)",
+        "result": "Rio favoured isometric for decline-squat pain; van Ark no difference",
+        "effect": "Rio d 2.75, p<0.05; no CI reported",
+        "meaning": "Patellar only; conflicting; transfer to Achilles inferred",
+        "verdict": "unclear",
+        "detail": "Table 2. Both progressed by fixed 2.5% weekly load. In-season athletes. Clifford (gluteal) isometric vs isotonic VISA-G d 0.005, no difference."
+      },
+      {
+        "outcome": "Trial quality (PEDro)",
+        "timepoint": "30 RCTs",
+        "result": "Mean 6.0, range 3 to 8; 12 good",
+        "verdict": "descriptive",
+        "detail": "Table 4: therapist blinding 0%, participant 3.2%, assessor 38.7%, ITT 41.9%. Text says 6 poor; Table 4 shows 4."
+      }
+    ],
+    "pico": {
+      "p": "Adults with mid-portion Achilles, patellar or gluteal tendinopathy in RCTs",
+      "i": "Progressive exercise programmes, classified by load progression rule",
+      "c": "Other exercise, other treatments or wait-and-see",
+      "o": "Progression criteria used; pain, VISA function, performance"
+    },
+    "limits": [
+      "No trial varies only the progression rule",
+      "Narrative synthesis, no pooled effects or CIs",
+      "Fair trial quality; blinding rare",
+      "Few Achilles isometric data: one trial, isometrics added to eccentrics",
+      "Table counts don't fully match the text"
+    ],
+    "read_level": "full_text",
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read in full from the free full text (PMC7678382 and BMJ Open). Fetches were model-summarised; supplementary appendices 2–3 not read."
+    },
+    "how_to_apply": [
+      "Keep pain-monitored loading for Achilles; this review shows no better rule.",
+      "Tell patients pain-guided progression is convention, not proven best.",
+      "Anchor load to a capacity marker too, such as reps or RM.",
+      "Don't add isometrics to eccentrics expecting extra VISA-A gains.",
+      "For early-stage isometrics, use direct Achilles trials, not this review."
+    ],
+    "applies_to": [
+      "Adults with mid-portion Achilles tendinopathy on a loading programme",
+      "Patellar and gluteal tendinopathy loading, same caveats",
+      "Choosing and explaining a progression rule"
+    ],
+    "not_for": [
+      "Deciding if isometrics relieve early-stage Achilles pain",
+      "Insertional Achilles tendinopathy",
+      "Post-surgical or rupture rehab",
+      "Choosing an exact pain threshold"
+    ],
+    "appraisal": {
+      "appraised_from": "full_text",
+      "tool": "AMSTAR 2 (critical domains)",
+      "domains": [
+        {
+          "domain": "Protocol registered before review",
+          "judgement": "low",
+          "reason": "Registered on PROSPERO in 2018 with a published protocol; search ran to 2020.",
+          "support": "Methods: PROSPERO CRD42018110997; protocol published"
+        },
+        {
+          "domain": "Adequate literature search",
+          "judgement": "some concerns",
+          "reason": "Four databases, no language limits, but no trial registries or grey literature reported.",
+          "support": "Methods: PubMed, Embase, Scopus, PEDro to 24 Sep 2020"
+        },
+        {
+          "domain": "Justified exclusions",
+          "judgement": "low",
+          "reason": "Excluded full texts listed with reasons in a supplement.",
+          "support": "Results: 87 excluded, list in appendix 2 (not opened)"
+        },
+        {
+          "domain": "Risk of bias assessed in included studies",
+          "judgement": "some concerns",
+          "reason": "PEDro scored in duplicate, but it is a quality scale, not a RoB tool; poor counts conflict.",
+          "support": "Methods; Table 4; text 6 poor vs table 4"
+        },
+        {
+          "domain": "Appropriate meta-analytic methods",
+          "judgement": "some concerns",
+          "reason": "No meta-analysis, justified by heterogeneity, but synthesis leans on significance counting.",
+          "support": "Methods: narrative synthesis, Cohen's d thresholds"
+        },
+        {
+          "domain": "RoB considered when interpreting results",
+          "judgement": "high",
+          "reason": "PEDro scores not used to weight or qualify conclusions.",
+          "support": "Discussion: limits blamed on heterogeneity and reporting only"
+        },
+        {
+          "domain": "Publication bias assessed",
+          "judgement": "some concerns",
+          "reason": "Not assessed; no meta-analysis, but many small trials.",
+          "support": "Not reported; selection bias noted in limitations"
+        }
+      ],
+      "overall_risk_of_bias": "high",
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "serious",
+          "reason": "Trials mostly unblinded; PEDro mean 6.0; ITT in under half."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "serious",
+          "reason": "Mixed significant and null results across rules and comparators."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "very serious",
+          "reason": "No trial varies only the progression rule; exercise type is confounded with the rule."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "serious",
+          "reason": "No pooled estimate or CIs; small trials; most comparisons non-significant."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "serious",
+          "reason": "Not formally assessed; many small trials and authors flag possible selection and reporting bias."
+        }
+      ],
+      "certainty": "very low",
+      "clinical_significance": [
+        "Effects given as % change and Cohen's d, not VISA-A points, so MCID can't be checked",
+        "VISA-A MCID about 10 points (inferred; McCormack 2015 found 6.5 in insertional cases)",
+        "No NNT derivable",
+        "A meaningful difference between progression rules can't be ruled in or out"
+      ],
+      "comparator_fairness": [
+        "Comparators vary: other exercise, passive treatments, wait-and-see",
+        "Wait-and-see arms flatter loading but say nothing about the rule"
+      ],
+      "alternative_explanations": [
+        "Exercise type, volume and supervision differ alongside the rule",
+        "Natural history and regression to the mean in uncontrolled arms",
+        "Co-interventions: analgesics or NSAIDs allowed in some trials, no washout"
+      ],
+      "spin": [
+        "Little: conclusions say pain-based rules lack strong support",
+        "Classification is proposed, not validated"
+      ],
+      "fit_with_evidence": [
+        "Consistent with Malliaras 2013 review: no loading programme clearly superior for Achilles",
+        "Doesn't test isometric analgesia; later Achilles trials are needed for that",
+        "Fits Atlas Achilles playbook: progressive loading, pain-monitored"
+      ],
+      "external_validity": [
+        "✓ Adults with mid-portion Achilles tendinopathy",
+        "✓ Progressive loading as used in private sports physio",
+        "✗ Isometric data are mostly patellar, in-season athletes",
+        "✗ Participant ages and sport levels not summarised"
+      ],
+      "would_change_my_mind": [
+        "An RCT of one Achilles programme progressed by pain vs by capacity",
+        "An Achilles trial showing isometrics outperform isotonic loading early"
+      ],
+      "strengths": [
+        "Registered protocol",
+        "Duplicate screening, extraction and scoring",
+        "No language restriction",
+        "Useful classification of progression rules"
+      ],
+      "weaknesses": [
+        "No meta-analysis or CIs",
+        "Quality not used in conclusions",
+        "No registry or grey-literature search",
+        "Text and tables disagree on counts",
+        "Rule effect confounded by exercise type"
+      ],
+      "funding_conflicts": "Spanish Ministry of Science, Innovation and Universities FPU grant; University of Málaga paid open access. Authors declared no competing interests.",
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "independent second pass (full text)",
+        "checked_at": "2026-11-04T09:54:50Z",
+        "disagreements": [
+          {
+            "item": "GRADE publication bias",
+            "first": "not serious (not assessed)",
+            "second": "serious",
+            "why": "Many small trials; authors flag selection and reporting bias.",
+            "resolved": "Agreed: serious. Certainty stays very low."
+          },
+          {
+            "item": "Stevens and Tan meaning",
+            "first": "Lower volume did no worse",
+            "second": "Not significant; no CI",
+            "why": "No CI or margin, so non-inferiority can't be claimed.",
+            "resolved": "Agreed: meaning reworded."
+          },
+          {
+            "item": "Included trial count",
+            "first": "30 RCTs: 17/11/3",
+            "second": "Breakdown sums to 31",
+            "why": "Text says 30; Table 1 lists 31 rows.",
+            "resolved": "Agreed: clinical fields say 30; mismatch logged in confidence note."
+          },
+          {
+            "item": "Style: provenance in transfer and methods",
+            "first": "appendix note in external_validity",
+            "second": "provenance in clinical field",
+            "why": "CARD_STYLE provenance rule.",
+            "resolved": "Fixed."
+          }
+        ],
+        "external": [],
+        "external_searched": "PEDro indexes it as a systematic review but no AMSTAR-type rating found. Web search for umbrella reviews rating it with AMSTAR 2: none found."
+      }
+    },
+    "patient_explanation": "There's no proven best way to step up tendon exercises. Using pain as a guide is common and reasonable: some discomfort is okay if it settles. We'll also track what you can do, like reps and load, to guide progress.",
+    "open_questions": [
+      "Does pain-guided progression beat capacity-guided progression for Achilles?",
+      "Do isometrics help early-stage mid-portion Achilles pain more than isotonic loading?",
+      "What pain threshold during loading is safe and effective?"
+    ],
+    "source_ids": [
+      "src1"
+    ]
+  },
+  "sources": [
+    {
+      "id": "src1",
+      "citation": "Escriche-Escuder A, Casaña J, Cuesta-Vargas AI. Load progression criteria in exercise programmes in lower limb tendinopathy: a systematic review. BMJ Open 2020;10(11):e041433.",
+      "doi": "10.1136/bmjopen-2020-041433",
+      "pmid": "33444210",
+      "url": "https://doi.org/10.1136/bmjopen-2020-041433",
+      "verified": true
+    }
+  ]
+}

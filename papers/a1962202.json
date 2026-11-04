@@ -1,0 +1,327 @@
+{
+  "schema_version": 1,
+  "paper_id": "a1962202",
+  "added_at": "2026-11-04T09:17:43.970937Z",
+  "study": {
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-a1962202",
+    "region": "lower limb",
+    "condition": "Achilles tendinopathy",
+    "title": "Criteria-gated Achilles rehab protocol: a progression template, no outcome data yet",
+    "first_published": "2021-08",
+    "playbook_step": "treat",
+    "evidence_tag": "emerging",
+    "evidence_note": "Protocol only. Registry lists the trial as completed in 2023; no results paper found. A dosing and gating template, not evidence of benefit.",
+    "confidence": "likely",
+    "confidence_note": "Free PDF read via summarising fetches; tables reconstructed, a few cells ambiguous. PMC blocked. Results search 2026-11-04 found none.",
+    "impact": "know_dont_act",
+    "impact_line": "A clear six-level template gating calf, hop and run loading on pain and strength targets. Untested: no results published.",
+    "key_findings": [
+      "Protocol only: compares a 6-level criteria-based programme (SSC6) with Silbernagel pain-guided loading",
+      "Isometrics at Level 1 (5 x 45 s daily, calf-raise pain >5/10) and Level 6 maintenance",
+      "Gates: calf-raise pain <5 then <4/10; hop pain; <10% strength and RSI asymmetry",
+      "Calf load targets climb from >70% to >140% bodyweight added",
+      "Planned n=60 runners aged 18–45; primary outcome VISA-A change at 12 weeks"
+    ],
+    "summary": [
+      "Single-centre RCT protocol from the Sports Surgery Clinic, Dublin, in runners with MRI-confirmed mid-portion Achilles tendinopathy",
+      "SSC6 adds kinetic-chain strength, heavy calf loading, pogo hops, drop jumps and running drills",
+      "Comparator is Silbernagel's daily heel-raise programme, progressed by pain ≤4/10 with no strength targets",
+      "Barely addresses isometrics: entry rung for irritable tendons and heavy maintenance holds, not a tested intervention",
+      "No results reported; registry lists completion in May 2023"
+    ],
+    "bottom_line": "No outcome data, so it can't tell you whether criteria-gating beats pain-guided loading. Its value is a concrete, borrowable progression ladder that uses isometrics at entry and in maintenance.",
+    "key_numbers": [
+      {
+        "value": "5 x 45 s",
+        "label": "Level 1 daily calf isometric holds"
+      },
+      {
+        "value": "<10%",
+        "label": "Limb asymmetry gate, isokinetic strength and RSI"
+      },
+      {
+        "value": ">140% BW",
+        "label": "Level 6 calf load target"
+      },
+      {
+        "value": "60",
+        "label": "Planned sample, 30 per arm"
+      }
+    ],
+    "methods": {
+      "design": [
+        "Two-arm parallel RCT protocol (SPIRIT)",
+        "Registered NCT04384874, retrospectively (23 Apr 2020; recruiting from Jan 2020)"
+      ],
+      "setting": [
+        "Sports Surgery Clinic, Dublin, Ireland",
+        "Home or local gym; supervised session every 2–3 weeks"
+      ],
+      "participants": [
+        "Runners and running-sport athletes aged 18–45",
+        "MRI-confirmed mid-portion tendinopathy, 3 months to 3 years",
+        "Excludes injections in past 6 months, prior Achilles surgery, recent running injury"
+      ],
+      "intervention": [
+        "SSC6: enter at highest level whose criteria are met",
+        "L1 (wk 0–3, calf-raise pain >5/10): daily calf isometrics 5 x 45 s; box squat and step-up 3 x 8 at 10RM",
+        "L2 (pain <5/10): SL calf raise 4 x 8 at 10RM; seated SL calf raise 4 x 10 at 12RM; 3/wk",
+        "L3 (pain <4/10): same calf sets, targets >70% BW standing, >90% BW seated; ankling, marching, A-skips",
+        "L4 (10 double-leg hops <5/10, <10% isokinetic asymmetry): targets >80% and >110% BW; pogo hops 4 x 10",
+        "L5 (10 single-leg hops <4/10): eccentric SL raise >100% BW; drop jumps 4 x 4 from 20–30 cm; SL pogos 4 x 10",
+        "Exit L5: <10% asymmetry in single-leg vertical and horizontal RSI",
+        "L6 maintenance (wk 12–26): SL calf isometric 4 x 8 x 4 s holds >140% BW; drop jumps 4 x 5; SL pogos 4 x 12",
+        "Kinetic chain 2/wk throughout; loads raised weekly if pain doesn't rise"
+      ],
+      "comparator": [
+        "Silbernagel combined concentric-eccentric programme, daily",
+        "Phases 1–4: double, single, seated, eccentric then quick-rebound heel raises, 3 x 10–20",
+        "Weight added from phase 3 (amount not set); plyometrics as tolerated",
+        "Progress if pain ≤4/10 during and 24 h after"
+      ],
+      "follow_up": [
+        "Testing at baseline, 6 and 12 weeks",
+        "Interviews at 6, 12 and 24 months; 6-month maintenance plan for both arms"
+      ],
+      "primary_outcome": "Between-group difference in VISA-A change from baseline, mainly at 12 weeks"
+    },
+    "results": [
+      {
+        "outcome": "VISA-A (planned primary)",
+        "timepoint": "12 weeks",
+        "result": "No results published; protocol only",
+        "verdict": "descriptive",
+        "detail": "Powered for a 15-point VISA-A difference, described as similar to previous studies, using a mean 12-week change of 21 (SD 6.6). Text lists 3, 6, 12 months; Table 3 lists 6, 12, 24 months."
+      },
+      {
+        "outcome": "Planned sample",
+        "timepoint": "Recruitment from Jan 2020",
+        "result": "60 planned; 18 enrolled by Nov 2020",
+        "verdict": "descriptive",
+        "detail": "Alpha 0.05, power 80%, 25 per group plus 15% dropout. A registry mirror lists the trial completed May 2023 with no results posted (last update Apr 2024)."
+      },
+      {
+        "outcome": "Secondary measures",
+        "timepoint": "Baseline, 6 and 12 weeks",
+        "result": "Isokinetic plantar flexor torque, 3D running, drop jumps, hurdle hop stiffness",
+        "verdict": "descriptive",
+        "detail": "Hop tests start at week 6. Diary records adherence, fidelity, NPRS and loads. Sport participation, re-injury and satisfaction asked at follow-up."
+      }
+    ],
+    "pico": {
+      "p": "Runners aged 18–45 with MRI-confirmed chronic mid-portion Achilles tendinopathy (3 months to 3 years)",
+      "i": "SSC6: six-level criteria-gated programme of kinetic-chain, calf, reactive strength and running drills",
+      "c": "Silbernagel pain-guided combined concentric-eccentric heel-raise programme",
+      "o": "VISA-A change at 12 weeks; strength, reactive strength and running/hopping biomechanics"
+    },
+    "limits": [
+      "No outcome data: cannot support any effect claim",
+      "Retrospectively registered, three months after recruitment began",
+      "Intervention developed and funded by the trial clinic",
+      "Participants and treating clinicians unblinded; primary outcome self-reported",
+      "Results still unpublished about 3.5 years after registry completion"
+    ],
+    "read_level": "full_text",
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read in full from the free full text (MMU repository PDF, CC BY); PMC was blocked by captcha. Tables reconstructed via summarising fetches; Level 1 split-squat row and the '60 s RM' isometric notation are ambiguous in the source."
+    },
+    "how_to_apply": [
+      "Don't change practice on this paper: it reports no outcomes.",
+      "Isometric entry dose: 5 x 45 s calf holds daily when single-leg calf-raise pain >5/10.",
+      "Set isometric load by tolerance; the protocol doesn't define its intensity.",
+      "Gate hopping on pain: 10 double-leg hops <5/10, then 10 single-leg hops <4/10.",
+      "Use <10% limb asymmetry in calf strength and RSI as objective progression checks.",
+      "Keep Silbernagel pain-monitoring (≤4/10, settled by 24 h) as the evidence-backed default."
+    ],
+    "applies_to": [
+      "Runners with chronic mid-portion Achilles tendinopathy",
+      "Clinicians wanting explicit, measurable progression gates",
+      "Early-stage, irritable tendons needing an isometric starting rung"
+    ],
+    "not_for": [
+      "Claims that criteria-based rehab works better",
+      "Insertional Achilles tendinopathy",
+      "Choosing isometrics over isotonics for pain relief",
+      "Over-45s or non-running populations without adaptation"
+    ],
+    "appraisal": {
+      "appraised_from": "full_text",
+      "tool": "RoB 2 (planned design only; protocol, no results)",
+      "domains": [
+        {
+          "domain": "Randomisation process",
+          "judgement": "some concerns",
+          "reason": "Online sequence and sealed envelopes from an independent observer, but block, ratio, envelope opacity and numbering not stated.",
+          "support": "Methods, randomisation: sealedenvelope.com; independent observer hands sealed envelope"
+        },
+        {
+          "domain": "Deviations from intended interventions",
+          "judgement": "some concerns",
+          "reason": "Participants and delivering investigators unblinded; the novel programme is the clinic's own; ITT planned.",
+          "support": "Methods, blinding and interventions; funding statement: SSC developed SSC6"
+        },
+        {
+          "domain": "Missing outcome data",
+          "judgement": "some concerns",
+          "reason": "ITT ANCOVA planned, but missing-data handling not described; 15% dropout assumed.",
+          "support": "Sample size section: conservative 15% dropout; statistics silent on imputation"
+        },
+        {
+          "domain": "Measurement of the outcome",
+          "judgement": "high",
+          "reason": "VISA-A is self-reported by unblinded participants told they're in a novel or standard programme; expectation could bias it.",
+          "support": "Methods: only the tester is blinded; participant blinding not addressed"
+        },
+        {
+          "domain": "Selection of the reported result",
+          "judgement": "some concerns",
+          "reason": "Registered after recruitment began; primary timepoints differ between text and table; unusual ANCOVA specification.",
+          "support": "Registration 23 Apr 2020 vs start Jan 2020; text vs Table 3 timepoints"
+        }
+      ],
+      "overall_risk_of_bias": "high",
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "serious",
+          "reason": "Planned design has an unblinded self-reported primary outcome and retrospective registration."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "not applicable",
+          "reason": "Single trial, and no outcome data."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "not serious",
+          "reason": "Planned population, intervention and outcome match the question for runners."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "very serious",
+          "reason": "No outcome data: no estimate or CI. Powered at 80% for a 15-point VISA-A difference (n=60)."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "serious",
+          "reason": "Registry shows completion May 2023, but no results found by Nov 2026."
+        }
+      ],
+      "certainty": "very low",
+      "clinical_significance": [
+        "No effect estimate exists, so no MCID comparison or NNT is possible",
+        "Planned 15-point target exceeds the VISA-A MCID of about 6.5 points (McCormack 2015, inferred)",
+        "Study is powered only for a large difference; a smaller worthwhile one could be missed"
+      ],
+      "comparator_fairness": [
+        "Silbernagel is a credible, evidence-based comparator",
+        "Supervision matched: every 2–3 weeks in both arms",
+        "SSC6 adds kinetic-chain work and more exercise volume, so dose isn't matched",
+        "Comparator added weight isn't quantified, risking under-loading"
+      ],
+      "alternative_explanations": [
+        "Any future difference could reflect extra volume and novelty rather than criteria-gating",
+        "Expectation effects on self-reported VISA-A in an unblinded trial",
+        "Natural history and regression to the mean apply to both arms"
+      ],
+      "spin": [
+        "Protocol frames SSC6 as novel and multifactorial; no efficacy claims made",
+        "Silence on results since 2023 is itself a reporting concern"
+      ],
+      "fit_with_evidence": [
+        "Comparator mirrors Silbernagel 2007 pain-monitored loading, a standard of care",
+        "van der Vlist 2021 BJSM network meta-analysis found no clearly superior exercise type",
+        "No results published yet for NCT04384874 (registry: completed May 2023)",
+        "Fits the Atlas Achilles playbook as a progression option, not a new standard"
+      ],
+      "external_validity": [
+        "✓ Runners aged 18–45, chronic mid-portion tendinopathy",
+        "✓ Home and gym-based, low supervision, like private practice",
+        "✗ MRI confirmation and isokinetic testing rarely available",
+        "✗ Single Irish sports clinic; older or sedentary patients excluded"
+      ],
+      "would_change_my_mind": [
+        "Published results showing a VISA-A difference beyond 6.5 points with a CI clearing it",
+        "A blinded-assessor replication with volume-matched arms",
+        "Evidence that a Level 1 isometric start improves early-stage outcomes"
+      ],
+      "strengths": [
+        "Explicit, measurable progression criteria",
+        "Credible evidence-based comparator",
+        "Blinded outcome tester for objective measures",
+        "Adherence and fidelity tracked by diary",
+        "Open access with full dosing tables"
+      ],
+      "weaknesses": [
+        "No results",
+        "Retrospective registration",
+        "Developer-funded, developer-delivered intervention",
+        "Unblinded self-reported primary outcome",
+        "Missing-data plan not described",
+        "Arms not matched for exercise volume"
+      ],
+      "funding_conflicts": "Internally funded by the Sports Surgery Clinic, which helped design the study and developed SSC6. Authors declared no competing interests.",
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "independent second pass (full text)",
+        "checked_at": "2026-11-04T09:54:50Z",
+        "disagreements": [
+          {
+            "item": "Where isometrics appear",
+            "first": "Level 1 only",
+            "second": "Levels 1 and 6",
+            "why": "Table 2 Level 6 prescribes single-leg isometric 4 x 8 x 4 s holds.",
+            "resolved": "Agreed: key findings, summary and bottom line corrected."
+          },
+          {
+            "item": "Imprecision reason",
+            "first": "n=60 small for 15 points",
+            "second": "powered at 80% for 15 points",
+            "why": "Sample size section.",
+            "resolved": "Agreed: reason reworded; very serious stands (no data)."
+          },
+          {
+            "item": "Expected dropout",
+            "first": "authors expect high dropout",
+            "second": "conservative 15% assumed",
+            "why": "Sample size paragraph.",
+            "resolved": "Agreed: reworded; some concerns stands."
+          },
+          {
+            "item": "Style: search log, joined steps",
+            "first": "search log in fit_with_evidence",
+            "second": "provenance; split dose step",
+            "why": "CARD_STYLE rules.",
+            "resolved": "Fixed."
+          }
+        ],
+        "external": [],
+        "external_searched": "PEDro title search on search.pedro.org.au: none (protocols not scored); site:pedro.org.au web search: none. No Cochrane or other review rating."
+      }
+    },
+    "patient_explanation": "This study planned to test whether moving through Achilles exercises using strength and hop targets works better than progressing by pain alone. Its results haven't been published, so it gives us a useful exercise ladder but no proof either way.",
+    "open_questions": [
+      "Will results of NCT04384874 be published, and do they show a meaningful VISA-A difference?",
+      "Does an isometric-only first stage help irritable tendons more than early isotonic loading?",
+      "What isometric intensity does '60 s RM' mean in practice?",
+      "Can handheld dynamometry replace isokinetic testing for the 10% gate?"
+    ],
+    "source_ids": [
+      "src1"
+    ]
+  },
+  "sources": [
+    {
+      "id": "src1",
+      "citation": "Griffin C, Daniels K, Hill C, et al. A criteria-based rehabilitation program for chronic mid-portion Achilles tendinopathy: study protocol for a randomised controlled trial. BMC Musculoskelet Disord 2021;22:695.",
+      "doi": "10.1186/s12891-021-04553-6",
+      "pmid": "34391384",
+      "url": "https://doi.org/10.1186/s12891-021-04553-6",
+      "verified": true
+    }
+  ]
+}

@@ -1,0 +1,364 @@
+{
+  "schema_version": 1,
+  "paper_id": "83f68a53",
+  "added_at": "2026-11-04T09:17:43.957737Z",
+  "study": {
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-83f68a53",
+    "region": "lower limb",
+    "condition": "Patellar tendinopathy (calcific)",
+    "title": "Calcific patellar tendinopathy, one case: multimodal care with ultrasound tracking, cause unknown",
+    "first_published": "2026-09",
+    "playbook_step": "treat",
+    "evidence_tag": "emerging",
+    "evidence_note": "Single case report. Multimodal package, no control. Isometrics used only in weeks 1–2, dose not given. Indirect to mid-portion Achilles.",
+    "confidence": "likely",
+    "confidence_note": "Free full text read via publisher pages. NPRS, LEFS, GROC values only in figures, not read. Supplement with isometric dose not opened.",
+    "impact": "know_dont_act",
+    "impact_line": "One squatter improved with a kitchen-sink package. Says nothing about isometrics or Achilles; don't change your plan.",
+    "key_findings": [
+      "46-year-old lifter, 6 wk of calcific patellar tendon pain, improved with a 4-part package",
+      "Package: spinal and lower-limb manipulation, ultrasound-guided electro-dry needling, BFR, progressive loading",
+      "Isometrics used in weeks 1–2 only; exercise, hold and sets not reported in the main text",
+      "Pain-free jogging, jumping and squatting by 3 mo; 215 lb squat pain-free at 11 mo",
+      "Calcific foci looked fewer and smaller on ultrasound; never measured"
+    ],
+    "summary": [
+      "Case report from American Academy of Manipulative Therapy clinicians, US direct-access practice",
+      "Ultrasound used to diagnose, guide needling and track the tendon over 11 months",
+      "NPRS and LEFS said to beat their MCIDs from early on; values shown only in graphs",
+      "Can't separate the effect of any single component from natural history",
+      "Barely addresses isometrics: named as a phase, no dose given"
+    ],
+    "bottom_line": "A single uncontrolled case of calcific patellar tendinopathy improving with manipulation, dry needling, BFR and loading. It can't show what worked, and it tells you nothing about isometric dosing for early mid-portion Achilles pain.",
+    "methods": {
+      "design": [
+        "Single direct-access case report",
+        "No registration or ethics approval stated"
+      ],
+      "setting": "US direct-access physical therapy clinic",
+      "participants": [
+        "1 woman, 46, high-intensity strength training",
+        "6 wk left anterior knee pain after more squat volume",
+        "Ultrasound: calcific foci at inferior pole, hypertrophy, partial-thickness tear"
+      ],
+      "intervention": [
+        "2x/wk for 12 wk, then 2x/month boosters for 6 mo",
+        "Every session: HVLA thrust to cervical, thoracic, lumbar, hip and talocrural",
+        "Wk 2–12: US-guided fenestration (2 needles, 3x30 s), then electro-needling 20 min, 2 Hz",
+        "Wk 1–2: isometric tendon loading, pain ≤4/10; dose not in main text",
+        "Wk 3–6: BFR at 80% LOP, 3x15 to failure, RPE 7–9",
+        "Wk 7–12: hip and knee strengthening; plyometrics once quads symmetry >90%"
+      ],
+      "comparator": "None",
+      "follow_up": "6 wk, 3, 6, 9 and 11 months",
+      "primary_outcome": [
+        "None prespecified",
+        "NPRS, LEFS, GROC, 10RM knee extension, ultrasound appearance"
+      ]
+    },
+    "results": [
+      {
+        "outcome": "Worst pain (NPRS)",
+        "timepoint": "Within 3 wk, then to 11 mo",
+        "result": "From 7/10; authors report ≥2-point drop by wk 3",
+        "meaning": "Beats 2-point MCID (Salaffi 2004), per authors",
+        "verdict": "descriptive",
+        "detail": "Follow-up values appear only in Figure 3, which wasn't readable in the text extract, so no numbers are given here."
+      },
+      {
+        "outcome": "Function (LEFS)",
+        "timepoint": "All follow-ups",
+        "result": "From 50/80; above MCID at every follow-up",
+        "meaning": "Beats 9-point MCID (Mehta 2016), per authors",
+        "verdict": "descriptive",
+        "detail": "Follow-up values appear only in Figure 4; not read. GROC is in Figure 5 only."
+      },
+      {
+        "outcome": "Knee extension 10RM",
+        "timepoint": "Baseline to 11 months",
+        "result": "Left 20 → 60 → 70 → 75 → 80 lb",
+        "meaning": "Symmetry 25% → 89% of other side",
+        "verdict": "descriptive",
+        "detail": "Table 3, left/right lb: baseline 20/80, 6 wk 60/80, 3 mo 70/85, 6 mo 75/90, 11 mo 80/90. Symmetry percentages derived, not stated. Plyometrics began at 12 wk citing >90% symmetry, but the 3-mo 10RM was 82%."
+      },
+      {
+        "outcome": "Activity goals",
+        "timepoint": "3 and 11 months",
+        "result": "Pain-free jog, jump, squat, stairs at 3 mo; 215 lb squat at 11 mo",
+        "meaning": "Back to full lifting",
+        "verdict": "descriptive",
+        "detail": "Baseline 1RM squat not possible because of pain. Her goal was a barbell squat over 135 lb."
+      },
+      {
+        "outcome": "Ultrasound appearance",
+        "timepoint": "3 to 11 months",
+        "result": "Fewer, smaller foci; more fibrillar; still thickened",
+        "meaning": "Structure lagged behind symptoms",
+        "verdict": "descriptive",
+        "detail": "No counts or sizes given; 'significantly smaller' is a visual impression, not a test. Long-axis only, no Power Doppler, assessor and blinding not reported. Sonopalpation painless at every follow-up."
+      }
+    ],
+    "key_numbers": [
+      {
+        "value": "n = 1",
+        "label": "Uncontrolled case, four treatments at once"
+      },
+      {
+        "value": "20 → 80 lb",
+        "label": "Symptomatic knee extension 10RM over 11 mo"
+      },
+      {
+        "value": "3 mo",
+        "label": "Pain-free jogging, jumping and squatting"
+      },
+      {
+        "value": "215 lb",
+        "label": "Pain-free squat at 11 months"
+      }
+    ],
+    "pico": {
+      "p": "One 46-year-old woman, strength trainer, 6 weeks of calcific patellar tendinopathy",
+      "i": "Manipulation, ultrasound-guided electro-dry needling, isometrics then BFR then progressive loading and plyometrics",
+      "c": "None",
+      "o": "NPRS, LEFS, GROC, 10RM knee extension, ultrasound appearance to 11 months"
+    },
+    "limits": [
+      "One patient; no comparator",
+      "Four treatments at once; no component can be credited",
+      "Natural history and regression to the mean not excluded",
+      "Pain and function values in graphs only",
+      "Ultrasound change judged by eye, long-axis only; blinding not reported"
+    ],
+    "read_level": "full_text",
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read in full from the free full text (publisher HTML and PDF via WebFetch). Figures 3–5 values and Supplemental File 2 (treatment plan incl. isometric dose) not accessed; PMC page blocked by captcha."
+    },
+    "how_to_apply": [
+      "Don't change your early mid-portion Achilles isometric plan on this paper.",
+      "Calcific patellar tendon: keep progressive loading as the backbone.",
+      "Use 10RM knee extension side-to-side to track quads recovery.",
+      "Gate plyometrics on measured strength symmetry, not time alone.",
+      "Don't promise calcific foci will resolve; structure may lag symptoms."
+    ],
+    "applies_to": [
+      "Active adults with calcific insertional patellar tendinopathy",
+      "Clinicians with ultrasound and dry-needling skills, as hypothesis only"
+    ],
+    "not_for": [
+      "Choosing isometric dose for any tendinopathy",
+      "Mid-portion Achilles tendinopathy",
+      "Showing that manipulation or dry needling helps tendons",
+      "Replacing ultrasound-guided lavage or shockwave decisions"
+    ],
+    "appraisal": {
+      "appraised_from": "full_text",
+      "tool": "JBI checklist for case reports",
+      "domains": [
+        {
+          "domain": "Patient demographics clearly described",
+          "judgement": "low",
+          "reason": "Age, sex, activity, goals and history given.",
+          "support": "Case description: 46F, strength training, goals"
+        },
+        {
+          "domain": "History clearly described and presented as a timeline",
+          "judgement": "some concerns",
+          "reason": "Onset clear, but abstract says 18 visits over 24 weeks while methods imply far more.",
+          "support": "Abstract vs methods schedule (2x/wk 12 wk + boosters)"
+        },
+        {
+          "domain": "Current clinical condition clearly described",
+          "judgement": "low",
+          "reason": "Pain, aggravating tasks, ROM, strength, LEFS and baseline ultrasound all reported.",
+          "support": "Examination section; Table 1"
+        },
+        {
+          "domain": "Diagnostic tests and results clearly described",
+          "judgement": "some concerns",
+          "reason": "Calcification shown on long-axis ultrasound only; no size measured, no Doppler, operator and blinding not stated.",
+          "support": "Imaging section; limitations paragraph"
+        },
+        {
+          "domain": "Intervention clearly described",
+          "judgement": "some concerns",
+          "reason": "Needling and BFR detailed, but isometric and strengthening doses not in main text.",
+          "support": "Intervention section; Table 2; dose deferred to Supplemental File 2"
+        },
+        {
+          "domain": "Post-intervention condition clearly described",
+          "judgement": "some concerns",
+          "reason": "Strength and goals reported numerically; pain, LEFS, GROC only graphed; ultrasound change qualitative.",
+          "support": "Outcomes; Table 3; Figures 3–5"
+        },
+        {
+          "domain": "Adverse events identified and described",
+          "judgement": "unclear",
+          "reason": "No adverse events reported for needling, manipulation or BFR.",
+          "support": "Not reported"
+        },
+        {
+          "domain": "Takeaway lessons provided",
+          "judgement": "some concerns",
+          "reason": "Limitations acknowledged, but conclusion promotes the package beyond what one case shows.",
+          "support": "Discussion limitations; Conclusions section"
+        }
+      ],
+      "overall_risk_of_bias": "some concerns",
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "very serious",
+          "reason": "Single uncontrolled case, four co-interventions, blinding not reported; can't attribute change to treatment."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "not applicable",
+          "reason": "One patient."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "very serious",
+          "reason": "Calcific insertional patellar, not mid-portion Achilles; isometrics briefly used, dose unreported."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "very serious",
+          "reason": "n = 1; no effect estimate or CI; fails optimal information size entirely."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "serious",
+          "reason": "Successful single cases are preferentially published."
+        }
+      ],
+      "certainty": "very low",
+      "clinical_significance": [
+        "Authors report NPRS beyond 2-point MCID (Salaffi 2004) and LEFS beyond 9-point MCID (Mehta 2016)",
+        "Within-person change only; no between-group effect or NNT possible",
+        "Tells you a recovery is possible, not how likely or why"
+      ],
+      "comparator_fairness": [
+        "No comparator",
+        "Loading alone, the standard, was never tested against the add-ons"
+      ],
+      "alternative_explanations": [
+        "Natural history: calcific tendinopathy can resorb on its own",
+        "Regression to the mean: seen at 6 weeks near peak pain",
+        "Progressive loading alone could explain the strength and function gains",
+        "High contact time and expectation effects"
+      ],
+      "spin": [
+        "Conclusion pitches the ultrasound-integrated package as more comprehensive; one case can't show that",
+        "'Significantly smaller' calcifications with no measurement",
+        "Most authors are from an academy training these techniques; no conflict statement"
+      ],
+      "fit_with_evidence": [
+        "Progressive loading fits patellar tendinopathy reviews and the Atlas tendon playbook",
+        "Isometric pain relief is inconsistent in trials; this adds nothing to that question",
+        "No trial evidence that manipulation helps tendinopathy"
+      ],
+      "external_validity": [
+        "✓ Active adult gym lifter, typical of Curt's caseload",
+        "✓ Loading progression and strength gating are usable",
+        "✗ Calcific insertional patellar tendon, not mid-portion Achilles",
+        "✗ Ultrasound-guided needling and point-of-care scans aren't routine here"
+      ],
+      "would_change_my_mind": [
+        "An RCT of loading with vs without US-guided needling in calcific tendinopathy",
+        "A dosed isometric trial in early mid-portion Achilles pain",
+        "Case series with measured calcification size and blinded reads"
+      ],
+      "strengths": [
+        "Long follow-up, to 11 months",
+        "Repeated ultrasound at each follow-up",
+        "Needling and BFR parameters reported",
+        "Objective strength tracked side-to-side",
+        "Limitations openly stated"
+      ],
+      "weaknesses": [
+        "Single case, no control",
+        "Four simultaneous interventions",
+        "Isometric dose not in main text",
+        "Pain and function values only graphed",
+        "Visit count conflicts between abstract and methods",
+        "No funding, conflict, ethics or publication-consent statement"
+      ],
+      "funding_conflicts": "Funding and conflicts not stated. Five authors are affiliated with the American Academy of Manipulative Therapy, which trains manipulation, dry needling and ultrasound; no disclosure given.",
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "independent second pass (full text)",
+        "checked_at": "2026-11-04T09:54:50Z",
+        "disagreements": [
+          {
+            "item": "Retrospective design label",
+            "first": "retrospective",
+            "second": "not reported",
+            "why": "Paper calls it a direct-access case report only.",
+            "resolved": "Agreed: label removed."
+          },
+          {
+            "item": "Ultrasound assessor blinding",
+            "first": "not blinded or named",
+            "second": "not reported",
+            "why": "Imaging section silent on operator and blinding.",
+            "resolved": "Agreed: 'not reported' throughout."
+          },
+          {
+            "item": "Plyometric symmetry gate",
+            "first": "gate at >90%, as here",
+            "second": "case's own data were 82%",
+            "why": "3-month 10RM was 70/85 lb when plyometrics began.",
+            "resolved": "Agreed: step reworded; inconsistency noted in result detail."
+          },
+          {
+            "item": "10RM meaning wording",
+            "first": "Asymmetry 25% to 89%",
+            "second": "Symmetry 25% to 89%",
+            "why": "These are symmetry ratios.",
+            "resolved": "Agreed: corrected."
+          },
+          {
+            "item": "GRADE imprecision",
+            "first": "serious",
+            "second": "very serious",
+            "why": "n = 1, no estimate or CI.",
+            "resolved": "Agreed. Certainty stays very low."
+          },
+          {
+            "item": "Style: transfer bullet",
+            "first": "US direct access",
+            "second": "weak; Australia is direct access too",
+            "why": "Real gap is guided needling and point-of-care scans.",
+            "resolved": "Fixed."
+          }
+        ],
+        "external": [],
+        "external_searched": "PEDro site search on title terms: none (case reports not indexed). Web search for reviews rating it: none; published Sept 2026. search.pedro.org.au not opened."
+      }
+    },
+    "patient_explanation": "One person with a calcium-affected kneecap tendon got back to heavy squatting with a mix of treatments. We can't tell which part helped, or whether it would have settled anyway, so we stick with steady, graded tendon loading.",
+    "open_questions": [
+      "Does US-guided needling add anything to loading for calcific tendinopathy?",
+      "What isometric dose, if any, helps early tendon pain?",
+      "How often does calcific patellar tendinopathy resorb untreated?",
+      "Does calcification size predict recovery time?"
+    ],
+    "source_ids": [
+      "src1"
+    ]
+  },
+  "sources": [
+    {
+      "id": "src1",
+      "citation": "Young I, Salzman A, Dunning J, et al. Calcific Patellar Tendinopathy: A Case Report Integrating Diagnostic Ultrasound Throughout a Multi-Modal Treatment Approach. Int J Sports Phys Ther 2026;21(9):879-89.",
+      "doi": "10.26603/001c.167449",
+      "pmid": "42694045",
+      "url": "https://doi.org/10.26603/001c.167449",
+      "verified": true
+    }
+  ]
+}
