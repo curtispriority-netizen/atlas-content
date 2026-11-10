@@ -271,6 +271,20 @@ def excerpt_diagnostics(result, source):
     return rows
 
 
+def ref_sample(result, source, limit=60):
+    """Short record of the IDs a reading cited, kept in private state so a crashed run stays diagnosable."""
+    known = passage_map(source)
+    rows = []
+    for area, refs in (result.get("evidence") or {}).items():
+        rows.extend((f"evidence.{area}[{i}]", ref) for i, ref in enumerate(refs))
+    for group in ("results", "key_numbers"):
+        for index, entry in enumerate(((result.get("card") or {}).get(group)) or []):
+            rows.extend((f"card.{group}[{index}].evidence_refs[{i}]", ref)
+                        for i, ref in enumerate(entry.get("evidence_refs") or []))
+    return [{"field": field, "ref": str(ref)[:80], "known": passage_id(ref) in known}
+            for field, ref in rows[:limit]]
+
+
 def appraisal_checks(result, source, level):
     """Run every check and raise one Review for the first failure.
 
@@ -515,6 +529,7 @@ def evaluate(model, job_id, job, journal, source, payload, rules, schema):
                     found = violations(first, result, source)
                     job.setdefault("repairs", {})[phase] = [
                         {"check": row["check"], "fields": row["fields"]} for row in found]
+                    job.setdefault("repair_refs", {})[phase] = ref_sample(result, source)
                     journal.save()
                     result = model.generate(
                         job_id, PRIMARY, "repair", REPAIR + rules,
