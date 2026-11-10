@@ -76,11 +76,16 @@ specific disagreements for any materially different or uncorroborated claim or
 omission. Only agree if the second reading corroborates the draft. Never resolve
 disagreements by rewriting the card or infer missing evidence. Check card style.
 """
-REPAIR = """Shorten the card fields listed in the violations so each meets its word cap
-in the style rules below. Keep every fact, number, sign, hedge and judgement exactly as
-written. Do not add information, new numbers or new claims. Do not change any appraisal
-judgement, tool, certainty, domain or GRADE row. Return the complete card with only the
-violating text shortened.
+REPAIR = """Your draft reading failed automated checks. Return a complete corrected
+reading in the same format. Change only what the violations name.
+- Rejected excerpt: replace it with a passage copied exactly, character for character, from the
+  article (source_context shows where it probably is). Keep its case, punctuation and wording.
+  If you cannot find an exact passage, delete the excerpt and remove card claims that need it.
+- Number not found in any excerpt: add an exact excerpt that contains it, or remove that
+  number from the card.
+- Word-cap overrun: shorten the text, keeping every fact, number and hedge.
+Never change appraisal judgements, tool, certainty, domains or GRADE rows. Do not add claims.
+Do not wrap excerpts in quotation marks and do not use ellipses.
 """
 EVIDENCE_AREAS = ("design", "population", "intervention_or_exposure", "comparator",
                   "outcomes", "results", "numbers")
@@ -264,6 +269,7 @@ def appraisal_checks(result, source, level):
     grades = app.get("grade") or []
     problems = []
     style_issues = []
+    number_details = {}
 
     def flag(reason, fields):
         problems.append({"reason": reason, "fields": list(fields)})
@@ -331,10 +337,12 @@ def appraisal_checks(result, source, level):
     unsupported = [field for field, value in claims.items() if numeric_values(value) - numbers]
     if unsupported:
         flag("unsupported_number", unsupported)
+        number_details = {field: sorted(numeric_values(claims[field]) - numbers) for field in unsupported}
     if problems:
         error = Review(problems[0]["reason"], problems[0]["fields"])
         error.problems = problems
         error.style_issues = [issue.removeprefix("model reading: ") for issue in style_issues]
+        error.number_details = number_details
         raise error
 
 
@@ -431,9 +439,33 @@ class OpenAI:
         return math.ceil((in_rate * input_tokens + out_rate * output_tokens) / 100)
 
 
-def cosmetic_only(error):
-    """True when the only failing check is a card word cap, which a rewrite can fix."""
-    return {row["reason"] for row in getattr(error, "problems", [])} == {"card_style_validation_failed"}
+REPAIRABLE = {"card_style_validation_failed", "unsupported_source_excerpt", "unsupported_number",
+              "missing_source_excerpt"}
+
+
+def repairable(error):
+    """True when every failing check can be fixed by re-quoting, re-wording or dropping a claim.
+
+    Structural and methodological failures (missing domains, wrong tool, incomplete
+    appraisal, bias overclaims) are never repaired. Every check runs again afterwards.
+    """
+    reasons = {row["reason"] for row in getattr(error, "problems", [])}
+    return bool(reasons) and reasons <= REPAIRABLE
+
+
+def violations(error, result, source):
+    rows = []
+    for problem in error.problems:
+        row = {"check": problem["reason"], "fields": problem["fields"]}
+        if problem["reason"] == "card_style_validation_failed":
+            row["details"] = error.style_issues[:20]
+        elif problem["reason"] == "unsupported_number":
+            row["details"] = error.number_details
+        elif problem["reason"] == "unsupported_source_excerpt":
+            row["details"] = [{key: item[key] for key in ("field", "excerpt", "source_context")}
+                              for item in excerpt_diagnostics(result, source)]
+        rows.append(row)
+    return rows
 
 
 def evaluate(model, job_id, job, journal, source, payload, rules, schema):
@@ -449,18 +481,18 @@ def evaluate(model, job_id, job, journal, source, payload, rules, schema):
                 try:
                     appraisal_checks(result, source, level)
                 except Review as first:
-                    if not cosmetic_only(first):
+                    if not repairable(first):
                         raise
-                    # Word caps are presentation, not evidence. Allow one shortening
-                    # pass, then run every check again on the shortened card.
+                    # One bounded repair per phase. The repaired reading must pass every
+                    # check again, so a repair can never weaken validation.
                     original = result
-                    job.setdefault("style_repairs", {})[phase] = first.style_issues[:20]
+                    found = violations(first, result, source)
+                    job.setdefault("repairs", {})[phase] = [
+                        {"check": row["check"], "fields": row["fields"]} for row in found]
                     journal.save()
-                    repaired = model.generate(
-                        job_id, PRIMARY, "style_repair", REPAIR + rules,
-                        {"card": result["card"], "violations": first.style_issues[:20]},
-                        object_schema({"card": schema["properties"]["card"]["anyOf"][0]}), 12000)
-                    result = {**result, "card": repaired["card"]}
+                    result = model.generate(
+                        job_id, PRIMARY, "repair", REPAIR + rules,
+                        {**payload, "draft": result, "violations": found}, schema, 12000)
                     appraisal_checks(result, source, level)
             except Review as error:
                 failure = {
@@ -474,7 +506,8 @@ def evaluate(model, job_id, job, journal, source, payload, rules, schema):
                     failure["all_problems"] = error.problems
                 if isinstance(error, ModelOutputReview):
                     failure["output_text"] = error.texts
-                if str(error) == "unsupported_source_excerpt":
+                if any(row["reason"] == "unsupported_source_excerpt"
+                       for row in getattr(error, "problems", [])) or str(error) == "unsupported_source_excerpt":
                     failure["excerpts"] = excerpt_diagnostics(result, source)
                 job.setdefault("validation_failures", {})[phase] = failure
                 # The caller saves the failure and hold together in private state.

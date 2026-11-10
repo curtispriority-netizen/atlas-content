@@ -154,6 +154,7 @@ class ResearchTest(unittest.TestCase):
         self.journal = Journal(self.root / "private-state.json")
         self.run = {"new_holds": 0}
         self.phases = []
+        self.repair_payloads = []
         self.response_mode = ""
         self.addCleanup(patch.stopall)
         patch.dict(os.environ, {"OPENAI_API_KEY": "fixture-only"}).start()
@@ -170,12 +171,18 @@ class ResearchTest(unittest.TestCase):
         if phase == "comparison":
             self.assertNotIn("article", payload)
             value = {"agrees": True, "disagreements": []}
-        elif phase == "style_repair":
-            self.assertEqual({"card", "violations"}, payload.keys())
+        elif phase == "repair":
+            self.assertEqual({"record", "source_level", "article", "draft", "violations"}, payload.keys())
             self.assertTrue(payload["violations"])
-            value = {"card": reading("full_text", self.pipeline().schema)["card"]}
-            if self.response_mode == "style_unrepairable":
+            self.repair_payloads.append(payload)
+            value = reading(payload["source_level"], schema)
+            # These modes model a repair that does not fix the defect. Others return a clean reading.
+            if self.response_mode == "invented":
+                value["card"]["results"][0]["result"] = "Pain fell by 15 points"
+            if self.response_mode in ("style_unrepairable", "style_and_excerpt"):
                 value["card"]["bottom_line"] = " ".join(["word"] * 45)
+            if self.response_mode in ("primary", "blind_verification", "style_and_excerpt"):
+                value["evidence"]["results"] = [REJECTED_QUOTE]
         else:
             self.assertEqual({"record", "source_level", "article"}, payload.keys())
             if phase == "blind_verification" and self.response_mode == "failure":
@@ -192,6 +199,11 @@ class ResearchTest(unittest.TestCase):
             if self.response_mode == "style_and_excerpt":
                 value["card"]["bottom_line"] = " ".join(["word"] * 45)
                 value["evidence"]["results"] = [REJECTED_QUOTE]
+            if phase == "primary" and self.response_mode == "excerpt_and_number":
+                value["card"]["results"][0]["result"] = "Pain fell by 15 points"
+                value["evidence"]["results"] = [REJECTED_QUOTE]
+            if phase == "primary" and self.response_mode == "missing_domain":
+                value["card"]["appraisal"]["domains"].pop()
         self.assertTrue(Draft202012Validator(schema).is_valid(value))
         if self.response_mode == "invalid_json":
             return json.dumps({"status": "completed", "model": request["model"],
@@ -304,10 +316,12 @@ class ResearchTest(unittest.TestCase):
         self.response_mode = "style_and_excerpt"
         pipeline = self.pipeline([RECORD])
         pipeline.process()
-        self.assertEqual(["primary"], self.phases)
+        self.assertEqual(["primary", "repair"], self.phases)
         job = next(iter(Journal(self.journal.path).data["jobs"].values()))
         failure = job["validation_failures"]["primary"]
         self.assertEqual("card_style_validation_failed", failure["reason"])
+        self.assertIn("original_reading", failure)
+        self.assertEqual("evidence.results[0]", failure["excerpts"][0]["field"])
         self.assertEqual(["card_style_validation_failed", "unsupported_source_excerpt"],
                          [row["reason"] for row in failure["all_problems"]])
         report = revalidate(job, ARTICLE)["primary"]
@@ -324,19 +338,20 @@ class ResearchTest(unittest.TestCase):
         self.response_mode = "style_only"
         pipeline = self.pipeline([RECORD])
         pipeline.process()
-        self.assertEqual(["primary", "style_repair", "blind_verification", "comparison"], self.phases)
+        self.assertEqual(["primary", "repair", "blind_verification", "comparison"], self.phases)
         self.assertEqual(1, len(pipeline.studies))
         card = pipeline.studies[0][1]["study"]
         self.assertLessEqual(len(str(card.get("bottom_line", "")).split()), 40)
         job = next(iter(self.journal.data["jobs"].values()))
-        self.assertIn("bottom_line", " ".join(job["style_repairs"]["primary"]))
+        self.assertEqual(["card_style_validation_failed"], [row["check"] for row in job["repairs"]["primary"]])
+        self.assertIn("bottom_line", self.repair_payloads[0]["violations"][0]["details"][0])
         self.assertEqual([], self.publish(pipeline) and [])
 
     def test_failed_shortening_is_held_with_both_readings_and_no_second_repair(self):
         self.response_mode = "style_unrepairable"
         pipeline = self.pipeline([RECORD])
         pipeline.process()
-        self.assertEqual(["primary", "style_repair"], self.phases)
+        self.assertEqual(["primary", "repair"], self.phases)
         self.assertFalse(pipeline.studies)
         job = next(iter(self.journal.data["jobs"].values()))
         failure = job["validation_failures"]["primary"]
@@ -345,10 +360,33 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual(["bottom_line"], failure["fields"])
         self.assertNotIn("primary", job)
 
-    def test_evidence_failures_are_never_repaired(self):
+    def test_only_one_repair_per_phase_then_the_item_is_held(self):
         self.response_mode = "style_and_excerpt"
-        self.pipeline([RECORD]).process()
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        self.assertEqual(["primary", "repair"], self.phases)
+        self.assertFalse(pipeline.studies)
+
+    def test_excerpt_and_number_failures_are_repaired_with_the_source_then_fully_rechecked(self):
+        self.response_mode = "excerpt_and_number"
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        self.assertEqual(["primary", "repair", "blind_verification", "comparison"], self.phases)
+        self.assertEqual(1, len(pipeline.studies))
+        sent = self.repair_payloads[0]
+        self.assertEqual(ARTICLE, sent["article"])
+        checks = {row["check"]: row for row in sent["violations"]}
+        self.assertEqual({"unsupported_source_excerpt", "unsupported_number"}, checks.keys())
+        self.assertEqual("evidence.results[0]", checks["unsupported_source_excerpt"]["details"][0]["field"])
+        self.assertEqual(["15"], checks["unsupported_number"]["details"]["card.results"])
+        self.assertNotIn("15", json.dumps(pipeline.studies[0][1]["study"]["results"]))
+
+    def test_methodological_failures_are_never_repaired(self):
+        self.response_mode = "missing_domain"
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
         self.assertEqual(["primary"], self.phases)
+        self.assertIn("missing_bias_domains", self.reasons(self.journal.data["holds"]))
 
     def test_published_edition_does_not_overstate_what_was_checked(self):
         pipeline = self.pipeline([RECORD])
@@ -463,7 +501,7 @@ class ResearchTest(unittest.TestCase):
             git.side_effect = lambda path, *args: state.as_posix() if args[0] == "rev-parse" else ""
             self.assertEqual(1, main())
             self.assertTrue(all(call.args[0] == state for call in git.call_args_list))
-        self.assertEqual(["primary", "blind_verification"], self.phases)
+        self.assertEqual(["primary", "blind_verification", "repair"], self.phases)
         journal = Journal(state / "research-state.json")
         run = journal.data["runs"]["123.1"]
         self.assertEqual("needs_review", run["status"])
