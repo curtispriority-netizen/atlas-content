@@ -23,6 +23,9 @@ name: Atlas research
         description: Revisit held inputs and recompute failed appraisals
         type: boolean
         default: false
+      benchmark_pmid:
+        description: Optional PMID to stage a single public paper privately
+        type: string
   schedule:
     - cron: '23 7 * * 3'
       timezone: Australia/Hobart
@@ -99,6 +102,7 @@ jobs:
           ATLAS_MONTH_MICRO_USD: ${{ vars.ATLAS_MONTH_MICRO_USD }}
           ATLAS_PUBLISH_ENABLED: ${{ vars.ATLAS_PUBLISH_ENABLED }}
           RETRY_HOLDS: ${{ inputs.retry_holds }}
+          BENCHMARK_PMID: ${{ inputs.benchmark_pmid }}
         run: |
           git config user.name 'Atlas research'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -108,6 +112,9 @@ jobs:
           if [[ "$GITHUB_EVENT_NAME" == schedule ]]; then mode=publish; fi
           extra=()
           if [[ "$RETRY_HOLDS" == true ]]; then extra+=(--retry-holds); fi
+          if [[ "$mode" == stage && -n "$BENCHMARK_PMID" ]]; then
+            extra+=(--benchmark-pmid "$BENCHMARK_PMID")
+          fi
           python scripts/research.py "$mode" --state .atlas-state "${extra[@]}"
       - name: Notify about published research
         if: >-

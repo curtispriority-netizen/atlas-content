@@ -224,6 +224,27 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual(0, pipeline.literature.fetches)
         self.assertEqual([], self.phases)
 
+    def test_benchmark_can_review_existing_paper_without_changing_feed(self):
+        write_json(self.root / "shown.json", {"shown": [{"key": RECORD.doi.upper()}]})
+        before = (self.root / "index.json").read_bytes()
+        pipeline = self.pipeline([RECORD])
+        pipeline.benchmark(RECORD.pmid)
+        self.assertEqual(1, len(pipeline.studies))
+        self.assertEqual(["primary", "blind_verification", "comparison"], self.phases)
+        self.assertEqual(before, (self.root / "index.json").read_bytes())
+        self.assertEqual([], list((self.root / "editions").glob("*.json")))
+
+    def test_model_schema_requires_current_card_format(self):
+        schema = self.pipeline().schema
+        validator = Draft202012Validator(schema)
+        valid = reading("full_text", schema)
+        self.assertTrue(validator.is_valid(valid))
+        valid["card"]["summary"] = "An older card could use this paragraph."
+        self.assertFalse(validator.is_valid(valid))
+        valid = reading("full_text", schema)
+        valid["card"]["results"][0]["verdict"] = None
+        self.assertFalse(validator.is_valid(valid))
+
     def test_queue_keeps_atlas_id_and_writes_only_existing_feed_format(self):
         drive = StubDrive([{"id": "abc", "name": "queue__00abcdef__exercise.txt"}],
                           {"kind": "queue", "papers": [{"id": "00abcdef", "doi": RECORD.doi}]})

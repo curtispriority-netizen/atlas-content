@@ -157,8 +157,8 @@ class Pipeline:
             self.run["new_exclusions"] = self.run.get("new_exclusions", 0) + int(not notify)
             self.journal.save()
 
-    def candidate(self, record, paper_id, source, added_at, anchor=None):
-        if self.feed.duplicate(record):
+    def candidate(self, record, paper_id, source, added_at, anchor=None, benchmark=False):
+        if not benchmark and self.feed.duplicate(record):
             if paper_id and paper_id not in self.feed.paper_ids:
                 raise Review("duplicate_with_different_atlas_id")
             return
@@ -170,6 +170,8 @@ class Pipeline:
             level, url, article = source()
         except Unavailable as error:
             raise SourceUnavailable(str(error)) from None
+        if benchmark and level != "full_text":
+            raise Review("benchmark_full_text_required")
         if len(article.encode()) > MAX_SOURCE:
             raise Review("full_source_too_large")
         fingerprint = digest([record.doi or record.pmid, level, url, article, self.protocol])
@@ -180,7 +182,7 @@ class Pipeline:
         if self.retry_holds and fingerprint not in self.retried and (
             job.get("hold") or (job.get("decision") and not job["decision"]["agrees"])
         ):
-            for field in ("primary", "blind_verification", "decision", "hold"):
+            for field in ("primary", "blind_verification", "decision", "hold", "hold_fields"):
                 job.pop(field, None)
             self.retried.add(fingerprint)
             self.journal.save()
@@ -193,6 +195,8 @@ class Pipeline:
                                 payload, self.rules, self.schema)
         except Review as error:
             job["hold"] = str(error)
+            if error.fields:
+                job["hold_fields"] = error.fields
             self.journal.save()
             raise
         if not decision["agrees"] or decision["disagreements"]:
@@ -375,13 +379,24 @@ class Pipeline:
             self.config["max_candidates"] = limit
         self.discover()
 
+    def benchmark(self, paper_pmid):
+        record = self.literature.identify("", paper_pmid, "")
+        self.attempt(
+            digest(["benchmark", self.record_key(record)]), paper_pmid,
+            lambda: self.candidate(record, None, lambda: self.literature.source(record),
+                                   self.now.isoformat(), benchmark=True),
+        )
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=("stage", "publish"))
     parser.add_argument("--state", type=Path, required=True)
     parser.add_argument("--retry-holds", action="store_true")
+    parser.add_argument("--benchmark-pmid")
     args = parser.parse_args()
+    if args.benchmark_pmid and (args.mode != "stage" or not pmid(args.benchmark_pmid)):
+        parser.error("benchmark requires stage mode and a numeric PMID")
     if args.mode == "publish" and (os.environ.get("ATLAS_PUBLISH_ENABLED") != "true"
                                    or os.environ.get("GITHUB_EVENT_NAME") != "schedule"
                                    or os.environ.get("GITHUB_REF") != "refs/heads/main"):
@@ -391,6 +406,8 @@ def main():
     now = datetime.now(timezone.utc)
     run_id = f'{os.environ["GITHUB_RUN_ID"]}.{os.environ["GITHUB_RUN_ATTEMPT"]}'
     run = {"started_at": now.isoformat(), "mode": args.mode, "status": "running", "new_holds": 0}
+    if args.benchmark_pmid:
+        run["benchmark_pmid"] = args.benchmark_pmid
     if git(state, "rev-parse", "--show-toplevel").lower() != state.as_posix().lower():
         raise Unavailable("invalid_private_state_checkout")
 
@@ -412,15 +429,24 @@ def main():
         if model.run_limit <= 0 or model.month_limit <= 0:
             raise Unavailable("invalid_budget")
         feed = Feed(root)
-        pipeline = Pipeline(feed, journal, Literature(), Drive(
-            os.environ["ATLAS_DRIVE_READER_JSON"], os.environ["ATLAS_DRIVE_FOLDER_ID"],
-        ), model, now, run, config, read_json(anchors) if anchors.exists() else {}, args.retry_holds)
+        drive = None if args.benchmark_pmid else Drive(
+            os.environ["ATLAS_DRIVE_READER_JSON"], os.environ["ATLAS_DRIVE_FOLDER_ID"])
+        pipeline = Pipeline(feed, journal, Literature(), drive, model, now, run, config,
+                            read_json(anchors) if anchors.exists() else {}, args.retry_holds)
         try:
-            pipeline.process()
+            if args.benchmark_pmid:
+                pipeline.benchmark(args.benchmark_pmid)
+            else:
+                pipeline.process()
         except BudgetExceeded:
             run["reason"] = "run_or_month_budget"
         run["verified"] = len(pipeline.papers) + len(pipeline.studies)
-        changed = feed.publish(pipeline.papers, pipeline.studies, pipeline.today, now.isoformat())
+        if args.benchmark_pmid:
+            if pipeline.studies:
+                run["preview"] = {"benchmark": pipeline.studies[0][1]}
+            changed = []
+        else:
+            changed = feed.publish(pipeline.papers, pipeline.studies, pipeline.today, now.isoformat())
         if changed:
             # No model-supplied content is printed in the public Actions log.
             if subprocess.run([sys.executable, "-X", "utf8", str(root / "scripts/validate.py")],

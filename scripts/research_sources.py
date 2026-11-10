@@ -36,6 +36,10 @@ class Unavailable(Exception):
 class Review(Exception):
     """An item needs human review before processing can continue."""
 
+    def __init__(self, reason, fields=()):
+        super().__init__(reason)
+        self.fields = list(fields)
+
 
 def get(url, params=None, headers=None, limit=4_000_000, body=None):
     if params:
