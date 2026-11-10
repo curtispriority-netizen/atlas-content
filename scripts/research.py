@@ -15,10 +15,10 @@ from zoneinfo import ZoneInfo
 from jsonschema import Draft202012Validator
 
 from preflight import ROOT, PDF_NAME, read_json, weekly_work
-from research_appraisal import BudgetExceeded, OpenAI, digest, evaluate, reading_schema
+from research_appraisal import BudgetExceeded, OpenAI, digest, evaluate, reading_schema, strip_refs
 from research_sources import (
     MAX_SOURCE, Drive, Literature, Review, Unavailable, doi, extract_pdf, pmid,
-    sufficient_full_text, title_key,
+    render_passages, sufficient_full_text, title_key,
 )
 
 PAPER_ID = re.compile(r"[A-Za-z0-9-]{1,80}")
@@ -203,7 +203,7 @@ class Pipeline:
             raise Review(job["hold"])
         try:
             payload = {"record": {key: getattr(record, key) for key in ("doi", "pmid", "title", "citation")},
-                       "source_level": level, "article": article}
+                       "source_level": level, "article": render_passages(article)}
             decision = evaluate(self.model, fingerprint, job, self.journal, article,
                                 payload, self.rules, self.schema)
         except Review as error:
@@ -229,7 +229,7 @@ class Pipeline:
                         "external_searched": "External ratings not searched for this automated edition."}
         if anchor:
             verification.update(external=anchor["external"], external_searched=anchor["external_searched"])
-        card = copy.deepcopy(job["primary"]["card"])
+        card = strip_refs(job["primary"]["card"])
         card.update(type="study", format=2, item_id=f"mine-{paper_id or 'weekly'}",
                     read_level=level, source_ids=["paper"],
                     full_text={"status": "read", "worth_getting": False,

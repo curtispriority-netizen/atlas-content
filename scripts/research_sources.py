@@ -235,6 +235,48 @@ def article_text(article, title):
     return "\n".join(line.strip() for line in "".join(parts).splitlines() if line.strip())
 
 
+PASSAGE_LIMIT = 700
+
+
+def passages(article):
+    """Split the article into numbered passages. Deterministic: IDs are P1, P2, ...
+
+    Each source line becomes one passage, or several when longer than PASSAGE_LIMIT,
+    split at sentence boundaries (or at spaces for a single oversized sentence).
+    """
+    out = []
+
+    def add(text):
+        text = " ".join(text.split())
+        if text:
+            out.append((f"P{len(out) + 1}", text))
+
+    for line in article.splitlines():
+        if len(line) <= PASSAGE_LIMIT:
+            add(line)
+            continue
+        current = ""
+        for sentence in re.split(r"(?<=[.!?])\s+", line):
+            while len(sentence) > PASSAGE_LIMIT:
+                cut = sentence.rfind(" ", 0, PASSAGE_LIMIT)
+                cut = cut if cut > 0 else PASSAGE_LIMIT
+                if current:
+                    add(current)
+                    current = ""
+                add(sentence[:cut])
+                sentence = sentence[cut:].lstrip()
+            if current and len(current) + len(sentence) + 1 > PASSAGE_LIMIT:
+                add(current)
+                current = ""
+            current = f"{current} {sentence}".strip()
+        add(current)
+    return out
+
+
+def render_passages(article):
+    return "\n".join(f"[{pid}] {text}" for pid, text in passages(article))
+
+
 def sufficient_full_text(text):
     return (len(text.split()) >= 450
             and bool(re.search(r"\bmethods?\b", text, re.I))

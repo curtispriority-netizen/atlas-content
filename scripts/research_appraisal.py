@@ -4,7 +4,6 @@ import json
 import math
 import os
 import re
-import unicodedata
 from copy import deepcopy
 from datetime import datetime, timezone
 from hashlib import sha256
@@ -12,7 +11,7 @@ from hashlib import sha256
 from jsonschema import Draft202012Validator
 
 from card_style import check_card
-from research_sources import Review, Unavailable, get
+from research_sources import Review, Unavailable, get, passages
 
 PRIMARY = "gpt-5.4-mini-2026-03-17"
 VERIFIER = "gpt-5.4-2026-03-05"
@@ -47,24 +46,21 @@ Keep the study's findings separate from clinical recommendations and causal
 claims. Only use own words in the card. Use null for optional fields you omit.
 The source metadata is verified separately. Never include identifiable patient data.
 For numbers, preserve the printed values, signs and precision. Avoid conversions,
-calculations and unsupported clinical thresholds. Put exact source excerpts in
-the evidence object only, never in the clinical card.
+calculations and unsupported clinical thresholds.
 Use the exact risk-of-bias tool and domain names in APPRAISAL.md. For JBI, use
 the design-specific domains. For missing comparators report their absence.
 When a bias domain's support is "Not reported", set its judgement to "unclear".
 Report that external evidence was unavailable when none is supplied.
-Keep each field concise. Use the shortest exact source excerpts that support
-the claims and report only the results material to interpreting this study.
-Every evidence excerpt must contain at least ten characters and be a contiguous
-verbatim passage from the supplied article. Copy the article's words, punctuation,
-and numeric signs exactly. Do not wrap excerpts in quotation marks.
-Quote the surrounding sentence or contiguous table cells
-for numeric evidence. Never combine non-contiguous text into a single excerpt, and do
-not use ellipses. Every number used anywhere in the card (counts, hours, doses, effect
-sizes, CIs, MCIDs) must appear inside one of your evidence excerpts. Add an excerpt to
-evidence.numbers for each such number. If you cannot quote a number contiguously, leave
-it out of the card. Every card field has a word cap in the style rules above. Aim for
-about 80% of each cap and count words before answering.
+Keep each field concise and report only the results material to interpreting this study.
+The article is split into numbered passages such as [P12]. Cite evidence by passage
+ID only (for example "P12"), never by copying text. The evidence object holds arrays
+of passage IDs. Each card.results entry and each card.key_numbers entry must have
+evidence_refs listing the passage IDs that contain its numbers. Every number in an
+entry must appear in one of that entry's cited passages. Every number elsewhere in
+the card must appear in a passage you cited somewhere. Cite every passage that
+supports a number you use. If no passage contains a number, leave it out of the card.
+Cite only IDs that exist in the supplied article. Every card field has a word cap
+in the style rules above. Aim for about 80% of each cap and count words before answering.
 If adequate is false, give a brief reason and use null for card and evidence.
 """
 AUDIT = """Compare the two independent source readings below. The draft is what
@@ -78,14 +74,15 @@ disagreements by rewriting the card or infer missing evidence. Check card style.
 """
 REPAIR = """Your draft reading failed automated checks. Return a complete corrected
 reading in the same format. Change only what the violations name.
-- Rejected excerpt: replace it with a passage copied exactly, character for character, from the
-  article (source_context shows where it probably is). Keep its case, punctuation and wording.
-  If you cannot find an exact passage, delete the excerpt and remove card claims that need it.
-- Number not found in any excerpt: add an exact excerpt that contains it, or remove that
-  number from the card.
+- Unknown passage ID: replace it with an ID that exists in the supplied article and
+  contains the supporting text, or remove the ID and any card claim that needs it.
+  Evidence arrays and evidence_refs hold passage IDs only, never quoted text.
+- Number not supported (see details): add the passage ID that contains it to that entry's
+  evidence_refs (or to the evidence arrays for narrative fields), or remove that number
+  from the card. Each results and key_numbers entry is checked against its own evidence_refs.
+- Missing evidence_refs: add at least one passage ID to the entry.
 - Word-cap overrun: shorten the text, keeping every fact, number and hedge.
 Never change appraisal judgements, tool, certainty, domains or GRADE rows. Do not add claims.
-Do not wrap excerpts in quotation marks and do not use ellipses.
 """
 EVIDENCE_AREAS = ("design", "population", "intervention_or_exposure", "comparator",
                   "outcomes", "results", "numbers")
@@ -160,8 +157,14 @@ def reading_schema(defs):
         bullets(fields, name, minimum, maximum)
     require(fields["pico"], *PICO_FIELDS)
     require(fields["methods"], *METHOD_FIELDS)
+    refs = {"type": "array", "items": STRING, "minItems": 1,
+            "description": "Passage IDs such as P12 that contain this entry's numbers."}
     fields["results"]["minItems"] = 1
-    require(fields["results"]["items"], "verdict")
+    require(fields["results"]["items"], "verdict", "evidence_refs")
+    fields["results"]["items"]["properties"]["evidence_refs"] = refs
+    fields["key_numbers"]["items"] = deepcopy(defs["key_number"])
+    fields["key_numbers"]["items"]["properties"]["evidence_refs"] = refs
+    require(fields["key_numbers"]["items"], "evidence_refs")
     require(fields["appraisal"], *APPRAISAL_FIELDS)
     appraisal = fields["appraisal"]["properties"]
     appraisal["tool"] = {
@@ -199,57 +202,73 @@ def numeric_values(value):
                           json.dumps(value, ensure_ascii=False).replace("−", "-")))
 
 
-def strip_quote_wrapper(quote):
-    if len(quote) >= 2 and (quote[0], quote[-1]) in (('"', '"'), ("“", "”")):
-        return quote[1:-1].strip()
-    return quote
+PASSAGE_ID = re.compile(r"^\[?P(\d+)\]?$")
 
 
-def unsupported_excerpts(result, source):
-    """Yield rejected locations and excerpts after whitespace normalisation."""
-    for area, excerpts in (result.get("evidence") or {}).items():
-        for index, excerpt in enumerate(excerpts):
-            quote = " ".join(excerpt.split())
-            candidate = quote if quote in source else strip_quote_wrapper(quote)
-            if len(candidate) < 10 or candidate not in source:
-                yield f"evidence.{area}[{index}]", excerpt, quote, candidate
+def passage_id(value):
+    match = PASSAGE_ID.match(str(value).strip())
+    return f"P{int(match.group(1))}" if match else None
 
 
-def excerpt_context(source, candidate):
-    """Find a bounded diagnostic window and label the basis for its selection."""
-    words = candidate.split()[:80]
-    anchors = [candidate] if candidate else []
-    anchors.extend(" ".join(words[i:i + 4]) for i in range(len(words) - 3))
-    for anchor in anchors:
-        offset = source.find(anchor)
-        if offset >= 0 and source.find(anchor, offset + 1) == -1:
-            return source[max(0, offset - 80):offset + 160], "unique_anchor"
-    terms = sorted(set(re.findall(r"\w{4,}", " ".join(words))), key=lambda term: (-len(term), term))
-    for term in terms:
-        match = re.search(rf"\b{re.escape(term)}\b", source, re.IGNORECASE)
-        if match:
-            offset = match.start()
-            return source[max(0, offset - 80):offset + 160], "shared_word"
-    return source[:240], "source_start"
+def passage_map(source):
+    return dict(passages(source))
+
+
+def cited(refs, known):
+    """Return (texts, unknown) for a list of passage IDs."""
+    texts, unknown = [], []
+    for ref in refs or []:
+        pid = passage_id(ref)
+        if pid in known:
+            texts.append(known[pid])
+        else:
+            unknown.append(str(ref))
+    return texts, unknown
+
+
+def evidence_problems(result, source):
+    """Resolve every cited passage ID. Returns (unknown fields, evidence text, entry refs)."""
+    known = passage_map(source)
+    unknown, texts, entries = [], [], {}
+    for area, refs in (result.get("evidence") or {}).items():
+        found, bad = cited(refs, known)
+        texts.extend(found)
+        unknown.extend(f"evidence.{area}[{index}]" for index, ref in enumerate(refs)
+                       if passage_id(ref) not in known)
+    card = result.get("card") or {}
+    for group in ("results", "key_numbers"):
+        for index, entry in enumerate(card.get(group) or []):
+            refs = entry.get("evidence_refs") or []
+            found, bad = cited(refs, known)
+            field = f"card.{group}[{index}]"
+            entries[field] = {"value": {k: v for k, v in entry.items() if k != "evidence_refs"},
+                              "texts": found, "refs": [str(r) for r in refs]}
+            if not refs:
+                unknown.append(f"{field}.evidence_refs")
+            unknown.extend(f"{field}.evidence_refs[{i}]" for i, ref in enumerate(refs)
+                           if passage_id(ref) not in known)
+    return unknown, texts, entries
+
+
+def strip_refs(card):
+    """Remove evidence_refs, which exist only in the reading, before the card is validated or published."""
+    card = deepcopy(card)
+    for group in ("results", "key_numbers"):
+        for entry in card.get(group) or []:
+            entry.pop("evidence_refs", None)
+    return card
 
 
 def excerpt_diagnostics(result, source):
-    """Find bounded source context for private review, without changing validation."""
-    normal = " ".join(source.split())
-    unicode_source = unicodedata.normalize("NFKC", normal)
-    failures = []
-    for field, excerpt, quote, candidate in unsupported_excerpts(result, normal):
-        context, basis = excerpt_context(normal, candidate)
-        failures.append({
-            "field": field, "excerpt": excerpt, "source_context": context,
-            "source_context_basis": basis,
-            "normalised_length": len(candidate), "whitespace_normalised_match": bool(quote) and quote in normal,
-            "stripped_match": quote != candidate and bool(candidate) and candidate in normal,
-            "reason": "too_short" if len(candidate) < 10 else "not_exact",
-            "unicode_normalisation_match": bool(quote) and
-                unicodedata.normalize("NFKC", quote) in unicode_source,
-        })
-    return failures
+    """Show the passages a failed reading cited, for private review."""
+    known = passage_map(source)
+    rows = []
+    for area, refs in (result.get("evidence") or {}).items():
+        for index, ref in enumerate(refs):
+            pid = passage_id(ref)
+            rows.append({"field": f"evidence.{area}[{index}]", "ref": str(ref),
+                         "known": pid in known, "passage": known.get(pid, "")[:240]})
+    return rows
 
 
 def appraisal_checks(result, source, level):
@@ -318,26 +337,34 @@ def appraisal_checks(result, source, level):
         fields = [issue.removeprefix("model reading: ").split()[0] for issue in style]
         flag("card_style_validation_failed", sorted(set(fields)))
         style_issues = style
-    source = " ".join(source.split())
     evidence = result["evidence"]
     for area in EVIDENCE_AREAS:
         if not evidence.get(area) and area not in ("comparator", "numbers"):
             flag("missing_source_excerpt", [f"evidence.{area}"])
             break
-    rejected = [field for field, _, _, _ in unsupported_excerpts(result, source)]
-    if rejected:
-        flag("unsupported_source_excerpt", rejected)
+    unknown, texts, entries = evidence_problems(result, source)
+    if unknown:
+        flag("unknown_passage_id", unknown)
     claims = {f"card.{key}": card.get(key) for key in (
-        "title", "impact_line", "pico", "methods", "results", "key_numbers", "key_findings",
+        "title", "impact_line", "pico", "methods", "key_findings",
         "summary", "bottom_line", "how_to_apply", "limits", "patient_explanation",
         "applies_to", "not_for", "open_questions",
     )}
     claims["card.appraisal.clinical_significance"] = app.get("clinical_significance")
-    numbers = numeric_values(evidence)
-    unsupported = [field for field, value in claims.items() if numeric_values(value) - numbers]
+    # Numbers anywhere in the narrative must appear in a passage the reading cited.
+    allowed = numeric_values(texts) | numeric_values([t for e in entries.values() for t in e["texts"]])
+    unsupported = [field for field, value in claims.items() if numeric_values(value) - allowed]
+    # Each result row and key number must be supported by its own cited passages.
+    for field, entry in entries.items():
+        missing = numeric_values(entry["value"]) - numeric_values(entry["texts"])
+        if missing:
+            unsupported.append(field)
+            number_details[field] = sorted(missing)
     if unsupported:
         flag("unsupported_number", unsupported)
-        number_details = {field: sorted(numeric_values(claims[field]) - numbers) for field in unsupported}
+        for field in unsupported:
+            if field in claims:
+                number_details[field] = sorted(numeric_values(claims[field]) - allowed)
     if problems:
         error = Review(problems[0]["reason"], problems[0]["fields"])
         error.problems = problems
@@ -439,7 +466,7 @@ class OpenAI:
         return math.ceil((in_rate * input_tokens + out_rate * output_tokens) / 100)
 
 
-REPAIRABLE = {"card_style_validation_failed", "unsupported_source_excerpt", "unsupported_number",
+REPAIRABLE = {"card_style_validation_failed", "unknown_passage_id", "unsupported_number",
               "missing_source_excerpt"}
 
 
@@ -461,9 +488,8 @@ def violations(error, result, source):
             row["details"] = error.style_issues[:20]
         elif problem["reason"] == "unsupported_number":
             row["details"] = error.number_details
-        elif problem["reason"] == "unsupported_source_excerpt":
-            row["details"] = [{key: item[key] for key in ("field", "excerpt", "source_context")}
-                              for item in excerpt_diagnostics(result, source)]
+        elif problem["reason"] == "unknown_passage_id":
+            row["details"] = {"valid_ids": f"P1 to P{len(passage_map(source))}"}
         rows.append(row)
     return rows
 
@@ -506,8 +532,8 @@ def evaluate(model, job_id, job, journal, source, payload, rules, schema):
                     failure["all_problems"] = error.problems
                 if isinstance(error, ModelOutputReview):
                     failure["output_text"] = error.texts
-                if any(row["reason"] == "unsupported_source_excerpt"
-                       for row in getattr(error, "problems", [])) or str(error) == "unsupported_source_excerpt":
+                if result and any(row["reason"] == "unknown_passage_id"
+                                  for row in getattr(error, "problems", [])):
                     failure["excerpts"] = excerpt_diagnostics(result, source)
                 job.setdefault("validation_failures", {})[phase] = failure
                 # The caller saves the failure and hold together in private state.
