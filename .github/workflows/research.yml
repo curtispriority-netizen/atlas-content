@@ -1,6 +1,9 @@
 name: Atlas research
 
 'on':
+  push:
+    branches:
+      - codex/atlas-background-research
   pull_request:
     paths:
       - .github/workflows/research.yml
