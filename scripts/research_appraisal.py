@@ -4,6 +4,7 @@ import json
 import math
 import os
 import re
+import unicodedata
 from copy import deepcopy
 from datetime import datetime, timezone
 from hashlib import sha256
@@ -54,6 +55,10 @@ When a bias domain's support is "Not reported", set its judgement to "unclear".
 Report that external evidence was unavailable when none is supplied.
 Keep each field concise. Use the shortest exact source excerpts that support
 the claims and report only the results material to interpreting this study.
+Every evidence excerpt must contain at least ten characters and be a contiguous
+verbatim passage from the supplied article. Copy the article's words, punctuation,
+and numeric signs exactly. Quote the surrounding sentence or contiguous table cells
+for numeric evidence. Never combine non-contiguous text into a single excerpt.
 If adequate is false, give a brief reason and use null for card and evidence.
 """
 AUDIT = """Compare the two independent source readings below. The draft is what
@@ -177,63 +182,115 @@ def numeric_values(value):
                           json.dumps(value, ensure_ascii=False).replace("−", "-")))
 
 
+def unsupported_excerpts(result, source):
+    """Yield rejected locations and excerpts after whitespace normalisation."""
+    for area, excerpts in (result.get("evidence") or {}).items():
+        for index, excerpt in enumerate(excerpts):
+            quote = " ".join(excerpt.split())
+            if len(quote) < 10 or quote not in source:
+                yield f"evidence.{area}[{index}]", excerpt, quote
+
+
+def excerpt_diagnostics(result, source):
+    """Find bounded source context for private review, without changing validation."""
+    normal = " ".join(source.split())
+    unicode_source = unicodedata.normalize("NFKC", normal)
+    failures = []
+    contexts = set()
+    for field, excerpt, quote in unsupported_excerpts(result, normal):
+        context = None
+        if len(contexts) < 3:
+            words = quote.split()[:80]
+            anchors = [quote] if quote else []
+            anchors.extend(" ".join(words[i:i + 4]) for i in range(len(words) - 3))
+            for anchor in anchors:
+                offset = normal.find(anchor)
+                if offset >= 0 and normal.find(anchor, offset + 1) == -1:
+                    context = normal[max(0, offset - 80):offset + 160]
+                    if context in contexts:
+                        context = None
+                    else:
+                        contexts.add(context)
+                    break
+        failures.append({
+            "field": field, "excerpt": excerpt, "source_context": context,
+            "normalised_length": len(quote), "whitespace_normalised_match": bool(quote) and quote in normal,
+            "reason": "too_short" if len(quote) < 10 else "not_exact",
+            "unicode_normalisation_match": bool(quote) and
+                unicodedata.normalize("NFKC", quote) in unicode_source,
+        })
+    return failures
+
+
 def appraisal_checks(result, source, level):
     if not result["adequate"] or not result.get("card") or not result.get("evidence"):
-        raise Review("source_inadequate_on_appraisal")
+        raise Review("source_inadequate_on_appraisal", [
+            field for field in ("adequate", "card", "evidence") if not result.get(field)
+        ])
     card = result["card"]
     app = card.get("appraisal") or {}
     methods = card.get("methods") or {}
     domains = app.get("domains") or []
     grades = app.get("grade") or []
-    if (app.get("appraised_from") != level
-            or not all(card.get("pico", {}).get(key) for key in PICO_FIELDS)
-            or not all(methods.get(key) for key in METHOD_FIELDS)
-            or not card.get("results") or not app.get("certainty") or not app.get("tool")
-            or not app.get("overall_risk_of_bias") or not domains
-            or len({row["domain"].casefold() for row in domains}) != len(domains)
-            or not all(row.get("support") and row["reason"] for row in domains)
-            or len(grades) != len(GRADE) or {row["domain"] for row in grades} != GRADE
-            or not all(row["reason"] for row in grades)
-            or not all(app.get(key) for key in (*CONTEXT, "strengths", "weaknesses", "funding_conflicts"))):
-        raise Review("incomplete_appraisal")
+    incomplete = [f"card.pico.{key}" for key in PICO_FIELDS if not card.get("pico", {}).get(key)]
+    incomplete.extend(f"card.methods.{key}" for key in METHOD_FIELDS if not methods.get(key))
+    incomplete.extend(f"card.appraisal.{key}" for key in (
+        "certainty", "tool", "overall_risk_of_bias", *CONTEXT, "strengths", "weaknesses", "funding_conflicts",
+    ) if not app.get(key))
+    if app.get("appraised_from") != level:
+        incomplete.append("card.appraisal.appraised_from")
+    if not card.get("results"):
+        incomplete.append("card.results")
+    if not domains or len({row["domain"].casefold() for row in domains}) != len(domains):
+        incomplete.append("card.appraisal.domains")
+    incomplete.extend(f"card.appraisal.domains[{index}].{key}"
+                      for index, row in enumerate(domains) for key in ("support", "reason") if not row.get(key))
+    if len(grades) != len(GRADE) or {row["domain"] for row in grades} != GRADE:
+        incomplete.append("card.appraisal.grade")
+    incomplete.extend(f"card.appraisal.grade[{index}].reason"
+                      for index, row in enumerate(grades) if not row.get("reason"))
+    if incomplete:
+        raise Review("incomplete_appraisal", incomplete)
     if level == "abstract" and (
         any(row["judgement"] == "low" for row in domains) or app["overall_risk_of_bias"] == "low"
     ):
-        raise Review("abstract_overclaim")
+        raise Review("abstract_overclaim", ["card.appraisal.domains", "card.appraisal.overall_risk_of_bias"])
     tool = app["tool"].strip().casefold()
     if tool in REQUIRED_DOMAINS:
         missing = REQUIRED_DOMAINS[tool] - {row["domain"].casefold() for row in domains}
         if missing:
-            raise Review("missing_bias_domains", sorted(missing))
+            raise Review("missing_bias_domains", [f"card.appraisal.domains ({domain})" for domain in sorted(missing)])
     elif tool != "cosmin" and not tool.startswith("jbi"):
-        raise Review("unrecognised_bias_tool")
-    if any(row["support"].strip().casefold() == "not reported" and row["judgement"] != "unclear"
-           for row in domains):
-        raise Review("unreported_bias_domain_overclaim")
+        raise Review("unrecognised_bias_tool", ["card.appraisal.tool"])
+    unsupported_bias = [f"card.appraisal.domains[{index}].judgement" for index, row in enumerate(domains)
+                        if row["support"].strip().casefold() == "not reported" and row["judgement"] != "unclear"]
+    if unsupported_bias:
+        raise Review("unreported_bias_domain_overclaim", unsupported_bias)
     if tool == "rob 2" and not any(row["domain"] == "inconsistency" and row["judgement"] == "not applicable"
                                   for row in grades):
-        raise Review("single_trial_inconsistency_overclaim")
+        raise Review("single_trial_inconsistency_overclaim", ["card.appraisal.grade (inconsistency)"])
     style = check_card("model reading", card)
     if style:
         fields = [issue.removeprefix("model reading: ").split()[0] for issue in style]
         raise Review("card_style_validation_failed", sorted(set(fields)))
     source = " ".join(source.split())
     evidence = result["evidence"]
-    for area, excerpts in evidence.items():
-        if not excerpts and area not in ("comparator", "numbers"):
-            raise Review("missing_source_excerpt")
-        for excerpt in excerpts:
-            quote = " ".join(excerpt.split())
-            if len(quote) < 10 or quote not in source:
-                raise Review("unsupported_source_excerpt")
-    claims = {key: card.get(key) for key in (
+    for area in EVIDENCE_AREAS:
+        if not evidence.get(area) and area not in ("comparator", "numbers"):
+            raise Review("missing_source_excerpt", [f"evidence.{area}"])
+    rejected = [field for field, _, _ in unsupported_excerpts(result, source)]
+    if rejected:
+        raise Review("unsupported_source_excerpt", rejected)
+    claims = {f"card.{key}": card.get(key) for key in (
         "title", "impact_line", "pico", "methods", "results", "key_numbers", "key_findings",
         "summary", "bottom_line", "how_to_apply", "limits", "patient_explanation",
         "applies_to", "not_for", "open_questions",
     )}
-    claims["clinical_significance"] = app["clinical_significance"]
-    if numeric_values(claims) - numeric_values(evidence):
-        raise Review("unsupported_number")
+    claims["card.appraisal.clinical_significance"] = app["clinical_significance"]
+    numbers = numeric_values(evidence)
+    unsupported = [field for field, value in claims.items() if numeric_values(value) - numbers]
+    if unsupported:
+        raise Review("unsupported_number", unsupported)
 
 
 def decisions(card):
@@ -248,6 +305,12 @@ def decisions(card):
 
 class BudgetExceeded(Exception):
     pass
+
+
+class ModelOutputReview(Review):
+    def __init__(self, reason, texts, field="response.output"):
+        super().__init__(reason, [field])
+        self.texts = texts
 
 
 class OpenAI:
@@ -301,15 +364,20 @@ class OpenAI:
         self.journal.save()
         if not usage or result.get("model") != model:
             raise Unavailable("model_or_usage_mismatch")
+        parts = [part for item in result.get("output", []) if item["type"] == "message"
+                 for part in item["content"] if part["type"] in ("output_text", "refusal")]
+        texts = [part.get("text", part.get("refusal", "")) for part in parts]
         if result["status"] != "completed":
-            raise Review("model_response_incomplete")
-        texts = [part["text"] for item in result["output"] if item["type"] == "message"
-                 for part in item["content"] if part["type"] == "output_text"]
-        if len(texts) != 1:
-            raise Review("model_refusal_or_invalid_output")
-        value = json.loads(texts[0])
-        if not Draft202012Validator(schema).is_valid(value):
-            raise Review("model_output_schema")
+            raise ModelOutputReview("model_response_incomplete", texts)
+        if len(parts) != 1 or parts[0]["type"] != "output_text":
+            raise ModelOutputReview("model_refusal_or_invalid_output", texts)
+        try:
+            value = json.loads(texts[0])
+        except ValueError:
+            raise ModelOutputReview("model_refusal_or_invalid_output", texts) from None
+        violation = next(Draft202012Validator(schema).iter_errors(value), None)
+        if violation:
+            raise ModelOutputReview("model_output_schema", texts, violation.json_path)
         return drop_null(value)
 
     @staticmethod
@@ -325,8 +393,23 @@ def evaluate(model, job_id, job, journal, source, payload, rules, schema):
     for phase, name in (("primary", PRIMARY), ("blind_verification", VERIFIER)):
         if phase not in job:
             # This cap includes reasoning as well as the complete structured appraisal.
-            result = model.generate(job_id, name, phase, SYSTEM + rules, payload, schema, 12000)
-            appraisal_checks(result, source, level)
+            result = None
+            try:
+                result = model.generate(job_id, name, phase, SYSTEM + rules, payload, schema, 12000)
+                appraisal_checks(result, source, level)
+            except Review as error:
+                failure = {
+                    "run": model.run_id, "record": job["record"], "status": "held",
+                    "checked_at": datetime.now(timezone.utc).isoformat(),
+                    "reason": str(error), "fields": error.fields, "reading": result,
+                }
+                if isinstance(error, ModelOutputReview):
+                    failure["output_text"] = error.texts
+                if str(error) == "unsupported_source_excerpt":
+                    failure["excerpts"] = excerpt_diagnostics(result, source)
+                job.setdefault("validation_failures", {})[phase] = failure
+                # The caller saves the failure and hold together in private state.
+                raise
             job[phase] = result
             journal.save()
     first = job["primary"]

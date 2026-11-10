@@ -193,25 +193,46 @@ class Literature:
                         or not ((record.pmid and ids.get("pmid") == record.pmid)
                                 or (record.doi and doi(ids.get("doi")) == record.doi))):
                     raise Review("full_text_identity_mismatch")
-                body = article.find("./body")
-                if body is not None:
-                    # Keep section and table boundaries. Preserve the entire body.
-                    text = "\n".join(" ".join(node.itertext()) for node in body)
-                    front = article.find("./front/article-meta")
-                    notes = [] if front is None else [
-                        " ".join(node.itertext()) for name in ("funding-group", "author-notes")
-                        for node in front.findall(name)
-                    ]
-                    back = article.find("./back")
-                    appendix = [] if back is None else [
-                        " ".join(node.itertext()) for node in back if node.tag != "ref-list"
-                    ]
-                    text = "\n".join((record.title, text, *notes, *appendix))
-                    if sufficient_full_text(text):
-                        return "full_text", url, text
+                text = article_text(article, record.title)
+                if sufficient_full_text(text):
+                    return "full_text", url, text
         if len(record.abstract.split()) >= 100:
             return "abstract", record.url, record.abstract
         raise Review("insufficient_source")
+
+
+def article_text(article, title):
+    """Keep XML block boundaries without inventing spaces at inline markup."""
+    body = article.find("./body")
+    if body is None:
+        return ""
+    blocks = {"sec", "p", "title", "label", "list-item", "caption", "table-wrap", "tr", "fn",
+              "disp-formula", "disp-quote", "break"}
+    parts = [title, "\n"]
+
+    def visit(node):
+        if node.tag in blocks:
+            parts.append("\n")
+        if node.text:
+            parts.append(node.text)
+        for child in node:
+            visit(child)
+            if child.tail:
+                parts.append(child.tail)
+        if node.tag in blocks:
+            parts.append("\n")
+        elif node.tag in ("td", "th"):
+            parts.append("\t")
+
+    front = article.find("./front/article-meta")
+    back = article.find("./back")
+    notes = [] if front is None else [node for name in ("funding-group", "author-notes")
+                                      for node in front.findall(name)]
+    appendix = [] if back is None else [node for node in back if node.tag != "ref-list"]
+    for node in (body, *notes, *appendix):
+        visit(node)
+        parts.append("\n")
+    return "\n".join(line.strip() for line in "".join(parts).splitlines() if line.strip())
 
 
 def sufficient_full_text(text):

@@ -7,7 +7,7 @@ import os
 import re
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -53,6 +53,16 @@ class Journal:
     def save(self):
         write_json(self.path, self.data)
         self.persist()
+
+    def expire_validation_failures(self, now):
+        cutoff = now - timedelta(days=30)
+        for job in self.data["jobs"].values():
+            failures = job.get("validation_failures", {})
+            for phase, failure in list(failures.items()):
+                if datetime.fromisoformat(failure["checked_at"]) <= cutoff:
+                    del failures[phase]
+            if not failures:
+                job.pop("validation_failures", None)
 
 
 class Feed:
@@ -199,6 +209,14 @@ class Pipeline:
                 job["hold_fields"] = error.fields
             self.journal.save()
             raise
+        finally:
+            if benchmark:
+                comparison = job.get("decision") or {}
+                self.run["benchmark_checks"] = {
+                    "primary": "primary" in job,
+                    "independent": "blind_verification" in job,
+                    "adjudication": bool(comparison.get("agrees") and not comparison.get("disagreements")),
+                }
         if not decision["agrees"] or decision["disagreements"]:
             raise Review("material_appraisal_disagreement")
         if level != "full_text":
@@ -418,6 +436,7 @@ def main():
             git(state, "push", "origin", "HEAD:refs/heads/main")
 
     journal = Journal(state / "research-state.json", persist)
+    journal.expire_validation_failures(now)
     journal.data["runs"][run_id] = run
     problem = None
     try:
@@ -473,12 +492,21 @@ def main():
     except Exception as error:
         run.update(status="failed", reason=type(error).__name__)
         problem = error
+    if args.benchmark_pmid:
+        charges = [charge for charge in journal.data["charges"] if charge["run"] == run_id]
+        run["recorded_cost_micro_usd"] = sum(row["cost"] for row in charges if "input_tokens" in row)
+        run["unconfirmed_cost_micro_usd"] = sum(row["cost"] for row in charges if "input_tokens" not in row)
     journal.save()
     if run.get("publication_commit") and os.environ.get("GITHUB_OUTPUT"):
         with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as output:
             print(f"published={run['publication_commit']}", file=output)
     print(f"Atlas research {run['status']}. Verified: {run.get('verified', 0)}. "
           f"Published: {run.get('published', 0)}. New holds: {run['new_holds']}.")
+    if checks := run.get("benchmark_checks"):
+        print("Benchmark gates passed: " + ", ".join(f"{name}={passed}" for name, passed in checks.items()))
+    if args.benchmark_pmid:
+        print(f"Benchmark estimated usage: US${run['recorded_cost_micro_usd'] / 1_000_000:.6f}. "
+              f"Unconfirmed reserve: US${run['unconfirmed_cost_micro_usd'] / 1_000_000:.6f}.")
     if problem or run["new_holds"] or run["status"] in ("partial", "budget_limited"):
         return 1
     return 0
