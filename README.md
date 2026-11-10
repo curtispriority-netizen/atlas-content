@@ -17,6 +17,9 @@ A weekly Claude scheduled task researches and writes one edition here. The Atlas
 
 ## Read-only preflight
 
+See [Background research](RESEARCH_AUTOMATION.md) for the staged GitHub Actions
+workflow, cost estimates and setup.
+
 Run `python scripts/preflight.py daily` with a JSON array of filenames from a complete, successful listing of the live Drive folder on standard input. Markers and PDFs without a matching checked full-text format-2 card require work. Supply every page of the listing and treat a listing failure as an error.
 
 Run `python scripts/preflight.py weekly YYYY-MM-DD` with the date in Hobart and a current content checkout. An edition already recorded in both the index and its file can be skipped.

@@ -1,0 +1,6 @@
+{
+  "query": "(tendinopathy OR \"sports rehabilitation\" OR \"sports injury\" OR \"low back pain\" OR \"neck pain\" OR \"anterior cruciate ligament\") AND (rehabilitation OR exercise OR physiotherapy) AND (PUB_TYPE:\"randomized controlled trial\" OR PUB_TYPE:\"systematic review\" OR PUB_TYPE:\"meta analysis\" OR PUB_TYPE:\"practice guideline\")",
+  "lookback_days": 28,
+  "search_limit": 35,
+  "max_candidates": 8
+}
