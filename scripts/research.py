@@ -182,6 +182,9 @@ class Pipeline:
             raise SourceUnavailable(str(error)) from None
         if benchmark and level != "full_text":
             raise Review("benchmark_full_text_required")
+        if level != "full_text":
+            # Abstract-only sources can never be published, so do not pay to appraise them.
+            raise Review("abstract_only")
         if len(article.encode()) > MAX_SOURCE:
             raise Review("full_source_too_large")
         fingerprint = digest([record.doi or record.pmid, level, url, article, self.protocol])

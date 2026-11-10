@@ -23,7 +23,8 @@ def revalidate(job, article):
         try:
             appraisal_checks(result, article, source["level"])
         except Review as error:
-            report[phase] = {"status": "held", "reason": str(error), "fields": error.fields}
+            report[phase] = {"status": "held", "reason": str(error), "fields": error.fields,
+                             "all_problems": getattr(error, "problems", [])}
         else:
             report[phase] = {"status": "checks_passed"}
     return report or {"status": "reading_not_retained"}
