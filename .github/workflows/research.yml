@@ -130,5 +130,5 @@ jobs:
           existing="$(gh issue list -R "$STATE_REPO" --state all --search "in:title \"$title\"" --json title --jq ".[].title")"
           if ! grep -Fxq "$title" <<< "$existing"; then
             gh issue create -R "$STATE_REPO" --title "$title" --assignee "$GITHUB_REPOSITORY_OWNER" \
-              --body "Independently checked research is available in Atlas. https://github.com/$GITHUB_REPOSITORY/commit/$PUBLICATION" >/dev/null
+              --body "AI-appraised research (not clinician-reviewed) was published to Atlas. Review it before relying on it. https://github.com/$GITHUB_REPOSITORY/commit/$PUBLICATION" >/dev/null
           fi

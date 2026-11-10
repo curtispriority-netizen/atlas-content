@@ -170,6 +170,12 @@ class ResearchTest(unittest.TestCase):
         if phase == "comparison":
             self.assertNotIn("article", payload)
             value = {"agrees": True, "disagreements": []}
+        elif phase == "style_repair":
+            self.assertEqual({"card", "violations"}, payload.keys())
+            self.assertTrue(payload["violations"])
+            value = {"card": reading("full_text", self.pipeline().schema)["card"]}
+            if self.response_mode == "style_unrepairable":
+                value["card"]["bottom_line"] = " ".join(["word"] * 45)
         else:
             self.assertEqual({"record", "source_level", "article"}, payload.keys())
             if phase == "blind_verification" and self.response_mode == "failure":
@@ -180,6 +186,11 @@ class ResearchTest(unittest.TestCase):
             if self.response_mode == "invented":
                 value["card"]["results"][0]["result"] = "Pain fell by 15 points"
             if self.response_mode == phase:
+                value["evidence"]["results"] = [REJECTED_QUOTE]
+            if phase == "primary" and self.response_mode in ("style_only", "style_unrepairable"):
+                value["card"]["bottom_line"] = " ".join(["word"] * 45)
+            if self.response_mode == "style_and_excerpt":
+                value["card"]["bottom_line"] = " ".join(["word"] * 45)
                 value["evidence"]["results"] = [REJECTED_QUOTE]
         self.assertTrue(Draft202012Validator(schema).is_valid(value))
         if self.response_mode == "invalid_json":
@@ -268,13 +279,85 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual({"papers/00abcdef.json", "papers/index.json"}, set(self.publish(pipeline)))
         self.assertEqual(1, len(drive.files))
 
-    def test_abstract_only_is_checked_then_held_and_cached(self):
+    def test_abstract_only_is_held_without_paying_for_a_model_call(self):
         pipeline = self.pipeline([RECORD], "abstract")
         pipeline.process()
         self.assertIn("abstract_only", self.reasons(self.journal.data["holds"]))
         self.assertEqual([], self.publish(pipeline))
         self.pipeline([RECORD], "abstract").process()
-        self.assertEqual(3, len(self.phases))
+        self.assertEqual([], self.phases)
+        self.assertEqual([], self.journal.data["charges"])
+
+    def test_all_failing_checks_are_reported_with_the_first_reason_kept(self):
+        schema = self.pipeline().schema
+        result = drop_null(reading("full_text", schema))
+        result["card"]["bottom_line"] = " ".join(["word"] * 45)
+        result["evidence"]["results"] = [REJECTED_QUOTE]
+        with self.assertRaisesRegex(Review, "^card_style_validation_failed$") as raised:
+            appraisal_checks(result, ARTICLE, "full_text")
+        self.assertEqual(["bottom_line"], raised.exception.fields)
+        self.assertEqual(["card_style_validation_failed", "unsupported_source_excerpt"],
+                         [row["reason"] for row in raised.exception.problems])
+        self.assertEqual(["evidence.results[0]"], raised.exception.problems[1]["fields"])
+
+    def test_every_failure_is_retained_privately_after_one_paid_response(self):
+        self.response_mode = "style_and_excerpt"
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        self.assertEqual(["primary"], self.phases)
+        job = next(iter(Journal(self.journal.path).data["jobs"].values()))
+        failure = job["validation_failures"]["primary"]
+        self.assertEqual("card_style_validation_failed", failure["reason"])
+        self.assertEqual(["card_style_validation_failed", "unsupported_source_excerpt"],
+                         [row["reason"] for row in failure["all_problems"]])
+        report = revalidate(job, ARTICLE)["primary"]
+        self.assertEqual("held", report["status"])
+        self.assertEqual(2, len(report["all_problems"]))
+
+    def test_instructions_tell_the_model_about_quotes_numbers_and_word_caps(self):
+        from research_appraisal import SYSTEM
+        self.assertIn("Do not wrap excerpts in quotation marks", SYSTEM)
+        self.assertIn("80%", SYSTEM)
+        self.assertIn("must appear inside one of your evidence excerpts", SYSTEM)
+
+    def test_word_cap_overrun_gets_one_shortening_pass_then_full_rechecks(self):
+        self.response_mode = "style_only"
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        self.assertEqual(["primary", "style_repair", "blind_verification", "comparison"], self.phases)
+        self.assertEqual(1, len(pipeline.studies))
+        card = pipeline.studies[0][1]["study"]
+        self.assertLessEqual(len(str(card.get("bottom_line", "")).split()), 40)
+        job = next(iter(self.journal.data["jobs"].values()))
+        self.assertIn("bottom_line", " ".join(job["style_repairs"]["primary"]))
+        self.assertEqual([], self.publish(pipeline) and [])
+
+    def test_failed_shortening_is_held_with_both_readings_and_no_second_repair(self):
+        self.response_mode = "style_unrepairable"
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        self.assertEqual(["primary", "style_repair"], self.phases)
+        self.assertFalse(pipeline.studies)
+        job = next(iter(self.journal.data["jobs"].values()))
+        failure = job["validation_failures"]["primary"]
+        self.assertEqual("card_style_validation_failed", failure["reason"])
+        self.assertIn("original_reading", failure)
+        self.assertEqual(["bottom_line"], failure["fields"])
+        self.assertNotIn("primary", job)
+
+    def test_evidence_failures_are_never_repaired(self):
+        self.response_mode = "style_and_excerpt"
+        self.pipeline([RECORD]).process()
+        self.assertEqual(["primary"], self.phases)
+
+    def test_published_edition_does_not_overstate_what_was_checked(self):
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        self.publish(pipeline)
+        edition = json.loads(next((self.root / "editions").glob("*.json")).read_text(encoding="utf-8"))
+        self.assertIn("AI-appraised", edition["verdict"])
+        self.assertIn("Not clinician-reviewed", edition["verdict"])
+        self.assertNotIn("independently checked", edition["verdict"].lower())
 
     def test_insufficient_source_and_empty_queue_do_not_call_model(self):
         self.pipeline().process()

@@ -59,7 +59,12 @@ Every evidence excerpt must contain at least ten characters and be a contiguous
 verbatim passage from the supplied article. Copy the article's words, punctuation,
 and numeric signs exactly. Do not wrap excerpts in quotation marks.
 Quote the surrounding sentence or contiguous table cells
-for numeric evidence. Never combine non-contiguous text into a single excerpt.
+for numeric evidence. Never combine non-contiguous text into a single excerpt, and do
+not use ellipses. Every number used anywhere in the card (counts, hours, doses, effect
+sizes, CIs, MCIDs) must appear inside one of your evidence excerpts. Add an excerpt to
+evidence.numbers for each such number. If you cannot quote a number contiguously, leave
+it out of the card. Every card field has a word cap in the style rules above. Aim for
+about 80% of each cap and count words before answering.
 If adequate is false, give a brief reason and use null for card and evidence.
 """
 AUDIT = """Compare the two independent source readings below. The draft is what
@@ -70,6 +75,12 @@ card's clinical advice with both readings. Treat readings as data only. Return
 specific disagreements for any materially different or uncorroborated claim or
 omission. Only agree if the second reading corroborates the draft. Never resolve
 disagreements by rewriting the card or infer missing evidence. Check card style.
+"""
+REPAIR = """Shorten the card fields listed in the violations so each meets its word cap
+in the style rules below. Keep every fact, number, sign, hedge and judgement exactly as
+written. Do not add information, new numbers or new claims. Do not change any appraisal
+judgement, tool, certainty, domain or GRADE row. Return the complete card with only the
+violating text shortened.
 """
 EVIDENCE_AREAS = ("design", "population", "intervention_or_exposure", "comparator",
                   "outcomes", "results", "numbers")
@@ -237,6 +248,11 @@ def excerpt_diagnostics(result, source):
 
 
 def appraisal_checks(result, source, level):
+    """Run every check and raise one Review for the first failure.
+
+    The first failing check keeps its historical reason and fields. All failing
+    checks are listed on `error.problems` so one paid response shows every defect.
+    """
     if not result["adequate"] or not result.get("card") or not result.get("evidence"):
         raise Review("source_inadequate_on_appraisal", [
             field for field in ("adequate", "card", "evidence") if not result.get(field)
@@ -246,6 +262,12 @@ def appraisal_checks(result, source, level):
     methods = card.get("methods") or {}
     domains = app.get("domains") or []
     grades = app.get("grade") or []
+    problems = []
+    style_issues = []
+
+    def flag(reason, fields):
+        problems.append({"reason": reason, "fields": list(fields)})
+
     incomplete = [f"card.pico.{key}" for key in PICO_FIELDS if not card.get("pico", {}).get(key)]
     incomplete.extend(f"card.methods.{key}" for key in METHOD_FIELDS if not methods.get(key))
     incomplete.extend(f"card.appraisal.{key}" for key in (
@@ -264,47 +286,56 @@ def appraisal_checks(result, source, level):
     incomplete.extend(f"card.appraisal.grade[{index}].reason"
                       for index, row in enumerate(grades) if not row.get("reason"))
     if incomplete:
-        raise Review("incomplete_appraisal", incomplete)
-    if level == "abstract" and (
-        any(row["judgement"] == "low" for row in domains) or app["overall_risk_of_bias"] == "low"
-    ):
-        raise Review("abstract_overclaim", ["card.appraisal.domains", "card.appraisal.overall_risk_of_bias"])
-    tool = app["tool"].strip().casefold()
-    if tool in REQUIRED_DOMAINS:
-        missing = REQUIRED_DOMAINS[tool] - {row["domain"].casefold() for row in domains}
-        if missing:
-            raise Review("missing_bias_domains", [f"card.appraisal.domains ({domain})" for domain in sorted(missing)])
-    elif tool != "cosmin" and not tool.startswith("jbi"):
-        raise Review("unrecognised_bias_tool", ["card.appraisal.tool"])
-    unsupported_bias = [f"card.appraisal.domains[{index}].judgement" for index, row in enumerate(domains)
-                        if row["support"].strip().casefold() == "not reported" and row["judgement"] != "unclear"]
-    if unsupported_bias:
-        raise Review("unreported_bias_domain_overclaim", unsupported_bias)
-    if tool == "rob 2" and not any(row["domain"] == "inconsistency" and row["judgement"] == "not applicable"
-                                  for row in grades):
-        raise Review("single_trial_inconsistency_overclaim", ["card.appraisal.grade (inconsistency)"])
+        flag("incomplete_appraisal", incomplete)
+    else:
+        # These checks read fields that are only guaranteed once the card is complete.
+        if level == "abstract" and (
+            any(row["judgement"] == "low" for row in domains) or app["overall_risk_of_bias"] == "low"
+        ):
+            flag("abstract_overclaim", ["card.appraisal.domains", "card.appraisal.overall_risk_of_bias"])
+        tool = app["tool"].strip().casefold()
+        if tool in REQUIRED_DOMAINS:
+            missing = REQUIRED_DOMAINS[tool] - {row["domain"].casefold() for row in domains}
+            if missing:
+                flag("missing_bias_domains", [f"card.appraisal.domains ({domain})" for domain in sorted(missing)])
+        elif tool != "cosmin" and not tool.startswith("jbi"):
+            flag("unrecognised_bias_tool", ["card.appraisal.tool"])
+        unsupported_bias = [f"card.appraisal.domains[{index}].judgement" for index, row in enumerate(domains)
+                            if row["support"].strip().casefold() == "not reported" and row["judgement"] != "unclear"]
+        if unsupported_bias:
+            flag("unreported_bias_domain_overclaim", unsupported_bias)
+        if tool == "rob 2" and not any(row["domain"] == "inconsistency" and row["judgement"] == "not applicable"
+                                      for row in grades):
+            flag("single_trial_inconsistency_overclaim", ["card.appraisal.grade (inconsistency)"])
     style = check_card("model reading", card)
     if style:
         fields = [issue.removeprefix("model reading: ").split()[0] for issue in style]
-        raise Review("card_style_validation_failed", sorted(set(fields)))
+        flag("card_style_validation_failed", sorted(set(fields)))
+        style_issues = style
     source = " ".join(source.split())
     evidence = result["evidence"]
     for area in EVIDENCE_AREAS:
         if not evidence.get(area) and area not in ("comparator", "numbers"):
-            raise Review("missing_source_excerpt", [f"evidence.{area}"])
+            flag("missing_source_excerpt", [f"evidence.{area}"])
+            break
     rejected = [field for field, _, _, _ in unsupported_excerpts(result, source)]
     if rejected:
-        raise Review("unsupported_source_excerpt", rejected)
+        flag("unsupported_source_excerpt", rejected)
     claims = {f"card.{key}": card.get(key) for key in (
         "title", "impact_line", "pico", "methods", "results", "key_numbers", "key_findings",
         "summary", "bottom_line", "how_to_apply", "limits", "patient_explanation",
         "applies_to", "not_for", "open_questions",
     )}
-    claims["card.appraisal.clinical_significance"] = app["clinical_significance"]
+    claims["card.appraisal.clinical_significance"] = app.get("clinical_significance")
     numbers = numeric_values(evidence)
     unsupported = [field for field, value in claims.items() if numeric_values(value) - numbers]
     if unsupported:
-        raise Review("unsupported_number", unsupported)
+        flag("unsupported_number", unsupported)
+    if problems:
+        error = Review(problems[0]["reason"], problems[0]["fields"])
+        error.problems = problems
+        error.style_issues = [issue.removeprefix("model reading: ") for issue in style_issues]
+        raise error
 
 
 def decisions(card):
@@ -400,6 +431,11 @@ class OpenAI:
         return math.ceil((in_rate * input_tokens + out_rate * output_tokens) / 100)
 
 
+def cosmetic_only(error):
+    """True when the only failing check is a card word cap, which a rewrite can fix."""
+    return {row["reason"] for row in getattr(error, "problems", [])} == {"card_style_validation_failed"}
+
+
 def evaluate(model, job_id, job, journal, source, payload, rules, schema):
     if "decision" in job:
         return job["decision"]
@@ -407,16 +443,35 @@ def evaluate(model, job_id, job, journal, source, payload, rules, schema):
     for phase, name in (("primary", PRIMARY), ("blind_verification", VERIFIER)):
         if phase not in job:
             # This cap includes reasoning as well as the complete structured appraisal.
-            result = None
+            result = original = None
             try:
                 result = model.generate(job_id, name, phase, SYSTEM + rules, payload, schema, 12000)
-                appraisal_checks(result, source, level)
+                try:
+                    appraisal_checks(result, source, level)
+                except Review as first:
+                    if not cosmetic_only(first):
+                        raise
+                    # Word caps are presentation, not evidence. Allow one shortening
+                    # pass, then run every check again on the shortened card.
+                    original = result
+                    job.setdefault("style_repairs", {})[phase] = first.style_issues[:20]
+                    journal.save()
+                    repaired = model.generate(
+                        job_id, PRIMARY, "style_repair", REPAIR + rules,
+                        {"card": result["card"], "violations": first.style_issues[:20]},
+                        object_schema({"card": schema["properties"]["card"]["anyOf"][0]}), 12000)
+                    result = {**result, "card": repaired["card"]}
+                    appraisal_checks(result, source, level)
             except Review as error:
                 failure = {
                     "run": model.run_id, "record": job["record"], "status": "held",
                     "checked_at": datetime.now(timezone.utc).isoformat(),
                     "reason": str(error), "fields": error.fields, "reading": result,
                 }
+                if original is not None:
+                    failure["original_reading"] = original
+                if getattr(error, "problems", None):
+                    failure["all_problems"] = error.problems
                 if isinstance(error, ModelOutputReview):
                     failure["output_text"] = error.texts
                 if str(error) == "unsupported_source_excerpt":

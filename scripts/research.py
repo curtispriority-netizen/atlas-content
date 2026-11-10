@@ -121,9 +121,9 @@ class Feed:
                 sources.append(source)
                 self.shown["shown"].append({"key": record.doi or record.pmid, "title": record.title,
                                             "edition": edition_id, "where": "items"})
-            verdict = f"{len(cards)} independently checked full-text " + (
+            verdict = f"{len(cards)} AI-appraised full-text " + (
                 "study" if len(cards) == 1 else "studies"
-            ) + " in this edition."
+            ) + ": two model passes agreed and quotes were checked against the source. Not clinician-reviewed."
             write_json(self.root / path, {"schema_version": 1, "edition_id": edition_id,
                        "published_at": timestamp, "verdict": verdict, "quiet_week": False,
                        "items": cards, "on_the_radar": [], "filtered_out": [], "sources": sources})
@@ -182,6 +182,9 @@ class Pipeline:
             raise SourceUnavailable(str(error)) from None
         if benchmark and level != "full_text":
             raise Review("benchmark_full_text_required")
+        if level != "full_text":
+            # Abstract-only sources can never be published, so do not pay to appraise them.
+            raise Review("abstract_only")
         if len(article.encode()) > MAX_SOURCE:
             raise Review("full_source_too_large")
         fingerprint = digest([record.doi or record.pmid, level, url, article, self.protocol])
