@@ -10,12 +10,14 @@ import sys
 from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 from pathlib import Path
+from types import SimpleNamespace
 from zoneinfo import ZoneInfo
 
 from jsonschema import Draft202012Validator
 
 from preflight import ROOT, PDF_NAME, read_json, weekly_work
 from research_appraisal import BudgetExceeded, OpenAI, digest, evaluate, reading_schema, strip_refs
+from research_review import render_review, review_entry
 from research_sources import (
     MAX_SOURCE, Drive, Literature, Review, Unavailable, doi, extract_pdf, pmid,
     render_passages, sufficient_full_text, title_key,
@@ -121,9 +123,9 @@ class Feed:
                 sources.append(source)
                 self.shown["shown"].append({"key": record.doi or record.pmid, "title": record.title,
                                             "edition": edition_id, "where": "items"})
-            verdict = f"{len(cards)} AI-appraised full-text " + (
-                "study" if len(cards) == 1 else "studies"
-            ) + ": two model passes agreed and quotes were checked against the source. Not clinician-reviewed."
+            verdict = f"{len(cards)} full-text " + ("study" if len(cards) == 1 else "studies") + (
+                ": drafted by one AI reading with numbers checked against the source, then approved by a "
+                "clinician before publication. Not independently verified by a second reader.")
             write_json(self.root / path, {"schema_version": 1, "edition_id": edition_id,
                        "published_at": timestamp, "verdict": verdict, "quiet_week": False,
                        "items": cards, "on_the_radar": [], "filtered_out": [], "sources": sources})
@@ -144,7 +146,7 @@ class Pipeline:
         self.drive, self.model, self.now, self.run = drive, model, now, run
         self.today = now.astimezone(ZoneInfo("Australia/Hobart")).date()
         self.config, self.anchors, self.retry_holds = config, anchors or {}, retry_holds
-        self.papers, self.studies, self.seen, self.ids = [], [], set(), set()
+        self.staged, self.seen, self.ids = [], set(), set()
         self.retried = set()
         self.attempts = 0
         self.rules = "\n\n".join((feed.root / name).read_text(encoding="utf-8")
@@ -192,10 +194,11 @@ class Pipeline:
             "record": {"doi": record.doi, "pmid": record.pmid, "title": record.title},
             "source": {"level": level, "url": url, "text_sha256": sha256(article.encode()).hexdigest()},
         })
-        if self.retry_holds and fingerprint not in self.retried and (
-            job.get("hold") or (job.get("decision") and not job["decision"]["agrees"])
-        ):
-            for field in ("primary", "blind_verification", "decision", "hold", "hold_fields"):
+        review = self.journal.data.setdefault("review", {})
+        if fingerprint in review:
+            return
+        if self.retry_holds and fingerprint not in self.retried and job.get("hold"):
+            for field in ("primary", "hold", "hold_fields"):
                 job.pop(field, None)
             self.retried.add(fingerprint)
             self.journal.save()
@@ -204,8 +207,8 @@ class Pipeline:
         try:
             payload = {"record": {key: getattr(record, key) for key in ("doi", "pmid", "title", "citation")},
                        "source_level": level, "article": render_passages(article)}
-            decision = evaluate(self.model, fingerprint, job, self.journal, article,
-                                payload, self.rules, self.schema)
+            reading = evaluate(self.model, fingerprint, job, self.journal, article,
+                               payload, self.rules, self.schema)
         except Review as error:
             job["hold"] = str(error)
             if error.fields:
@@ -214,26 +217,19 @@ class Pipeline:
             raise
         finally:
             if benchmark:
-                comparison = job.get("decision") or {}
-                self.run["benchmark_checks"] = {
-                    "primary": "primary" in job,
-                    "independent": "blind_verification" in job,
-                    "adjudication": bool(comparison.get("agrees") and not comparison.get("disagreements")),
-                }
-        if not decision["agrees"] or decision["disagreements"]:
-            raise Review("material_appraisal_disagreement")
-        if level != "full_text":
-            raise Review("abstract_only")
-        verification = {"status": "agrees", "checked_by": "independent second pass (full text)",
+                self.run["benchmark_checks"] = {"reading_passed_checks": "primary" in job}
+        verification = {"status": "not checked",
+                        "checked_by": "one AI reading; every number checked against the passages it cites; "
+                                      "approved by a clinician before publication",
                         "checked_at": self.now.isoformat(), "disagreements": [], "external": [],
                         "external_searched": "External ratings not searched for this automated edition."}
         if anchor:
             verification.update(external=anchor["external"], external_searched=anchor["external_searched"])
-        card = strip_refs(job["primary"]["card"])
+        card = strip_refs(reading["card"])
         card.update(type="study", format=2, item_id=f"mine-{paper_id or 'weekly'}",
                     read_level=level, source_ids=["paper"],
                     full_text={"status": "read", "worth_getting": False,
-                               "why": "Read the full source in two independent passes."})
+                               "why": "Read the full source in one AI pass; numbers checked against it."})
         card["appraisal"]["verification"] = verification
         if record.published:
             card["first_published"] = record.published
@@ -241,13 +237,12 @@ class Pipeline:
             raise Review("atlas_card_schema")
         citation = {"id": "paper", "citation": record.citation, "verified": True, "url": record.url}
         citation.update({key: value for key, value in (("doi", record.doi), ("pmid", record.pmid)) if value})
-        draft = {"study": card, "citation": citation, "added_at": added_at}
-        if paper_id:
-            self.papers.append((paper_id, draft))
-            self.ids.add(paper_id)
-        else:
-            self.studies.append((record, draft))
+        entry = review_entry(fingerprint, record, paper_id, card, citation, added_at, reading, article, self.now)
+        review[fingerprint] = entry
+        self.staged.append(fingerprint)
+        self.ids.add(paper_id) if paper_id else None
         self.seen.update(record.keys)
+        self.journal.save()
 
     def attempt(self, key, subject, action, static=False, discovered=False):
         if self.attempts >= self.config["max_candidates"]:
@@ -371,7 +366,7 @@ class Pipeline:
                                         self.config["lookback_days"], self.config["search_limit"])
         attempted = set()
         for record in (*resumed, *sorted(found, key=lambda r: not r.open_access)):
-            if len(self.studies) >= 3 or self.attempts >= self.config["max_candidates"]:
+            if len(self.staged) >= 3 or self.attempts >= self.config["max_candidates"]:
                 break
             if (not record.keys or record.excluded or self.feed.duplicate(record)
                     or record.keys & (self.seen | attempted)):
@@ -409,19 +404,40 @@ class Pipeline:
         )
 
 
+def approved(journal, ids):
+    """Pending review entries matching the approved fingerprints, as (papers, studies) ready to publish."""
+    papers, studies = [], []
+    for fingerprint in ids:
+        found = [entry for key, entry in journal.data.get("review", {}).items() if key.startswith(fingerprint)]
+        if len(found) != 1 or found[0]["status"] != "pending":
+            raise Unavailable("promote_id_not_pending_or_ambiguous")
+        entry = found[0]
+        draft = {"study": entry["card"], "citation": entry["citation"], "added_at": entry["added_at"]}
+        if entry["paper_id"]:
+            papers.append((entry["paper_id"], draft))
+        else:
+            studies.append((SimpleNamespace(**entry["record"]), draft))
+    return papers, studies
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("mode", choices=("stage", "publish"))
+    parser.add_argument("mode", choices=("stage", "promote"))
     parser.add_argument("--state", type=Path, required=True)
     parser.add_argument("--retry-holds", action="store_true")
     parser.add_argument("--benchmark-pmid")
+    parser.add_argument("--promote-ids", default="", help="Comma-separated fingerprint prefixes (12+ characters)")
     args = parser.parse_args()
     if args.benchmark_pmid and (args.mode != "stage" or not pmid(args.benchmark_pmid)):
         parser.error("benchmark requires stage mode and a numeric PMID")
-    if args.mode == "publish" and (os.environ.get("ATLAS_PUBLISH_ENABLED") != "true"
-                                   or os.environ.get("GITHUB_EVENT_NAME") != "schedule"
-                                   or os.environ.get("GITHUB_REF") != "refs/heads/main"):
-        raise Unavailable("publication_gate_closed")
+    ids = []
+    if args.mode == "promote":
+        ids = [part.strip() for part in args.promote_ids.split(",") if part.strip()]
+        if (not ids or any(len(part) < 12 or not re.fullmatch(r"[a-f0-9]+", part) for part in ids)
+                or os.environ.get("ATLAS_PUBLISH_ENABLED") != "true"
+                or os.environ.get("GITHUB_EVENT_NAME") != "workflow_dispatch"
+                or os.environ.get("GITHUB_REF") != "refs/heads/main"):
+            raise Unavailable("publication_gate_closed")
     root = ROOT
     state = args.state.resolve()
     now = datetime.now(timezone.utc)
@@ -433,11 +449,13 @@ def main():
         raise Unavailable("invalid_private_state_checkout")
 
     def persist():
-        git(state, "add", "--", "research-state.json")
+        git(state, "add", "--", "research-state.json", "reviews")
         if git(state, "diff", "--cached", "--name-only"):
             git(state, "commit", "-m", "Checkpoint Atlas research")
             git(state, "push", "origin", "HEAD:refs/heads/main")
 
+    (state / "reviews").mkdir(exist_ok=True)
+    (state / "reviews" / ".keep").touch()
     journal = Journal(state / "research-state.json", persist)
     journal.expire_validation_failures(now)
     journal.data["runs"][run_id] = run
@@ -451,44 +469,48 @@ def main():
         if model.run_limit <= 0 or model.month_limit <= 0:
             raise Unavailable("invalid_budget")
         feed = Feed(root)
-        drive = None if args.benchmark_pmid else Drive(
+        drive = None if args.benchmark_pmid or args.mode == "promote" else Drive(
             os.environ["ATLAS_DRIVE_READER_JSON"], os.environ["ATLAS_DRIVE_FOLDER_ID"])
         pipeline = Pipeline(feed, journal, Literature(), drive, model, now, run, config,
                             read_json(anchors) if anchors.exists() else {}, args.retry_holds)
-        try:
-            if args.benchmark_pmid:
-                pipeline.benchmark(args.benchmark_pmid)
-            else:
-                pipeline.process()
-        except BudgetExceeded:
-            run["reason"] = "run_or_month_budget"
-        run["verified"] = len(pipeline.papers) + len(pipeline.studies)
-        if args.benchmark_pmid:
-            if pipeline.studies:
-                run["preview"] = {"benchmark": pipeline.studies[0][1]}
-            changed = []
+        changed = []
+        if args.mode == "promote":
+            papers, studies = approved(journal, ids)
+            run["verified"] = len(papers) + len(studies)
+            changed = feed.publish(papers, studies, pipeline.today, now.isoformat())
         else:
-            changed = feed.publish(pipeline.papers, pipeline.studies, pipeline.today, now.isoformat())
+            try:
+                if args.benchmark_pmid:
+                    pipeline.benchmark(args.benchmark_pmid)
+                else:
+                    pipeline.process()
+            except BudgetExceeded:
+                run["reason"] = "run_or_month_budget"
+            run["staged"] = len(pipeline.staged)
+            for fingerprint in pipeline.staged:
+                path = state / "reviews" / f"{fingerprint[:12]}.md"
+                path.write_text(render_review(journal.data["review"][fingerprint]), encoding="utf-8")
         if changed:
             # No model-supplied content is printed in the public Actions log.
             if subprocess.run([sys.executable, "-X", "utf8", str(root / "scripts/validate.py")],
                               capture_output=True).returncode:
                 raise Unavailable("atlas_schema_or_style_validation_failed")
-            if args.mode == "publish":
-                git(root, "add", "--", *changed)
-                git(root, "commit", "-m", "Publish independently verified Atlas research")
-                git(root, "push", "origin", "HEAD:refs/heads/main")
-                run["published"] = run["verified"]
-                run["publication_commit"] = git(root, "rev-parse", "HEAD")
-            else:
-                run["preview"] = {path: read_json(root / path) for path in changed
-                                  if path.startswith(("editions/", "papers/")) and path != "papers/index.json"}
+            git(root, "add", "--", *changed)
+            git(root, "commit", "-m", "Publish clinician-approved Atlas research")
+            git(root, "push", "origin", "HEAD:refs/heads/main")
+            run["published"] = run["verified"]
+            run["publication_commit"] = git(root, "rev-parse", "HEAD")
+            for fingerprint in ids:
+                for key, entry in journal.data["review"].items():
+                    if key.startswith(fingerprint):
+                        entry.update(status="published", approved_at=now.isoformat(),
+                                     publication_commit=run["publication_commit"])
         if run.get("source_errors"):
             run["status"] = "partial"
         elif run.get("reason") == "run_or_month_budget":
             run["status"] = "budget_limited"
         else:
-            run["status"] = "needs_review" if run["new_holds"] else "complete"
+            run["status"] = "needs_review" if run["new_holds"] or run.get("staged") else "complete"
     except Unavailable as error:
         run.update(status="failed", reason=str(error))
         problem = error
@@ -503,7 +525,7 @@ def main():
     if run.get("publication_commit") and os.environ.get("GITHUB_OUTPUT"):
         with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as output:
             print(f"published={run['publication_commit']}", file=output)
-    print(f"Atlas research {run['status']}. Verified: {run.get('verified', 0)}. "
+    print(f"Atlas research {run['status']}. Staged for review: {run.get('staged', 0)}. "
           f"Published: {run.get('published', 0)}. New holds: {run['new_holds']}.")
     if checks := run.get("benchmark_checks"):
         print("Benchmark gates passed: " + ", ".join(f"{name}={passed}" for name, passed in checks.items()))

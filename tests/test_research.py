@@ -19,11 +19,12 @@ from jsonschema import Draft202012Validator
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from research import Feed, Journal, Pipeline, main, write_json
+from research import Feed, Journal, Pipeline, approved, main, write_json
 from research_appraisal import (OpenAI, PRIMARY, BudgetExceeded, GRADE, appraisal_checks, drop_null,
                                 excerpt_diagnostics, passage_id, ref_sample, strip_refs)
 from research_sources import (Drive, Literature, Record, Review, Unavailable, get, passages,
                               render_passages)
+from research_review import render_review
 from revalidate_research import revalidate
 
 NOW = datetime(2026, 11, 11, tzinfo=timezone.utc)
@@ -32,6 +33,18 @@ SOURCE_CONTEXT = "The intervention group attended exercise sessions."
 NUMBER_LINE = "Pain fell by 12 points in the exercise group."
 BAD_ID = "P9999"
 GOOD, NUMBERS = "P2", "P4"
+
+
+class StagedPipeline(Pipeline):
+    """Test view: the cards a reviewer could approve right now, in the shape the feed publishes."""
+
+    @property
+    def papers(self):
+        return approved(self.journal, self.staged)[0]
+
+    @property
+    def studies(self):
+        return approved(self.journal, self.staged)[1]
 
 
 class ProviderErrorTest(unittest.TestCase):
@@ -173,10 +186,7 @@ class ResearchTest(unittest.TestCase):
         Draft202012Validator.check_schema(schema)
         self.phases.append(phase)
         self.assertFalse(request["store"])
-        if phase == "comparison":
-            self.assertNotIn("article", payload)
-            value = {"agrees": True, "disagreements": []}
-        elif phase == "repair":
+        if phase == "repair":
             self.assertEqual({"record", "source_level", "article", "draft", "violations"}, payload.keys())
             self.assertTrue(payload["violations"])
             self.repair_payloads.append(payload)
@@ -186,17 +196,15 @@ class ResearchTest(unittest.TestCase):
                 value["card"]["results"][0]["result"] = "Pain fell by 15 points"
             if self.response_mode in ("style_unrepairable", "style_and_excerpt"):
                 value["card"]["bottom_line"] = " ".join(["word"] * 45)
-            if self.response_mode in ("primary", "blind_verification", "style_and_excerpt"):
+            if self.response_mode in ("primary", "style_and_excerpt"):
                 value["evidence"]["results"] = [BAD_ID]
         else:
             self.assertEqual({"record", "source_level", "article"}, payload.keys())
             self.assertTrue(payload["article"].startswith("[P1] "))
             self.assertIn(f"] {QUOTE}", payload["article"])
-            if phase == "blind_verification" and self.response_mode == "failure":
+            if self.response_mode == "failure":
                 raise Unavailable("http_429")
             value = reading(payload["source_level"], schema)
-            if phase == "blind_verification" and self.response_mode == "disagreement":
-                value["card"]["appraisal"]["certainty"] = "very low"
             if self.response_mode == "invented":
                 value["card"]["results"][0]["result"] = "Pain fell by 15 points"
             if self.response_mode == phase:
@@ -226,7 +234,7 @@ class ResearchTest(unittest.TestCase):
     def pipeline(self, records=(), level="full_text", drive=None, limits=(3_000_000, 15_000_000),
                  run_id="test", journal=None, anchors=None):
         journal = journal or self.journal
-        return Pipeline(Feed(self.root), journal, StubLiterature(records, level),
+        return StagedPipeline(Feed(self.root), journal, StubLiterature(records, level),
                         drive or StubDrive(), OpenAI(journal, run_id, "2026-11", *limits),
                         NOW, self.run, CONFIG.copy(), anchors)
 
@@ -247,17 +255,18 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual({"editions/2026-W46.json", "index.json", "shown.json"}, set(paths))
         published = json.loads((self.root / paths[0]).read_text(encoding="utf-8"))
         verification = published["items"][0]["appraisal"]["verification"]
-        self.assertEqual("agrees", verification["status"])
+        self.assertEqual("not checked", verification["status"])
+        self.assertIn("approved by a clinician", verification["checked_by"])
         self.assertEqual(RECORD.pmid, published["sources"][0]["pmid"])
         job = next(iter(self.journal.data["jobs"].values()))
         self.assertEqual("full_text", job["source"]["level"])
         self.assertEqual(64, len(job["source"]["text_sha256"]))
-        self.assertEqual(3, len(self.journal.data["charges"]))
+        self.assertEqual(1, len(self.journal.data["charges"]))
         self.assertEqual(OpenAI.cost(PRIMARY, 5000, 1000), self.journal.data["charges"][0]["cost"])
         repeat = self.pipeline([RECORD])
         repeat.process()
         self.assertEqual([], self.publish(repeat))
-        self.assertEqual(["primary", "blind_verification", "comparison"], self.phases)
+        self.assertEqual(["primary"], self.phases)
 
     def test_existing_doi_deduplicates_before_fetch_or_payment(self):
         write_json(self.root / "shown.json", {"shown": [{"key": RECORD.doi.upper()}]})
@@ -272,7 +281,7 @@ class ResearchTest(unittest.TestCase):
         pipeline = self.pipeline([RECORD])
         pipeline.benchmark(RECORD.pmid)
         self.assertEqual(1, len(pipeline.studies))
-        self.assertEqual(["primary", "blind_verification", "comparison"], self.phases)
+        self.assertEqual(["primary"], self.phases)
         self.assertEqual(before, (self.root / "index.json").read_bytes())
         self.assertEqual([], list((self.root / "editions").glob("*.json")))
 
@@ -350,7 +359,7 @@ class ResearchTest(unittest.TestCase):
         self.response_mode = "style_only"
         pipeline = self.pipeline([RECORD])
         pipeline.process()
-        self.assertEqual(["primary", "repair", "blind_verification", "comparison"], self.phases)
+        self.assertEqual(["primary", "repair"], self.phases)
         self.assertEqual(1, len(pipeline.studies))
         card = pipeline.studies[0][1]["study"]
         self.assertLessEqual(len(str(card.get("bottom_line", "")).split()), 40)
@@ -383,7 +392,7 @@ class ResearchTest(unittest.TestCase):
         self.response_mode = "excerpt_and_number"
         pipeline = self.pipeline([RECORD])
         pipeline.process()
-        self.assertEqual(["primary", "repair", "blind_verification", "comparison"], self.phases)
+        self.assertEqual(["primary", "repair"], self.phases)
         self.assertEqual(1, len(pipeline.studies))
         sent = self.repair_payloads[0]
         self.assertEqual(render_passages(ARTICLE), sent["article"])
@@ -406,9 +415,10 @@ class ResearchTest(unittest.TestCase):
         pipeline.process()
         self.publish(pipeline)
         edition = json.loads(next((self.root / "editions").glob("*.json")).read_text(encoding="utf-8"))
-        self.assertIn("AI-appraised", edition["verdict"])
-        self.assertIn("Not clinician-reviewed", edition["verdict"])
-        self.assertNotIn("independently checked", edition["verdict"].lower())
+        self.assertIn("one AI reading", edition["verdict"])
+        self.assertIn("approved by a clinician", edition["verdict"])
+        self.assertIn("Not independently verified", edition["verdict"])
+        self.assertNotIn("two model", edition["verdict"].lower())
 
     def test_insufficient_source_and_empty_queue_do_not_call_model(self):
         self.pipeline().process()
@@ -419,15 +429,33 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual([], self.publish(pipeline))
         self.assertEqual([], self.phases)
 
-    def test_independent_disagreement_kept_with_both_readings(self):
-        self.response_mode = "disagreement"
+    def test_a_checked_reading_is_staged_for_review_and_never_published_by_staging(self):
         pipeline = self.pipeline([RECORD])
         pipeline.process()
-        self.assertEqual([], self.publish(pipeline))
-        job = next(iter(self.journal.data["jobs"].values()))
-        self.assertFalse(job["decision"]["agrees"])
-        self.assertTrue(job["decision"]["disagreements"])
-        self.assertEqual(["primary", "blind_verification"], self.phases)
+        self.assertEqual(["primary"], self.phases)
+        (fingerprint,) = pipeline.staged
+        entry = self.journal.data["review"][fingerprint]
+        self.assertEqual("pending", entry["status"])
+        self.assertEqual({}, {k: v for k, v in self.journal.data["holds"].items()})
+        self.assertEqual([], list((self.root / "editions").glob("*.json")))
+        packet = render_review(entry)
+        self.assertIn("Risk of bias (RoB 2)", packet)
+        self.assertIn(f"`{fingerprint[:12]}`", packet)
+        self.assertIn(f"[{GOOD}] {QUOTE}", packet)  # the cited passage text, so the reviewer can check it
+        self.assertNotIn("evidence_refs", json.dumps(entry["card"]))
+
+    def test_only_approved_pending_fingerprints_can_be_promoted(self):
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        (fingerprint,) = pipeline.staged
+        for bad in ([fingerprint[:12].replace(fingerprint[0], "z")], ["0" * 12]):
+            with self.assertRaisesRegex(Unavailable, "promote_id_not_pending_or_ambiguous"):
+                approved(self.journal, bad)
+        papers, studies = approved(self.journal, [fingerprint[:12]])
+        self.assertEqual((0, 1), (len(papers), len(studies)))
+        self.journal.data["review"][fingerprint]["status"] = "published"
+        with self.assertRaisesRegex(Unavailable, "promote_id_not_pending_or_ambiguous"):
+            approved(self.journal, [fingerprint[:12]])
 
     def test_unsupported_number_prevents_publication(self):
         self.response_mode = "invented"
@@ -549,8 +577,8 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual(QUOTE, rows[0]["passage"])
         self.assertEqual("", rows[1]["passage"])
 
-    def test_benchmark_keeps_failed_independent_reading_private_and_blocks_preview(self):
-        self.response_mode = "blind_verification"
+    def test_benchmark_keeps_failed_reading_private_and_blocks_preview(self):
+        self.response_mode = "primary"
         article = SOURCE_CONTEXT + "\n" + ARTICLE + "\nUnrelated private source text."
         literature = StubLiterature([RECORD])
         state = self.root / "private"
@@ -570,17 +598,16 @@ class ResearchTest(unittest.TestCase):
             git.side_effect = lambda path, *args: state.as_posix() if args[0] == "rev-parse" else ""
             self.assertEqual(1, main())
             self.assertTrue(all(call.args[0] == state for call in git.call_args_list))
-        self.assertEqual(["primary", "blind_verification", "repair"], self.phases)
+        self.assertEqual(["primary", "repair"], self.phases)
         journal = Journal(state / "research-state.json")
         run = journal.data["runs"]["123.1"]
         self.assertEqual("needs_review", run["status"])
-        self.assertEqual(0, run["verified"])
+        self.assertEqual(0, run["staged"])
         self.assertNotIn("preview", run)
         self.assertNotIn("published", run)
-        self.assertEqual({"primary": True, "independent": False, "adjudication": False},
-                         run["benchmark_checks"])
+        self.assertEqual({"reading_passed_checks": False}, run["benchmark_checks"])
         job = next(iter(journal.data["jobs"].values()))
-        failure = job["validation_failures"]["blind_verification"]
+        failure = job["validation_failures"]["primary"]
         self.assertEqual("123.1", failure["run"])
         self.assertEqual(RECORD.pmid, failure["record"]["pmid"])
         self.assertEqual("held", failure["status"])
@@ -590,7 +617,7 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual({"field": "evidence.results[0]", "ref": BAD_ID, "known": False, "passage": ""}, excerpt)
         self.assertEqual([BAD_ID], failure["reading"]["evidence"]["results"])
         replay = revalidate(job, article)
-        self.assertEqual("held", replay["blind_verification"]["status"])
+        self.assertEqual("held", replay["primary"]["status"])
         self.assertEqual({"status": "source_hash_mismatch"}, revalidate(job, "other text"))
         public = stdout.getvalue() + stderr.getvalue()
         saved = journal.path.read_text(encoding="utf-8")
@@ -605,6 +632,52 @@ class ResearchTest(unittest.TestCase):
         self.assertNotIn("validation_failures", job)
         self.assertEqual("unknown_passage_id", job["hold"])
 
+    def run_main(self, state, *args, **env):
+        literature = StubLiterature([RECORD])
+        write_json(self.root / "scripts/research_config.json", CONFIG)
+        stdout = StringIO()
+        with patch("research.ROOT", self.root), patch("research.Literature", return_value=literature), \
+                patch("research.git") as git, \
+                patch.dict(os.environ, {"GITHUB_RUN_ID": env.pop("run", "1"), "GITHUB_RUN_ATTEMPT": "1",
+                                        "ATLAS_PUBLISH_ENABLED": "false", **env}), \
+                patch.object(sys, "argv", ["research", *args, "--state", str(state)]), \
+                redirect_stdout(stdout), redirect_stderr(StringIO()):
+            git.side_effect = lambda path, *a: state.as_posix() if a[0] == "rev-parse" else ""
+            return main(), stdout.getvalue()
+
+    def test_stage_writes_a_review_file_and_promote_publishes_only_what_was_approved(self):
+        state = self.root / "private"
+        state.mkdir()
+        code, out = self.run_main(state, "stage", "--benchmark-pmid", RECORD.pmid)
+        self.assertEqual(0, code)
+        self.assertIn("Staged for review: 1. Published: 0.", out)
+        journal = Journal(state / "research-state.json")
+        (fingerprint,) = journal.data["review"]
+        packet = (state / "reviews" / f"{fingerprint[:12]}.md").read_text(encoding="utf-8")
+        self.assertIn(RECORD.title, packet)
+        self.assertEqual([], list((self.root / "editions").glob("*.json")))
+        ready = dict(ATLAS_PUBLISH_ENABLED="true", GITHUB_EVENT_NAME="workflow_dispatch",
+                     GITHUB_REF="refs/heads/main", run="2")
+        for args, env in (
+            (("promote", "--promote-ids", fingerprint[:12]), {**ready, "ATLAS_PUBLISH_ENABLED": "false"}),
+            (("promote", "--promote-ids", fingerprint[:12]), {**ready, "GITHUB_EVENT_NAME": "schedule"}),
+            (("promote", "--promote-ids", fingerprint[:12]), {**ready, "GITHUB_REF": "refs/heads/other"}),
+            (("promote",), ready),
+            (("promote", "--promote-ids", fingerprint[:8]), ready),
+        ):
+            with self.subTest(args=args, env=env), self.assertRaisesRegex(Unavailable, "publication_gate_closed"):
+                self.run_main(state, *args, **env)
+        self.assertEqual([], list((self.root / "editions").glob("*.json")))
+        code, out = self.run_main(state, "promote", "--promote-ids", fingerprint[:12], **ready)
+        self.assertEqual(0, code)
+        self.assertIn("Published: 1.", out)
+        edition = json.loads(next((self.root / "editions").glob("*.json")).read_text(encoding="utf-8"))
+        self.assertIn("approved by a clinician", edition["verdict"])
+        entry = Journal(state / "research-state.json").data["review"][fingerprint]
+        self.assertEqual("published", entry["status"])
+        code, out = self.run_main(state, "promote", "--promote-ids", fingerprint[:12], **{**ready, "run": "3"})
+        self.assertNotEqual(0, code)  # approving the same card twice is refused, not republished
+
     def test_malformed_model_text_is_held_and_retained_without_provider_envelope(self):
         self.response_mode = "invalid_json"
         pipeline = self.pipeline([RECORD])
@@ -616,19 +689,19 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual("model_refusal_or_invalid_output", failure["reason"])
         self.assertEqual(["{private-invalid-json"], failure["output_text"])
 
-    def test_rate_limit_resumes_from_durable_blind_checkpoint(self):
+    def test_rate_limit_resumes_after_an_uncertain_charge(self):
         self.response_mode = "failure"
         with self.assertRaisesRegex(Unavailable, "http_429"):
             self.pipeline([RECORD]).process()
         reloaded = Journal(self.journal.path)
-        self.assertEqual("uncertain", reloaded.data["charges"][1]["status"])
+        self.assertEqual("uncertain", reloaded.data["charges"][0]["status"])
         self.response_mode = ""
         pipeline = self.pipeline([RECORD], run_id="retry", journal=reloaded)
         # The failed candidate has moved outside the discovery window.
         with patch.object(pipeline.literature, "discover", return_value=[]):
             pipeline.process()
         self.assertTrue(self.publish(pipeline))
-        self.assertEqual(["primary", "blind_verification", "blind_verification", "comparison"], self.phases)
+        self.assertEqual(["primary", "primary"], self.phases)
 
     def test_both_budgets_block_before_generation(self):
         for limits in ((1, 15_000_000), (3_000_000, 1)):
@@ -671,7 +744,7 @@ class ResearchTest(unittest.TestCase):
         ]):
             pipeline.process()
         self.assertIn("http_500", self.reasons(self.run["source_errors"]))
-        self.assertEqual(other, pipeline.studies[0][0])
+        self.assertEqual(other.doi, pipeline.studies[0][0].doi)
         self.assertTrue(self.publish(pipeline))
 
     def test_xml_identity_and_retraction_are_checked_before_generation(self):
