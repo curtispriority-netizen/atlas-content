@@ -20,14 +20,18 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from research import Feed, Journal, Pipeline, main, write_json
-from research_appraisal import OpenAI, PRIMARY, BudgetExceeded, GRADE, appraisal_checks, drop_null, excerpt_diagnostics
-from research_sources import Drive, Literature, Record, Review, Unavailable, get
+from research_appraisal import (OpenAI, PRIMARY, BudgetExceeded, GRADE, appraisal_checks, drop_null,
+                                excerpt_diagnostics, passage_id, strip_refs)
+from research_sources import (Drive, Literature, Record, Review, Unavailable, get, passages,
+                              render_passages)
 from revalidate_research import revalidate
 
 NOW = datetime(2026, 11, 11, tzinfo=timezone.utc)
 QUOTE = "The trial reported pain scores for adults allocated to exercise or usual care."
 SOURCE_CONTEXT = "The intervention group attended exercise sessions."
-REJECTED_QUOTE = "The intervention group attended invented sessions."
+NUMBER_LINE = "Pain fell by 12 points in the exercise group."
+BAD_ID = "P9999"
+GOOD, NUMBERS = "P2", "P4"
 
 
 class ProviderErrorTest(unittest.TestCase):
@@ -47,7 +51,7 @@ class ProviderErrorTest(unittest.TestCase):
                 request.assert_called_once()
 
 
-ARTICLE = "Methods and results. " + (QUOTE + " ") * 40
+ARTICLE = "Methods and results.\n" + "\n".join([QUOTE, SOURCE_CONTEXT, NUMBER_LINE] * 20)
 RECORD = Record("10.1234/example", "12345", "Example exercise trial",
                 "Author AB. Example exercise trial. Example Journal.", "PMC12345",
                 ARTICLE[:800], True, "randomized controlled trial")
@@ -67,7 +71,8 @@ def reading(level, schema):
         "pico": {"p": "Adults", "i": "Exercise", "c": "Usual care", "o": "Pain"},
         "methods": {"design": "Randomised trial", "participants": "Adults", "intervention": "Exercise",
                     "comparator": "Usual care", "primary_outcome": "Pain"},
-        "results": [{"outcome": "Pain", "result": "Uncertain between-group effect", "verdict": "unclear"}],
+        "results": [{"outcome": "Pain", "result": "Uncertain between-group effect", "verdict": "unclear",
+                     "evidence_refs": [GOOD]}],
         "appraisal": {
             "appraised_from": level, "tool": "RoB 2", "certainty": "low",
             "overall_risk_of_bias": "not assessable",
@@ -106,7 +111,7 @@ def reading(level, schema):
 
     return fill({"adequate": True, "reason": "", "card": study,
                  "evidence": dict.fromkeys(("design", "population", "intervention_or_exposure",
-                                            "comparator", "outcomes", "results", "numbers"), [QUOTE])}, schema)
+                                            "comparator", "outcomes", "results", "numbers"), [GOOD])}, schema)
 
 
 class StubLiterature:
@@ -182,9 +187,11 @@ class ResearchTest(unittest.TestCase):
             if self.response_mode in ("style_unrepairable", "style_and_excerpt"):
                 value["card"]["bottom_line"] = " ".join(["word"] * 45)
             if self.response_mode in ("primary", "blind_verification", "style_and_excerpt"):
-                value["evidence"]["results"] = [REJECTED_QUOTE]
+                value["evidence"]["results"] = [BAD_ID]
         else:
             self.assertEqual({"record", "source_level", "article"}, payload.keys())
+            self.assertTrue(payload["article"].startswith("[P1] "))
+            self.assertIn(f"] {QUOTE}", payload["article"])
             if phase == "blind_verification" and self.response_mode == "failure":
                 raise Unavailable("http_429")
             value = reading(payload["source_level"], schema)
@@ -193,15 +200,15 @@ class ResearchTest(unittest.TestCase):
             if self.response_mode == "invented":
                 value["card"]["results"][0]["result"] = "Pain fell by 15 points"
             if self.response_mode == phase:
-                value["evidence"]["results"] = [REJECTED_QUOTE]
+                value["evidence"]["results"] = [BAD_ID]
             if phase == "primary" and self.response_mode in ("style_only", "style_unrepairable"):
                 value["card"]["bottom_line"] = " ".join(["word"] * 45)
             if self.response_mode == "style_and_excerpt":
                 value["card"]["bottom_line"] = " ".join(["word"] * 45)
-                value["evidence"]["results"] = [REJECTED_QUOTE]
+                value["evidence"]["results"] = [BAD_ID]
             if phase == "primary" and self.response_mode == "excerpt_and_number":
                 value["card"]["results"][0]["result"] = "Pain fell by 15 points"
-                value["evidence"]["results"] = [REJECTED_QUOTE]
+                value["evidence"]["results"] = [BAD_ID]
             if phase == "primary" and self.response_mode == "missing_domain":
                 value["card"]["appraisal"]["domains"].pop()
         self.assertTrue(Draft202012Validator(schema).is_valid(value))
@@ -304,11 +311,11 @@ class ResearchTest(unittest.TestCase):
         schema = self.pipeline().schema
         result = drop_null(reading("full_text", schema))
         result["card"]["bottom_line"] = " ".join(["word"] * 45)
-        result["evidence"]["results"] = [REJECTED_QUOTE]
+        result["evidence"]["results"] = [BAD_ID]
         with self.assertRaisesRegex(Review, "^card_style_validation_failed$") as raised:
             appraisal_checks(result, ARTICLE, "full_text")
         self.assertEqual(["bottom_line"], raised.exception.fields)
-        self.assertEqual(["card_style_validation_failed", "unsupported_source_excerpt"],
+        self.assertEqual(["card_style_validation_failed", "unknown_passage_id"],
                          [row["reason"] for row in raised.exception.problems])
         self.assertEqual(["evidence.results[0]"], raised.exception.problems[1]["fields"])
 
@@ -321,18 +328,23 @@ class ResearchTest(unittest.TestCase):
         failure = job["validation_failures"]["primary"]
         self.assertEqual("card_style_validation_failed", failure["reason"])
         self.assertIn("original_reading", failure)
-        self.assertEqual("evidence.results[0]", failure["excerpts"][0]["field"])
-        self.assertEqual(["card_style_validation_failed", "unsupported_source_excerpt"],
+        bad = next(row for row in failure["excerpts"] if not row["known"])
+        self.assertEqual("evidence.results[0]", bad["field"])
+        self.assertEqual(["card_style_validation_failed", "unknown_passage_id"],
                          [row["reason"] for row in failure["all_problems"]])
         report = revalidate(job, ARTICLE)["primary"]
         self.assertEqual("held", report["status"])
         self.assertEqual(2, len(report["all_problems"]))
 
-    def test_instructions_tell_the_model_about_quotes_numbers_and_word_caps(self):
-        from research_appraisal import SYSTEM
-        self.assertIn("Do not wrap excerpts in quotation marks", SYSTEM)
+    def test_instructions_tell_the_model_to_cite_passage_ids_not_copy_text(self):
+        from research_appraisal import REPAIR, SYSTEM
+        for text in (SYSTEM, REPAIR):
+            self.assertIn("passage ID", text)
+            self.assertIn("evidence_refs", text)
+            self.assertNotIn("verbatim", text)
+            self.assertNotIn("quotation marks", text)
         self.assertIn("80%", SYSTEM)
-        self.assertIn("must appear inside one of your evidence excerpts", SYSTEM)
+        self.assertIn("appear in one of that entry's cited passages", SYSTEM)
 
     def test_word_cap_overrun_gets_one_shortening_pass_then_full_rechecks(self):
         self.response_mode = "style_only"
@@ -374,11 +386,12 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual(["primary", "repair", "blind_verification", "comparison"], self.phases)
         self.assertEqual(1, len(pipeline.studies))
         sent = self.repair_payloads[0]
-        self.assertEqual(ARTICLE, sent["article"])
+        self.assertEqual(render_passages(ARTICLE), sent["article"])
         checks = {row["check"]: row for row in sent["violations"]}
-        self.assertEqual({"unsupported_source_excerpt", "unsupported_number"}, checks.keys())
-        self.assertEqual("evidence.results[0]", checks["unsupported_source_excerpt"]["details"][0]["field"])
-        self.assertEqual(["15"], checks["unsupported_number"]["details"]["card.results"])
+        self.assertEqual({"unknown_passage_id", "unsupported_number"}, checks.keys())
+        self.assertEqual(["evidence.results[0]"], checks["unknown_passage_id"]["fields"])
+        self.assertEqual(f"P1 to P{len(passages(ARTICLE))}", checks["unknown_passage_id"]["details"]["valid_ids"])
+        self.assertEqual(["15"], checks["unsupported_number"]["details"]["card.results[0]"])
         self.assertNotIn("15", json.dumps(pipeline.studies[0][1]["study"]["results"]))
 
     def test_methodological_failures_are_never_repaired(self):
@@ -423,66 +436,110 @@ class ResearchTest(unittest.TestCase):
         self.assertIn("unsupported_number", self.reasons(self.journal.data["holds"]))
         self.assertEqual([], self.publish(pipeline))
 
-    def test_excerpt_validation_ignores_whitespace_only(self):
-        schema = self.pipeline().schema
-        for excerpt, source, reason in (
-            (QUOTE, ARTICLE, None),
-            (QUOTE.replace(" ", "\n\t"), ARTICLE, None),
-            (QUOTE.replace("usual", "invented"), ARTICLE, "unsupported_source_excerpt"),
-            ("The trial", ARTICLE, "unsupported_source_excerpt"),
-            ("Dose −12 points", "Dose -12 points. " + ARTICLE, "unsupported_source_excerpt"),
-            (None, ARTICLE, "missing_source_excerpt"),
-        ):
-            with self.subTest(excerpt=excerpt):
-                result = drop_null(reading("full_text", schema))
-                result["evidence"]["results"] = [excerpt] if excerpt else []
+    def checked(self, mutate, source=ARTICLE):
+        result = drop_null(reading("full_text", self.pipeline().schema))
+        mutate(result)
+        return result, source
+
+    def run_checks(self, mutate):
+        result, source = self.checked(mutate)
+        appraisal_checks(result, source, "full_text")
+
+    def test_evidence_cites_passage_ids_that_must_exist(self):
+        for ref, reason in ((GOOD, None), (f"[{GOOD}]", None), ("P02", None), (" P2 ", None),
+                            (BAD_ID, "unknown_passage_id"), ("P0", "unknown_passage_id"),
+                            (QUOTE, "unknown_passage_id"), ("", "unknown_passage_id")):
+            with self.subTest(ref=ref):
+                result, source = self.checked(lambda r: r["evidence"].update(results=[ref]))
                 if reason:
                     with self.assertRaisesRegex(Review, f"^{reason}$") as raised:
                         appraisal_checks(result, source, "full_text")
-                    self.assertEqual(["evidence.results[0]" if excerpt else "evidence.results"],
-                                     raised.exception.fields)
+                    self.assertEqual(["evidence.results[0]"], raised.exception.fields)
                 else:
                     appraisal_checks(result, source, "full_text")
+        result, source = self.checked(lambda r: r["evidence"].update(results=[]))
+        with self.assertRaisesRegex(Review, "^missing_source_excerpt$") as raised:
+            appraisal_checks(result, source, "full_text")
+        self.assertEqual(["evidence.results"], raised.exception.fields)
 
-    def test_quote_wrapper_accepts_only_exact_source_text(self):
-        schema = self.pipeline().schema
-        quoted_in_source = '"work out"'
-        cases = (
-            (f'"{QUOTE}"', ARTICLE, True),
-            (f"“{QUOTE}”", ARTICLE, True),
-            (QUOTE, ARTICLE, True),
-            (quoted_in_source, f"{ARTICLE} {quoted_in_source}", True),
-            (f'"{REJECTED_QUOTE}"', ARTICLE, False),
-            (f'“{QUOTE}"', ARTICLE, False),
-            (f'""{QUOTE}""', ARTICLE, False),
-            ('"The trial"', ARTICLE, False),
-            ('" The trial "', ARTICLE, False),
-        )
-        for excerpt, source, accepted in cases:
-            with self.subTest(excerpt=excerpt, accepted=accepted):
-                result = drop_null(reading("full_text", schema))
-                result["evidence"]["results"] = [excerpt]
-                if accepted:
-                    appraisal_checks(result, source, "full_text")
-                else:
-                    with self.assertRaisesRegex(Review, "^unsupported_source_excerpt$") as error:
-                        appraisal_checks(result, source, "full_text")
-                    self.assertEqual(["evidence.results[0]"], error.exception.fields)
+    def test_entry_numbers_must_appear_in_that_entrys_own_cited_passages(self):
+        def entry(refs, others=(NUMBERS,)):
+            def mutate(result):
+                result["card"]["results"][0]["result"] = "Pain fell by 12 points"
+                result["card"]["results"][0]["evidence_refs"] = refs
+                result["evidence"]["numbers"] = list(others)
+            return mutate
+        # P4 is cited elsewhere in the reading, which does not support this entry.
+        result, source = self.checked(entry([GOOD]))
+        with self.assertRaisesRegex(Review, "^unsupported_number$") as raised:
+            appraisal_checks(result, source, "full_text")
+        self.assertEqual(["card.results[0]"], raised.exception.fields)
+        self.assertEqual({"card.results[0]": ["12"]}, raised.exception.number_details)
+        self.run_checks(entry([NUMBERS]))
+        self.run_checks(entry([GOOD, NUMBERS]))
 
-    def test_quote_wrapper_diagnostics_keep_context_for_every_failure(self):
-        excerpts = ['"The trial"', f'"{REJECTED_QUOTE}"', "Unsupported claim about usual care.",
-                    "Completely disjoint wording.", "Unrelated invented description."]
-        rows = excerpt_diagnostics({"evidence": {"results": excerpts}}, ARTICLE)
-        self.assertEqual(excerpts, [row["excerpt"] for row in rows])
-        self.assertEqual(["too_short"] + ["not_exact"] * 4, [row["reason"] for row in rows])
-        self.assertEqual([True, False, False, False, False], [row["stripped_match"] for row in rows])
-        self.assertTrue(all(0 < len(row["source_context"]) <= 240 for row in rows))
-        self.assertTrue(all(not row["whitespace_normalised_match"] for row in rows))
-        self.assertTrue(all(not row["unicode_normalisation_match"] for row in rows))
+    def test_key_numbers_are_checked_against_their_own_refs(self):
+        def mutate(refs):
+            def inner(result):
+                result["card"]["key_numbers"] = [{"value": "12", "label": "points", "evidence_refs": refs}]
+            return inner
+        self.run_checks(mutate([NUMBERS]))
+        with self.assertRaisesRegex(Review, "^unsupported_number$") as raised:
+            self.run_checks(mutate([GOOD]))
+        self.assertEqual(["card.key_numbers[0]"], raised.exception.fields)
+
+    def test_narrative_numbers_need_some_cited_passage(self):
+        def mutate(cite):
+            def inner(result):
+                result["card"]["impact_line"] = "Pain fell by 12 points."
+                result["evidence"]["numbers"] = [cite]
+            return inner
+        self.run_checks(mutate(NUMBERS))
+        with self.assertRaisesRegex(Review, "^unsupported_number$") as raised:
+            self.run_checks(mutate(GOOD))
+        self.assertEqual(["card.impact_line"], raised.exception.fields)
+
+    def test_result_entries_must_cite_at_least_one_passage(self):
+        result, source = self.checked(lambda r: r["card"]["results"][0].update(evidence_refs=[]))
+        with self.assertRaisesRegex(Review, "^unknown_passage_id$") as raised:
+            appraisal_checks(result, source, "full_text")
+        self.assertEqual(["card.results[0].evidence_refs"], raised.exception.fields)
+        result, source = self.checked(lambda r: r["card"]["results"][0].update(evidence_refs=[BAD_ID]))
+        with self.assertRaisesRegex(Review, "^unknown_passage_id$") as raised:
+            appraisal_checks(result, source, "full_text")
+        self.assertEqual(["card.results[0].evidence_refs[0]"], raised.exception.fields)
+
+    def test_passages_are_deterministic_bounded_and_rendered_with_ids(self):
+        long = "Sentence number one is here. " * 80
+        article = "Heading\n" + long + "\n\nLast line."
+        first = passages(article)
+        self.assertEqual(first, passages(article))
+        self.assertEqual([f"P{i}" for i in range(1, len(first) + 1)], [pid for pid, _ in first])
+        self.assertTrue(all(0 < len(text) <= 700 for _, text in first))
+        self.assertEqual("[P1] Heading", render_passages(article).splitlines()[0])
+        self.assertEqual("P12", passage_id("[P012]"))
+        self.assertIsNone(passage_id("The trial"))
+
+    def test_evidence_refs_are_removed_before_the_card_is_validated_or_published(self):
+        card = drop_null(reading("full_text", self.pipeline().schema))["card"]
+        card["key_numbers"] = [{"value": "12", "label": "points", "evidence_refs": [NUMBERS]}]
+        self.assertNotIn("evidence_refs", json.dumps(strip_refs(card)))
+        self.assertIn("evidence_refs", json.dumps(card))
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        self.assertEqual(1, len(pipeline.studies))
+        self.assertNotIn("evidence_refs", json.dumps(pipeline.studies[0][1]))
+        self.publish(pipeline)
+
+    def test_diagnostics_show_cited_passages_for_unknown_ids(self):
+        rows = excerpt_diagnostics({"evidence": {"results": [GOOD, BAD_ID]}}, ARTICLE)
+        self.assertEqual([True, False], [row["known"] for row in rows])
+        self.assertEqual(QUOTE, rows[0]["passage"])
+        self.assertEqual("", rows[1]["passage"])
 
     def test_benchmark_keeps_failed_independent_reading_private_and_blocks_preview(self):
         self.response_mode = "blind_verification"
-        article = SOURCE_CONTEXT + " " + ARTICLE + " Unrelated private source text."
+        article = SOURCE_CONTEXT + "\n" + ARTICLE + "\nUnrelated private source text."
         literature = StubLiterature([RECORD])
         state = self.root / "private"
         state.mkdir()
@@ -515,21 +572,17 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual("123.1", failure["run"])
         self.assertEqual(RECORD.pmid, failure["record"]["pmid"])
         self.assertEqual("held", failure["status"])
-        self.assertEqual("unsupported_source_excerpt", failure["reason"])
+        self.assertEqual("unknown_passage_id", failure["reason"])
         self.assertEqual(["evidence.results[0]"], failure["fields"])
-        excerpt = failure["excerpts"][0]
-        self.assertEqual(REJECTED_QUOTE, excerpt["excerpt"])
-        self.assertEqual("not_exact", excerpt["reason"])
-        self.assertFalse(excerpt["whitespace_normalised_match"])
-        self.assertIn(SOURCE_CONTEXT, excerpt["source_context"])
-        self.assertLessEqual(len(excerpt["source_context"]), 240)
-        self.assertEqual([REJECTED_QUOTE], failure["reading"]["evidence"]["results"])
+        excerpt = next(row for row in failure["excerpts"] if not row["known"])
+        self.assertEqual({"field": "evidence.results[0]", "ref": BAD_ID, "known": False, "passage": ""}, excerpt)
+        self.assertEqual([BAD_ID], failure["reading"]["evidence"]["results"])
         replay = revalidate(job, article)
         self.assertEqual("held", replay["blind_verification"]["status"])
         self.assertEqual({"status": "source_hash_mismatch"}, revalidate(job, "other text"))
         public = stdout.getvalue() + stderr.getvalue()
         saved = journal.path.read_text(encoding="utf-8")
-        for private in (REJECTED_QUOTE, SOURCE_CONTEXT):
+        for private in (QUOTE, SOURCE_CONTEXT):
             self.assertNotIn(private, public)
         for unwanted in ("fixture-only", "provider-envelope-only", "Unrelated private source text."):
             self.assertNotIn(unwanted, public)
@@ -538,7 +591,7 @@ class ResearchTest(unittest.TestCase):
                                        if path.parent != state})
         journal.expire_validation_failures(datetime.fromisoformat(failure["checked_at"]) + timedelta(days=30))
         self.assertNotIn("validation_failures", job)
-        self.assertEqual("unsupported_source_excerpt", job["hold"])
+        self.assertEqual("unknown_passage_id", job["hold"])
 
     def test_malformed_model_text_is_held_and_retained_without_provider_envelope(self):
         self.response_mode = "invalid_json"
@@ -631,7 +684,8 @@ class ResearchTest(unittest.TestCase):
             level, _, source = Literature().source(RECORD)
         self.assertIn("Group\tExercise\t5.0", source)
         result = drop_null(reading(level, self.pipeline().schema))
-        result["evidence"]["results"] = ["Pain scores were lower (p<0.001)."]
+        pid = next(pid for pid, text in passages(source) if "Pain scores were lower (p<0.001)." in text)
+        result["evidence"]["results"] = [pid]
         appraisal_checks(result, source, level)
 
 

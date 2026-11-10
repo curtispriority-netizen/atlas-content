@@ -4,7 +4,6 @@ import json
 import math
 import os
 import re
-import unicodedata
 from copy import deepcopy
 from datetime import datetime, timezone
 from hashlib import sha256
@@ -47,24 +46,21 @@ Keep the study's findings separate from clinical recommendations and causal
 claims. Only use own words in the card. Use null for optional fields you omit.
 The source metadata is verified separately. Never include identifiable patient data.
 For numbers, preserve the printed values, signs and precision. Avoid conversions,
-calculations and unsupported clinical thresholds. Put exact source excerpts in
-the evidence object only, never in the clinical card.
+calculations and unsupported clinical thresholds.
 Use the exact risk-of-bias tool and domain names in APPRAISAL.md. For JBI, use
 the design-specific domains. For missing comparators report their absence.
 When a bias domain's support is "Not reported", set its judgement to "unclear".
 Report that external evidence was unavailable when none is supplied.
-Keep each field concise. Use the shortest exact source excerpts that support
-the claims and report only the results material to interpreting this study.
-Every evidence excerpt must contain at least ten characters and be a contiguous
-verbatim passage from the supplied article. Copy the article's words, punctuation,
-and numeric signs exactly. Do not wrap excerpts in quotation marks.
-Quote the surrounding sentence or contiguous table cells
-for numeric evidence. Never combine non-contiguous text into a single excerpt, and do
-not use ellipses. Every number used anywhere in the card (counts, hours, doses, effect
-sizes, CIs, MCIDs) must appear inside one of your evidence excerpts. Add an excerpt to
-evidence.numbers for each such number. If you cannot quote a number contiguously, leave
-it out of the card. Every card field has a word cap in the style rules above. Aim for
-about 80% of each cap and count words before answering.
+Keep each field concise and report only the results material to interpreting this study.
+The article is split into numbered passages such as [P12]. Cite evidence by passage
+ID only (for example "P12"), never by copying text. The evidence object holds arrays
+of passage IDs. Each card.results entry and each card.key_numbers entry must have
+evidence_refs listing the passage IDs that contain its numbers. Every number in an
+entry must appear in one of that entry's cited passages. Every number elsewhere in
+the card must appear in a passage you cited somewhere. Cite every passage that
+supports a number you use. If no passage contains a number, leave it out of the card.
+Cite only IDs that exist in the supplied article. Every card field has a word cap
+in the style rules above. Aim for about 80% of each cap and count words before answering.
 If adequate is false, give a brief reason and use null for card and evidence.
 """
 AUDIT = """Compare the two independent source readings below. The draft is what
@@ -78,14 +74,15 @@ disagreements by rewriting the card or infer missing evidence. Check card style.
 """
 REPAIR = """Your draft reading failed automated checks. Return a complete corrected
 reading in the same format. Change only what the violations name.
-- Rejected excerpt: replace it with a passage copied exactly, character for character, from the
-  article (source_context shows where it probably is). Keep its case, punctuation and wording.
-  If you cannot find an exact passage, delete the excerpt and remove card claims that need it.
-- Number not found in any excerpt: add an exact excerpt that contains it, or remove that
-  number from the card.
+- Unknown passage ID: replace it with an ID that exists in the supplied article and
+  contains the supporting text, or remove the ID and any card claim that needs it.
+  Evidence arrays and evidence_refs hold passage IDs only, never quoted text.
+- Number not supported (see details): add the passage ID that contains it to that entry's
+  evidence_refs (or to the evidence arrays for narrative fields), or remove that number
+  from the card. Each results and key_numbers entry is checked against its own evidence_refs.
+- Missing evidence_refs: add at least one passage ID to the entry.
 - Word-cap overrun: shorten the text, keeping every fact, number and hedge.
 Never change appraisal judgements, tool, certainty, domains or GRADE rows. Do not add claims.
-Do not wrap excerpts in quotation marks and do not use ellipses.
 """
 EVIDENCE_AREAS = ("design", "population", "intervention_or_exposure", "comparator",
                   "outcomes", "results", "numbers")
@@ -251,6 +248,15 @@ def evidence_problems(result, source):
             unknown.extend(f"{field}.evidence_refs[{i}]" for i, ref in enumerate(refs)
                            if passage_id(ref) not in known)
     return unknown, texts, entries
+
+
+def strip_refs(card):
+    """Remove evidence_refs, which exist only in the reading, before the card is validated or published."""
+    card = deepcopy(card)
+    for group in ("results", "key_numbers"):
+        for entry in card.get(group) or []:
+            entry.pop("evidence_refs", None)
+    return card
 
 
 def excerpt_diagnostics(result, source):
@@ -483,7 +489,7 @@ def violations(error, result, source):
         elif problem["reason"] == "unsupported_number":
             row["details"] = error.number_details
         elif problem["reason"] == "unknown_passage_id":
-            row["details"] = [item for item in excerpt_diagnostics(result, source) if not item["known"]]
+            row["details"] = {"valid_ids": f"P1 to P{len(passage_map(source))}"}
         rows.append(row)
     return rows
 
