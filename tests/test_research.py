@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from research import Feed, Journal, Pipeline, main, write_json
 from research_appraisal import (OpenAI, PRIMARY, BudgetExceeded, GRADE, appraisal_checks, drop_null,
-                                excerpt_diagnostics, passage_id, strip_refs)
+                                excerpt_diagnostics, passage_id, ref_sample, strip_refs)
 from research_sources import (Drive, Literature, Record, Review, Unavailable, get, passages,
                               render_passages)
 from revalidate_research import revalidate
@@ -530,6 +530,18 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual(1, len(pipeline.studies))
         self.assertNotIn("evidence_refs", json.dumps(pipeline.studies[0][1]))
         self.publish(pipeline)
+
+    def test_cited_ids_are_kept_before_the_repair_call_so_a_crash_stays_diagnosable(self):
+        self.response_mode = "excerpt_and_number"
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        job = next(iter(self.journal.data["jobs"].values()))
+        sample = job["repair_refs"]["primary"]
+        self.assertIn({"field": "evidence.results[0]", "ref": BAD_ID, "known": False}, sample)
+        self.assertIn({"field": "card.results[0].evidence_refs[0]", "ref": GOOD, "known": True}, sample)
+        self.assertTrue(all(len(row["ref"]) <= 80 for row in sample))
+        long = {"evidence": {"design": ["P1 " + "x" * 500]}}
+        self.assertEqual(80, len(ref_sample(long, ARTICLE)[0]["ref"]))
 
     def test_diagnostics_show_cited_passages_for_unknown_ids(self):
         rows = excerpt_diagnostics({"evidence": {"results": [GOOD, BAD_ID]}}, ARTICLE)
