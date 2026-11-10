@@ -18,6 +18,7 @@ VERIFIER = "gpt-5.4-2026-03-05"
 # Cents per million tokens, also hundredths of a microdollar per token.
 RATES = {PRIMARY: (75, 450), VERIFIER: (250, 1500)}
 GRADE = {"risk of bias", "inconsistency", "indirectness", "imprecision", "publication bias"}
+RISK_TOOLS = ("RoB 2", "ROBINS-I", "AMSTAR 2", "QUADAS-2", "QUIPS", "COSMIN", "JBI")
 REQUIRED_DOMAINS = {
     "rob 2": {"randomisation process", "deviations from intended interventions", "missing outcome data",
               "measurement of the outcome", "selection of the reported result"},
@@ -141,6 +142,10 @@ def reading_schema(defs):
     require(fields["results"]["items"], "verdict")
     require(fields["appraisal"], *APPRAISAL_FIELDS)
     appraisal = fields["appraisal"]["properties"]
+    appraisal["tool"] = {
+        **appraisal["tool"], "enum": list(RISK_TOOLS),
+        "description": "Use the exact tool label. Randomised trials use RoB 2.",
+    }
     for name in CONTEXT:
         bullets(appraisal, name, 1, 4)
     for name in ("strengths", "weaknesses"):

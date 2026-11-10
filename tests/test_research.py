@@ -244,6 +244,9 @@ class ResearchTest(unittest.TestCase):
         valid = reading("full_text", schema)
         valid["card"]["results"][0]["verdict"] = None
         self.assertFalse(validator.is_valid(valid))
+        valid = reading("full_text", schema)
+        valid["card"]["appraisal"]["tool"] = "An unrecognised bias tool"
+        self.assertFalse(validator.is_valid(valid))
 
     def test_queue_keeps_atlas_id_and_writes_only_existing_feed_format(self):
         drive = StubDrive([{"id": "abc", "name": "queue__00abcdef__exercise.txt"}],
