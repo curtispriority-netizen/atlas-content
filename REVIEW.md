@@ -1,6 +1,8 @@
 # Reviewing a staged Atlas card (about 5 minutes)
 
-Each staged paper has a file in the private state repo: `reviews/<12-character id>.md`. It shows the card, the passages the model cited, and every judgement it made. Code has already checked that each number in the card appears in the passages cited for it. Code has **not** checked that the judgements are right. That is your job, and it is the only thing between a model and the feed.
+Each staged paper has a file in the private state repo: `reviews/<12-character id>.md`. It shows the card, the passages the model cited, and every judgement it made. Code checks that each number appears in the cited passages, that style limits are met, and that the bias tool's domains are complete. Failures of those checks no longer hold the paper: they are listed at the top under **⚠ Check these first**. Start there. Code has **not** checked that the judgements are right. That is your job, and it is the only thing between a model and the feed.
+
+A style warning will make publishing fail until the text is shortened. Tell Claude the fix or reject the card.
 
 ## 1. Right study? (30 seconds)
 Compare the title, PICO and design with the paper's abstract. Reject if the population, intervention or comparator is wrong.

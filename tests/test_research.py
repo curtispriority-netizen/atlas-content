@@ -368,18 +368,19 @@ class ResearchTest(unittest.TestCase):
         self.assertIn("bottom_line", self.repair_payloads[0]["violations"][0]["details"][0])
         self.assertEqual([], self.publish(pipeline) and [])
 
-    def test_failed_shortening_is_held_with_both_readings_and_no_second_repair(self):
+    def test_failed_shortening_is_staged_with_a_warning_after_one_repair(self):
         self.response_mode = "style_unrepairable"
         pipeline = self.pipeline([RECORD])
         pipeline.process()
         self.assertEqual(["primary", "repair"], self.phases)
-        self.assertFalse(pipeline.studies)
+        (fingerprint,) = pipeline.staged
         job = next(iter(self.journal.data["jobs"].values()))
-        failure = job["validation_failures"]["primary"]
-        self.assertEqual("card_style_validation_failed", failure["reason"])
-        self.assertIn("original_reading", failure)
-        self.assertEqual(["bottom_line"], failure["fields"])
-        self.assertNotIn("primary", job)
+        self.assertEqual(["card_style_validation_failed"], [row["check"] for row in job["warnings"]])
+        self.assertEqual({}, self.journal.data["holds"])
+        packet = render_review(self.journal.data["review"][fingerprint])
+        self.assertIn("Check these first", packet)
+        self.assertIn("Publishing will fail", packet)
+        self.assertEqual([], list((self.root / "editions").glob("*.json")))
 
     def test_only_one_repair_per_phase_then_the_item_is_held(self):
         self.response_mode = "style_and_excerpt"
@@ -408,7 +409,9 @@ class ResearchTest(unittest.TestCase):
         pipeline = self.pipeline([RECORD])
         pipeline.process()
         self.assertEqual(["primary"], self.phases)
-        self.assertIn("missing_bias_domains", self.reasons(self.journal.data["holds"]))
+        job = next(iter(self.journal.data["jobs"].values()))
+        self.assertIn("missing_bias_domains", [row["check"] for row in job["warnings"]])
+        self.assertEqual({}, self.journal.data["holds"])
 
     def test_published_edition_does_not_overstate_what_was_checked(self):
         pipeline = self.pipeline([RECORD])
@@ -457,12 +460,21 @@ class ResearchTest(unittest.TestCase):
         with self.assertRaisesRegex(Unavailable, "promote_id_not_pending_or_ambiguous"):
             approved(self.journal, [fingerprint[:12]])
 
-    def test_unsupported_number_prevents_publication(self):
+    def test_unsupported_number_is_flagged_for_review_and_not_published(self):
         self.response_mode = "invented"
         pipeline = self.pipeline([RECORD])
         pipeline.process()
-        self.assertIn("unsupported_number", self.reasons(self.journal.data["holds"]))
-        self.assertEqual([], self.publish(pipeline))
+        (fingerprint,) = pipeline.staged
+        packet = render_review(self.journal.data["review"][fingerprint])
+        self.assertIn("unsupported_number", packet)
+        self.assertEqual([], list((self.root / "editions").glob("*.json")))
+
+    def test_clean_reading_has_no_warnings(self):
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        (fingerprint,) = pipeline.staged
+        self.assertEqual([], self.journal.data["review"][fingerprint]["warnings"])
+        self.assertIn("No automated warnings", render_review(self.journal.data["review"][fingerprint]))
 
     def checked(self, mutate, source=ARTICLE):
         result = drop_null(reading("full_text", self.pipeline().schema))
@@ -605,7 +617,8 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual(0, run["staged"])
         self.assertNotIn("preview", run)
         self.assertNotIn("published", run)
-        self.assertEqual({"reading_passed_checks": False}, run["benchmark_checks"])
+        self.assertEqual({"reading_passed_checks": False, "warnings": 0, "held_by": "unknown_passage_id"},
+                         run["benchmark_checks"])
         job = next(iter(journal.data["jobs"].values()))
         failure = job["validation_failures"]["primary"]
         self.assertEqual("123.1", failure["run"])

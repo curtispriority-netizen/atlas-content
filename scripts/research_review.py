@@ -36,6 +36,36 @@ def passage_block(rows):
     return "\n".join(f"  > [{row['id']}] {row['text']}" for row in rows) or "  > (no passage cited)"
 
 
+LABELS = {
+    "unsupported_number": "Numbers not found in the passages the card cites. Check each against the paper.",
+    "card_style_validation_failed": "Style rules broken. Publishing will fail until these are shortened "
+                                    "(tell Claude the fix, or reject).",
+    "missing_source_excerpt": "No supporting passage quoted for these areas.",
+    "missing_bias_domains": "Risk-of-bias tool is missing required domains.",
+    "unrecognised_bias_tool": "Risk-of-bias tool not recognised.",
+    "unreported_bias_domain_overclaim": "A bias judgement was made where the paper reports nothing.",
+    "single_trial_inconsistency_overclaim": "GRADE inconsistency should be 'not applicable' for one trial.",
+    "abstract_overclaim": "Low risk of bias claimed from an abstract only.",
+}
+
+
+def warning_block(warnings):
+    if not warnings:
+        return ["No automated warnings.", ""]
+    out = ["## ⚠ Check these first", ""]
+    for row in warnings:
+        out.append(f"- **{row['check']}**: {LABELS.get(row['check'], '')}")
+        details = row.get("details")
+        if isinstance(details, dict):
+            out += [f"  - `{field}`: {', '.join(map(str, values)) if isinstance(values, list) else values}"
+                    for field, values in details.items()]
+        elif isinstance(details, list):
+            out += [f"  - {item}" for item in details]
+        else:
+            out += [f"  - `{field}`" for field in row.get("fields", [])]
+    return out + [""]
+
+
 def render_review(entry):
     card, record = entry["card"], entry["record"]
     app = card["appraisal"]
@@ -46,6 +76,7 @@ def render_review(entry):
            "This reading was produced by one AI pass. Code checked that every number in the card appears in "
            "the passages it cites. It did not check whether the judgements below are *right*. That is your call. "
            "See REVIEW.md for a 5-minute method.", "",
+           *warning_block(entry.get("warnings") or []),
            "## What the card says", "",
            f"**{card['title']}**", "", card.get("impact_line", ""), "", card.get("bottom_line", ""), "",
            "Key findings:", bullets(card.get("key_findings")), "", "Limits:", bullets(card.get("limits")), "",

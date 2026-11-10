@@ -475,15 +475,24 @@ class OpenAI:
 REPAIRABLE = {"card_style_validation_failed", "unknown_passage_id", "unsupported_number",
               "missing_source_excerpt"}
 
+# Checks that mean the card is broken: the review packet cannot be built or the card
+# cannot be published. Everything else is a warning shown to the clinician who approves.
+BLOCKING = {"source_inadequate_on_appraisal", "incomplete_appraisal", "unknown_passage_id"}
+
 
 def repairable(error):
-    """True when every failing check can be fixed by re-quoting, re-wording or dropping a claim.
-
-    Structural and methodological failures (missing domains, wrong tool, incomplete
-    appraisal, bias overclaims) are never repaired. Every check runs again afterwards.
-    """
+    """True when at least one failing check can be fixed by re-quoting, re-wording or dropping a claim."""
     reasons = {row["reason"] for row in getattr(error, "problems", [])}
-    return bool(reasons) and reasons <= REPAIRABLE
+    return bool(reasons & REPAIRABLE)
+
+
+def blocking(error):
+    if error is None:
+        return False
+    problems = getattr(error, "problems", None)
+    if problems is None:
+        return True
+    return any(row["reason"] in BLOCKING for row in problems)
 
 
 def violations(error, result, source):
@@ -500,31 +509,49 @@ def violations(error, result, source):
     return rows
 
 
+def check(result, source, level):
+    try:
+        appraisal_checks(result, source, level)
+    except Review as error:
+        return error
+    return None
+
+
+def score(error):
+    return (blocking(error), len(getattr(error, "problems", []) or []) if error else 0)
+
+
 def evaluate(model, job_id, job, journal, source, payload, rules, schema):
-    """One reading, checked by code. A human approves it later; no second model gates it."""
+    """One reading, checked by code. A human approves it later; no second model gates it.
+
+    Blocking checks hold the paper. Other checks become warnings in the review packet.
+    """
     if "primary" in job:
         return job["primary"]
     level = payload["source_level"]
     result = original = None
     try:
-        result = model.generate(job_id, PRIMARY, "primary", SYSTEM + rules, payload, schema, 12000)
-        try:
-            appraisal_checks(result, source, level)
-        except Review as first:
-            if not repairable(first):
-                raise
-            # One bounded repair. The repaired reading must pass every check again,
-            # so a repair can never weaken validation.
-            original = result
-            found = violations(first, result, source)
+        result = model.generate(job_id, PRIMARY, "primary", SYSTEM + rules, payload, schema, 16000)
+        error = check(result, source, level)
+        if error is not None and repairable(error):
+            # One bounded repair. Keep whichever reading has fewer problems.
+            original, original_error = result, error
+            found = violations(error, result, source)
             job.setdefault("repairs", {})["primary"] = [
                 {"check": row["check"], "fields": row["fields"]} for row in found]
             job.setdefault("repair_refs", {})["primary"] = ref_sample(result, source)
             journal.save()
-            result = model.generate(
-                job_id, PRIMARY, "repair", REPAIR + rules,
-                {**payload, "draft": result, "violations": found}, schema, 12000)
-            appraisal_checks(result, source, level)
+            try:
+                repaired = model.generate(
+                    job_id, PRIMARY, "repair", REPAIR + rules,
+                    {**payload, "draft": result, "violations": found}, schema, 16000)
+                repaired_error = check(repaired, source, level)
+            except ModelOutputReview:
+                repaired, repaired_error = None, None
+            if repaired is not None and score(repaired_error) <= score(original_error):
+                result, error = repaired, repaired_error
+        if blocking(error):
+            raise error
     except Review as error:
         failure = {
             "run": model.run_id, "record": job["record"], "status": "held",
@@ -543,6 +570,7 @@ def evaluate(model, job_id, job, journal, source, payload, rules, schema):
         job.setdefault("validation_failures", {})["primary"] = failure
         # The caller saves the failure and hold together in private state.
         raise
+    job["warnings"] = violations(error, result, source) if error is not None else []
     job["primary"] = result
     journal.save()
     return result
