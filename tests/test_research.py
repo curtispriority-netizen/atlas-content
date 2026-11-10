@@ -8,8 +8,10 @@ import unittest
 from dataclasses import replace
 from datetime import datetime, timezone
 from hashlib import sha256
+from io import BytesIO
 from pathlib import Path
 from unittest.mock import patch
+from urllib.error import HTTPError
 
 from jsonschema import Draft202012Validator
 
@@ -18,10 +20,25 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from research import Feed, Journal, Pipeline, write_json
 from research_appraisal import OpenAI, PRIMARY, BudgetExceeded, GRADE
-from research_sources import Drive, Literature, Record, Review, Unavailable
+from research_sources import Drive, Literature, Record, Review, Unavailable, get
 
 NOW = datetime(2026, 11, 11, tzinfo=timezone.utc)
 QUOTE = "The trial reported pain scores for adults allocated to exercise or usual care."
+
+
+class ProviderErrorTest(unittest.TestCase):
+    def test_openai_429_reports_only_known_diagnostic_codes(self):
+        url = "https://api.openai.com/v1/responses"
+        for code, expected in (("insufficient_quota", "openai_insufficient_quota"),
+                               ("rate_limit_exceeded", "openai_rate_limit_exceeded"),
+                               ("private-provider-text", "http_429")):
+            with self.subTest(code=code):
+                response = BytesIO(json.dumps({"error": {"code": code}}).encode())
+                error = HTTPError(url, 429, "Too Many Requests", {}, response)
+                with patch("research_sources.urlopen", side_effect=error) as request:
+                    with self.assertRaisesRegex(Unavailable, f"^{expected}$"):
+                        get(url, body=b"{}")
+                request.assert_called_once()
 ARTICLE = "Methods and results. " + (QUOTE + " ") * 40
 RECORD = Record("10.1234/example", "12345", "Example exercise trial",
                 "Author AB. Example exercise trial. Example Journal.", "PMC12345",

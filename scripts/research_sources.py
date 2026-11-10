@@ -53,6 +53,14 @@ def get(url, params=None, headers=None, limit=4_000_000, body=None):
         except HTTPError as error:
             code = error.code
             delay = error.headers.get("Retry-After", "")
+            if code == 429 and body is not None and request.full_url == "https://api.openai.com/v1/responses":
+                try:
+                    detail = json.loads(error.read(4096))["error"]["code"]
+                except (ValueError, KeyError, TypeError, OSError):
+                    detail = None
+                # Keep only known codes, never the provider's response or message.
+                if detail in ("insufficient_quota", "rate_limit_exceeded"):
+                    raise Unavailable(f"openai_{detail}") from None
             if code not in (408, 429, 500, 502, 503, 504) or attempt + 1 == attempts:
                 raise Unavailable(f"http_{code}") from None
             time.sleep(min(30, int(delay)) if delay.isdecimal() else 2**attempt)
