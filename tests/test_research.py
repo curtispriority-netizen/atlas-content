@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from research import Feed, Journal, Pipeline, main, write_json
-from research_appraisal import OpenAI, PRIMARY, BudgetExceeded, GRADE, appraisal_checks, drop_null
+from research_appraisal import OpenAI, PRIMARY, BudgetExceeded, GRADE, appraisal_checks, drop_null, excerpt_diagnostics
 from research_sources import Drive, Literature, Record, Review, Unavailable, get
 from revalidate_research import revalidate
 
@@ -322,6 +322,42 @@ class ResearchTest(unittest.TestCase):
                                      raised.exception.fields)
                 else:
                     appraisal_checks(result, source, "full_text")
+
+    def test_quote_wrapper_accepts_only_exact_source_text(self):
+        schema = self.pipeline().schema
+        quoted_in_source = '"work out"'
+        cases = (
+            (f'"{QUOTE}"', ARTICLE, True),
+            (f"“{QUOTE}”", ARTICLE, True),
+            (QUOTE, ARTICLE, True),
+            (quoted_in_source, f"{ARTICLE} {quoted_in_source}", True),
+            (f'"{REJECTED_QUOTE}"', ARTICLE, False),
+            (f'“{QUOTE}"', ARTICLE, False),
+            (f'""{QUOTE}""', ARTICLE, False),
+            ('"The trial"', ARTICLE, False),
+            ('" The trial "', ARTICLE, False),
+        )
+        for excerpt, source, accepted in cases:
+            with self.subTest(excerpt=excerpt, accepted=accepted):
+                result = drop_null(reading("full_text", schema))
+                result["evidence"]["results"] = [excerpt]
+                if accepted:
+                    appraisal_checks(result, source, "full_text")
+                else:
+                    with self.assertRaisesRegex(Review, "^unsupported_source_excerpt$") as error:
+                        appraisal_checks(result, source, "full_text")
+                    self.assertEqual(["evidence.results[0]"], error.exception.fields)
+
+    def test_quote_wrapper_diagnostics_keep_context_for_every_failure(self):
+        excerpts = ['"The trial"', f'"{REJECTED_QUOTE}"', "Unsupported claim about usual care.",
+                    "Completely disjoint wording.", "Unrelated invented description."]
+        rows = excerpt_diagnostics({"evidence": {"results": excerpts}}, ARTICLE)
+        self.assertEqual(excerpts, [row["excerpt"] for row in rows])
+        self.assertEqual(["too_short"] + ["not_exact"] * 4, [row["reason"] for row in rows])
+        self.assertEqual([True, False, False, False, False], [row["stripped_match"] for row in rows])
+        self.assertTrue(all(0 < len(row["source_context"]) <= 240 for row in rows))
+        self.assertTrue(all(not row["whitespace_normalised_match"] for row in rows))
+        self.assertTrue(all(not row["unicode_normalisation_match"] for row in rows))
 
     def test_benchmark_keeps_failed_independent_reading_private_and_blocks_preview(self):
         self.response_mode = "blind_verification"

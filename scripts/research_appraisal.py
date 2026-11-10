@@ -57,7 +57,8 @@ Keep each field concise. Use the shortest exact source excerpts that support
 the claims and report only the results material to interpreting this study.
 Every evidence excerpt must contain at least ten characters and be a contiguous
 verbatim passage from the supplied article. Copy the article's words, punctuation,
-and numeric signs exactly. Quote the surrounding sentence or contiguous table cells
+and numeric signs exactly. Do not wrap excerpts in quotation marks.
+Quote the surrounding sentence or contiguous table cells
 for numeric evidence. Never combine non-contiguous text into a single excerpt.
 If adequate is false, give a brief reason and use null for card and evidence.
 """
@@ -182,13 +183,38 @@ def numeric_values(value):
                           json.dumps(value, ensure_ascii=False).replace("−", "-")))
 
 
+def strip_quote_wrapper(quote):
+    if len(quote) >= 2 and (quote[0], quote[-1]) in (('"', '"'), ("“", "”")):
+        return quote[1:-1].strip()
+    return quote
+
+
 def unsupported_excerpts(result, source):
     """Yield rejected locations and excerpts after whitespace normalisation."""
     for area, excerpts in (result.get("evidence") or {}).items():
         for index, excerpt in enumerate(excerpts):
             quote = " ".join(excerpt.split())
-            if len(quote) < 10 or quote not in source:
-                yield f"evidence.{area}[{index}]", excerpt, quote
+            candidate = quote if quote in source else strip_quote_wrapper(quote)
+            if len(candidate) < 10 or candidate not in source:
+                yield f"evidence.{area}[{index}]", excerpt, quote, candidate
+
+
+def excerpt_context(source, candidate):
+    """Find a bounded diagnostic window and label the basis for its selection."""
+    words = candidate.split()[:80]
+    anchors = [candidate] if candidate else []
+    anchors.extend(" ".join(words[i:i + 4]) for i in range(len(words) - 3))
+    for anchor in anchors:
+        offset = source.find(anchor)
+        if offset >= 0 and source.find(anchor, offset + 1) == -1:
+            return source[max(0, offset - 80):offset + 160], "unique_anchor"
+    terms = sorted(set(re.findall(r"\w{4,}", " ".join(words))), key=lambda term: (-len(term), term))
+    for term in terms:
+        match = re.search(rf"\b{re.escape(term)}\b", source, re.IGNORECASE)
+        if match:
+            offset = match.start()
+            return source[max(0, offset - 80):offset + 160], "shared_word"
+    return source[:240], "source_start"
 
 
 def excerpt_diagnostics(result, source):
@@ -196,26 +222,14 @@ def excerpt_diagnostics(result, source):
     normal = " ".join(source.split())
     unicode_source = unicodedata.normalize("NFKC", normal)
     failures = []
-    contexts = set()
-    for field, excerpt, quote in unsupported_excerpts(result, normal):
-        context = None
-        if len(contexts) < 3:
-            words = quote.split()[:80]
-            anchors = [quote] if quote else []
-            anchors.extend(" ".join(words[i:i + 4]) for i in range(len(words) - 3))
-            for anchor in anchors:
-                offset = normal.find(anchor)
-                if offset >= 0 and normal.find(anchor, offset + 1) == -1:
-                    context = normal[max(0, offset - 80):offset + 160]
-                    if context in contexts:
-                        context = None
-                    else:
-                        contexts.add(context)
-                    break
+    for field, excerpt, quote, candidate in unsupported_excerpts(result, normal):
+        context, basis = excerpt_context(normal, candidate)
         failures.append({
             "field": field, "excerpt": excerpt, "source_context": context,
-            "normalised_length": len(quote), "whitespace_normalised_match": bool(quote) and quote in normal,
-            "reason": "too_short" if len(quote) < 10 else "not_exact",
+            "source_context_basis": basis,
+            "normalised_length": len(candidate), "whitespace_normalised_match": bool(quote) and quote in normal,
+            "stripped_match": quote != candidate and bool(candidate) and candidate in normal,
+            "reason": "too_short" if len(candidate) < 10 else "not_exact",
             "unicode_normalisation_match": bool(quote) and
                 unicodedata.normalize("NFKC", quote) in unicode_source,
         })
@@ -278,7 +292,7 @@ def appraisal_checks(result, source, level):
     for area in EVIDENCE_AREAS:
         if not evidence.get(area) and area not in ("comparator", "numbers"):
             raise Review("missing_source_excerpt", [f"evidence.{area}"])
-    rejected = [field for field, _, _ in unsupported_excerpts(result, source)]
+    rejected = [field for field, _, _, _ in unsupported_excerpts(result, source)]
     if rejected:
         raise Review("unsupported_source_excerpt", rejected)
     claims = {f"card.{key}": card.get(key) for key in (
