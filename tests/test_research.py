@@ -5,10 +5,11 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from dataclasses import replace
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from hashlib import sha256
-from io import BytesIO
+from io import BytesIO, StringIO
 from pathlib import Path
 from unittest.mock import patch
 from urllib.error import HTTPError
@@ -18,12 +19,15 @@ from jsonschema import Draft202012Validator
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from research import Feed, Journal, Pipeline, write_json
-from research_appraisal import OpenAI, PRIMARY, BudgetExceeded, GRADE
+from research import Feed, Journal, Pipeline, main, write_json
+from research_appraisal import OpenAI, PRIMARY, BudgetExceeded, GRADE, appraisal_checks, drop_null
 from research_sources import Drive, Literature, Record, Review, Unavailable, get
+from revalidate_research import revalidate
 
 NOW = datetime(2026, 11, 11, tzinfo=timezone.utc)
 QUOTE = "The trial reported pain scores for adults allocated to exercise or usual care."
+SOURCE_CONTEXT = "The intervention group attended exercise sessions."
+REJECTED_QUOTE = "The intervention group attended invented sessions."
 
 
 class ProviderErrorTest(unittest.TestCase):
@@ -175,9 +179,17 @@ class ResearchTest(unittest.TestCase):
                 value["card"]["appraisal"]["certainty"] = "very low"
             if self.response_mode == "invented":
                 value["card"]["results"][0]["result"] = "Pain fell by 15 points"
+            if self.response_mode == phase:
+                value["evidence"]["results"] = [REJECTED_QUOTE]
         self.assertTrue(Draft202012Validator(schema).is_valid(value))
+        if self.response_mode == "invalid_json":
+            return json.dumps({"status": "completed", "model": request["model"],
+                               "usage": {"input_tokens": 5000, "output_tokens": 1000},
+                               "output": [{"type": "message", "content": [
+                                   {"type": "output_text", "text": "{private-invalid-json"}]}]}).encode()
         return json.dumps({"status": "completed", "model": request["model"],
                            "usage": {"input_tokens": 5000, "output_tokens": 1000},
+                           "instructions": "provider-envelope-only",
                            "output": [{"type": "message", "content": [
                                {"type": "output_text", "text": json.dumps(value)}]}]}).encode()
 
@@ -290,6 +302,98 @@ class ResearchTest(unittest.TestCase):
         self.assertIn("unsupported_number", self.reasons(self.journal.data["holds"]))
         self.assertEqual([], self.publish(pipeline))
 
+    def test_excerpt_validation_ignores_whitespace_only(self):
+        schema = self.pipeline().schema
+        for excerpt, source, reason in (
+            (QUOTE, ARTICLE, None),
+            (QUOTE.replace(" ", "\n\t"), ARTICLE, None),
+            (QUOTE.replace("usual", "invented"), ARTICLE, "unsupported_source_excerpt"),
+            ("The trial", ARTICLE, "unsupported_source_excerpt"),
+            ("Dose −12 points", "Dose -12 points. " + ARTICLE, "unsupported_source_excerpt"),
+            (None, ARTICLE, "missing_source_excerpt"),
+        ):
+            with self.subTest(excerpt=excerpt):
+                result = drop_null(reading("full_text", schema))
+                result["evidence"]["results"] = [excerpt] if excerpt else []
+                if reason:
+                    with self.assertRaisesRegex(Review, f"^{reason}$") as raised:
+                        appraisal_checks(result, source, "full_text")
+                    self.assertEqual(["evidence.results[0]" if excerpt else "evidence.results"],
+                                     raised.exception.fields)
+                else:
+                    appraisal_checks(result, source, "full_text")
+
+    def test_benchmark_keeps_failed_independent_reading_private_and_blocks_preview(self):
+        self.response_mode = "blind_verification"
+        article = SOURCE_CONTEXT + " " + ARTICLE + " Unrelated private source text."
+        literature = StubLiterature([RECORD])
+        state = self.root / "private"
+        state.mkdir()
+        write_json(self.root / "scripts/research_config.json", CONFIG)
+        feed_before = {path: path.read_bytes() for path in self.root.rglob("*.json")}
+        stdout, stderr = StringIO(), StringIO()
+        with patch("research.ROOT", self.root), patch("research.Literature", return_value=literature), \
+                patch.object(literature, "source", return_value=("full_text", RECORD.url, article)), \
+                patch("research.git") as git, \
+                patch.dict(os.environ, {"GITHUB_RUN_ID": "123", "GITHUB_RUN_ATTEMPT": "1",
+                                        "ATLAS_PUBLISH_ENABLED": "false"}), \
+                patch.object(sys, "argv", ["research", "stage", "--state", str(state),
+                                            "--benchmark-pmid", RECORD.pmid]), \
+                redirect_stdout(stdout), redirect_stderr(stderr):
+            # Ignore the state commit itself in this fixture. Every write must target private state.
+            git.side_effect = lambda path, *args: state.as_posix() if args[0] == "rev-parse" else ""
+            self.assertEqual(1, main())
+            self.assertTrue(all(call.args[0] == state for call in git.call_args_list))
+        self.assertEqual(["primary", "blind_verification"], self.phases)
+        journal = Journal(state / "research-state.json")
+        run = journal.data["runs"]["123.1"]
+        self.assertEqual("needs_review", run["status"])
+        self.assertEqual(0, run["verified"])
+        self.assertNotIn("preview", run)
+        self.assertNotIn("published", run)
+        self.assertEqual({"primary": True, "independent": False, "adjudication": False},
+                         run["benchmark_checks"])
+        job = next(iter(journal.data["jobs"].values()))
+        failure = job["validation_failures"]["blind_verification"]
+        self.assertEqual("123.1", failure["run"])
+        self.assertEqual(RECORD.pmid, failure["record"]["pmid"])
+        self.assertEqual("held", failure["status"])
+        self.assertEqual("unsupported_source_excerpt", failure["reason"])
+        self.assertEqual(["evidence.results[0]"], failure["fields"])
+        excerpt = failure["excerpts"][0]
+        self.assertEqual(REJECTED_QUOTE, excerpt["excerpt"])
+        self.assertEqual("not_exact", excerpt["reason"])
+        self.assertFalse(excerpt["whitespace_normalised_match"])
+        self.assertIn(SOURCE_CONTEXT, excerpt["source_context"])
+        self.assertLessEqual(len(excerpt["source_context"]), 240)
+        self.assertEqual([REJECTED_QUOTE], failure["reading"]["evidence"]["results"])
+        replay = revalidate(job, article)
+        self.assertEqual("held", replay["blind_verification"]["status"])
+        self.assertEqual({"status": "source_hash_mismatch"}, revalidate(job, "other text"))
+        public = stdout.getvalue() + stderr.getvalue()
+        saved = journal.path.read_text(encoding="utf-8")
+        for private in (REJECTED_QUOTE, SOURCE_CONTEXT):
+            self.assertNotIn(private, public)
+        for unwanted in ("fixture-only", "provider-envelope-only", "Unrelated private source text."):
+            self.assertNotIn(unwanted, public)
+            self.assertNotIn(unwanted, saved)
+        self.assertEqual(feed_before, {path: path.read_bytes() for path in self.root.rglob("*.json")
+                                       if path.parent != state})
+        journal.expire_validation_failures(datetime.fromisoformat(failure["checked_at"]) + timedelta(days=30))
+        self.assertNotIn("validation_failures", job)
+        self.assertEqual("unsupported_source_excerpt", job["hold"])
+
+    def test_malformed_model_text_is_held_and_retained_without_provider_envelope(self):
+        self.response_mode = "invalid_json"
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        self.assertEqual(["primary"], self.phases)
+        self.assertFalse(pipeline.studies)
+        job = next(iter(Journal(self.journal.path).data["jobs"].values()))
+        failure = job["validation_failures"]["primary"]
+        self.assertEqual("model_refusal_or_invalid_output", failure["reason"])
+        self.assertEqual(["{private-invalid-json"], failure["output_text"])
+
     def test_rate_limit_resumes_from_durable_blind_checkpoint(self):
         self.response_mode = "failure"
         with self.assertRaisesRegex(Unavailable, "http_429"):
@@ -359,6 +463,19 @@ class ResearchTest(unittest.TestCase):
         hit = {"title": RECORD.title, "pmid": RECORD.pmid,
                "commentCorrectionList": {"commentCorrection": [{"type": "Retraction in"}]}}
         self.assertTrue(Record.from_result(hit).excluded)
+
+    def test_xml_keeps_inline_punctuation_and_separates_table_cells(self):
+        xml = (f'<article><front><article-meta><article-id pub-id-type="pmid">12345</article-id>'
+               f'</article-meta></front><body><sec><p>{ARTICLE}</p>'
+               '<p>Pain scores were lower (<italic>p</italic>&lt;0.001).</p>'
+               '<table-wrap><table><tr><th>Group</th><td>Exercise</td><td>5.0</td></tr>'
+               '</table></table-wrap></sec></body></article>').encode()
+        with patch("research_sources.get", return_value=xml):
+            level, _, source = Literature().source(RECORD)
+        self.assertIn("Group\tExercise\t5.0", source)
+        result = drop_null(reading(level, self.pipeline().schema))
+        result["evidence"]["results"] = ["Pain scores were lower (p<0.001)."]
+        appraisal_checks(result, source, level)
 
 
 if __name__ == "__main__":
