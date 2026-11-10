@@ -16,14 +16,19 @@ from zoneinfo import ZoneInfo
 from jsonschema import Draft202012Validator
 
 from preflight import ROOT, PDF_NAME, read_json, weekly_work
-from research_appraisal import BudgetExceeded, OpenAI, digest, evaluate, reading_schema, strip_refs
-from research_review import render_review, review_entry
+from research_appraisal import (PRIMARY, SCREEN, BudgetExceeded, OpenAI, apply_edits, brief, digest, evaluate, object_schema,
+                                reading_schema, strip_refs)
+from card_style import check_card
+from research_review import LABELS, render_review, review_entry
 from research_sources import (
     MAX_SOURCE, Drive, Literature, Review, Unavailable, doi, extract_pdf, pmid,
     render_passages, sufficient_full_text, title_key,
 )
 
 PAPER_ID = re.compile(r"[A-Za-z0-9-]{1,80}")
+UNREVIEWED = "not clinician-reviewed"
+REVIEWED = "approved by a clinician before publication"
+SCREEN_SCHEMA = object_schema({"ranked": {"type": "array", "items": {"type": "integer"}}})
 
 
 class SourceUnavailable(Unavailable):
@@ -92,7 +97,7 @@ class Feed:
     def duplicate(self, record):
         return bool(self.keys & record.keys) or title_key(record.title) in self.titles
 
-    def publish(self, papers, studies, day, timestamp):
+    def publish(self, papers, studies, day, timestamp, reviewed=True):
         changed = []
         for paper_id, draft in papers:
             path = f"papers/{paper_id}.json"
@@ -125,7 +130,9 @@ class Feed:
                                             "edition": edition_id, "where": "items"})
             verdict = f"{len(cards)} full-text " + ("study" if len(cards) == 1 else "studies") + (
                 ": drafted by one AI reading with numbers checked against the source, then approved by a "
-                "clinician before publication. Not independently verified by a second reader.")
+                "clinician before publication. Not independently verified by a second reader." if reviewed else
+                ": AI-appraised, then checked by a second AI model and by code against the source. "
+                "AI-checked, not clinician-reviewed. Treat judgements as a first draft.")
             write_json(self.root / path, {"schema_version": 1, "edition_id": edition_id,
                        "published_at": timestamp, "verdict": verdict, "quiet_week": False,
                        "items": cards, "on_the_radar": [], "filtered_out": [], "sources": sources})
@@ -208,7 +215,8 @@ class Pipeline:
             payload = {"record": {key: getattr(record, key) for key in ("doi", "pmid", "title", "citation")},
                        "source_level": level, "article": render_passages(article)}
             reading = evaluate(self.model, fingerprint, job, self.journal, article,
-                               payload, self.rules, self.schema)
+                               payload, self.rules, self.schema, bool(self.config.get("critic")),
+                               lambda draft: self.valid(self.finish(draft, level, record, paper_id)))
         except Review as error:
             job["hold"] = str(error)
             if error.fields:
@@ -224,32 +232,60 @@ class Pipeline:
                     # Check names only; no model text reaches the public log.
                     self.run["benchmark_checks"]["held_by"] = ",".join(sorted(
                         {row["reason"] for row in failure.get("all_problems") or []} or {failure["reason"]}))
-        verification = {"status": "not checked",
-                        "checked_by": "one AI reading; every number checked against the passages it cites; "
-                                      "approved by a clinician before publication",
-                        "checked_at": self.now.isoformat(), "disagreements": [], "external": [],
-                        "external_searched": "External ratings not searched for this automated edition."}
-        if anchor:
-            verification.update(external=anchor["external"], external_searched=anchor["external_searched"])
-        card = strip_refs(reading["card"])
-        card.update(type="study", format=2, item_id=f"mine-{paper_id or 'weekly'}",
-                    read_level=level, source_ids=["paper"],
-                    full_text={"status": "read", "worth_getting": False,
-                               "why": "Read the full source in one AI pass; numbers checked against it."})
-        card["appraisal"]["verification"] = verification
-        if record.published:
-            card["first_published"] = record.published
+        card = self.finish(reading["card"], level, record, paper_id)
+        card["appraisal"]["verification"] = self.verification(job, anchor)
         if not self.card_validator.is_valid(card):
             raise Review("atlas_card_schema")
         citation = {"id": "paper", "citation": record.citation, "verified": True, "url": record.url}
         citation.update({key: value for key, value in (("doi", record.doi), ("pmid", record.pmid)) if value})
         entry = review_entry(fingerprint, record, paper_id, card, citation, added_at, reading, article, self.now)
         entry["warnings"] = job.get("warnings") or []
+        entry["critic"] = job.get("critic") or {}
+        entry["benchmark"] = benchmark
         review[fingerprint] = entry
         self.staged.append(fingerprint)
         self.ids.add(paper_id) if paper_id else None
         self.seen.update(record.keys)
         self.journal.save()
+
+    def valid(self, card):
+        card["appraisal"]["verification"] = {"status": "not checked"}
+        return self.card_validator.is_valid(card)
+
+    def finish(self, draft, level, record, paper_id):
+        """The published shape of a reading's card, without verification."""
+        card = strip_refs(draft)
+        card.update(type="study", format=2, item_id=f"mine-{paper_id or 'weekly'}",
+                    read_level=level, source_ids=["paper"],
+                    full_text={"status": "read", "worth_getting": False,
+                               "why": "Read the full source by AI; numbers checked against it."})
+        if record.published:
+            card["first_published"] = record.published
+        return card
+
+    def verification(self, job, anchor):
+        """What was checked, and every open issue, shown on the card itself."""
+        critic = job.get("critic") or {}
+        done = critic.get("status") == "done"
+        rows = [{"item": brief(edit["path"].replace("_", " "), 8), "first": edit["before"],
+                 "second": edit["after"], "why": edit["why"], "resolved": "Second reader's version used."}
+                for edit in critic.get("kept", [])]
+        rows += [{"item": "Second reader's concern", "first": "Not raised in the first reading",
+                  "second": "Raised by the second reader", "why": concern, "resolved": "left open"}
+                 for concern in critic.get("concerns", [])]
+        rows += [{"item": "Automated check", "first": row["check"].replace("_", " "),
+                  "second": brief(", ".join(row["fields"]), 12),
+                  "why": brief(LABELS.get(row["check"], "An automated check flagged this card."), 25),
+                  "resolved": "left open"}
+                 for row in job.get("warnings") or [] if row["check"] != "card_style_validation_failed"]
+        result = {"status": "disagreements" if rows else "agrees" if done else "not checked",
+                  "checked_by": ("AI critic pass by a second model (full text); " if done else "one AI reading; ")
+                                + "every number checked against the passages it cites; " + UNREVIEWED,
+                  "checked_at": self.now.isoformat(), "disagreements": rows, "external": [],
+                  "external_searched": "External ratings not searched for this automated edition."}
+        if anchor:
+            result.update(external=anchor["external"], external_searched=anchor["external_searched"])
+        return result
 
     def attempt(self, key, subject, action, static=False, discovered=False):
         if self.attempts >= self.config["max_candidates"]:
@@ -263,9 +299,8 @@ class Pipeline:
             self.run.setdefault("source_errors", {})[key] = {"reason": str(error), "subject": subject}
         except Review as error:
             reason = str(error)
-            self.hold(key, reason, subject, notify=not discovered or reason not in (
-                "abstract_only", "insufficient_source", "full_source_too_large",
-            ))
+            # Papers the search found are skipped quietly. Only papers the clinician added notify.
+            self.hold(key, reason, subject, notify=not discovered)
         else:
             if key in self.journal.data["holds"]:
                 del self.journal.data["holds"][key]
@@ -341,15 +376,14 @@ class Pipeline:
         record = self.literature.identify(doi(first_page), "", title)
         if len(record.title) < 12 or title_key(record.title) not in title_key(first_page):
             raise Review("pdf_identity_mismatch")
-        if not record.open_access:
+        if not record.open_access and not self.config.get("allow_paywalled_uploads"):
             raise Review("pdf_open_access_unconfirmed")
+        # An external-ratings review is optional. When one exists for this exact PDF it is shown on the card.
         anchor = self.anchors.get(record.doi or record.pmid)
         if (not anchor or not anchor.get("reviewed_by") or not anchor.get("external_searched")
                 or not isinstance(anchor.get("external"), list)
                 or anchor.get("pdf_sha256") != sha256(pdf_bytes).hexdigest()):
-            raise Review("pdf_external_anchor_review_needed")
-        if any(r.get("agrees") is not True for r in anchor["external"]):
-            raise Review("external_rating_disagreement")
+            anchor = None
         self.candidate(record, paper_id, lambda: ("full_text", record.url, article),
                        self.now.isoformat(), anchor=anchor)
 
@@ -372,7 +406,9 @@ class Pipeline:
         found = self.literature.discover(self.config["query"], self.today,
                                         self.config["lookback_days"], self.config["search_limit"])
         attempted = set()
-        for record in (*resumed, *sorted(found, key=lambda r: not r.open_access)):
+        found = [record for record in found
+                 if record.keys and not record.excluded and not self.feed.duplicate(record)]
+        for record in (*resumed, *sorted(self.screen(found), key=lambda r: not r.open_access)):
             if len(self.staged) >= 3 or self.attempts >= self.config["max_candidates"]:
                 break
             if (not record.keys or record.excluded or self.feed.duplicate(record)
@@ -382,6 +418,21 @@ class Pipeline:
             key = self.record_key(record)
             self.attempt(key, record.doi or record.pmid,
                          lambda: self.discovery_candidate(record, pending), static=True, discovered=True)
+
+    def screen(self, records):
+        """One cheap call ranks abstracts against the clinician's focus. Any failure keeps the search order."""
+        if not self.config.get("focus") or len(records) < 2:
+            return records
+        papers = [{"n": n, "title": r.title, "types": r.publication_types, "abstract": r.abstract[:1800]}
+                  for n, r in enumerate(records)]
+        try:
+            reply = self.model.generate(digest(["screen", self.today.isoformat()]), PRIMARY, "screen", SCREEN,
+                                        {"focus": self.config["focus"], "papers": papers}, SCREEN_SCHEMA, 3000)
+        except (Review, Unavailable):
+            return records
+        order = list(dict.fromkeys(n for n in reply["ranked"] if 0 <= n < len(records)))
+        self.run["screened"] = {"offered": len(records), "kept": len(order)}
+        return [records[n] for n in order]
 
     def discovery_candidate(self, record, pending):
         key = record.doi or record.pmid
@@ -411,62 +462,7 @@ class Pipeline:
         )
 
 
-EDIT_PATH = re.compile(r"[A-Za-z_]+(?:\[(?:\d+|\+)\])?(?:\.[A-Za-z_]+(?:\[(?:\d+|\+)\])?)*")
-PROTECTED = {"type", "format", "item_id", "read_level", "source_ids", "full_text", "first_published"}
-
-
-def apply_edits(card, edits):
-    """Apply clinician edits to a card copy.
-
-    Keys are paths such as `bottom_line`, `limits[2]`, `limits[+]` (append) or
-    `appraisal.domains[0].judgement`. A null value deletes the key or list item.
-    """
-    card = copy.deepcopy(card)
-    for path, value in edits.items():
-        if not isinstance(path, str) or not EDIT_PATH.fullmatch(path) or path.split(".")[0].split("[")[0] in PROTECTED \
-                or path.startswith("appraisal.verification"):
-            raise Unavailable("card_edit_path_invalid")
-        parts = [(m.group(1), m.group(2)) for m in re.finditer(r"([A-Za-z_]+)(?:\[(\d+|\+)\])?", path)]
-        node = card
-        for depth, (key, index) in enumerate(parts):
-            last = depth == len(parts) - 1
-            if index is None:
-                if last:
-                    if value is None:
-                        node.pop(key, None)
-                    else:
-                        node[key] = value
-                    break
-                if not isinstance(node.get(key), dict):
-                    raise Unavailable("card_edit_path_invalid")
-                node = node[key]
-                continue
-            items = node.get(key)
-            if items is None and index == "+" and last:
-                items = node[key] = []
-            if not isinstance(items, list):
-                raise Unavailable("card_edit_path_invalid")
-            if index == "+":
-                if not last or value is None:
-                    raise Unavailable("card_edit_path_invalid")
-                items.append(value)
-                break
-            position = int(index)
-            if position >= len(items):
-                raise Unavailable("card_edit_path_invalid")
-            if last:
-                if value is None:
-                    items.pop(position)
-                else:
-                    items[position] = value
-                break
-            node = items[position]
-            if not isinstance(node, dict):
-                raise Unavailable("card_edit_path_invalid")
-    return card
-
-
-def approved(journal, ids, edits=None):
+def approved(journal, ids, edits=None, reviewed=True):
     """Pending review entries matching the approved fingerprints, as (papers, studies) ready to publish."""
     edits = edits or {}
     for prefix in edits:
@@ -484,10 +480,13 @@ def approved(journal, ids, edits=None):
                 if not isinstance(changes, dict) or not changes:
                     raise Unavailable("card_edit_path_invalid")
                 card = apply_edits(card, changes)
-                verification = card.get("appraisal", {}).get("verification")
-                if verification:
-                    verification["checked_by"] += "; edited by the clinician before publication"
                 entry["edits"] = changes
+        verification = (card.get("appraisal") or {}).get("verification")
+        if reviewed and verification:
+            card = copy.deepcopy(card)
+            verification = card["appraisal"]["verification"]
+            verification["checked_by"] = verification.get("checked_by", "").replace(UNREVIEWED, REVIEWED) + (
+                "; edited by the clinician" if entry.get("edits") else "")
         draft = {"study": card, "citation": entry["citation"], "added_at": entry["added_at"]}
         if entry["paper_id"]:
             papers.append((entry["paper_id"], draft))
@@ -550,7 +549,7 @@ def main():
             os.environ["ATLAS_DRIVE_READER_JSON"], os.environ["ATLAS_DRIVE_FOLDER_ID"])
         pipeline = Pipeline(feed, journal, Literature(), drive, model, now, run, config,
                             read_json(anchors) if anchors.exists() else {}, args.retry_holds)
-        changed = []
+        changed, reviewed = [], True
         if args.mode == "promote":
             try:
                 edits = json.loads(args.card_edits) if args.card_edits.strip() else {}
@@ -573,27 +572,41 @@ def main():
             for fingerprint in pipeline.staged:
                 path = state / "reviews" / f"{fingerprint[:12]}.md"
                 path.write_text(render_review(journal.data["review"][fingerprint]), encoding="utf-8")
+            # Hands-off publishing: cards that meet the style rules go out labelled as AI-checked.
+            # Cards that do not stay staged for the clinician. Benchmarks are never published here.
+            if (config.get("auto_publish") and not args.benchmark_pmid
+                    and os.environ.get("ATLAS_PUBLISH_ENABLED") == "true"
+                    and os.environ.get("GITHUB_REF") == "refs/heads/main"):
+                ids = [fingerprint for fingerprint in pipeline.staged
+                       if not check_card("card", journal.data["review"][fingerprint]["card"])]
+                if ids:
+                    papers, studies = approved(journal, ids, reviewed=False)
+                    run["verified"] = len(papers) + len(studies)
+                    reviewed = False
+                    changed = feed.publish(papers, studies, pipeline.today, now.isoformat(), reviewed=False)
         if changed:
             # No model-supplied content is printed in the public Actions log.
             if subprocess.run([sys.executable, "-X", "utf8", str(root / "scripts/validate.py")],
                               capture_output=True).returncode:
                 raise Unavailable("atlas_schema_or_style_validation_failed")
             git(root, "add", "--", *changed)
-            git(root, "commit", "-m", "Publish clinician-approved Atlas research")
+            git(root, "commit", "-m", "Publish clinician-approved Atlas research" if reviewed
+                else "Publish AI-checked Atlas research")
             git(root, "push", "origin", "HEAD:refs/heads/main")
             run["published"] = run["verified"]
             run["publication_commit"] = git(root, "rev-parse", "HEAD")
             for fingerprint in ids:
                 for key, entry in journal.data["review"].items():
                     if key.startswith(fingerprint):
-                        entry.update(status="published", approved_at=now.isoformat(),
+                        entry.update(status="published", published_at=now.isoformat(), reviewed=reviewed,
                                      publication_commit=run["publication_commit"])
         if run.get("source_errors"):
             run["status"] = "partial"
         elif run.get("reason") == "run_or_month_budget":
             run["status"] = "budget_limited"
         else:
-            run["status"] = "needs_review" if run["new_holds"] or run.get("staged") else "complete"
+            waiting = run.get("staged", 0) - (0 if reviewed else run.get("published", 0))
+            run["status"] = "needs_review" if run["new_holds"] or waiting > 0 else "complete"
     except Unavailable as error:
         run.update(status="failed", reason=str(error))
         problem = error
@@ -615,7 +628,8 @@ def main():
     if args.benchmark_pmid:
         print(f"Benchmark estimated usage: US${run['recorded_cost_micro_usd'] / 1_000_000:.6f}. "
               f"Unconfirmed reserve: US${run['unconfirmed_cost_micro_usd'] / 1_000_000:.6f}.")
-    if problem or run["new_holds"] or run["status"] in ("partial", "budget_limited"):
+    # Fail (and so notify) only for a broken run, a held paper the clinician added, or the budget.
+    if problem or run["new_holds"] or run["status"] == "budget_limited":
         return 1
     return 0
 

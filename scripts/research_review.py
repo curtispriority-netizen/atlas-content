@@ -67,6 +67,18 @@ def warning_block(warnings):
     return out + [""]
 
 
+def critic_block(critic):
+    if critic.get("status") != "done":
+        return ["Second-reader check: not run." if not critic else "Second-reader check: unavailable this run.", ""]
+    out = ["## Second reader (AI critic)", ""]
+    out += [f"- Changed `{edit['path']}`: {edit['before']} → {edit['after']}. Why: {edit['why']}"
+            for edit in critic.get("kept", [])] or ["- No changes made."]
+    out += [f"- Concern left open: {text}" for text in critic.get("concerns", [])]
+    if critic.get("dropped"):
+        out.append(f"- {critic['dropped']} proposed change(s) were discarded because they broke a check.")
+    return out + [""]
+
+
 def render_review(entry):
     card, record = entry["card"], entry["record"]
     app = card["appraisal"]
@@ -74,10 +86,11 @@ def render_review(entry):
            f"- Status: **{entry['status']}**  ·  staged {entry['staged_at'][:10]}",
            f"- Source: {entry['citation'].get('url', '')}  ·  fingerprint `{entry['fingerprint'][:12]}`",
            f"- Appraised from: {app['appraised_from']}  ·  tool: **{app['tool']}**", "",
-           "This reading was produced by one AI pass. Code checked that every number in the card appears in "
-           "the passages it cites. It did not check whether the judgements below are *right*. That is your call. "
+           "This reading was produced by AI. Code checked that every number in the card appears in "
+           "the passages it cites. Nobody has checked whether the judgements below are *right*. That is your call. "
            "See REVIEW.md for a 5-minute method.", "",
            *warning_block(entry.get("warnings") or []),
+           *critic_block(entry.get("critic") or {}),
            "## What the card says", "",
            f"**{card['title']}**", "", card.get("impact_line", ""), "", card.get("bottom_line", ""), "",
            "Key findings:", bullets(card.get("key_findings")), "", "Limits:", bullets(card.get("limits")), "",
