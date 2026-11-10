@@ -217,7 +217,13 @@ class Pipeline:
             raise
         finally:
             if benchmark:
-                self.run["benchmark_checks"] = {"reading_passed_checks": "primary" in job}
+                self.run["benchmark_checks"] = {"reading_passed_checks": "primary" in job,
+                                                "warnings": len(job.get("warnings") or [])}
+                failure = (job.get("validation_failures") or {}).get("primary") or {}
+                if "primary" not in job and failure:
+                    # Check names only; no model text reaches the public log.
+                    self.run["benchmark_checks"]["held_by"] = ",".join(sorted(
+                        {row["reason"] for row in failure.get("all_problems") or []} or {failure["reason"]}))
         verification = {"status": "not checked",
                         "checked_by": "one AI reading; every number checked against the passages it cites; "
                                       "approved by a clinician before publication",
@@ -238,6 +244,7 @@ class Pipeline:
         citation = {"id": "paper", "citation": record.citation, "verified": True, "url": record.url}
         citation.update({key: value for key, value in (("doi", record.doi), ("pmid", record.pmid)) if value})
         entry = review_entry(fingerprint, record, paper_id, card, citation, added_at, reading, article, self.now)
+        entry["warnings"] = job.get("warnings") or []
         review[fingerprint] = entry
         self.staged.append(fingerprint)
         self.ids.add(paper_id) if paper_id else None
