@@ -46,6 +46,7 @@ LABELS = {
     "unreported_bias_domain_overclaim": "A bias judgement was made where the paper reports nothing.",
     "single_trial_inconsistency_overclaim": "GRADE inconsistency should be 'not applicable' for one trial.",
     "abstract_overclaim": "Low risk of bias claimed from an abstract only.",
+    "certainty_corrected": "Certainty did not match the GRADE rows, so code corrected it. Check the rows.",
 }
 
 
@@ -114,6 +115,8 @@ def render_review(entry):
             f"Funding and conflicts: {app.get('funding_conflicts')}", "",
             "## Decide", "",
             "Approve: run the *Atlas research* workflow with mode `promote` and "
-            f"`promote_ids` = `{entry['fingerprint'][:12]}`. Reject: leave it, or tell Claude what to change.",
+            f"`promote_ids` = `{entry['fingerprint'][:12]}`. To fix wording or a judgement first, also fill "
+            f"`card_edits`, e.g. `{{\"{entry['fingerprint'][:12]}\": {{\"appraisal.certainty\": \"low\", "
+            "\"limits[+]\": \"New limit.\"}}}}` (see REVIEW.md). Reject: leave it, or tell Claude what to change.",
             "", f"_Generated {datetime.now(timezone.utc).strftime('%Y-%m-%d')}._", ""]
     return "\n".join(out)

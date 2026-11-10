@@ -11,6 +11,7 @@ from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 from io import BytesIO, StringIO
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 from urllib.error import HTTPError
 
@@ -19,7 +20,7 @@ from jsonschema import Draft202012Validator
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from research import Feed, Journal, Pipeline, approved, main, write_json
+from research import Feed, Journal, Pipeline, apply_edits, approved, main, write_json
 from research_appraisal import (OpenAI, PRIMARY, BudgetExceeded, GRADE, appraisal_checks, drop_null,
                                 excerpt_diagnostics, passage_id, ref_sample, strip_refs)
 from research_sources import (Drive, Literature, Record, Review, Unavailable, get, passages,
@@ -87,7 +88,7 @@ def reading(level, schema):
         "results": [{"outcome": "Pain", "result": "Uncertain between-group effect", "verdict": "unclear",
                      "evidence_refs": [GOOD]}],
         "appraisal": {
-            "appraised_from": level, "tool": "RoB 2", "certainty": "low",
+            "appraised_from": level, "tool": "RoB 2", "certainty": "very low",
             "overall_risk_of_bias": "not assessable",
             "domains": [{"domain": domain, "judgement": "unclear", "reason": "Details were unavailable.",
                          "support": "Not reported"} for domain in (
@@ -801,3 +802,54 @@ class NumericValuesTest(unittest.TestCase):
     def test_negative_still_distinct(self):
         from research_appraisal import numeric_values
         self.assertEqual(numeric_values("-3.2") - numeric_values("3.2"), {"-3.2"})
+
+
+class CardEditsTest(unittest.TestCase):
+    CARD = {"bottom_line": "Old.", "limits": ["A.", "B."],
+            "appraisal": {"certainty": "moderate", "domains": [{"judgement": "low"}],
+                          "verification": {"checked_by": "one AI reading"}}}
+
+    def test_paths_set_append_delete(self):
+        card = apply_edits(self.CARD, {"bottom_line": "New.", "limits[+]": "C.", "limits[0]": None,
+                                       "appraisal.certainty": "low",
+                                       "appraisal.domains[0].judgement": "some concerns"})
+        self.assertEqual("New.", card["bottom_line"])
+        self.assertEqual(["B.", "C."], card["limits"])
+        self.assertEqual("low", card["appraisal"]["certainty"])
+        self.assertEqual("some concerns", card["appraisal"]["domains"][0]["judgement"])
+        self.assertEqual("moderate", self.CARD["appraisal"]["certainty"])  # original untouched
+
+    def test_bad_or_protected_paths_are_refused(self):
+        for path in ("limits[9]", "type", "appraisal.verification.status", "a..b", "limits[0].x", "nope.x"):
+            with self.subTest(path=path), self.assertRaisesRegex(Unavailable, "card_edit_path_invalid"):
+                apply_edits(self.CARD, {path: "x"})
+
+    def test_edits_only_for_approved_ids_and_marked_in_verification(self):
+        fingerprint = "ab" * 32
+        journal = SimpleNamespace(data={"review": {fingerprint: {
+            "status": "pending", "fingerprint": fingerprint, "card": self.CARD, "citation": {},
+            "added_at": "x", "paper_id": None, "record": {"doi": None}}}})
+        with self.assertRaisesRegex(Unavailable, "card_edits_for_unapproved_id"):
+            approved(journal, [fingerprint[:12]], {"cd" * 6: {"bottom_line": "x"}})
+        _, studies = approved(journal, [fingerprint[:12]], {fingerprint[:12]: {"appraisal.certainty": "low"}})
+        card = studies[0][1]["study"]
+        self.assertEqual("low", card["appraisal"]["certainty"])
+        self.assertIn("edited by the clinician", card["appraisal"]["verification"]["checked_by"])
+        self.assertEqual("one AI reading", self.CARD["appraisal"]["verification"]["checked_by"])
+
+
+class CertaintyTest(unittest.TestCase):
+    def test_single_rct_certainty_follows_grade_rows(self):
+        from research_appraisal import correct_certainty, expected_certainty
+        rows = [{"domain": d, "judgement": j} for d, j in (
+            ("risk of bias", "serious"), ("inconsistency", "not applicable"), ("indirectness", "not serious"),
+            ("imprecision", "serious"), ("publication bias", "not applicable"))]
+        app = {"tool": "RoB 2", "certainty": "moderate", "grade": rows}
+        self.assertEqual("low", expected_certainty(app))
+        warning = correct_certainty({"card": {"appraisal": app}})
+        self.assertEqual("certainty_corrected", warning["check"])
+        self.assertEqual("low", app["certainty"])
+        self.assertIsNone(correct_certainty({"card": {"appraisal": app}}))
+        rows[0]["judgement"] = "very serious"
+        self.assertEqual("very low", expected_certainty(app))
+        self.assertIsNone(expected_certainty({"tool": "ROBINS-I", "grade": rows}))

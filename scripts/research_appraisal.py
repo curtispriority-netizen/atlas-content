@@ -509,6 +509,30 @@ def violations(error, result, source):
     return rows
 
 
+LEVELS = ("high", "moderate", "low", "very low")
+DOWNGRADE = {"serious": 1, "very serious": 2}
+
+
+def expected_certainty(app):
+    """GRADE certainty for a single randomised trial: start high, subtract per downgrade."""
+    if str(app.get("tool", "")).strip().casefold() != "rob 2" or not app.get("grade"):
+        return None
+    steps = sum(DOWNGRADE.get(row.get("judgement"), 0) for row in app["grade"])
+    return LEVELS[min(steps, len(LEVELS) - 1)]
+
+
+def correct_certainty(result):
+    """Make certainty match the GRADE rows. Returns a warning row when it had to change."""
+    app = (result.get("card") or {}).get("appraisal") or {}
+    expected = expected_certainty(app)
+    if expected is None or app.get("certainty") == expected:
+        return None
+    stated = app.get("certainty")
+    app["certainty"] = expected
+    return {"check": "certainty_corrected", "fields": ["card.appraisal.certainty"],
+            "details": {"card.appraisal.certainty": [f"model said {stated}", f"GRADE rows give {expected}"]}}
+
+
 def check(result, source, level):
     try:
         appraisal_checks(result, source, level)
@@ -571,6 +595,9 @@ def evaluate(model, job_id, job, journal, source, payload, rules, schema):
         # The caller saves the failure and hold together in private state.
         raise
     job["warnings"] = violations(error, result, source) if error is not None else []
+    corrected = correct_certainty(result)
+    if corrected:
+        job["warnings"].append(corrected)
     job["primary"] = result
     journal.save()
     return result

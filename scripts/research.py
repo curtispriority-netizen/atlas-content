@@ -411,15 +411,84 @@ class Pipeline:
         )
 
 
-def approved(journal, ids):
+EDIT_PATH = re.compile(r"[A-Za-z_]+(?:\[(?:\d+|\+)\])?(?:\.[A-Za-z_]+(?:\[(?:\d+|\+)\])?)*")
+PROTECTED = {"type", "format", "item_id", "read_level", "source_ids", "full_text", "first_published"}
+
+
+def apply_edits(card, edits):
+    """Apply clinician edits to a card copy.
+
+    Keys are paths such as `bottom_line`, `limits[2]`, `limits[+]` (append) or
+    `appraisal.domains[0].judgement`. A null value deletes the key or list item.
+    """
+    card = copy.deepcopy(card)
+    for path, value in edits.items():
+        if not isinstance(path, str) or not EDIT_PATH.fullmatch(path) or path.split(".")[0].split("[")[0] in PROTECTED \
+                or path.startswith("appraisal.verification"):
+            raise Unavailable("card_edit_path_invalid")
+        parts = [(m.group(1), m.group(2)) for m in re.finditer(r"([A-Za-z_]+)(?:\[(\d+|\+)\])?", path)]
+        node = card
+        for depth, (key, index) in enumerate(parts):
+            last = depth == len(parts) - 1
+            if index is None:
+                if last:
+                    if value is None:
+                        node.pop(key, None)
+                    else:
+                        node[key] = value
+                    break
+                if not isinstance(node.get(key), dict):
+                    raise Unavailable("card_edit_path_invalid")
+                node = node[key]
+                continue
+            items = node.get(key)
+            if items is None and index == "+" and last:
+                items = node[key] = []
+            if not isinstance(items, list):
+                raise Unavailable("card_edit_path_invalid")
+            if index == "+":
+                if not last or value is None:
+                    raise Unavailable("card_edit_path_invalid")
+                items.append(value)
+                break
+            position = int(index)
+            if position >= len(items):
+                raise Unavailable("card_edit_path_invalid")
+            if last:
+                if value is None:
+                    items.pop(position)
+                else:
+                    items[position] = value
+                break
+            node = items[position]
+            if not isinstance(node, dict):
+                raise Unavailable("card_edit_path_invalid")
+    return card
+
+
+def approved(journal, ids, edits=None):
     """Pending review entries matching the approved fingerprints, as (papers, studies) ready to publish."""
+    edits = edits or {}
+    for prefix in edits:
+        if not any(fingerprint.startswith(prefix) or prefix.startswith(fingerprint) for fingerprint in ids):
+            raise Unavailable("card_edits_for_unapproved_id")
     papers, studies = [], []
     for fingerprint in ids:
         found = [entry for key, entry in journal.data.get("review", {}).items() if key.startswith(fingerprint)]
         if len(found) != 1 or found[0]["status"] != "pending":
             raise Unavailable("promote_id_not_pending_or_ambiguous")
         entry = found[0]
-        draft = {"study": entry["card"], "citation": entry["citation"], "added_at": entry["added_at"]}
+        card = entry["card"]
+        for prefix, changes in edits.items():
+            if entry["fingerprint"].startswith(prefix):
+                if not isinstance(changes, dict) or not changes:
+                    raise Unavailable("card_edit_path_invalid")
+                card = apply_edits(card, changes)
+                verification = card.get("appraisal", {}).get("verification")
+                if verification:
+                    verification["checked_by"] += "; edited by the clinician before publication"
+                entry["edits"] = changes
+        draft = {"study": card, "citation": entry["citation"], "added_at": entry["added_at"]}
         if entry["paper_id"]:
             papers.append((entry["paper_id"], draft))
         else:
@@ -434,6 +503,7 @@ def main():
     parser.add_argument("--retry-holds", action="store_true")
     parser.add_argument("--benchmark-pmid")
     parser.add_argument("--promote-ids", default="", help="Comma-separated fingerprint prefixes (12+ characters)")
+    parser.add_argument("--card-edits", default="", help="JSON: {fingerprint prefix: {path: new value}}")
     args = parser.parse_args()
     if args.benchmark_pmid and (args.mode != "stage" or not pmid(args.benchmark_pmid)):
         parser.error("benchmark requires stage mode and a numeric PMID")
@@ -482,7 +552,13 @@ def main():
                             read_json(anchors) if anchors.exists() else {}, args.retry_holds)
         changed = []
         if args.mode == "promote":
-            papers, studies = approved(journal, ids)
+            try:
+                edits = json.loads(args.card_edits) if args.card_edits.strip() else {}
+            except ValueError:
+                raise Unavailable("card_edits_not_json") from None
+            if not isinstance(edits, dict):
+                raise Unavailable("card_edits_not_json")
+            papers, studies = approved(journal, ids, edits)
             run["verified"] = len(papers) + len(studies)
             changed = feed.publish(papers, studies, pipeline.today, now.isoformat())
         else:

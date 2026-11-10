@@ -37,3 +37,12 @@ Floor is `very low`. If the card's certainty does not match this count, change i
 - **Reject or change:** leave it pending and tell Claude what to fix. Rejecting is cheap; publishing a wrong card is not.
 
 Reject when the study is wrong, a result is misread, or the card advises action the evidence does not support. Nothing is published unless you promote it and `ATLAS_PUBLISH_ENABLED` is `true`.
+
+## Editing a card before you publish it
+Fill `card_edits` when you run `promote`. It's JSON, keyed by the 12-character id:
+
+```json
+{"b225e479d22f": {"appraisal.certainty": "low", "limits[4]": "New limit.", "limits[+]": "Appended limit.", "summary[0]": null}}
+```
+
+`[n]` replaces item n (counting from 0), `[+]` appends, and `null` deletes. Card metadata and verification can't be edited. validate.py runs before anything is published, so a bad edit stops the publish and changes nothing. The published card says it was edited by the clinician.
