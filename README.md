@@ -15,6 +15,14 @@ A weekly Claude scheduled task researches and writes one edition here. The Atlas
 - `APPRAISAL.md`: how every study is critically appraised (design-matched risk-of-bias tool, GRADE, context). Both tasks follow it.
 - `scripts/validate.py`: checks every edition and paper card against the schema and the CARD_STYLE.md caps. Every task must run it and only commit if it passes.
 
+## Read-only preflight
+
+Run `python scripts/preflight.py daily` with a JSON array of filenames from a complete, successful listing of the live Drive folder on standard input. Markers and PDFs without a matching checked full-text format-2 card require work. Supply every page of the listing and treat a listing failure as an error.
+
+Run `python scripts/preflight.py weekly YYYY-MM-DD` with the date in Hobart and a current content checkout. An edition already recorded in both the index and its file can be skipped.
+
+Skip the model session only on a successful `{"work_needed": false}` result. A nonzero exit means the check failed. The preflight needs only Python's standard library and does not modify Drive or the checkout. Run its tests with `python -m unittest discover -s tests`.
+
 ## Rules
 
 - No patient-identifiable information, ever.
