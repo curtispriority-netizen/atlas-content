@@ -170,6 +170,12 @@ class ResearchTest(unittest.TestCase):
         if phase == "comparison":
             self.assertNotIn("article", payload)
             value = {"agrees": True, "disagreements": []}
+        elif phase == "style_repair":
+            self.assertEqual({"card", "violations"}, payload.keys())
+            self.assertTrue(payload["violations"])
+            value = {"card": reading("full_text", self.pipeline().schema)["card"]}
+            if self.response_mode == "style_unrepairable":
+                value["card"]["bottom_line"] = " ".join(["word"] * 45)
         else:
             self.assertEqual({"record", "source_level", "article"}, payload.keys())
             if phase == "blind_verification" and self.response_mode == "failure":
@@ -181,6 +187,8 @@ class ResearchTest(unittest.TestCase):
                 value["card"]["results"][0]["result"] = "Pain fell by 15 points"
             if self.response_mode == phase:
                 value["evidence"]["results"] = [REJECTED_QUOTE]
+            if phase == "primary" and self.response_mode in ("style_only", "style_unrepairable"):
+                value["card"]["bottom_line"] = " ".join(["word"] * 45)
             if self.response_mode == "style_and_excerpt":
                 value["card"]["bottom_line"] = " ".join(["word"] * 45)
                 value["evidence"]["results"] = [REJECTED_QUOTE]
@@ -311,6 +319,45 @@ class ResearchTest(unittest.TestCase):
         self.assertIn("Do not wrap excerpts in quotation marks", SYSTEM)
         self.assertIn("80%", SYSTEM)
         self.assertIn("must appear inside one of your evidence excerpts", SYSTEM)
+
+    def test_word_cap_overrun_gets_one_shortening_pass_then_full_rechecks(self):
+        self.response_mode = "style_only"
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        self.assertEqual(["primary", "style_repair", "blind_verification", "comparison"], self.phases)
+        self.assertEqual(1, len(pipeline.studies))
+        card = pipeline.studies[0][1]["study"]
+        self.assertLessEqual(len(str(card.get("bottom_line", "")).split()), 40)
+        job = next(iter(self.journal.data["jobs"].values()))
+        self.assertIn("bottom_line", " ".join(job["style_repairs"]["primary"]))
+        self.assertEqual([], self.publish(pipeline) and [])
+
+    def test_failed_shortening_is_held_with_both_readings_and_no_second_repair(self):
+        self.response_mode = "style_unrepairable"
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        self.assertEqual(["primary", "style_repair"], self.phases)
+        self.assertFalse(pipeline.studies)
+        job = next(iter(self.journal.data["jobs"].values()))
+        failure = job["validation_failures"]["primary"]
+        self.assertEqual("card_style_validation_failed", failure["reason"])
+        self.assertIn("original_reading", failure)
+        self.assertEqual(["bottom_line"], failure["fields"])
+        self.assertNotIn("primary", job)
+
+    def test_evidence_failures_are_never_repaired(self):
+        self.response_mode = "style_and_excerpt"
+        self.pipeline([RECORD]).process()
+        self.assertEqual(["primary"], self.phases)
+
+    def test_published_edition_does_not_overstate_what_was_checked(self):
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        self.publish(pipeline)
+        edition = json.loads(next((self.root / "editions").glob("*.json")).read_text(encoding="utf-8"))
+        self.assertIn("AI-appraised", edition["verdict"])
+        self.assertIn("Not clinician-reviewed", edition["verdict"])
+        self.assertNotIn("independently checked", edition["verdict"].lower())
 
     def test_insufficient_source_and_empty_queue_do_not_call_model(self):
         self.pipeline().process()

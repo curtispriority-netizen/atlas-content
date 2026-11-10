@@ -76,6 +76,12 @@ specific disagreements for any materially different or uncorroborated claim or
 omission. Only agree if the second reading corroborates the draft. Never resolve
 disagreements by rewriting the card or infer missing evidence. Check card style.
 """
+REPAIR = """Shorten the card fields listed in the violations so each meets its word cap
+in the style rules below. Keep every fact, number, sign, hedge and judgement exactly as
+written. Do not add information, new numbers or new claims. Do not change any appraisal
+judgement, tool, certainty, domain or GRADE row. Return the complete card with only the
+violating text shortened.
+"""
 EVIDENCE_AREAS = ("design", "population", "intervention_or_exposure", "comparator",
                   "outcomes", "results", "numbers")
 
@@ -257,6 +263,7 @@ def appraisal_checks(result, source, level):
     domains = app.get("domains") or []
     grades = app.get("grade") or []
     problems = []
+    style_issues = []
 
     def flag(reason, fields):
         problems.append({"reason": reason, "fields": list(fields)})
@@ -304,6 +311,7 @@ def appraisal_checks(result, source, level):
     if style:
         fields = [issue.removeprefix("model reading: ").split()[0] for issue in style]
         flag("card_style_validation_failed", sorted(set(fields)))
+        style_issues = style
     source = " ".join(source.split())
     evidence = result["evidence"]
     for area in EVIDENCE_AREAS:
@@ -326,6 +334,7 @@ def appraisal_checks(result, source, level):
     if problems:
         error = Review(problems[0]["reason"], problems[0]["fields"])
         error.problems = problems
+        error.style_issues = [issue.removeprefix("model reading: ") for issue in style_issues]
         raise error
 
 
@@ -422,6 +431,11 @@ class OpenAI:
         return math.ceil((in_rate * input_tokens + out_rate * output_tokens) / 100)
 
 
+def cosmetic_only(error):
+    """True when the only failing check is a card word cap, which a rewrite can fix."""
+    return {row["reason"] for row in getattr(error, "problems", [])} == {"card_style_validation_failed"}
+
+
 def evaluate(model, job_id, job, journal, source, payload, rules, schema):
     if "decision" in job:
         return job["decision"]
@@ -429,16 +443,33 @@ def evaluate(model, job_id, job, journal, source, payload, rules, schema):
     for phase, name in (("primary", PRIMARY), ("blind_verification", VERIFIER)):
         if phase not in job:
             # This cap includes reasoning as well as the complete structured appraisal.
-            result = None
+            result = original = None
             try:
                 result = model.generate(job_id, name, phase, SYSTEM + rules, payload, schema, 12000)
-                appraisal_checks(result, source, level)
+                try:
+                    appraisal_checks(result, source, level)
+                except Review as first:
+                    if not cosmetic_only(first):
+                        raise
+                    # Word caps are presentation, not evidence. Allow one shortening
+                    # pass, then run every check again on the shortened card.
+                    original = result
+                    job.setdefault("style_repairs", {})[phase] = first.style_issues[:20]
+                    journal.save()
+                    repaired = model.generate(
+                        job_id, PRIMARY, "style_repair", REPAIR + rules,
+                        {"card": result["card"], "violations": first.style_issues[:20]},
+                        object_schema({"card": schema["properties"]["card"]["anyOf"][0]}), 12000)
+                    result = {**result, "card": repaired["card"]}
+                    appraisal_checks(result, source, level)
             except Review as error:
                 failure = {
                     "run": model.run_id, "record": job["record"], "status": "held",
                     "checked_at": datetime.now(timezone.utc).isoformat(),
                     "reason": str(error), "fields": error.fields, "reading": result,
                 }
+                if original is not None:
+                    failure["original_reading"] = original
                 if getattr(error, "problems", None):
                     failure["all_problems"] = error.problems
                 if isinstance(error, ModelOutputReview):

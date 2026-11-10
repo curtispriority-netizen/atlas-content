@@ -121,9 +121,9 @@ class Feed:
                 sources.append(source)
                 self.shown["shown"].append({"key": record.doi or record.pmid, "title": record.title,
                                             "edition": edition_id, "where": "items"})
-            verdict = f"{len(cards)} independently checked full-text " + (
+            verdict = f"{len(cards)} AI-appraised full-text " + (
                 "study" if len(cards) == 1 else "studies"
-            ) + " in this edition."
+            ) + ": two model passes agreed and quotes were checked against the source. Not clinician-reviewed."
             write_json(self.root / path, {"schema_version": 1, "edition_id": edition_id,
                        "published_at": timestamp, "verdict": verdict, "quiet_week": False,
                        "items": cards, "on_the_radar": [], "filtered_out": [], "sources": sources})
