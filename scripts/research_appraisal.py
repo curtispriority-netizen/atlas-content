@@ -45,6 +45,8 @@ the evidence object only, never in the clinical card.
 Use the exact risk-of-bias tool and domain names in APPRAISAL.md. For JBI, use
 the design-specific domains. For missing comparators report their absence.
 Report that external evidence was unavailable when none is supplied.
+Keep each field concise. Use the shortest exact source excerpts that support
+the claims and report only the results material to interpreting this study.
 If adequate is false, give a brief reason and use null for card and evidence.
 """
 AUDIT = """Compare the two independent source readings below. The draft is what
@@ -218,7 +220,7 @@ class OpenAI:
         body = json.dumps({
             "model": model, "instructions": system, "input": json.dumps(payload, ensure_ascii=False),
             "store": False, "service_tier": "default", "max_output_tokens": output_limit,
-            "reasoning": {"effort": "medium"},
+            "reasoning": {"effort": "low" if model == PRIMARY else "medium"},
             "text": {"format": {"type": "json_schema", "name": name, "strict": True, "schema": schema}},
         }, ensure_ascii=False).encode()
         # UTF-8 request bytes plus protocol headroom deliberately overestimate
@@ -252,7 +254,8 @@ class OpenAI:
         if usage and result.get("model") == model:
             used_in, used_out = usage["input_tokens"], usage["output_tokens"]
             charge.update(cost=self.cost(model, used_in, used_out), input_tokens=used_in,
-                          output_tokens=used_out, status=result["status"])
+                          output_tokens=used_out, status=result["status"],
+                          reasoning_tokens=(usage.get("output_tokens_details") or {}).get("reasoning_tokens"))
         self.journal.save()
         if not usage or result.get("model") != model:
             raise Unavailable("model_or_usage_mismatch")
