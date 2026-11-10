@@ -776,3 +776,15 @@ class ResearchTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class NumericValuesTest(unittest.TestCase):
+    def test_sign_and_trailing_zero_match_source(self):
+        from research_appraisal import numeric_values
+        card = numeric_values("SR +12.0; ER +14.4; p=0.50")
+        paper = numeric_values("improved by 12.0 (SR) and 14.4 (ER) points, p = 0.5")
+        self.assertEqual(card - paper, set())
+
+    def test_negative_still_distinct(self):
+        from research_appraisal import numeric_values
+        self.assertEqual(numeric_values("-3.2") - numeric_values("3.2"), {"-3.2"})

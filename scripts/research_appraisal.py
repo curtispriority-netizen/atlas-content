@@ -180,9 +180,18 @@ def drop_null(value):
     return value
 
 
+def _canonical_number(token):
+    # "+12.0" in a card and "12.0" or "12" in the paper are the same number.
+    token = token.lstrip("+")
+    if "." in token:
+        token = token.rstrip("0").rstrip(".")
+    return "0" if token in ("-0", "") else token
+
+
 def numeric_values(value):
-    return set(re.findall(r"(?<![\w.])[-+]?\d+(?:\.\d+)?",
-                          json.dumps(value, ensure_ascii=False).replace("−", "-")))
+    return {_canonical_number(token) for token in re.findall(
+        r"(?<![\w.])[-+]?\d+(?:\.\d+)?",
+        json.dumps(value, ensure_ascii=False).replace("−", "-"))}
 
 
 PASSAGE_ID = re.compile(r"^\[?P(\d+)\]?$")
