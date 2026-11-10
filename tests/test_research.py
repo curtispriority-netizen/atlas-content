@@ -181,6 +181,9 @@ class ResearchTest(unittest.TestCase):
                 value["card"]["results"][0]["result"] = "Pain fell by 15 points"
             if self.response_mode == phase:
                 value["evidence"]["results"] = [REJECTED_QUOTE]
+            if self.response_mode == "style_and_excerpt":
+                value["card"]["bottom_line"] = " ".join(["word"] * 45)
+                value["evidence"]["results"] = [REJECTED_QUOTE]
         self.assertTrue(Draft202012Validator(schema).is_valid(value))
         if self.response_mode == "invalid_json":
             return json.dumps({"status": "completed", "model": request["model"],
@@ -268,13 +271,46 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual({"papers/00abcdef.json", "papers/index.json"}, set(self.publish(pipeline)))
         self.assertEqual(1, len(drive.files))
 
-    def test_abstract_only_is_checked_then_held_and_cached(self):
+    def test_abstract_only_is_held_without_paying_for_a_model_call(self):
         pipeline = self.pipeline([RECORD], "abstract")
         pipeline.process()
         self.assertIn("abstract_only", self.reasons(self.journal.data["holds"]))
         self.assertEqual([], self.publish(pipeline))
         self.pipeline([RECORD], "abstract").process()
-        self.assertEqual(3, len(self.phases))
+        self.assertEqual([], self.phases)
+        self.assertEqual([], self.journal.data["charges"])
+
+    def test_all_failing_checks_are_reported_with_the_first_reason_kept(self):
+        schema = self.pipeline().schema
+        result = drop_null(reading("full_text", schema))
+        result["card"]["bottom_line"] = " ".join(["word"] * 45)
+        result["evidence"]["results"] = [REJECTED_QUOTE]
+        with self.assertRaisesRegex(Review, "^card_style_validation_failed$") as raised:
+            appraisal_checks(result, ARTICLE, "full_text")
+        self.assertEqual(["bottom_line"], raised.exception.fields)
+        self.assertEqual(["card_style_validation_failed", "unsupported_source_excerpt"],
+                         [row["reason"] for row in raised.exception.problems])
+        self.assertEqual(["evidence.results[0]"], raised.exception.problems[1]["fields"])
+
+    def test_every_failure_is_retained_privately_after_one_paid_response(self):
+        self.response_mode = "style_and_excerpt"
+        pipeline = self.pipeline([RECORD])
+        pipeline.process()
+        self.assertEqual(["primary"], self.phases)
+        job = next(iter(Journal(self.journal.path).data["jobs"].values()))
+        failure = job["validation_failures"]["primary"]
+        self.assertEqual("card_style_validation_failed", failure["reason"])
+        self.assertEqual(["card_style_validation_failed", "unsupported_source_excerpt"],
+                         [row["reason"] for row in failure["all_problems"]])
+        report = revalidate(job, ARTICLE)["primary"]
+        self.assertEqual("held", report["status"])
+        self.assertEqual(2, len(report["all_problems"]))
+
+    def test_instructions_tell_the_model_about_quotes_numbers_and_word_caps(self):
+        from research_appraisal import SYSTEM
+        self.assertIn("Do not wrap excerpts in quotation marks", SYSTEM)
+        self.assertIn("80%", SYSTEM)
+        self.assertIn("must appear inside one of your evidence excerpts", SYSTEM)
 
     def test_insufficient_source_and_empty_queue_do_not_call_model(self):
         self.pipeline().process()
