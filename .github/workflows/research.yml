@@ -15,10 +15,13 @@ name: Atlas research
   workflow_dispatch:
     inputs:
       mode:
-        description: Tests use fixtures. Stage uses the APIs and saves drafts privately.
+        description: Tests use fixtures. Stage uses the APIs and saves drafts privately. Promote publishes cards you approved.
         type: choice
-        options: [test, stage]
+        options: [test, stage, promote]
         default: test
+      promote_ids:
+        description: For promote only. Comma-separated 12-character fingerprints from the review files.
+        type: string
       retry_holds:
         description: Revisit held inputs and recompute failed appraisals
         type: boolean
@@ -53,8 +56,9 @@ jobs:
     if: >-
       !cancelled() && github.repository == 'curtispriority-netizen/atlas-content' &&
       github.ref == 'refs/heads/main' &&
-      ((github.event_name == 'workflow_dispatch' && inputs.mode == 'stage' && needs.test.result == 'success') ||
-      (github.event_name == 'schedule' && vars.ATLAS_PUBLISH_ENABLED == 'true'))
+      ((github.event_name == 'workflow_dispatch' && (inputs.mode == 'stage' || inputs.mode == 'promote') &&
+      needs.test.result == 'success') ||
+      (github.event_name == 'schedule' && vars.ATLAS_STAGE_SCHEDULE == 'true'))
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     environment: atlas-research
@@ -66,7 +70,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          persist-credentials: ${{ github.event_name == 'schedule' }}
+          persist-credentials: ${{ inputs.mode == 'promote' }}
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
@@ -102,6 +106,8 @@ jobs:
           ATLAS_MONTH_MICRO_USD: ${{ vars.ATLAS_MONTH_MICRO_USD }}
           ATLAS_PUBLISH_ENABLED: ${{ vars.ATLAS_PUBLISH_ENABLED }}
           RETRY_HOLDS: ${{ inputs.retry_holds }}
+          MODE_INPUT: ${{ inputs.mode }}
+          PROMOTE_IDS: ${{ inputs.promote_ids }}
           BENCHMARK_PMID: ${{ inputs.benchmark_pmid }}
         run: |
           git config user.name 'Atlas research'
@@ -109,8 +115,11 @@ jobs:
           git -C .atlas-state config user.name 'Atlas research'
           git -C .atlas-state config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           mode=stage
-          if [[ "$GITHUB_EVENT_NAME" == schedule ]]; then mode=publish; fi
           extra=()
+          if [[ "$MODE_INPUT" == promote ]]; then
+            mode=promote
+            extra+=(--promote-ids "$PROMOTE_IDS")
+          fi
           if [[ "$RETRY_HOLDS" == true ]]; then extra+=(--retry-holds); fi
           if [[ "$mode" == stage && -n "$BENCHMARK_PMID" ]]; then
             extra+=(--benchmark-pmid "$BENCHMARK_PMID")
@@ -130,5 +139,5 @@ jobs:
           existing="$(gh issue list -R "$STATE_REPO" --state all --search "in:title \"$title\"" --json title --jq ".[].title")"
           if ! grep -Fxq "$title" <<< "$existing"; then
             gh issue create -R "$STATE_REPO" --title "$title" --assignee "$GITHUB_REPOSITORY_OWNER" \
-              --body "AI-appraised research (not clinician-reviewed) was published to Atlas. Review it before relying on it. https://github.com/$GITHUB_REPOSITORY/commit/$PUBLICATION" >/dev/null
+              --body "Clinician-approved, AI-drafted research was published to Atlas via promote. Not independently verified by a second reader. https://github.com/$GITHUB_REPOSITORY/commit/$PUBLICATION" >/dev/null
           fi
