@@ -22,6 +22,11 @@ DRIVE = "https://www.googleapis.com/drive/v3/files"
 DOI = re.compile(r"10\.\d{4,9}/[^\s<>\"?#]+", re.I)
 ID = re.compile(r"[A-Za-z0-9_-]{1,100}")
 MAX_SOURCE = 160_000
+OPENAI_LIMIT_CODES = {
+    "credit_balance_exhausted", "insufficient_quota", "organization_spend_limit_exceeded",
+    "organization_usage_limit_exceeded", "project_spend_limit_exceeded", "rate_limit_exceeded",
+    "rate_limit_error", "slow_down", "tokens", "requests",
+}
 
 
 class Unavailable(Exception):
@@ -55,11 +60,14 @@ def get(url, params=None, headers=None, limit=4_000_000, body=None):
             delay = error.headers.get("Retry-After", "")
             if code == 429 and body is not None and request.full_url == "https://api.openai.com/v1/responses":
                 try:
-                    detail = json.loads(error.read(4096))["error"]["code"]
-                except (ValueError, KeyError, TypeError, OSError):
+                    problem = json.loads(error.read(4096))["error"]
+                    detail = next((problem.get(field) for field in ("code", "type")
+                                   if isinstance(problem.get(field), str)
+                                   and problem[field] in OPENAI_LIMIT_CODES), None)
+                except (ValueError, KeyError, TypeError, AttributeError, OSError):
                     detail = None
                 # Keep only known codes, never the provider's response or message.
-                if detail in ("insufficient_quota", "rate_limit_exceeded"):
+                if detail:
                     raise Unavailable(f"openai_{detail}") from None
             if code not in (408, 429, 500, 502, 503, 504) or attempt + 1 == attempts:
                 raise Unavailable(f"http_{code}") from None

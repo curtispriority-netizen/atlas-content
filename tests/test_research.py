@@ -30,6 +30,8 @@ class ProviderErrorTest(unittest.TestCase):
     def test_openai_429_reports_only_known_diagnostic_codes(self):
         url = "https://api.openai.com/v1/responses"
         for code, expected in (("insufficient_quota", "openai_insufficient_quota"),
+                               ("credit_balance_exhausted", "openai_credit_balance_exhausted"),
+                               ("project_spend_limit_exceeded", "openai_project_spend_limit_exceeded"),
                                ("rate_limit_exceeded", "openai_rate_limit_exceeded"),
                                ("private-provider-text", "http_429")):
             with self.subTest(code=code):
@@ -39,6 +41,8 @@ class ProviderErrorTest(unittest.TestCase):
                     with self.assertRaisesRegex(Unavailable, f"^{expected}$"):
                         get(url, body=b"{}")
                 request.assert_called_once()
+
+
 ARTICLE = "Methods and results. " + (QUOTE + " ") * 40
 RECORD = Record("10.1234/example", "12345", "Example exercise trial",
                 "Author AB. Example exercise trial. Example Journal.", "PMC12345",
