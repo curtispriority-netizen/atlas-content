@@ -279,7 +279,8 @@ def evaluate(model, job_id, job, journal, source, payload, rules, schema):
     level = payload["source_level"]
     for phase, name in (("primary", PRIMARY), ("blind_verification", VERIFIER)):
         if phase not in job:
-            result = model.generate(job_id, name, phase, SYSTEM + rules, payload, schema, 6500)
+            # This cap includes reasoning as well as the complete structured appraisal.
+            result = model.generate(job_id, name, phase, SYSTEM + rules, payload, schema, 12000)
             appraisal_checks(result, source, level)
             job[phase] = result
             journal.save()

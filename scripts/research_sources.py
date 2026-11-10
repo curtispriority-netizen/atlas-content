@@ -50,7 +50,7 @@ def get(url, params=None, headers=None, limit=4_000_000, body=None):
     attempts = 1 if body is not None else 3
     for attempt in range(attempts):
         try:
-            with urlopen(request, timeout=120 if body is not None else 30) as response:
+            with urlopen(request, timeout=240 if body is not None else 30) as response:
                 data = response.read(limit + 1)
                 if len(data) > limit:
                     raise Review("remote_source_too_large")
