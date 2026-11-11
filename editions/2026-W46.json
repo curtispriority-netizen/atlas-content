@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "edition_id": "2026-W46",
-  "published_at": "2026-11-11T02:48:16.655146+00:00",
-  "verdict": "1 full-text study: drafted by one AI reading with numbers checked against the source, then approved by a clinician before publication. Not independently verified by a second reader.",
+  "published_at": "2026-11-11T03:01:30.327553+00:00",
+  "verdict": "6 full-text studies. Each card states how it was checked: AI-checked unless it says a clinician approved it.",
   "quiet_week": false,
   "items": [
     {
@@ -254,6 +254,1635 @@
         "why": "Read the full source in one AI pass; numbers checked against it."
       },
       "first_published": "2026-03-01"
+    },
+    {
+      "region": "lumbar",
+      "title": "Physiotherapy for chronic low back pain: qualitative RCT review",
+      "evidence_tag": "established",
+      "evidence_note": "Based on 150 RCTs, but the review is qualitative only and cannot estimate a pooled effect.",
+      "confidence": "certain",
+      "confidence_note": "Full text reports search, selection, characteristics, bias and no meta-analysis.",
+      "impact": "know_dont_act",
+      "impact_line": "Useful map of options, but it does not tell you which physiotherapy approach works best overall.",
+      "summary": [
+        "150 RCTs were included, covering exercise, manual therapy, education, massage, postural therapy, physical agents and complementary approaches.",
+        "The review found large heterogeneity in protocols, comparators, outcomes and follow-up, so no meta-analysis was done.",
+        "Most included trials were judged at moderate risk of bias, mainly from poor blinding and incomplete attrition reporting.",
+        "The paper supports a broad physiotherapy toolkit, but not a single superior protocol."
+      ],
+      "pico": {
+        "p": "Adults with chronic low back pain",
+        "i": "Physiotherapy programmes and related non-surgical rehabilitation approaches",
+        "c": "Different physiotherapy modalities",
+        "o": "Pain, disability, function and related outcomes"
+      },
+      "key_numbers": [
+        {
+          "value": "150",
+          "label": "RCTs included"
+        },
+        {
+          "value": "12,773",
+          "label": "Patients"
+        },
+        {
+          "value": "44.5",
+          "label": "Mean age, years"
+        },
+        {
+          "value": "61.2",
+          "label": "Mean symptom duration, months"
+        }
+      ],
+      "limits": [
+        "Qualitative review only; no pooled effect size or CI.",
+        "Comparator groups and outcomes varied widely.",
+        "No protocol registration.",
+        "Authors reported language limits and possible missing full texts.",
+        "The review relied on study-level risk-of-bias summaries, not a formal GRADE table."
+      ],
+      "condition": "Chronic low back pain",
+      "playbook_step": "educate",
+      "bottom_line": "This review maps physiotherapy options for chronic low back pain, but it cannot rank them. Heterogeneity was too high for pooling, so use it to frame choices, not to pick a single best protocol.",
+      "methods": {
+        "design": "Systematic review of RCTs; qualitative synthesis only",
+        "setting": "Databases searched in August; PubMed, Web of Science and Embase",
+        "participants": "Patients with chronic low back pain; 12,773 across included studies",
+        "intervention": "Physiotherapy programmes and related rehabilitation modalities",
+        "comparator": "Different physiotherapy modalities; some trials also used sham, no intervention, usual care or drugs",
+        "follow_up": "Mean follow-up 4.3 ± 5.9 months",
+        "primary_outcome": "Not prespecified; pain, disability, function and related outcomes were discussed."
+      },
+      "results": [
+        {
+          "outcome": "Study set",
+          "timepoint": "review",
+          "result": "150 RCTs included",
+          "meaning": "Large evidence map, not an effect estimate",
+          "detail": "The review screened 2354 RCTs and included 150 after exclusions.",
+          "verdict": "descriptive"
+        },
+        {
+          "outcome": "Participants",
+          "timepoint": "baseline",
+          "result": "12,773 patients",
+          "meaning": "Broad chronic low-back-pain sample",
+          "detail": "The included trials contributed 12,773 patients overall.",
+          "verdict": "descriptive"
+        },
+        {
+          "outcome": "Synthesis",
+          "timepoint": "review",
+          "result": "No formal meta-analysis",
+          "meaning": "Cannot rank treatments from a pooled estimate",
+          "detail": "The authors said heterogeneity in interventions, comparators, follow-up, outcomes and reporting prevented quantitative synthesis.",
+          "verdict": "descriptive"
+        },
+        {
+          "outcome": "Risk of bias",
+          "timepoint": "review",
+          "result": "Mostly moderate risk",
+          "meaning": "Interpret with caution",
+          "detail": "The review’s own summary judged detection, performance, attrition and reporting bias as mostly moderate, with selection bias low to moderate.",
+          "verdict": "descriptive"
+        }
+      ],
+      "how_to_apply": [
+        "Use it to frame options rather than choose one best physiotherapy protocol.",
+        "Match the intervention to the patient’s presentation and goals.",
+        "Expect mixed evidence across exercise, manual therapy, education and adjuncts.",
+        "Prefer trials or reviews with direct comparisons when deciding between similar programmes.",
+        "Do not treat the review as proof that any one modality is superior.",
+        "Use the paper’s references to locate modality-specific trials or newer reviews."
+      ],
+      "applies_to": [
+        "Adults with chronic low back pain",
+        "Outpatient physiotherapy and rehab settings",
+        "Exercise, education and manual therapy decisions"
+      ],
+      "not_for": [
+        "Choosing a single best treatment from pooled effect sizes",
+        "Patients with radiculopathy or neurologic symptoms",
+        "Acute low back pain"
+      ],
+      "appraisal": {
+        "certainty": "low",
+        "strengths": [
+          "Large included sample",
+          "RCT-only inclusion",
+          "Multiple reviewers for selection and bias assessment",
+          "Transparent statement that heterogeneity prevented pooling",
+          "Broad coverage of physiotherapy modalities"
+        ],
+        "weaknesses": [
+          "No protocol registration",
+          "No formal quantitative synthesis",
+          "Risk-of-bias assessment is coarse and summary-only",
+          "Language limits may have excluded studies",
+          "Comparator quality varied across trials"
+        ],
+        "funding_conflicts": "No financial support declared; authors declared no competing interests.",
+        "appraised_from": "full_text",
+        "tool": "AMSTAR 2",
+        "overall_risk_of_bias": "high",
+        "domains": [
+          {
+            "domain": "Protocol registered before review",
+            "judgement": "high",
+            "reason": "The review was not registered.",
+            "support": "P490: not registered"
+          },
+          {
+            "domain": "Adequate literature search",
+            "judgement": "some concerns",
+            "reason": "Three databases were searched, but appendix-only search terms and language limits reduce confidence.",
+            "support": "P17, P9: PubMed, Web of Science, Embase; language limits"
+          },
+          {
+            "domain": "Justified exclusions",
+            "judgement": "some concerns",
+            "reason": "Exclusion counts were reported, but no study-level list of excluded full texts was provided.",
+            "support": "P30: counts given, no excluded-study list"
+          },
+          {
+            "domain": "Risk of bias assessed in included studies",
+            "judgement": "low",
+            "reason": "Two reviewers assessed bias with Cochrane methods and disagreements were resolved by a third author.",
+            "support": "P24: independent RoB assessment"
+          },
+          {
+            "domain": "Appropriate meta-analytic methods",
+            "judgement": "low",
+            "reason": "No meta-analysis was attempted because heterogeneity was substantial.",
+            "support": "P27: qualitative synthesis only"
+          },
+          {
+            "domain": "RoB considered when interpreting results",
+            "judgement": "some concerns",
+            "reason": "The discussion notes moderate bias in included studies, but interpretation remains broad and non-specific.",
+            "support": "P34-P35, P473: moderate bias and cautious conclusion"
+          },
+          {
+            "domain": "Publication bias assessed",
+            "judgement": "high",
+            "reason": "No formal publication-bias assessment was reported, and the review was qualitative.",
+            "support": "P27, P34: no quantitative synthesis"
+          }
+        ],
+        "grade": [
+          {
+            "domain": "risk of bias",
+            "judgement": "serious",
+            "reason": "Included trials were mostly moderate risk of bias, with missing blinding and incomplete attrition reporting."
+          },
+          {
+            "domain": "inconsistency",
+            "judgement": "serious",
+            "reason": "Substantial heterogeneity in protocols, comparators, outcomes, follow-up and reporting precluded pooling."
+          },
+          {
+            "domain": "indirectness",
+            "judgement": "not serious",
+            "reason": "Adults with chronic low back pain and physiotherapy interventions are directly relevant to the review question."
+          },
+          {
+            "domain": "imprecision",
+            "judgement": "serious",
+            "reason": "No pooled effect, no 95% CI, and no optimal information size estimate were reported."
+          },
+          {
+            "domain": "publication bias",
+            "judgement": "serious",
+            "reason": "Publication bias was not assessed, and language restrictions may have missed eligible studies."
+          }
+        ],
+        "clinical_significance": [
+          "No MCID or smallest worthwhile change can be applied because the review reports no pooled effect.",
+          "The paper suggests some modalities may help, but it does not quantify a clinically important advantage over comparators.",
+          "A meaningful effect cannot be ruled in or out from this review alone."
+        ],
+        "comparator_fairness": [
+          "Comparator quality varied from sham to usual care to other active physiotherapy.",
+          "Some comparisons were more credible than others, so the evidence is not evenly matched across modalities.",
+          "The review does not establish a fair head-to-head hierarchy across all interventions."
+        ],
+        "alternative_explanations": [
+          "Natural history and regression to the mean could explain some improvements in chronic pain trials.",
+          "Contextual effects and therapist attention may contribute, especially when blinding was weak.",
+          "Co-interventions and inconsistent follow-up could influence results across studies.",
+          "Differential attrition is plausible in trials with incomplete dropout reporting."
+        ],
+        "spin": [
+          "The abstract and conclusion stay cautious, but the title overstates the certainty implied by a qualitative review.",
+          "The paper implies broad benefit across physiotherapy, yet the data do not identify a best treatment.",
+          "No pooled estimate is available, so any comparative ranking would be speculative."
+        ],
+        "fit_with_evidence": [
+          "Consistent with ACP 2017 low back pain guideline and JOSPT 2021 revision, which support non-pharmacological care including exercise and manual approaches.",
+          "Also consistent with the review’s own finding that chronic low back pain management is multifactorial.",
+          "External evidence search beyond the supplied paper was unavailable here."
+        ],
+        "external_validity": [
+          "Reasonable for chronic low-back-pain patients seen in Australian private practice.",
+          "Mean age 44.5 years and long symptom duration fit many adult musculoskeletal caseloads.",
+          "Many trials were not Australian, and some interventions are less feasible in routine private practice.",
+          "The review is broad enough to inform discussion, but not to dictate one protocol."
+        ],
+        "would_change_my_mind": [
+          "A registered, well-conducted network meta-analysis with head-to-head effects and confidence intervals.",
+          "Large, low-bias RCTs directly comparing the main physiotherapy options with patient-important outcomes.",
+          "Consistent replication showing one modality clearly outperforms credible active comparators."
+        ],
+        "verification": {
+          "status": "disagreements",
+          "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+          "checked_at": "2026-11-11T03:01:30.327553+00:00",
+          "disagreements": [
+            {
+              "item": "methods.primary outcome",
+              "first": "Pain, disability, function and related outcomes",
+              "second": "Not prespecified; pain, disability, function and related outcomes were discussed.",
+              "why": "Review did not define a primary outcome.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.domains[2].judgement",
+              "first": "low",
+              "second": "some concerns",
+              "why": "Reasons were counted, but excluded studies were not listed.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.domains[2].reason",
+              "first": "The review listed reasons for non-inclusion and full-text exclusions.",
+              "second": "Exclusion counts were reported, but no study-level list of excluded full …",
+              "why": "AMSTAR 2 expects excluded-study listing.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.domains[2].support",
+              "first": "P30: reasons for exclusions given",
+              "second": "P30: counts given, no excluded-study list",
+              "why": "Support should match reported exclusion method.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.grade[1].judgement",
+              "first": "not applicable",
+              "second": "serious",
+              "why": "Heterogeneity across studies is inconsistency, not not applicable.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.grade[1].reason",
+              "first": "Single review without pooled estimate.",
+              "second": "Substantial heterogeneity in protocols, comparators, outcomes, follow-up and reporting precluded pooling.",
+              "why": "Explains inconsistency downgrade from the paper.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.grade[2]",
+              "first": "{\"domain\": \"indirectness\", \"judgement\": \"serious\", \"reason\": \"Interventions, comparators, outcomes and follow-up varied …",
+              "second": "{\"domain\": \"indirectness\", \"judgement\": \"not serious\", \"reason\": \"Adults with chronic low back …",
+              "why": "Current indirectness reason is really heterogeneity, not indirectness.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.grade[4]",
+              "first": "{\"domain\": \"publication bias\", \"judgement\": \"not applicable\", \"reason\": \"Single qualitative review; formal …",
+              "second": "{\"domain\": \"publication bias\", \"judgement\": \"serious\", \"reason\": \"Publication bias was not assessed, …",
+              "why": "Not applicable is wrong for a systematic review.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "Second reader's concern",
+              "first": "Not raised in the first reading",
+              "second": "Raised by the second reader",
+              "why": "GRADE rows imply very low certainty overall.",
+              "resolved": "left open"
+            },
+            {
+              "item": "Second reader's concern",
+              "first": "Not raised in the first reading",
+              "second": "Raised by the second reader",
+              "why": "Authors equate RCT design with low selection bias.",
+              "resolved": "left open"
+            }
+          ],
+          "external": [],
+          "external_searched": "External ratings not searched for this automated edition."
+        }
+      },
+      "patient_explanation": "This review looked at many physiotherapy studies for long-term low back pain. It suggests several approaches may help, but it cannot tell us which one is best overall because the studies were too different to combine reliably.",
+      "open_questions": [
+        "Which specific physiotherapy approach is best for which subgroup?",
+        "Do any benefits persist beyond short-term follow-up?",
+        "How much of the observed benefit is due to therapist contact or expectation?"
+      ],
+      "key_findings": [
+        "150 RCTs were included, but they were too different to pool.",
+        "Exercise, education, manual therapy and adjuncts were all studied.",
+        "Most studies had at least moderate bias concerns.",
+        "The review supports broad options, not one winner."
+      ],
+      "type": "study",
+      "format": 2,
+      "item_id": "2026-W46-2",
+      "read_level": "full_text",
+      "source_ids": [
+        "study-2"
+      ],
+      "full_text": {
+        "status": "read",
+        "worth_getting": false,
+        "why": "Read the full source by AI; numbers checked against it."
+      },
+      "first_published": "2026-10-18"
+    },
+    {
+      "region": "cervical",
+      "title": "VR rehab may reduce neck pain and disability short term",
+      "evidence_tag": "emerging",
+      "evidence_note": "11 RCTs, 476 participants; primary outcomes favoured VR, but heterogeneity and clinical importance are uncertain.",
+      "confidence": "likely",
+      "confidence_note": "Most numbers came from the main results tables and text; the article also has an odd figure/table inconsistency.",
+      "impact": "changes_what_i_say",
+      "impact_line": "VR-based rehab may help neck pain and disability, but I would not present it as established first-line care.",
+      "summary": [
+        "11 RCTs found lower VAS and NDI with VR rehab versus comparators.",
+        "Effects were statistically significant for short-term pain and disability.",
+        "Heterogeneity was substantial for some outcomes.",
+        "TSA suggested the primary meta-analytic findings were statistically robust."
+      ],
+      "pico": {
+        "p": "People with neck pain in RCTs",
+        "i": "Virtual reality-based rehabilitation",
+        "c": "Other interventions, standard care, or no intervention",
+        "o": "VAS pain, NDI disability, and cervical range of motion"
+      },
+      "key_numbers": [
+        {
+          "value": "11",
+          "label": "RCTs included"
+        },
+        {
+          "value": "476",
+          "label": "Total participants"
+        },
+        {
+          "value": "−0.70",
+          "label": "VAS within week 1"
+        },
+        {
+          "value": "−3.06",
+          "label": "NDI within week 1"
+        }
+      ],
+      "limits": [
+        "Heterogeneity was high for some pooled outcomes.",
+        "Comparator types varied across trials.",
+        "Clinical importance thresholds were not reported.",
+        "Publication bias could not be assessed for all outcomes.",
+        "A three-arm trial may have been counted twice in pooled totals."
+      ],
+      "condition": "Neck pain",
+      "playbook_step": "treat",
+      "bottom_line": "VR-based rehab improved pooled pain and disability scores versus mixed comparators. Effects were statistically significant, but the paper does not show whether average changes are clinically important.",
+      "methods": {
+        "design": "Systematic review and meta-analysis of RCTs with TSA",
+        "setting": "Multiple countries; databases searched to October 2024",
+        "participants": "11 RCTs, 476 people with neck pain; some chronic, some subacute",
+        "intervention": "Virtual reality-based rehabilitation",
+        "comparator": "Other interventions, standard care, or no intervention",
+        "follow_up": "Immediate to 6 months; primary analyses at short and longer follow-up",
+        "primary_outcome": "VAS and NDI"
+      },
+      "results": [
+        {
+          "outcome": "VAS",
+          "timepoint": "Within 1 week",
+          "result": "MD −0.70, 95% CI −1.25 to −0.14",
+          "effect": "Statistically significant decrease",
+          "meaning": "Possible but small benefit",
+          "detail": "471 participants; I2 = 74%; TSA crossed monitoring boundary.",
+          "verdict": "below_mcid"
+        },
+        {
+          "outcome": "VAS",
+          "timepoint": "1 week to 6 months",
+          "result": "MD −1.00, 95% CI −1.55 to −0.45",
+          "effect": "Between-group pain reduction favouring VR",
+          "meaning": "Clinical size unclear",
+          "detail": "315 participants; I2 = 51%; TSA crossed monitoring boundary.",
+          "verdict": "unclear"
+        },
+        {
+          "outcome": "NDI",
+          "timepoint": "Within 1 week",
+          "result": "MD −3.06, 95% CI −3.84 to −2.29",
+          "effect": "Statistically significant decrease",
+          "meaning": "Possible but small benefit",
+          "detail": "411 participants; I2 = 0%; TSA crossed monitoring boundary.",
+          "verdict": "below_mcid"
+        },
+        {
+          "outcome": "NDI",
+          "timepoint": "1 week to 6 months",
+          "result": "MD −3.81, 95% CI −6.45 to −1.18",
+          "effect": "Statistically significant decrease",
+          "meaning": "Possible but small benefit",
+          "detail": "315 participants; I2 = 84%; TSA crossed monitoring boundary.",
+          "verdict": "below_mcid"
+        }
+      ],
+      "how_to_apply": [
+        "Consider VR as an adjunct, not a replacement, for usual neck pain rehabilitation.",
+        "Expect short-term pain and disability gains rather than a guaranteed large effect.",
+        "Use caution when comparing across trials because comparators and VR formats differed.",
+        "If using patient-reported outcomes, remember blinding is limited in rehab trials."
+      ],
+      "applies_to": [
+        "Adults with neck pain in RCT settings",
+        "Chronic and subacute neck pain",
+        "Adjunct rehabilitation programmes"
+      ],
+      "not_for": [
+        "Claiming proven large clinical effects",
+        "Assuming all VR formats are equivalent",
+        "Direct transfer to very different services or access settings"
+      ],
+      "appraisal": {
+        "certainty": "moderate",
+        "strengths": [
+          "Protocol registered.",
+          "Multiple databases searched.",
+          "Only RCTs included.",
+          "Sensitivity analysis reported.",
+          "TSA added a robustness check."
+        ],
+        "weaknesses": [
+          "Comparator groups were heterogeneous.",
+          "Heterogeneity was substantial for some outcomes.",
+          "Clinical importance threshold was not reported.",
+          "One study had higher risk in the review's judgement.",
+          "Publication bias was not assessable for all outcomes."
+        ],
+        "funding_conflicts": "No external funding declared; no commercial conflicts reported.",
+        "appraised_from": "full_text",
+        "tool": "AMSTAR 2",
+        "overall_risk_of_bias": "some concerns",
+        "domains": [
+          {
+            "domain": "Protocol registered before review",
+            "judgement": "low",
+            "reason": "PROSPERO registration was reported.",
+            "support": "P11: protocol registered as CRD42022334319"
+          },
+          {
+            "domain": "Adequate literature search",
+            "judgement": "low",
+            "reason": "Several databases were searched to October 1, 2024.",
+            "support": "P13: PubMed, Embase, Web of Science, Google Scholar, Cochrane Library"
+          },
+          {
+            "domain": "Justified exclusions",
+            "judgement": "some concerns",
+            "reason": "Reasons were given, but the full excluded-study list was not reported here.",
+            "support": "P30: exclusions listed by category, not a complete exclusion table"
+          },
+          {
+            "domain": "Risk of bias assessed in included studies",
+            "judgement": "low",
+            "reason": "The review assessed study quality with the Cochrane tool.",
+            "support": "P20: Cochrane RoB tool used"
+          },
+          {
+            "domain": "Appropriate meta-analytic methods",
+            "judgement": "low",
+            "reason": "Mean differences and 95% CIs were pooled, with sensitivity analysis and TSA.",
+            "support": "P23-P27: methods for pooling, sensitivity analysis, TSA"
+          },
+          {
+            "domain": "RoB considered when interpreting results",
+            "judgement": "low",
+            "reason": "Discussion and GRADE noted RoB and heterogeneity as limitations.",
+            "support": "P126-P127: TSA and heterogeneity do not remove bias concerns"
+          },
+          {
+            "domain": "Publication bias assessed",
+            "judgement": "some concerns",
+            "reason": "Assessed only for outcomes with more than ten studies; others were not assessed.",
+            "support": "P66-P67: funnel plots for two outcomes, not enough studies for others"
+          }
+        ],
+        "grade": [
+          {
+            "domain": "risk of bias",
+            "judgement": "not serious",
+            "reason": "Review judged overall low risk, though one study had a possible higher risk issue."
+          },
+          {
+            "domain": "inconsistency",
+            "judgement": "serious",
+            "reason": "I2 ranged from 0% to 84%, and the review itself rated inconsistency serious in Table 3."
+          },
+          {
+            "domain": "indirectness",
+            "judgement": "not serious",
+            "reason": "Trials enrolled people with neck pain and compared VR rehabilitation with relevant controls."
+          },
+          {
+            "domain": "imprecision",
+            "judgement": "not serious",
+            "reason": "CIs were reasonably narrow and consistently favoured VR; no MCID was reported to judge clinical crossing."
+          },
+          {
+            "domain": "publication bias",
+            "judgement": "not serious",
+            "reason": "Within-week funnel plots were near symmetric; longer-term outcomes had too few studies to assess."
+          }
+        ],
+        "clinical_significance": [
+          "No MCID or smallest worthwhile change was reported for VAS or NDI.",
+          "The pooled effects were statistically significant, but the paper does not show they are clearly clinically important.",
+          "A meaningful effect cannot be ruled out for some outcomes because the study does not supply a threshold.",
+          "No NNT can be derived from these continuous outcomes."
+        ],
+        "comparator_fairness": [
+          "Comparators were mixed: exercise, standard care, laser, and other programmes.",
+          "This is not a single, tightly matched control condition.",
+          "Dose, contact time, and expectation matching were not clearly standardised across trials."
+        ],
+        "alternative_explanations": [
+          "Natural recovery could explain some improvement, especially in shorter follow-up trials.",
+          "Regression to the mean may contribute because participants had symptomatic neck pain.",
+          "Co-interventions and differing background care could have influenced pooled effects.",
+          "Baseline differences and differential attrition cannot be ruled out from the review text."
+        ],
+        "spin": [
+          "The abstract and conclusion emphasise benefit and robustness; they do report the primary outcomes.",
+          "The paper also highlights TSA as confirmation, which may overstate certainty beyond clinical importance.",
+          "Secondary ROM gains are discussed, but the main claim still centres on pain and disability."
+        ],
+        "fit_with_evidence": [
+          "No external review or guideline is named here.",
+          "Within this review, the pattern is consistent with a modest adjunct effect for neck pain rehabilitation."
+        ],
+        "external_validity": [
+          "✓ Adults with chronic or subacute neck pain resemble many outpatient cases.",
+          "✓ Australian trials were included, improving local relevance.",
+          "✗ Settings and VR formats varied widely.",
+          "✗ Some participants were special groups, including pilots and young women."
+        ],
+        "would_change_my_mind": [
+          "A larger, well-blinded or sham-controlled trial showing a clearly clinically important effect would strengthen this.",
+          "A consistent MCID-crossing effect on pain and disability across comparable comparators would change confidence.",
+          "If future reviews show the current pooled effects are mostly below clinical thresholds, I would be less enthusiastic."
+        ],
+        "verification": {
+          "status": "disagreements",
+          "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+          "checked_at": "2026-11-11T03:01:30.327553+00:00",
+          "disagreements": [
+            {
+              "item": "bottom line",
+              "first": "VR-based rehabilitation showed small-to-moderate short-term improvements in pain and disability versus …",
+              "second": "VR-based rehab improved pooled pain and disability scores versus mixed comparators. …",
+              "why": "Removes unsupported size claim.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "key findings[1]",
+              "first": "The average effects were statistically significant but probably small.",
+              "second": "Average effects were statistically significant; clinical importance remains unclear.",
+              "why": "Avoids unsupported claim that effects were probably small.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "results[1]",
+              "first": "{\"outcome\": \"VAS\", \"timepoint\": \"1 week to 6 months\", \"result\": \"MD −1.00, …",
+              "second": "{\"outcome\": \"VAS\", \"timepoint\": \"1 week to 6 months\", \"result\": \"MD −1.00, …",
+              "why": "No MCID was reported, so below_mcid is unsupported.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.grade[4]",
+              "first": "{\"domain\": \"publication bias\", \"judgement\": \"serious\", \"reason\": \"Only two outcomes had funnel …",
+              "second": "{\"domain\": \"publication bias\", \"judgement\": \"not serious\", \"reason\": \"Within-week funnel plots were …",
+              "why": "Matches moderate certainty; serious would drop certainty to low.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "limits[4]",
+              "first": "One study appeared high risk for blinded analysis only.",
+              "second": "A three-arm trial may have been counted twice in pooled totals.",
+              "why": "Adds visible unit-of-analysis concern from tables.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "Second reader's concern",
+              "first": "Not raised in the first reading",
+              "second": "Raised by the second reader",
+              "why": "Included trial counts are inconsistent across text, figures, and GRADE table.",
+              "resolved": "left open"
+            }
+          ],
+          "external": [],
+          "external_searched": "External ratings not searched for this automated edition."
+        }
+      },
+      "patient_explanation": "VR rehab may help some people with neck pain feel a bit better and move more easily, especially in the short term. It is promising, but the average benefit may be modest and not guaranteed for everyone.",
+      "open_questions": [
+        "Which VR format works best?",
+        "Does VR add benefit over well-matched exercise?",
+        "What is the long-term clinical importance of the pooled effects?"
+      ],
+      "key_findings": [
+        "Pain and disability improved versus mixed controls.",
+        "Average effects were statistically significant; clinical importance remains unclear.",
+        "Heterogeneity was substantial for some outcomes.",
+        "TSA suggested the pooled findings were statistically robust."
+      ],
+      "type": "study",
+      "format": 2,
+      "item_id": "2026-W46-3",
+      "read_level": "full_text",
+      "source_ids": [
+        "study-3"
+      ],
+      "full_text": {
+        "status": "read",
+        "worth_getting": false,
+        "why": "Read the full source by AI; numbers checked against it."
+      },
+      "first_published": "2026-10-22"
+    },
+    {
+      "region": "lumbar",
+      "title": "Many guideline-backed LBP interventions looked cost-effective",
+      "evidence_tag": "established",
+      "evidence_note": "Systematic review of 20 papers, 24 studies, 55 comparisons.",
+      "confidence": "certain",
+      "confidence_note": "Numbers and methods were clearly reported in the text.",
+      "impact": "set_expectations",
+      "impact_line": "Expect several recommended LBP interventions to be cost-effective versus usual care, but results are context dependent.",
+      "summary": [
+        "Included 20 papers, 24 studies, and 55 usual-care comparisons.",
+        "Most studies were trial-based; three were model-based.",
+        "Many interventions looked cost-effective, but heterogeneity limited pooling.",
+        "Results varied by perspective, country, and intervention delivery."
+      ],
+      "pico": {
+        "p": "Adults with non-specific low back pain",
+        "i": "Guideline-recommended non-surgical interventions",
+        "c": "Usual care, sham/placebo, or no treatment",
+        "o": "Incremental cost per QALY and related costs"
+      },
+      "key_numbers": [
+        {
+          "value": "9,285",
+          "label": "records retrieved"
+        },
+        {
+          "value": "20 papers",
+          "label": "included studies"
+        },
+        {
+          "value": "24 studies",
+          "label": "economic studies"
+        },
+        {
+          "value": "14,884",
+          "label": "participants"
+        }
+      ],
+      "limits": [
+        "All studies were from high-income countries.",
+        "No meta-analysis was possible.",
+        "Economic results varied by perspective.",
+        "Some modelling studies were weakly reported."
+      ],
+      "condition": "Non-specific low back pain",
+      "playbook_step": "educate",
+      "bottom_line": "This review suggests many guideline-recommended non-surgical LBP interventions can be cost-effective versus usual care, especially yoga, acupuncture, CBT, self-management, and some multimodal programmes. The finding is useful for expectation-setting, but transfer depends heavily on local costs, delivery model, and perspective.",
+      "methods": {
+        "design": "Systematic review",
+        "setting": "High-income countries; 9 countries",
+        "participants": "Adults 18+ with non-specific low back pain",
+        "intervention": "Guideline-recommended non-pharmacological, non-surgical interventions",
+        "comparator": "Usual care, sham/placebo, or no treatment",
+        "follow_up": "Varied; up to lifetime in models",
+        "primary_outcome": "Incremental cost per QALY gained"
+      },
+      "results": [
+        {
+          "outcome": "Cost per QALY",
+          "timepoint": "Varied",
+          "result": "Many interventions were cost-effective versus usual care.",
+          "meaning": "Economic value often favourable.",
+          "detail": "At a notional £20,000 threshold, 14/18 healthcare, 15/19 societal, and 11/14 payer trial-based comparisons were cost-effective.",
+          "verdict": "descriptive"
+        },
+        {
+          "outcome": "Acupuncture",
+          "timepoint": "6-12 months",
+          "result": "Mixed results across studies and perspectives.",
+          "effect": "ICERs ranged from dominant to US$82,000/QALY",
+          "meaning": "Context drives value.",
+          "detail": "Some acupuncture comparisons were dominant, but payer-perspective TCM acupuncture reached US$82,000/QALY in one study.",
+          "verdict": "unclear"
+        },
+        {
+          "outcome": "CBT",
+          "timepoint": "12 months",
+          "result": "Often looked cost-effective versus usual care.",
+          "effect": "ICERs ranged from £1,786 to US$24,000/QALY",
+          "meaning": "Likely good value in some settings.",
+          "detail": "Several trial-based comparisons favoured CBT or related cognitive interventions, but estimates differed by study and perspective.",
+          "verdict": "unclear"
+        }
+      ],
+      "how_to_apply": [
+        "Use this to support funding or referral discussions, not as proof of clinical superiority.",
+        "Expect better economic value when local delivery costs are low.",
+        "Re-check value when the comparator is weak or unusually expensive.",
+        "Be cautious transferring results to low- and middle-income settings."
+      ],
+      "applies_to": [
+        "Adults with non-specific LBP",
+        "High-income health systems",
+        "Non-surgical, non-pharmacological care"
+      ],
+      "not_for": [
+        "Sciatica-only populations",
+        "Distinct spinal pathology",
+        "Low- and middle-income settings"
+      ],
+      "appraisal": {
+        "certainty": "very low",
+        "strengths": [
+          "Protocol registered before the review.",
+          "Search covered many databases without limits.",
+          "Two reviewers screened and extracted data.",
+          "Used design-specific economic quality tools."
+        ],
+        "weaknesses": [
+          "Narrative synthesis only.",
+          "No formal GRADE for economic outcomes.",
+          "Comparator mix and perspectives were highly heterogeneous.",
+          "Some model studies were poorly reported."
+        ],
+        "funding_conflicts": "No specific funding. Several authors reported industry-adjacent or grant-related conflicts; none stated as specific to this review.",
+        "appraised_from": "full_text",
+        "tool": "AMSTAR 2",
+        "overall_risk_of_bias": "some concerns",
+        "domains": [
+          {
+            "domain": "Protocol registered before review",
+            "judgement": "low",
+            "reason": "Protocol was registered prospectively.",
+            "support": "Methods P12: PROSPERO registration CRD42024510270."
+          },
+          {
+            "domain": "Adequate literature search",
+            "judgement": "low",
+            "reason": "Search was broad and unrestricted across many databases.",
+            "support": "Methods P16-P17: multiple databases, no restrictions, manual search, experts."
+          },
+          {
+            "domain": "Justified exclusions",
+            "judgement": "low",
+            "reason": "Excluded studies were handled through a prespecified review process.",
+            "support": "Methods P33 and P480: full texts screened and excluded studies listed with reasons."
+          },
+          {
+            "domain": "Risk of bias assessed in included studies",
+            "judgement": "low",
+            "reason": "Included studies were appraised with CHEC or Philips checklists.",
+            "support": "Methods P39 and Results P340-P342: quality assessment reported."
+          },
+          {
+            "domain": "Appropriate meta-analytic methods",
+            "judgement": "low",
+            "reason": "No pooling was done because heterogeneity and missing variance made meta-analysis inappropriate.",
+            "support": "Methods P44-P45: pooling deemed inappropriate; narrative synthesis used."
+          },
+          {
+            "domain": "RoB considered when interpreting results",
+            "judgement": "some concerns",
+            "reason": "Authors noted heterogeneity and variable study quality, but interpretation remained broad.",
+            "support": "Discussion P450-P457: caution advised, but no formal synthesis of RoB influence."
+          },
+          {
+            "domain": "Publication bias assessed",
+            "judgement": "unclear",
+            "reason": "Not reported.",
+            "support": "Not reported"
+          }
+        ],
+        "grade": [
+          {
+            "domain": "risk of bias",
+            "judgement": "serious",
+            "reason": "Evidence came from heterogeneous economic studies with variable reporting and some weak model appraisal."
+          },
+          {
+            "domain": "inconsistency",
+            "judgement": "serious",
+            "reason": "Results varied across interventions, perspectives, countries, and time horizons; pooling was inappropriate."
+          },
+          {
+            "domain": "indirectness",
+            "judgement": "serious",
+            "reason": "Findings are mostly from high-income countries and usual-care comparators, limiting transfer to other settings."
+          },
+          {
+            "domain": "imprecision",
+            "judgement": "serious",
+            "reason": "Estimates varied widely, and no single pooled CI is available for the main economic question."
+          },
+          {
+            "domain": "publication bias",
+            "judgement": "serious",
+            "reason": "No formal publication-bias assessment was reported."
+          }
+        ],
+        "clinical_significance": [
+          "No MCID or smallest worthwhile difference was reported for cost-effectiveness.",
+          "Economic value is threshold-based, so interpretation depends on the chosen WTP level.",
+          "The review suggests value, not guaranteed clinical benefit.",
+          "A different local cost structure could change the conclusion."
+        ],
+        "comparator_fairness": [
+          "Usual care was a plausible comparator and often reflected first-contact management.",
+          "Dose and contact time were not standardised across studies.",
+          "Some comparators were likely weaker than the intervention packages.",
+          "Sham/placebo and no-treatment controls were less relevant to commissioning decisions."
+        ],
+        "alternative_explanations": [
+          "Natural history may improve symptoms and reduce downstream costs over time.",
+          "Regression to the mean may affect trial-based economic gains.",
+          "Co-interventions and usual-care variation could explain some cost differences.",
+          "Differential attrition may affect some trial-based estimates."
+        ],
+        "spin": [
+          "Abstract and conclusions match the broad direction of findings.",
+          "Conclusions overgeneralise heterogeneous, context-specific economic results.",
+          "Calls to implement at scale go beyond review certainty."
+        ],
+        "fit_with_evidence": [
+          "Consistent with earlier LBP economic reviews cited by the authors.",
+          "Extends prior reviews by covering newer guideline-recommended interventions.",
+          "Fits the Atlas playbook: many non-surgical options may be worth considering, but context matters."
+        ],
+        "external_validity": [
+          "Some Australian trial data were included, but most evidence came from Europe and North America.",
+          "Participants were mostly middle-aged, with many chronic cases.",
+          "Results should transfer best to similar high-income primary care settings.",
+          "Economic conclusions are less transferable to low-resource settings."
+        ],
+        "would_change_my_mind": [
+          "A newer review with formal economic meta-analysis and subgrouping by setting.",
+          "Local Australian cost-utility studies using current prices and delivery models.",
+          "Consistent evidence that a given intervention is not cost-effective in similar health systems."
+        ],
+        "verification": {
+          "status": "disagreements",
+          "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+          "checked_at": "2026-11-11T03:01:30.327553+00:00",
+          "disagreements": [
+            {
+              "item": "key numbers[0].label",
+              "first": "records screened",
+              "second": "records retrieved",
+              "why": "P48 says retrieved, not screened.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "limits[0]",
+              "first": "Mostly high-income settings.",
+              "second": "All studies were from high-income countries.",
+              "why": "P130 states all studies were high-income.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "results[0]",
+              "first": "{\"outcome\": \"Cost per QALY\", \"timepoint\": \"12 months\", \"result\": \"Many interventions were …",
+              "second": "{\"outcome\": \"Cost per QALY\", \"timepoint\": \"Varied\", \"result\": \"Many interventions were cost-effective …",
+              "why": "Time horizon varied; refs should match summary numbers only.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "results[1]",
+              "first": "{\"outcome\": \"Acupuncture\", \"timepoint\": \"12 months\", \"result\": \"Mixed results across studies and …",
+              "second": "{\"outcome\": \"Acupuncture\", \"timepoint\": \"6-12 months\", \"result\": \"Mixed results across studies and …",
+              "why": "Upper ICER was mislabelled as pounds, not US dollars.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "results[2].effect",
+              "first": "ICERs included £1,786, £3,049, and £24,000/QALY",
+              "second": "ICERs ranged from £1,786 to US$24,000/QALY",
+              "why": "£3,049 and £24,000 were wrong currencies in source.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.grade[1]",
+              "first": "{\"domain\": \"inconsistency\", \"judgement\": \"not applicable\", \"reason\": \"Single-study synthesis was not the …",
+              "second": "{\"domain\": \"inconsistency\", \"judgement\": \"serious\", \"reason\": \"Results varied across interventions, perspectives, countries, …",
+              "why": "This review synthesised many heterogeneous studies, not a single study.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.certainty",
+              "first": "moderate",
+              "second": "very low",
+              "why": "Current GRADE rows imply very low certainty, not moderate.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.spin",
+              "first": "[\"Abstract and conclusions broadly match the main findings.\", \"The discussion sometimes …",
+              "second": "[\"Abstract and conclusions match the broad direction of findings.\", \"Conclusions overgeneralise …",
+              "why": "Authors' implementation claims go beyond heterogeneous review data.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "Automated check",
+              "first": "unsupported number",
+              "second": "card.results[1], card.results[2]",
+              "why": "Numbers not found in the passages the card cites. Check each against the paper.",
+              "resolved": "left open"
+            }
+          ],
+          "external": [],
+          "external_searched": "External ratings not searched for this automated edition."
+        }
+      },
+      "patient_explanation": "Some back pain treatments may save money or give good value for money compared with usual care, but the answer depends on the health system, the treatment package, and local costs. This does not mean they work better for pain in every case.",
+      "open_questions": [
+        "Which interventions stay cost-effective in Australian practice?",
+        "How do current costs change these estimates?",
+        "Which patient groups benefit most economically?"
+      ],
+      "key_findings": [
+        "Yoga, acupuncture, CBT, self-management, and some multimodal care often looked cost-effective.",
+        "Most data came from high-income countries and usual-care comparisons.",
+        "The review could not pool results because studies were too different.",
+        "Some modelling studies were methodologically weak.",
+        "Cost-effectiveness varied by perspective and local delivery costs."
+      ],
+      "type": "study",
+      "format": 2,
+      "item_id": "2026-W46-4",
+      "read_level": "full_text",
+      "source_ids": [
+        "study-4"
+      ],
+      "full_text": {
+        "status": "read",
+        "worth_getting": false,
+        "why": "Read the full source by AI; numbers checked against it."
+      },
+      "first_published": "2026-10-27"
+    },
+    {
+      "region": "lower limb",
+      "title": "ACL reconstruction blocks: donor-site add-ons may help early pain",
+      "evidence_tag": "established",
+      "evidence_note": "Full text gives protocol, search, RoB methods, and main outcome estimates.",
+      "confidence": "certain",
+      "confidence_note": "Numbers and methods were reported clearly in the main text.",
+      "impact": "set_expectations",
+      "impact_line": "Some combinations may improve early pain, but the gains are small and uncertain by 48 h, and no single technique is clearly best.",
+      "summary": [
+        "31 RCTs, 2,470 patients, adults having ACL reconstruction under general anaesthesia.",
+        "FNB + SNB lowered 24 h opioid use vs control; donor-site infiltration combinations ranked well for pain.",
+        "At 48 h and for PONV, comparative estimates were imprecise or null.",
+        "Authors judged the network heterogeneous and did not formally grade certainty with GRADE or CINeMA."
+      ],
+      "pico": {
+        "p": "Adults undergoing ACL reconstruction under general anaesthesia",
+        "i": "Regional or local analgesic techniques, alone or combined",
+        "c": "Placebo, blank control, systemic analgesia, or another block",
+        "o": "Pain, opioid use, time to first analgesic request, PONV"
+      },
+      "key_numbers": [
+        {
+          "value": "31",
+          "label": "RCTs included"
+        },
+        {
+          "value": "2,470",
+          "label": "Total patients"
+        },
+        {
+          "value": "-1.70",
+          "label": "24 h VAS vs control"
+        },
+        {
+          "value": "-40.42",
+          "label": "24 h OMME vs control"
+        }
+      ],
+      "limits": [
+        "Sparse network for some comparisons.",
+        "Clinical heterogeneity and transitivity were uncertain.",
+        "Functional outcomes were not synthesised.",
+        "PONV estimates were very imprecise.",
+        "Formal GRADE or CINeMA was not performed."
+      ],
+      "condition": "ACL reconstruction postoperative analgesia",
+      "playbook_step": "treat",
+      "bottom_line": "This review suggests some regional or local techniques can improve early pain after ACL reconstruction, especially when donor-site analgesia is added, but the size and durability of benefit are uncertain and no single block is clearly superior.",
+      "methods": {
+        "design": "Systematic review and network meta-analysis of RCTs",
+        "setting": "Adults having ACL reconstruction under general anaesthesia",
+        "participants": "31 RCTs; 2,470 patients; mean age 24.0 to 35.1 years across studies",
+        "intervention": "Regional and local analgesic techniques, including ACB, FNB, LIA, iPACK, ONB, SNB, and combinations",
+        "comparator": "Placebo, blank control, systemic analgesia, or another regional/local technique",
+        "follow_up": "PACU, 24 h, 48 h",
+        "primary_outcome": "24 h oral morphine milligram equivalents; pain, TFAR, and PONV were also main outcomes"
+      },
+      "results": [
+        {
+          "outcome": "24 h OMME",
+          "timepoint": "24 h",
+          "result": "FNB and FNB+SNB were lower than control; all other comparisons had CrIs crossing 0.",
+          "effect": "FNB MD -30.31 (-58.02 to -6.79); FNB+SNB MD -40.42 (-80.42 to -5.79) vs control",
+          "meaning": "Opioid-sparing signal",
+          "detail": "The review reports lower estimated opioid use for these two comparisons only; it does not report an MCID for OMME.",
+          "verdict": "unclear"
+        },
+        {
+          "outcome": "PACU VAS",
+          "timepoint": "PACU",
+          "result": "ACB+donor-site infiltration was lower than ACB and some LIA comparisons; most others crossed 0.",
+          "effect": "ACB+donor-site infiltration vs ACB MD -1.23 (-2.38 to -0.01)",
+          "meaning": "Possible early pain benefit",
+          "detail": "The paper cites about 1 point on a 0-10 VAS as an MCID reference for acute postoperative pain, but this interval includes values smaller than that threshold.",
+          "verdict": "unclear"
+        },
+        {
+          "outcome": "24 h VAS",
+          "timepoint": "24 h",
+          "result": "ACB+donor-site infiltration was lower than ACB, control, FNB, and LIA; other comparisons mostly crossed 0.",
+          "effect": "ACB+donor-site infiltration vs ACB MD -1.50 (-2.43 to -0.61)",
+          "meaning": "Likely clinically important, but uncertain",
+          "detail": "The point estimate exceeds the paper’s 1-point VAS reference, yet the interval also includes effects smaller than 1 point.",
+          "verdict": "unclear"
+        },
+        {
+          "outcome": "48 h VAS",
+          "timepoint": "48 h",
+          "result": "All pairwise comparisons crossed 0.",
+          "effect": "No pairwise comparison excluded 0",
+          "meaning": "No clear difference",
+          "detail": "The review found no clear comparative advantage at 48 h, despite SUCRA rankings.",
+          "verdict": "no_difference"
+        },
+        {
+          "outcome": "TFAR",
+          "timepoint": "main analysis",
+          "result": "ACB, FNB, and LIA had shorter TFAR than ACB+iPACK; others crossed 0.",
+          "effect": "ACB vs ACB+iPACK MD -7.50 (-13.01 to -1.92); FNB -7.80; LIA -8.42",
+          "meaning": "Possible longer time to rescue with ACB+iPACK",
+          "detail": "No MCID was reported for TFAR, and the authors say it should be interpreted with background analgesia and rescue criteria in mind.",
+          "verdict": "unclear"
+        }
+      ],
+      "how_to_apply": [
+        "Expect the largest early analgesic signal from combinations that cover more pain sources.",
+        "Do not treat SUCRA rankings as proof of a clinically best block.",
+        "Be cautious with 48 h pain claims; the review found no clear comparative differences.",
+        "Interpret opioid use and TFAR alongside rescue-analgesia protocols."
+      ],
+      "applies_to": [
+        "Adults having ACL reconstruction under GA",
+        "Perioperative regional or local analgesia",
+        "Early postoperative pain control"
+      ],
+      "not_for": [
+        "Motor-function or falls guidance",
+        "Safety conclusions beyond PONV",
+        "Athletes outside ACL reconstruction"
+      ],
+      "appraisal": {
+        "certainty": "very low",
+        "strengths": [
+          "Protocol registered.",
+          "Comprehensive database search.",
+          "Dual screening and extraction.",
+          "RoB 2 used for included RCTs."
+        ],
+        "weaknesses": [
+          "Network was sparse for several nodes.",
+          "Clinical heterogeneity and transitivity were uncertain.",
+          "No formal GRADE or CINeMA certainty assessment.",
+          "Functional outcomes and harms were limited."
+        ],
+        "funding_conflicts": "Supported by Jiangsu Provincial Health Commission Medical Research Project and Zhenjiang 'Jinshan Talents' Medical High-level Talent Innovation Team Program; authors declared no competing interests.",
+        "appraised_from": "full_text",
+        "tool": "AMSTAR 2",
+        "overall_risk_of_bias": "some concerns",
+        "domains": [
+          {
+            "domain": "Protocol registered before review",
+            "judgement": "low",
+            "reason": "Protocol was registered in PROSPERO.",
+            "support": "Methods p.2: CRD420261307494."
+          },
+          {
+            "domain": "Adequate literature search",
+            "judgement": "low",
+            "reason": "Multiple databases were searched without language filters and reference lists were checked.",
+            "support": "Search p.2: four databases and manual reference checks."
+          },
+          {
+            "domain": "Justified exclusions",
+            "judgement": "unclear",
+            "reason": "The flow diagram gives counts, but no study-level list of excluded full texts was reported.",
+            "support": "Fig 1/Results: 77 full texts excluded; no exclusion list shown."
+          },
+          {
+            "domain": "Risk of bias assessed in included studies",
+            "judgement": "low",
+            "reason": "RoB 2 was used independently by two reviewers.",
+            "support": "Methods p.5 and Results p.10: RoB 2 assessment."
+          },
+          {
+            "domain": "Appropriate meta-analytic methods",
+            "judgement": "low",
+            "reason": "Random-effects Bayesian NMA was used with consistency and inconsistency checks.",
+            "support": "Methods p.6 and Results p.11: Bayesian NMA, DIC, node-splitting."
+          },
+          {
+            "domain": "RoB considered when interpreting results",
+            "judgement": "low",
+            "reason": "Sensitivity analyses excluded high-risk studies and the discussion used those changes to temper conclusions.",
+            "support": "Results p.13 and Discussion p.16: high-risk exclusions altered CrIs and nodes."
+          },
+          {
+            "domain": "Publication bias assessed",
+            "judgement": "low",
+            "reason": "Funnel plots and Egger tests were used for outcomes with at least 10 studies.",
+            "support": "Methods p.6 and Results p.14: comparison-adjusted funnels and Egger tests."
+          }
+        ],
+        "grade": [
+          {
+            "domain": "risk of bias",
+            "judgement": "serious",
+            "reason": "Most included trials had some concerns or high risk, and sensitivity analyses changed several estimates after excluding high-risk studies."
+          },
+          {
+            "domain": "inconsistency",
+            "judgement": "serious",
+            "reason": "Heterogeneity varied and some comparisons showed moderate to high heterogeneity, although global inconsistency was small."
+          },
+          {
+            "domain": "indirectness",
+            "judgement": "serious",
+            "reason": "Comparisons mixed different graft types, protocols, and block variants, so transitivity was uncertain."
+          },
+          {
+            "domain": "imprecision",
+            "judgement": "serious",
+            "reason": "Several key CIs crossed 0, and even positive pain effects included values below the paper’s 1-point VAS reference."
+          },
+          {
+            "domain": "publication bias",
+            "judgement": "not serious",
+            "reason": "The review found no clear small-study effects, though power was limited for smaller networks."
+          }
+        ],
+        "clinical_significance": [
+          "The review uses about 1 point on a 0-10 VAS as the acute postoperative pain MCID reference.",
+          "The 24 h VAS estimate of -1.50 is compatible with a clinically worthwhile effect, but the CI reaches -0.61, so a smaller effect remains plausible.",
+          "The 48 h pain results do not show a clear clinically meaningful advantage.",
+          "No MCID was reported for OMME or TFAR."
+        ],
+        "comparator_fairness": [
+          "Controls ranged from placebo to systemic analgesia and other blocks, so some comparisons were more credible than others.",
+          "Background and rescue analgesia varied across trials, which can dilute or exaggerate differences.",
+          "Some comparisons were likely not balanced for expectation or co-intervention intensity."
+        ],
+        "alternative_explanations": [
+          "Natural recovery after surgery could explain part of the pain drop over time.",
+          "Regression to the mean may help with early pain outcomes.",
+          "Different background and rescue analgesia could drive opioid and TFAR differences.",
+          "Differential attrition was less likely because the review says missing data risk was generally low, but selective reporting remained a concern."
+        ],
+        "spin": [
+          "The abstract and conclusion are cautious overall and do not claim a single best technique.",
+          "Ranking language could still overstate certainty if read without the wide CrIs and sensitivity analyses.",
+          "The discussion appropriately tempers the ranking findings with uncertainty."
+        ],
+        "fit_with_evidence": [
+          "The authors say the opioid-sparing finding for FNB+SNB is consistent with Hussain et al. 2023.",
+          "The review extends earlier ACLR analgesia reviews by adding newer trials and 48 h pain.",
+          "Its caution about ranking over certainty fits the broader playbook for ACLR analgesia."
+        ],
+        "external_validity": [
+          "Adult ACLR patients under GA are close to a sports-physio caseload after knee ligament surgery.",
+          "Mean age was young, mostly 24.0 to 35.1 years, which fits a typical ACLR population.",
+          "The evidence comes from multiple countries and mixed hospital settings.",
+          "Technique details, graft types, and background analgesia varied, so direct transfer to one local protocol is limited."
+        ],
+        "would_change_my_mind": [
+          "A large, well-reported RCT with functional outcomes and consistent rescue protocols would strengthen the case.",
+          "A head-to-head trial showing a clear, durable clinical gain at 24 to 48 h with preserved function would matter most.",
+          "A formal GRADE/CINeMA assessment showing high certainty across the main comparisons would also strengthen confidence."
+        ],
+        "verification": {
+          "status": "disagreements",
+          "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+          "checked_at": "2026-11-11T03:01:30.327553+00:00",
+          "disagreements": [
+            {
+              "item": "results[4]",
+              "first": "{\"outcome\": \"TFAR\", \"timepoint\": \"main analysis\", \"result\": \"ACB, FNB, and LIA were …",
+              "second": "{\"outcome\": \"TFAR\", \"timepoint\": \"main analysis\", \"result\": \"ACB, FNB, and LIA had …",
+              "why": "TFAR direction was reversed.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "key numbers[2]",
+              "first": "{\"value\": \"-1.50\", \"label\": \"Best 24 h pain MD\", \"evidence_refs\": [\"P273\"]}",
+              "second": "{\"value\": \"-1.70\", \"label\": \"24 h VAS vs control\", \"evidence_refs\": [\"P273\"]}",
+              "why": "Old label/value wrongly implied best estimate.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "key numbers[3]",
+              "first": "{\"value\": \"-30.31\", \"label\": \"Best 24 h opioid MD\", \"evidence_refs\": [\"P153\"]}",
+              "second": "{\"value\": \"-40.42\", \"label\": \"24 h OMME vs control\", \"evidence_refs\": [\"P153\"]}",
+              "why": "Old label/value used the smaller opioid effect.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.certainty",
+              "first": "low",
+              "second": "very low",
+              "why": "Four serious GRADE downgrades cannot yield low certainty.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.domains[2]",
+              "first": "{\"domain\": \"Justified exclusions\", \"judgement\": \"low\", \"reason\": \"The paper lists exclusion criteria …",
+              "second": "{\"domain\": \"Justified exclusions\", \"judgement\": \"unclear\", \"reason\": \"The flow diagram gives counts, …",
+              "why": "AMSTAR exclusion-list item was not fully reported.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.domains[5].domain",
+              "first": "Risk of bias considered when interpreting results",
+              "second": "RoB considered when interpreting results",
+              "why": "Match required AMSTAR domain name.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "Second reader's concern",
+              "first": "Not raised in the first reading",
+              "second": "Raised by the second reader",
+              "why": "Non-English studies were excluded, so language bias remains possible.",
+              "resolved": "left open"
+            },
+            {
+              "item": "Second reader's concern",
+              "first": "Not raised in the first reading",
+              "second": "Raised by the second reader",
+              "why": "Mixed graft types and rescue analgesia weaken transitivity for indirect comparisons.",
+              "resolved": "left open"
+            },
+            {
+              "item": "Automated check",
+              "first": "unsupported number",
+              "second": "card.appraisal.clinical_significance, card.results[0], card.results[1], card.results[2], card.results[4], card.key_numbers[2], card.key_numbers[3]",
+              "why": "Numbers not found in the passages the card cites. Check each against the paper.",
+              "resolved": "left open"
+            }
+          ],
+          "external": [],
+          "external_searched": "External ratings not searched for this automated edition."
+        }
+      },
+      "patient_explanation": "Some nerve or local anaesthetic combinations can lower pain after ACL reconstruction, especially in the first day. The benefit is not the same for every technique, and the best option depends on pain source, movement goals, and possible leg weakness.",
+      "open_questions": [
+        "Which technique best preserves early function?",
+        "Do donor-site blocks improve rehab outcomes, not just pain?",
+        "Which comparisons remain when high-risk trials are removed?"
+      ],
+      "key_findings": [
+        "31 RCTs; 2,470 patients.",
+        "FNB+SNB reduced 24 h opioid use vs control.",
+        "ACB+donor-site infiltration had the best 24 h pain estimate.",
+        "48 h pain and PONV remained uncertain."
+      ],
+      "type": "study",
+      "format": 2,
+      "item_id": "2026-W46-5",
+      "read_level": "full_text",
+      "source_ids": [
+        "study-5"
+      ],
+      "full_text": {
+        "status": "read",
+        "worth_getting": false,
+        "why": "Read the full source by AI; numbers checked against it."
+      },
+      "first_published": "2026-10-29"
+    },
+    {
+      "region": "cervical",
+      "title": "Deep and superficial dry needling looked similar for neck pain",
+      "evidence_tag": "established",
+      "evidence_note": "One full-text triple-blind RCT in neck pain.",
+      "confidence": "certain",
+      "confidence_note": "Full text reported the design, outcomes and main contrasts clearly.",
+      "impact": "changes_what_i_say",
+      "impact_line": "Tell patients deep needling was not clearly better than superficial needling for pain or disability here.",
+      "summary": [
+        "44 adults with non-specific neck pain and upper trapezius MTrPs were randomised 1:1 to deep or superficial dry needling.",
+        "Pain and disability improved in both groups, but between-group differences were not significant at 2 or 6 weeks.",
+        "A Week 6 active RMS contrast favoured deep needling, but it was nominal and exploratory.",
+        "Deep needling caused more bleeding and needling-related pain than superficial needling."
+      ],
+      "pico": {
+        "p": "Adults with non-specific neck pain and upper trapezius myofascial trigger points",
+        "i": "Deep dry needling, 4 sessions over 2 weeks",
+        "c": "Superficial dry needling, same schedule",
+        "o": "Ultrasound, sEMG, pain and Neck Disability Index at 2 and 6 weeks"
+      },
+      "key_numbers": [
+        {
+          "value": "44",
+          "label": "randomised"
+        },
+        {
+          "value": "1.09",
+          "label": "Week 6 active RMS diff"
+        },
+        {
+          "value": "0.039",
+          "label": "active RMS p"
+        },
+        {
+          "value": "36.4%",
+          "label": "bleeding with deep"
+        }
+      ],
+      "limits": [
+        "No sham or untreated control.",
+        "Multiple outcomes without multiplicity adjustment.",
+        "Actual superficial insertion depth was not instrumentally verified.",
+        "Single hospital in Saudi Arabia.",
+        "Pain duration and comorbidity rates differed numerically at baseline despite non-significant tests."
+      ],
+      "condition": "Non-specific neck pain with upper trapezius myofascial trigger points",
+      "playbook_step": "treat",
+      "bottom_line": "Deep and superficial dry needling both coincided with less pain and disability, but this trial did not show clear superiority of deep needling. The only between-group signal was a nominal Week 6 active RMS difference, which was exploratory.",
+      "methods": {
+        "design": "Triple-blind two-arm parallel-group randomised clinical trial",
+        "setting": "Qatif Central Hospital, Saudi Arabia",
+        "participants": "44 adults with non-specific neck pain and upper trapezius active MTrPs",
+        "intervention": "Four sessions of deep dry needling over 2 weeks",
+        "comparator": "Four sessions of superficial dry needling over 2 weeks",
+        "follow_up": "Baseline, 2 weeks, 6 weeks",
+        "primary_outcome": "Ultrasonography and sEMG outcomes; pain and disability were secondary"
+      },
+      "results": [
+        {
+          "outcome": "Pain",
+          "timepoint": "2 weeks",
+          "result": "DDN -3.35 cm; SDN -3.08 cm",
+          "effect": "Between-group difference -0.27 (CI -1.60 to 1.06)",
+          "meaning": "No clear advantage",
+          "detail": "Both groups improved from baseline. The confidence interval crosses no effect and a clinically important benefit.",
+          "verdict": "no_difference"
+        },
+        {
+          "outcome": "Pain",
+          "timepoint": "6 weeks",
+          "result": "DDN -3.04 cm; SDN -3.30 cm",
+          "effect": "Between-group difference 0.26 (CI -1.17 to 1.69)",
+          "meaning": "No clear advantage",
+          "detail": "Both groups improved. The confidence interval crosses no effect and does not support a meaningful between-group difference.",
+          "verdict": "no_difference"
+        },
+        {
+          "outcome": "NDI",
+          "timepoint": "2 weeks",
+          "result": "DDN -5.4; SDN -5.0",
+          "effect": "Between-group difference -0.43 (CI -3.9 to 3.1)",
+          "meaning": "No clear advantage",
+          "detail": "Both groups improved, but the between-group CI is wide and crosses no effect.",
+          "verdict": "no_difference"
+        },
+        {
+          "outcome": "NDI",
+          "timepoint": "6 weeks",
+          "result": "DDN -4.5; SDN -6.5",
+          "effect": "Between-group difference 1.93 (CI -2.0 to 5.9)",
+          "meaning": "No clear advantage",
+          "detail": "The CI includes no effect and a potentially important difference in either direction.",
+          "verdict": "unclear"
+        },
+        {
+          "outcome": "Active RMS",
+          "timepoint": "6 weeks",
+          "result": "DDN minus SDN 1.09",
+          "effect": "CI 0.06 to 2.13",
+          "meaning": "Exploratory signal only",
+          "detail": "This nominally favoured deep needling, but the paper says it was exploratory and no multiplicity adjustment was used.",
+          "verdict": "below_mcid"
+        }
+      ],
+      "how_to_apply": [
+        "Use either technique if the goal is symptom relief; this trial did not show deep needling was better.",
+        "If you choose deep needling, warn about more bleeding and needling pain.",
+        "Do not promise superior pain relief from deeper penetration based on this study.",
+        "Treat the active-RMS finding as hypothesis-generating only."
+      ],
+      "applies_to": [
+        "Upper trapezius MTrPs",
+        "Adults with non-specific neck pain",
+        "Two sessions per week for 2 weeks"
+      ],
+      "not_for": [
+        "Other neck-pain subtypes",
+        "Other muscles",
+        "Claims that deep needling is superior for pain or disability"
+      ],
+      "appraisal": {
+        "certainty": "low",
+        "strengths": [
+          "Randomised allocation.",
+          "Participant and assessor blinding.",
+          "ITT analysis with mixed models.",
+          "Prespecified follow-up at 6 weeks."
+        ],
+        "weaknesses": [
+          "No sham or untreated control.",
+          "Therapist was not blinded.",
+          "Many outcomes were tested without multiplicity adjustment.",
+          "Some follow-up data were missing.",
+          "Superficial insertion depth was not objectively verified."
+        ],
+        "funding_conflicts": "No external funding; authors reported no conflicts.",
+        "appraised_from": "full_text",
+        "tool": "RoB 2",
+        "overall_risk_of_bias": "some concerns",
+        "domains": [
+          {
+            "domain": "Randomisation process",
+            "judgement": "low",
+            "reason": "Independent sequence and sealed opaque envelopes were used, with no important baseline imbalances in reported variables.",
+            "support": "Methods P23; Table 1 P67-P103"
+          },
+          {
+            "domain": "Deviations from intended interventions",
+            "judgement": "some concerns",
+            "reason": "The treating therapist knew allocation, so performance differences or interaction effects cannot be excluded.",
+            "support": "Methods P13, P25; Discussion P232"
+          },
+          {
+            "domain": "Missing outcome data",
+            "judgement": "some concerns",
+            "reason": "Observed data fell to 19/22 vs 20/22 at Week 2 and 19/22 vs 18/22 at Week 6.",
+            "support": "Results P105; Methods P57"
+          },
+          {
+            "domain": "Measurement of the outcome",
+            "judgement": "low",
+            "reason": "Assessors were blinded, and primary ultrasound and sEMG outcomes were instrument-based rather than self-reported.",
+            "support": "Methods P13, P30, P33-P46"
+          },
+          {
+            "domain": "Selection of the reported result",
+            "judgement": "unclear",
+            "reason": "Registry timing versus enrolment was not verifiable, and no prespecified multiplicity plan was reported.",
+            "support": "Methods P14, P58; Results P172"
+          }
+        ],
+        "grade": [
+          {
+            "domain": "risk of bias",
+            "judgement": "serious",
+            "reason": "Some concerns across performance, missing data, and selective emphasis of exploratory findings."
+          },
+          {
+            "domain": "inconsistency",
+            "judgement": "not applicable",
+            "reason": "Single trial."
+          },
+          {
+            "domain": "indirectness",
+            "judgement": "not serious",
+            "reason": "Population, interventions and patient-important outcomes are directly relevant to the review question."
+          },
+          {
+            "domain": "imprecision",
+            "judgement": "serious",
+            "reason": "Pain and disability CIs cross no effect and remain compatible with benefit and no benefit; sample was small."
+          },
+          {
+            "domain": "publication bias",
+            "judgement": "not applicable",
+            "reason": "Single trial."
+          }
+        ],
+        "clinical_significance": [
+          "Pain MCID cited by the paper: both groups improved by more than it, but the between-group differences were small and crossed no effect.",
+          "NDI MCID cited by the paper: the between-group CIs crossed no effect and did not show a clear clinically important difference.",
+          "The Week 6 active RMS finding was statistically nominal, but it does not establish a clinically meaningful advantage for deep needling."
+        ],
+        "comparator_fairness": [
+          "The comparator was credible and matched for schedule, contact time and needling handling.",
+          "It was not a sham or waiting-list control, so non-specific needling effects cannot be separated.",
+          "Superficial insertion was intended, but actual depth was not measured."
+        ],
+        "alternative_explanations": [
+          "Natural recovery over 6 weeks.",
+          "Regression to the mean.",
+          "Expectation and contextual effects from needling in both groups.",
+          "No sham control means co-interventions and non-specific effects remain plausible."
+        ],
+        "spin": [
+          "Abstract and discussion are cautious on pain and disability.",
+          "The nominal active-RMS result is emphasised more than the clinical outcomes.",
+          "The paper appropriately says the study does not show equivalence."
+        ],
+        "fit_with_evidence": [
+          "Consistent with the 2025 systematic review cited by the authors.",
+          "Matches the Atlas playbook: dry needling is an option, not clearly depth-dependent for neck pain."
+        ],
+        "external_validity": [
+          "Reasonable match for adults with upper trapezius trigger points seen in private musculoskeletal practice.",
+          "Less directly transferable to athletes, other muscles, or different neck-pain subgroups.",
+          "Single Saudi hospital setting may limit transfer to Australian private care."
+        ],
+        "would_change_my_mind": [
+          "A larger trial with a sham or untreated control showing a clear clinical advantage for deep needling.",
+          "Replicated patient-important benefit with a prespecified MCID and tighter confidence intervals.",
+          "Consistent superiority on pain or disability across independent trials."
+        ],
+        "verification": {
+          "status": "disagreements",
+          "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+          "checked_at": "2026-11-11T03:01:30.327553+00:00",
+          "disagreements": [
+            {
+              "item": "limits[4]",
+              "first": "Primary clinical effect estimate was not reported as a single prespecified …",
+              "second": "Pain duration and comorbidity rates differed numerically at baseline despite non-significant tests.",
+              "why": "Baseline imbalances visible in Table 1 should appear in limits.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.domains",
+              "first": "[{\"domain\": \"Randomisation process\", \"judgement\": \"low\", \"reason\": \"Sequence generation and opaque sealed …",
+              "second": "[{\"domain\": \"Randomisation process\", \"judgement\": \"low\", \"reason\": \"Independent sequence and sealed opaque …",
+              "why": "Fixes wrong measurement judgement and removes non-domain overall row.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.grade[2]",
+              "first": "{\"domain\": \"indirectness\", \"judgement\": \"serious\", \"reason\": \"The main signal was for active …",
+              "second": "{\"domain\": \"indirectness\", \"judgement\": \"not serious\", \"reason\": \"Population, interventions and patient-important outcomes …",
+              "why": "Current GRADE rows would imply very low, not low certainty.",
+              "resolved": "Second reader's version used."
+            }
+          ],
+          "external": [],
+          "external_searched": "External ratings not searched for this automated edition."
+        }
+      },
+      "patient_explanation": "In this study, both deep and shallow dry needling were followed by less pain and disability. Deep needling was not clearly better, and it caused more bleeding and needling pain.",
+      "open_questions": [
+        "Does deep needling help more in other neck-pain groups?",
+        "Would a sham-controlled trial change the pain result?",
+        "Are the ultrasound and sEMG changes clinically important?"
+      ],
+      "key_findings": [
+        "44 participants were randomised.",
+        "Pain and disability improved in both groups.",
+        "Deep needling was not clearly better.",
+        "Deep needling caused more minor adverse events."
+      ],
+      "type": "study",
+      "format": 2,
+      "item_id": "2026-W46-6",
+      "read_level": "full_text",
+      "source_ids": [
+        "study-6"
+      ],
+      "full_text": {
+        "status": "read",
+        "worth_getting": false,
+        "why": "Read the full source by AI; numbers checked against it."
+      },
+      "first_published": "2026-10-18"
     }
   ],
   "on_the_radar": [],
@@ -266,6 +1895,46 @@
       "url": "https://pubmed.ncbi.nlm.nih.gov/41796988/",
       "doi": "10.1111/sms.70235",
       "pmid": "41796988"
+    },
+    {
+      "id": "study-2",
+      "citation": "Migliorini F, Maffuli N, Schäfer L, Manocchio N, Bossa M, Foti C. Advances in physiotherapy for chronic low-back pain: a level I systematic review. Journal of orthopaedics and traumatology : official journal of the Italian Society of Orthopaedics and Traumatology 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42900415/",
+      "doi": "10.1186/s10195-026-00972-0",
+      "pmid": "42900415"
+    },
+    {
+      "id": "study-3",
+      "citation": "Jike A, Zhang X, Liu H, Yu A. The effectiveness of virtual reality-based rehabilitation in patients with neck pain: a systematic review and meta-analysis with trial sequential analysis of randomized controlled trials. Frontiers in public health 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42991217/",
+      "doi": "10.3389/fpubh.2026.1933999",
+      "pmid": "42991217"
+    },
+    {
+      "id": "study-4",
+      "citation": "Mathieson S, Underwood M, Ibrahim M, Hua Z, Zhu Z, Ferreira PH, Mistry H, Atkins ER, Bowden JL, Eyles JP, Briggs AM, Hunter DJ, Ferreira ML. Cost-effectiveness of recommended interventions for managing low back pain: A systematic review. PLoS medicine 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42945153/",
+      "doi": "10.1371/journal.pmed.1005273",
+      "pmid": "42945153"
+    },
+    {
+      "id": "study-5",
+      "citation": "Xu L, Chen K, Yang C, Jiang P. Analgesic efficacy of regional and local analgesic techniques for anterior cruciate ligament reconstruction in adults undergoing general anesthesia: a systematic review and network meta-analysis. BMC anesthesiology 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42972238/",
+      "doi": "10.1186/s12871-026-04387-6",
+      "pmid": "42972238"
+    },
+    {
+      "id": "study-6",
+      "citation": "Alhakami AM, Algazwi DAR, Al-Awjami MH, Elsayed WH, Alshami AM. Ultrasonographic and Electromyographic Evaluation of the Effects of Deep Versus Superficial Dry Needling on Myofascial Trigger Points in Patients with Neck Pain: A Triple-Blind Randomized Clinical Trial. Biosensors 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42930130/",
+      "doi": "10.3390/bios16100583",
+      "pmid": "42930130"
     }
   ]
 }
