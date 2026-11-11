@@ -175,6 +175,12 @@ class Literature:
             f"AND FIRST_PDATE:[{since} TO {today}] SORT_DATE:y", size,
         )
 
+    def backfill(self, query, today, skip_days, days, size):
+        """Older open-access papers, most cited first, for weeks with too few new ones."""
+        until, since = today - timedelta(days=skip_days + 1), today - timedelta(days=days)
+        base = f"({query}) AND SRC:MED AND HAS_ABSTRACT:Y AND OPEN_ACCESS:Y AND FIRST_PDATE:[{since} TO {until}]"
+        return self.search(base + " sort_cited:y", size) or self.search(base, size)
+
     def source(self, record):
         if record.open_access and re.fullmatch(r"PMC\d+", record.pmcid):
             url = f"{EUROPE}/{record.pmcid}/fullTextXML"

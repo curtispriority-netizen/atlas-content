@@ -132,6 +132,11 @@ class StubLiterature:
     def __init__(self, records, level="full_text"):
         self.records, self.level = records, level
         self.fetches = 0
+        self.older, self.backfills = [], 0
+
+    def backfill(self, *args):
+        self.backfills += 1
+        return self.older
 
     def discover(self, *args):
         return self.records
@@ -293,15 +298,15 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual("not checked", verification["status"])
         self.assertIn("one AI reading", verification["checked_by"])
 
-    def weekly_main(self, config, env, argv=()):
+    def weekly_main(self, config, env, argv=(), records=(RECORD,), run="77"):
         state = self.root / "private"
         state.mkdir(exist_ok=True)
         write_json(self.root / "scripts/research_config.json", {**CONFIG, **config})
-        literature = StubLiterature([RECORD])
+        literature = StubLiterature(list(records))
         stdout = StringIO()
         with patch("research.ROOT", self.root), patch("research.Literature", return_value=literature), \
                 patch("research.Drive", return_value=StubDrive()), patch("research.git") as git, \
-                patch.dict(os.environ, {"GITHUB_RUN_ID": "77", "GITHUB_RUN_ATTEMPT": "1",
+                patch.dict(os.environ, {"GITHUB_RUN_ID": run, "GITHUB_RUN_ATTEMPT": "1",
                                         "ATLAS_DRIVE_READER_JSON": "{}", "ATLAS_DRIVE_FOLDER_ID": "x", **env}), \
                 patch.object(sys, "argv", ["research", "stage", "--state", str(state), *argv]), \
                 redirect_stdout(stdout), redirect_stderr(StringIO()):
@@ -324,6 +329,51 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual(("published", False), (entry["status"], entry["reviewed"]))
         self.assertIn("Publish AI-checked Atlas research", [call.args[3] for call in git.call_args_list
                                                            if call.args[1] == "commit"])
+
+    def test_a_second_run_in_the_same_week_adds_its_cards_to_that_edition(self):
+        env = {"ATLAS_PUBLISH_ENABLED": "true", "GITHUB_REF": "refs/heads/main"}
+        other = replace(RECORD, doi="10.1234/other", pmid="12346", title="Another exercise trial")
+        self.assertEqual(0, self.weekly_main({"auto_publish": True, "weekly_target": 8}, env)[0])
+        code, journal, _, out = self.weekly_main({"auto_publish": True, "weekly_target": 8}, env,
+                                                 records=(RECORD, other), run="78")
+        self.assertEqual(0, code, out)
+        self.assertEqual(1, journal.data["runs"]["78.1"]["published"])
+        (path,) = (self.root / "editions").glob("*.json")
+        edition = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual([f"{edition['edition_id']}-1", f"{edition['edition_id']}-2"],
+                         [item["item_id"] for item in edition["items"]])
+        self.assertEqual(["study-1", "study-2"], [source["id"] for source in edition["sources"]])
+        self.assertEqual([["study-1"], ["study-2"]], [item["source_ids"] for item in edition["items"]])
+        (entry,) = json.loads((self.root / "index.json").read_text(encoding="utf-8"))["editions"]
+        self.assertEqual((2, edition["verdict"]), (entry["item_count"], entry["verdict"]))
+        self.assertLessEqual(len(edition["verdict"]), 200)
+
+    def test_weekly_target_and_per_run_limit_cap_search_found_cards(self):
+        records = [replace(RECORD, doi=f"10.1234/r{n}", pmid=f"2000{n}", title=f"Exercise trial number {n}")
+                   for n in range(5)]
+        pipeline = self.pipeline(records, weekly_target=4)
+        pipeline.process()
+        self.assertEqual(4, len(pipeline.staged))
+        self.assertEqual(0, pipeline.literature.backfills)
+        limited = self.pipeline(records, weekly_target=4, journal=Journal(self.root / "other-state.json"))
+        limited.max_new = 1
+        limited.process()
+        self.assertEqual(1, len(limited.staged))
+
+    def test_quiet_week_tops_up_to_the_minimum_with_older_papers_only(self):
+        older = [replace(RECORD, doi=f"10.1234/old{n}", pmid=f"3000{n}", title=f"Older exercise trial {n}")
+                 for n in range(4)]
+        pipeline = self.pipeline([RECORD], weekly_target=8, weekly_minimum=3, backfill_days=1825)
+        pipeline.literature.older = older
+        pipeline.process()
+        self.assertEqual(3, len(pipeline.staged))
+        self.assertTrue(pipeline.backfilled)
+        self.assertEqual({"offered": 4, "staged": 2}, self.run["backfill"])
+        off = self.pipeline([RECORD], weekly_target=8, weekly_minimum=3,
+                            journal=Journal(self.root / "other-state.json"))
+        off.literature.older = older
+        off.process()
+        self.assertEqual((1, 0, False), (len(off.staged), off.literature.backfills, off.backfilled))
 
     def test_weekly_run_only_stages_when_publishing_is_off_or_the_card_breaks_style(self):
         code, journal, git, out = self.weekly_main(
