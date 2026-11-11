@@ -202,6 +202,12 @@ class QuestionTest(base.ResearchTest):
         reply["actions"] = []
         self.assertEqual([], answer_problems(reply, views))
 
+    def test_a_question_typed_into_the_details_box_is_used_as_the_question(self):
+        marker = parse_marker(json.dumps({**MARKER, "question": "", "context": "Do NSAIDs help? \\n"}).encode())
+        self.assertEqual(("Do NSAIDs help?", ""), (marker["question"], marker["context"]))
+        with self.assertRaisesRegex(Review, "invalid_question_marker"):
+            parse_marker(json.dumps({**MARKER, "question": "", "context": " "}).encode())
+
     def test_bad_markers_are_held_and_library_keys_ignore_ids(self):
         for bad in (b"not json", b"[]", json.dumps({**MARKER, "kind": "queue"}).encode(),
                     json.dumps({**MARKER, "id": "../x"}).encode(), json.dumps({**MARKER, "papers": {}}).encode()):

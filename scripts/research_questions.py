@@ -99,6 +99,9 @@ def parse_marker(raw):
     try:
         marker = json.loads(raw)
         qid, question = marker.get("id"), marker.get("question")
+        # The app can send the question typed into its details box, leaving the question itself empty.
+        if isinstance(question, str) and not question.strip() and isinstance(marker.get("context"), str):
+            question, marker = marker["context"].replace("\\n", " "), {**marker, "context": ""}
         lists = {name: [] if marker.get(name) is None else marker[name]
                  for name in ("papers", "linked_items", "already_in_library")}
         if (marker.get("kind") != "question" or not isinstance(qid, str) or not ID.fullmatch(qid)
