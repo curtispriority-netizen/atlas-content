@@ -180,6 +180,8 @@ class Pipeline:
         self.attempts = self.question_attempts = 0
         # Questions to answer, papers linked to a question by a queue marker, and delete markers.
         self.questions, self.linked, self.deletions = [], {}, {}
+        # One-step questions: reading lists built before publishing, only when answers may be published.
+        self.listings, self.answering = {}, False
         self.max_new, self.backfilled = None, False
         self.rules = "\n\n".join((feed.root / name).read_text(encoding="utf-8")
                                   for name in ("APPRAISAL.md", "CARD_STYLE.md"))
@@ -562,8 +564,42 @@ class Pipeline:
             self.queue()
         finally:
             self.config["max_candidates"] = limit
+        if self.answering:
+            self.plan_questions()
         if discover:
             self.discover()
+
+    def library_skip(self, marker):
+        return self.feed.keys | self.feed.titles | self.seen | known_keys(
+            [*marker["already_in_library"], *marker["papers"]])
+
+    def plan_questions(self):
+        """One-step questions: build the reading list now and appraise its best free full-text papers in this
+        run, so the answer written after publishing rests on them without the clinician adding papers."""
+        limit = self.config.get("question_auto_papers", 0)
+        state = self.journal.data.setdefault("questions", {})
+        for marker, sent in self.questions:
+            qid = marker["id"]
+            record = state.setdefault(qid, {})
+            if not limit or (record.get("marker") == sent
+                             and (self.feed.root / "questions" / f"{qid}.json").is_file()):
+                continue
+            try:
+                listing = reading_list(self.model, self.literature, digest(["question", qid]), marker,
+                                       self.library_skip(marker))
+            except (Review, Unavailable):
+                continue  # answer_questions reports the failed list.
+            self.listings[qid] = listing
+            rank = {"core": 0, "useful": 1}
+            picks = sorted((row for row in listing["suggestions"] if row["open_access"]),
+                           key=lambda row: rank.get(row["priority"], 2))[:limit]
+            for row in picks:
+                paper_id = digest(["question-paper", row["key"]])[:8]
+                before = len(self.staged)
+                self.queue_paper({"id": paper_id, "doi": row["doi"], "pmid": row["pmid"], "title": row["title"]},
+                                 digest(["question", qid, sent]), question=True, quiet=True)
+                if len(self.staged) > before:
+                    record["extra"] = sorted(set(record.get("extra", [])) | {paper_id})
 
     def delete_papers(self):
         """Apply delete markers: remove the card, its index entry and its rows in question answers."""
@@ -608,11 +644,14 @@ class Pipeline:
                     listing = {**previous, "pico": previous.get("pico") or {}, "suggestions": [
                         row for row in previous.get("suggestions", [])
                         if not {row.get("doi"), row.get("pmid")} & held]}
+                elif qid in self.listings:
+                    # Built before publishing; papers appraised from it are cards now, not suggestions.
+                    listing = self.listings[qid]
+                    listing = {**listing, "suggestions": [row for row in listing["suggestions"]
+                                                          if not {row["doi"], row["pmid"]} & self.seen]}
                 else:
-                    skip = self.feed.keys | self.feed.titles | self.seen | known_keys(
-                        [*marker["already_in_library"], *marker["papers"]])
                     try:
-                        listing = reading_list(self.model, self.literature, job, marker, skip)
+                        listing = reading_list(self.model, self.literature, job, marker, self.library_skip(marker))
                     except Review:
                         listing = {"pico": previous.get("pico") or {}, "suggestions": [], "searches": 0,
                                    "screened": 0, "gaps": ["Reading list could not be built this run; "
@@ -752,6 +791,10 @@ def main():
             run["verified"] = len(papers) + len(studies)
             changed = feed.publish(papers, studies, pipeline.today, now.isoformat())
         else:
+            gate = bool(config.get("auto_publish") and not args.benchmark_pmid
+                        and os.environ.get("ATLAS_PUBLISH_ENABLED") == "true"
+                        and os.environ.get("GITHUB_REF") == "refs/heads/main")
+            pipeline.answering = gate
             try:
                 if args.benchmark_pmid:
                     pipeline.benchmark(args.benchmark_pmid)
@@ -765,9 +808,7 @@ def main():
                 path.write_text(render_review(journal.data["review"][fingerprint]), encoding="utf-8")
             # Hands-off publishing: cards that meet the style rules go out labelled as AI-checked.
             # Cards that do not stay staged for the clinician. Benchmarks are never published here.
-            if (config.get("auto_publish") and not args.benchmark_pmid
-                    and os.environ.get("ATLAS_PUBLISH_ENABLED") == "true"
-                    and os.environ.get("GITHUB_REF") == "refs/heads/main"):
+            if gate:
                 ids = [fingerprint for fingerprint in pipeline.staged
                        if not check_card("card", journal.data["review"][fingerprint]["card"])]
                 if ids:
