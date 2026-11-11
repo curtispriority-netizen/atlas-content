@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "paper_id": "fc2f948d",
+  "added_at": "2026-11-11T08:22:37.360589+00:00",
+  "study": {
+    "region": "lumbar",
+    "title": "Biacuplasty has the strongest signal here",
+    "evidence_tag": "emerging",
+    "evidence_note": "Narrative review summary; not a de novo systematic review.",
+    "confidence": "likely",
+    "confidence_note": "Main figures are clearly stated, but this is a review article summarising older trials.",
+    "impact": "set_expectations",
+    "impact_line": "Biacuplasty looks promising for selected refractory discogenic low back pain, but the evidence base is still dated and narrow.",
+    "summary": [
+      "Three RCTs are summarised for biacuplasty, with better short-term pain and disability than control.",
+      "One trial compared with sham; another with conservative management; follow-up was mainly 6 months.",
+      "The review still calls for more RCTs and longer follow-up, especially on safety."
+    ],
+    "pico": {
+      "p": "Adults with chronic discogenic low back pain",
+      "i": "Biacuplasty / cooled radiofrequency",
+      "c": "Sham or conservative management",
+      "o": "Pain and disability"
+    },
+    "key_numbers": [
+      {
+        "value": "3",
+        "label": "RCTs in Table 2"
+      },
+      {
+        "value": "2.19",
+        "label": "NRS vs sham"
+      },
+      {
+        "value": "7.43",
+        "label": "ODI vs sham"
+      },
+      {
+        "value": "50%",
+        "label": "Responders"
+      }
+    ],
+    "limits": [
+      "Review article, not a primary study.",
+      "Follow-up mostly short to mid term.",
+      "Some trials excluded obesity and smoking.",
+      "Safety data are sparse."
+    ],
+    "condition": "Discogenic low back pain",
+    "playbook_step": "treat",
+    "bottom_line": "For selected patients with chronic discogenic low back pain, biacuplasty has the best-looking interventional evidence in this review. The evidence is still limited, dated, and not enough to treat it as routine care.",
+    "methods": {
+      "design": "Narrative review with updated literature search",
+      "setting": "Pain Practice review article",
+      "participants": "Adults with chronic discogenic low back pain in the cited studies",
+      "intervention": "Biacuplasty / cooled radiofrequency",
+      "comparator": "Sham or conservative management",
+      "follow_up": "Mainly 6 months; some longer follow-up",
+      "primary_outcome": "Pain and disability"
+    },
+    "results": [
+      {
+        "outcome": "Pain",
+        "timepoint": "6 months",
+        "result": "Biacuplasty beat sham; NRS change 2.19 vs 0.6",
+        "meaning": "Possibly clinically relevant",
+        "detail": "The review reports significantly larger pain reduction with biacuplasty than sham at 6 months.",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "Disability",
+        "timepoint": "6 months",
+        "result": "ODI change 7.43 vs -0.24",
+        "meaning": "Possibly clinically relevant",
+        "detail": "The review reports significantly larger disability improvement with biacuplasty than sham at 6 months.",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "Pain",
+        "timepoint": "6 months",
+        "result": "Biacuplasty + CMM beat CMM; VAS change 2.4 vs 0.56",
+        "meaning": "Possibly clinically relevant",
+        "detail": "Compared with conventional medical management alone, the review reports significantly larger pain reduction with added biacuplasty.",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "Responder rate",
+        "timepoint": "6 months",
+        "result": "50% vs 18% reached ≥2-point or 30% VAS decrease",
+        "meaning": "More responders",
+        "detail": "The review reports more pain responders with biacuplasty plus conventional care than with conventional care alone.",
+        "verdict": "unclear"
+      }
+    ],
+    "how_to_apply": [
+      "Consider only for refractory, well-selected discogenic cases.",
+      "Expect benefit estimates to be based on small, dated trials.",
+      "Do not oversell long-term durability or safety.",
+      "Use shared decision-making because evidence remains incomplete."
+    ],
+    "applies_to": [
+      "Selected refractory chronic discogenic low back pain",
+      "Patients similar to the RCT populations"
+    ],
+    "not_for": [
+      "Routine first-line care",
+      "Cases where the diagnosis is uncertain",
+      "People wanting proven long-term benefit"
+    ],
+    "appraisal": {
+      "certainty": "moderate",
+      "strengths": [
+        "Includes sham-controlled and comparative trials.",
+        "Summarises several RCTs for the same intervention.",
+        "Gives both pain and disability results."
+      ],
+      "weaknesses": [
+        "Narrative review, not a systematic review.",
+        "No pooled estimate from this article.",
+        "Safety evidence remains limited.",
+        "Some cited studies excluded obese people and smokers."
+      ],
+      "funding_conflicts": "Authors report conflicts for two editorial board members; no trial funding for the summarised RCTs is provided here.",
+      "appraised_from": "full_text",
+      "tool": "JBI",
+      "overall_risk_of_bias": "some concerns",
+      "domains": [
+        {
+          "domain": "Relevance to review question",
+          "judgement": "low",
+          "reason": "The article focuses on CDLBP interventions and the summary matches that aim.",
+          "support": "P6, P149"
+        },
+        {
+          "domain": "Approach to identifying the literature",
+          "judgement": "some concerns",
+          "reason": "A search was done, but the methods are not exhaustive or fully reproducible.",
+          "support": "P21: updated search and reference-list checking"
+        },
+        {
+          "domain": "Appraisal of included evidence",
+          "judgement": "some concerns",
+          "reason": "The review reports trial findings but does not present a formal critical appraisal framework.",
+          "support": "P268-P314, P450-P456"
+        },
+        {
+          "domain": "Synthesis and reporting",
+          "judgement": "some concerns",
+          "reason": "Findings are narratively summarised; no formal pooled analysis is presented in this article.",
+          "support": "P301-P314, P450-P456"
+        }
+      ],
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "not serious",
+          "reason": "The review describes three high-quality RCTs for biacuplasty, including sham-controlled comparisons."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "not serious",
+          "reason": "All three RCTs summarised favoured biacuplasty at 6 months, although comparators differed."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "not serious",
+          "reason": "The trials directly address chronic discogenic low back pain treated with biacuplasty."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "serious",
+          "reason": "The RCTs were small (59, 63 and 44 patients) and no between-group confidence intervals are reported here."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "serious",
+          "reason": "Only three dated RCTs are summarised, so small-study and publication bias remain possible."
+        }
+      ],
+      "clinical_significance": [
+        "The review does not report an MCID for these outcomes, so the effect is judged against the reported absolute changes only.",
+        "The sham-controlled pain and disability differences look clinically worthwhile, but the exact CI is not reported here.",
+        "No NNT can be derived from the summary for the pain score changes.",
+        "Meaningful benefit is plausible, but the size and durability of benefit remain uncertain."
+      ],
+      "comparator_fairness": [
+        "Sham control is a credible comparator for expectation effects.",
+        "The conservative-management comparator is less equivalent for contact time and procedural expectation.",
+        "The review notes crossover in follow-up studies, which weakens later comparisons."
+      ],
+      "alternative_explanations": [
+        "Natural history could contribute, especially in uncontrolled follow-up.",
+        "Expectation and procedural placebo effects could help explain some of the benefit.",
+        "Attrition and crossover may inflate apparent durability.",
+        "Baseline differences in some studies could have affected estimates."
+      ],
+      "spin": [
+        "The review is broadly consistent with its primary message.",
+        "It does not overclaim cure, but the positive tone is stronger than the limited evidence base justifies."
+      ],
+      "fit_with_evidence": [
+        "Fits the review’s own Table 2, which rates biacuplasty as moderate evidence and suggests use only in selected centres.",
+        "Consistent with the playbook position that this is a refractory-case option rather than routine care."
+      ],
+      "external_validity": [
+        "✓ Similar diagnosis and interventional setting",
+        "✓ Refractory chronic cases are relevant to sports-physio referral pathways",
+        "✗ Trial populations were small and selective",
+        "✗ One RCT excluded obesity and smoking, limiting transferability"
+      ],
+      "would_change_my_mind": [
+        "A larger sham-controlled RCT with longer follow-up and full safety reporting.",
+        "A high-quality systematic review showing no durable advantage over control.",
+        "Clear evidence that the procedural benefit is no better than expectation plus usual care."
+      ],
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+        "checked_at": "2026-11-11T08:22:37.360589+00:00",
+        "disagreements": [
+          {
+            "item": "key numbers",
+            "first": "[{\"value\": \"3\", \"label\": \"RCTs summarised\", \"evidence_refs\": [\"P314\"]}, {\"value\": \"2.19\", \"label\": \"NRS …",
+            "second": "[{\"value\": \"3\", \"label\": \"RCTs in Table 2\", \"evidence_refs\": [\"P456\"]}, {\"value\": \"2.19\", …",
+            "why": "Fix unsupported numbers and keep cited values in-source.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results",
+            "first": "[{\"outcome\": \"Pain\", \"timepoint\": \"6 months\", \"result\": \"Biacuplasty beat sham; NRS change …",
+            "second": "[{\"outcome\": \"Pain\", \"timepoint\": \"6 months\", \"result\": \"Biacuplasty beat sham; NRS change …",
+            "why": "No confidence intervals are reported, so meaningful verdicts are not justified.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.grade",
+            "first": "[{\"domain\": \"risk of bias\", \"judgement\": \"serious\", \"reason\": \"The supporting evidence is …",
+            "second": "[{\"domain\": \"risk of bias\", \"judgement\": \"not serious\", \"reason\": \"The review describes …",
+            "why": "Current rows imply the wrong certainty and over-downgrade inconsistency.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "Automated check",
+            "first": "unsupported number",
+            "second": "card.key_numbers[0]",
+            "why": "Numbers not found in the passages the card cites. Check each against the paper.",
+            "resolved": "left open"
+          }
+        ],
+        "external": [],
+        "external_searched": "External ratings not searched for this automated edition."
+      }
+    },
+    "patient_explanation": "This treatment may help some people with long-lasting disc-related low back pain, but the evidence is still limited and the long-term safety and benefit are not fully known.",
+    "open_questions": [
+      "How durable is the benefit beyond 6 months?",
+      "Which patients are most likely to respond?",
+      "What are the true complication rates?"
+    ],
+    "key_findings": [
+      "Biacuplasty has the best trial signal in this review.",
+      "The main gains are in pain and disability at about 6 months.",
+      "Evidence is still limited to a few small studies."
+    ],
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-fc2f948d",
+    "read_level": "full_text",
+    "source_ids": [
+      "paper"
+    ],
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read the full source by AI; numbers checked against it."
+    },
+    "first_published": "2025-09-01"
+  },
+  "sources": [
+    {
+      "id": "paper",
+      "citation": "van Os WKM, Alvarez-Jimenez R, Cohen SP, Stojanovic MP, Ruiz-Lopez R, Van Zundert J, Kallewaard JW. 14. Discogenic Low Back Pain. Pain practice : the official journal of World Institute of Pain 2025.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40717265/",
+      "doi": "10.1111/papr.70062",
+      "pmid": "40717265"
+    }
+  ]
+}

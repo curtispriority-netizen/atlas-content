@@ -1,0 +1,359 @@
+{
+  "schema_version": 1,
+  "paper_id": "3024aa71",
+  "added_at": "2026-11-11T08:22:37.360589+00:00",
+  "study": {
+    "region": "lumbar",
+    "title": "Stepped care for Modic discogenic low back pain: 53.6% met the study response threshold",
+    "evidence_tag": "practice_gap",
+    "evidence_note": [
+      "Observational stepped-care cohort, not randomised",
+      "No external comparator group"
+    ],
+    "confidence": "likely",
+    "confidence_note": "Study design and main numbers were explicit, but some outcome details and confounding remain limited.",
+    "impact": "set_expectations",
+    "impact_line": "This is a selected observational cohort, so the results are hypothesis-generating rather than proof that stepped care caused the improvement.",
+    "summary": [
+      "833 patients entered the cohort; 332 completed 12-month follow-up.",
+      "53.6% of those followed met the study’s responder definition at 12 months.",
+      "Pain and disability improved most in the first 3 months, then the curve flattened.",
+      "Dropout was substantial, and the authors noted possible confounding and selection bias."
+    ],
+    "pico": {
+      "p": "Adults with chronic discogenic low back pain and Modic I, I/II, or II changes",
+      "i": "Stepped care: NSAIDs, then intradiscal injection, then oral antibiotics if needed",
+      "c": "No external comparator group",
+      "o": "Pain, disability, opioid use, work status, and responder rate"
+    },
+    "key_numbers": [
+      {
+        "value": "833",
+        "label": "entered cohort"
+      },
+      {
+        "value": "332",
+        "label": "12-month follow-up"
+      },
+      {
+        "value": "53.6%",
+        "label": "met response"
+      },
+      {
+        "value": "12.0%",
+        "label": "stopped AB for side effects"
+      }
+    ],
+    "limits": [
+      "No control group",
+      "Follow-up missing for many patients",
+      "Treatment steps were not always delivered in order",
+      "Patient-reported outcomes may be expectation-sensitive",
+      "Disability outcome changed from RMDQ to ODI during the cohort"
+    ],
+    "condition": "Discogenic low back pain with Modic I/II changes",
+    "playbook_step": "treat",
+    "bottom_line": "In a selected Dutch specialist cohort, 53.6% of 332 followed patients met the study’s responder threshold after stepped care, but the uncontrolled design and attrition mean the result cannot separate treatment effect from selection, natural history, or expectancy.",
+    "methods": {
+      "design": "Observational cohort using routine care data",
+      "setting": "Multidisciplinary spine centre in the Netherlands",
+      "participants": "833 patients with discogenic chronic low back pain and Modic I, I/II, or II changes",
+      "intervention": "Stepped care: celecoxib, then intradiscal injection, then oral antibiotics if needed",
+      "comparator": "No external comparator group",
+      "follow_up": "3, 6, and 12 months; primary analysis used baseline and 12 months",
+      "primary_outcome": "NPRS for pain and RMDQ or ODI for function"
+    },
+    "results": [
+      {
+        "outcome": "Responder rate",
+        "timepoint": "12 months",
+        "result": "53.6% met the study definition",
+        "meaning": "Descriptive cohort outcome",
+        "detail": "The authors defined clinical response as at least 50% pain relief or at least 40% function improvement.",
+        "verdict": "descriptive"
+      },
+      {
+        "outcome": "Pain and function",
+        "timepoint": "12 months",
+        "result": "Scores improved overall",
+        "meaning": "Direction of change only",
+        "detail": "The paper reports that average pain, worst pain, and disability all improved, with the largest change in the first 3 months, but it does not give a single pooled effect estimate in the text passages supplied.",
+        "verdict": "descriptive"
+      },
+      {
+        "outcome": "Opioid use",
+        "timepoint": "baseline to 12 months",
+        "result": "19.3% to 13.3% of medication users",
+        "meaning": "Descriptive secondary outcome",
+        "detail": "The paper reports lower opioid use at 12 months, alongside no significant change for other pain medication.",
+        "verdict": "descriptive"
+      },
+      {
+        "outcome": "Sick leave",
+        "timepoint": "baseline to 12 months",
+        "result": "17.5% to 11.4% of employed patients",
+        "meaning": "Descriptive secondary outcome",
+        "detail": "Sick leave fell over follow-up, but the study does not establish that stepped care caused the change.",
+        "verdict": "descriptive"
+      }
+    ],
+    "how_to_apply": [
+      "Use as a specialist-care pathway, not a validated standalone treatment effect.",
+      "Expect the first step to capture some responders, but many patients will continue to later steps.",
+      "Watch for side effects if antibiotics are used.",
+      "Treat the result as hypothesis-generating until controlled data exist."
+    ],
+    "applies_to": [
+      "Selected chronic discogenic LBP with Modic I/II",
+      "Specialist spine clinic populations",
+      "Patients who already failed conservative care"
+    ],
+    "not_for": [
+      "General low back pain populations",
+      "Patients without Modic changes",
+      "Claims of causal benefit from this study alone"
+    ],
+    "appraisal": {
+      "certainty": "very low",
+      "strengths": [
+        "Consecutive clinical practice sample",
+        "Clear inclusion based on Modic type and symptoms",
+        "Follow-up extended to 12 months",
+        "Primary outcomes were patient-reported and clinically relevant"
+      ],
+      "weaknesses": [
+        "No control group",
+        "Substantial loss to follow-up",
+        "Steps were not always delivered in a fixed sequence",
+        "Confounding was acknowledged but not fully controlled",
+        "Primary analysis used repeated patient-reported outcomes in an observational design"
+      ],
+      "funding_conflicts": "No funding resources were received; authors reported no known financial or personal conflicts.",
+      "appraised_from": "full_text",
+      "tool": "ROBINS-I",
+      "overall_risk_of_bias": "high",
+      "domains": [
+        {
+          "domain": "Confounding",
+          "judgement": "high",
+          "reason": "Treatment was not randomised and authors note confounders and effect modifiers may exist.",
+          "support": "Methods P71; Discussion P125"
+        },
+        {
+          "domain": "Selection of participants",
+          "judgement": "some concerns",
+          "reason": "1182 patients were initially eligible but only 833 completed baseline and were included; reasons for non-inclusion were not reported.",
+          "support": "Results P82: 1182 eligible, 833 included; reasons not reported."
+        },
+        {
+          "domain": "Classification of interventions",
+          "judgement": "some concerns",
+          "reason": "Patients were classified by stepped-care pathway, but some did not follow the intended sequence.",
+          "support": "Results P75-P76; Discussion P125"
+        },
+        {
+          "domain": "Deviations from intended interventions",
+          "judgement": "some concerns",
+          "reason": "Real-world treatment was pragmatic and not all patients received steps in the same order.",
+          "support": "Discussion P125"
+        },
+        {
+          "domain": "Missing data",
+          "judgement": "high",
+          "reason": "Follow-up was incomplete, with 332 of 833 providing 12-month questionnaires.",
+          "support": "Results P82; Discussion P125"
+        },
+        {
+          "domain": "Measurement of outcomes",
+          "judgement": "some concerns",
+          "reason": "Outcomes were self-reported questionnaires, so knowledge of treatment could influence reporting.",
+          "support": "Methods P63-P65, P80"
+        },
+        {
+          "domain": "Selection of the reported result",
+          "judgement": "some concerns",
+          "reason": "The report presents multiple outcomes and subgroup analyses, with limited evidence of a prespecified analysis plan in the supplied text.",
+          "support": "Methods P68-P72; Results P87-P89"
+        }
+      ],
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "very serious",
+          "reason": "Uncontrolled observational design with substantial loss to follow-up and self-reported outcomes."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "not applicable",
+          "reason": "Single study."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "serious",
+          "reason": "Specialist Dutch cohort with selected patients who failed prior care, limiting transfer to broader LBP populations."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "serious",
+          "reason": "No effect estimate or confidence interval is reported in the supplied text, so precision and MCID overlap cannot be judged."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "not applicable",
+          "reason": "Single study."
+        }
+      ],
+      "clinical_significance": [
+        "No external MCID or smallest worthwhile change is reported; the authors used a responder threshold of 50% pain relief or 40% function improvement.",
+        "Because the result is descriptive and uncontrolled, clinical importance cannot be separated from natural history, regression to the mean, or expectancy effects.",
+        "The paper does not give a confidence interval for the main responder proportion in the supplied text."
+      ],
+      "comparator_fairness": [
+        "No external comparator group was used.",
+        "The study compared patients with themselves over time, not against a matched sham or usual-care control.",
+        "That makes causal interpretation weak for treatment efficacy."
+      ],
+      "alternative_explanations": [
+        "Natural history over 12 months could explain some improvement.",
+        "Regression to the mean is plausible because patients entered after severe symptoms.",
+        "Expectation and contextual effects are likely in an open, stepwise care pathway.",
+        "Differential attrition could bias the observed responder rate upward."
+      ],
+      "spin": [
+        "The discussion and conclusion use promising and useful language despite the uncontrolled design.",
+        "The headline outcome is a responder proportion, not a comparative treatment effect.",
+        "Claims of safety and efficacy are stronger than the design can support."
+      ],
+      "fit_with_evidence": [
+        "Fits the broader uncertainty in Modic-related low back pain treatment.",
+        "Consistent with mixed evidence and does not override later randomised antibiotic trials.",
+        "Supports careful classification, not a strong treatment recommendation from this study alone."
+      ],
+      "external_validity": [
+        "✓ Specialist spine-clinic population with severe chronic symptoms",
+        "✓ Discogenic pain with Modic I/II resembles a narrow subgroup seen in private practice",
+        "✗ Not a general primary-care LBP sample",
+        "✗ Dutch care pathway and imaging work-up may differ from Australian private sports-physio practice"
+      ],
+      "would_change_my_mind": [
+        "A randomised trial with a credible comparator and prespecified MCID-based outcomes showing benefit would strengthen confidence.",
+        "A similar cohort with much lower attrition and consistent treatment sequencing would also help.",
+        "A sham- or usual-care-controlled trial showing no benefit would weaken the case."
+      ],
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+        "checked_at": "2026-11-11T08:22:37.360589+00:00",
+        "disagreements": [
+          {
+            "item": "appraisal.domains[1].judgement",
+            "first": "high",
+            "second": "some concerns",
+            "why": "Attrition belongs in missing data, not participant selection.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.domains[1].reason",
+            "first": "Only 833 of 1182 eligible patients entered, and 332 completed follow-up, …",
+            "second": "1182 patients were initially eligible but only 833 completed baseline and …",
+            "why": "Separates pre-inclusion selection from follow-up loss.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.domains[1].support",
+            "first": "Results P82; Discussion P125",
+            "second": "Results P82: 1182 eligible, 833 included; reasons not reported.",
+            "why": "Uses the passage with the inclusion numbers.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[2].result",
+            "first": "19.3% to 13.3%",
+            "second": "19.3% to 13.3% of medication users",
+            "why": "These percentages are not for the whole cohort.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[2].evidence refs",
+            "first": "[\"P102\", \"P110\"]",
+            "second": "[\"P102\", \"P104\", \"P106\", \"P110\"]",
+            "why": "Adds passages showing the 12-month table and denominator.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[3].result",
+            "first": "17.5% to 11.4%",
+            "second": "17.5% to 11.4% of employed patients",
+            "why": "These percentages are among patients with paid jobs.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[3].evidence refs",
+            "first": "[\"P102\", \"P108\"]",
+            "second": "[\"P102\", \"P104\", \"P106\", \"P108\"]",
+            "why": "Adds passages showing the 12-month table and denominator.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "limits[4]",
+            "first": "All patients had already failed prior care",
+            "second": "Disability outcome changed from RMDQ to ODI during the cohort",
+            "why": "Primary disability measure changed over time.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "Second reader's concern",
+            "first": "Not raised in the first reading",
+            "second": "Raised by the second reader",
+            "why": "Discussion step-response percentages conflict with Results section.",
+            "resolved": "left open"
+          },
+          {
+            "item": "Second reader's concern",
+            "first": "Not raised in the first reading",
+            "second": "Raised by the second reader",
+            "why": "Secondary outcome percentages compare baseline 833 with 12-month 332.",
+            "resolved": "left open"
+          }
+        ],
+        "external": [],
+        "external_searched": "External ratings not searched for this automated edition."
+      }
+    },
+    "patient_explanation": "This study followed people with a specific type of long-term low back pain through a stepped treatment plan. Some improved, but because there was no control group, we cannot tell how much improvement came from the treatment itself versus time or other factors.",
+    "open_questions": [
+      "Which step actually drove the improvement?",
+      "Would the same pathway work in a controlled trial?",
+      "How much of the change exceeded a validated MCID?"
+    ],
+    "key_findings": [
+      "53.6% met the study’s responder definition at 12 months.",
+      "332 of 833 patients completed 12-month follow-up.",
+      "The design cannot prove the stepped care caused the improvement.",
+      "Loss to follow-up and self-reporting weaken certainty."
+    ],
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-3024aa71",
+    "read_level": "full_text",
+    "source_ids": [
+      "paper"
+    ],
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read the full source by AI; numbers checked against it."
+    },
+    "first_published": "2023-11-15"
+  },
+  "sources": [
+    {
+      "id": "paper",
+      "citation": "Mylenbusch H, Schepers M, Kleinjan E, Pol M, Tempelman H, Klopper-Kes H. Efficacy of stepped care treatment for chronic discogenic low back pain patients with Modic I and II changes. Interventional pain medicine 2023.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39239218/",
+      "doi": "10.1016/j.inpm.2023.100292",
+      "pmid": "39239218"
+    }
+  ]
+}

@@ -2,13 +2,13 @@
   "schema_version": 1,
   "question_id": "1bb37b6b",
   "question": "NSAIDs for Discogenic lower back pain, does it help?",
-  "searched_at": "2026-11-11T08:15:14.906615+00:00",
-  "search_summary": "Europe PMC: 3 searches, 34 new records screened, 5 suggested. Answer uses checked cards only. AI-checked, not clinician-reviewed.",
+  "searched_at": "2026-11-11T08:22:37.360589+00:00",
+  "search_summary": "Europe PMC: 3 searches, 40 new records screened, 2 suggested. Answer uses checked cards only. AI-checked, not clinician-reviewed.",
   "pico": {
     "p": "Adults with discogenic lumbar low back pain",
     "i": "NSAIDs",
-    "c": "Placebo or other analgesics",
-    "o": "Pain relief or improved function"
+    "c": "Placebo or no NSAIDs",
+    "o": "Pain and function"
   },
   "suggestions": [
     {
@@ -21,7 +21,7 @@
       "design": "Guideline",
       "priority": "core",
       "open_access": true,
-      "why": "Recent consensus likely summarizes current low back pain medication recommendations, including NSAID use."
+      "why": "Current multidisciplinary consensus summarizes diagnostic pathway and conservative treatment options, including NSAIDs, for low back pain."
     },
     {
       "key": "21418678",
@@ -31,51 +31,65 @@
       "pmid": "21418678",
       "year": "2010",
       "design": "Systematic review",
-      "priority": "core",
+      "priority": "background",
       "open_access": false,
-      "why": "Reviews oral drugs for chronic low back pain and likely provides the best broad NSAID evidence."
-    },
-    {
-      "key": "10.3390/healthcare13172238",
-      "title": "A Comparison Between Physical Methods Based on Mechanical Action and Pharmacotherapy in the Treatment of Discogenic Low Back Pain.",
-      "citation": "Pingot J, Słupiński M, Lipski A, Woldańska-Okońska M. A Comparison Between Physical Methods Based on Mechanical Action and Pharmacotherapy in the Treatment of Discogenic Low Back Pain. Healthcare (Basel, Switzerland) 2025.",
-      "doi": "10.3390/healthcare13172238",
-      "pmid": "40941590",
-      "year": "2025",
-      "design": "Other",
-      "priority": "core",
-      "open_access": true,
-      "why": "Directly compares NSAID pharmacotherapy with physical treatments in discogenic low back pain."
-    },
-    {
-      "key": "10.1111/papr.70062",
-      "title": "14. Discogenic Low Back Pain.",
-      "citation": "van Os WKM, Alvarez-Jimenez R, Cohen SP, Stojanovic MP, Ruiz-Lopez R, Van Zundert J, Kallewaard JW. 14. Discogenic Low Back Pain. Pain practice : the official journal of World Institute of Pain 2025.",
-      "doi": "10.1111/papr.70062",
-      "pmid": "40717265",
-      "year": "2025",
-      "design": "Systematic review",
-      "priority": "useful",
-      "open_access": true,
-      "why": "Discogenic low back pain review outlines conservative care and where NSAIDs fit clinically."
-    },
-    {
-      "key": "10.1371/journal.pone.0322929",
-      "title": "The effectiveness of non-pharmacological interventions for low back pain in China: A systematic review and network meta-analysis.",
-      "citation": "Liu J, Peng WK, Jia Y. The effectiveness of non-pharmacological interventions for low back pain in China: A systematic review and network meta-analysis. PloS one 2025.",
-      "doi": "10.1371/journal.pone.0322929",
-      "pmid": "40343982",
-      "year": "2025",
-      "design": "Systematic review",
-      "priority": "useful",
-      "open_access": true,
-      "why": "Network meta-analysis suggests pharmaceuticals often reduce pain better than non-pharmacological options in low back pain."
+      "why": "Broad chronic low back pain review summarizes oral drug treatments, helping frame NSAID evidence when discogenic data are sparse."
     }
   ],
   "gaps": [
-    "Discogenic-specific NSAID trials are scarce; most evidence comes from mixed chronic low back pain populations.",
-    "Head-to-head comparisons with other analgesics or exercise-based care are largely missing.",
-    "Follow-up is usually short, so durability of benefit and harms remain uncertain.",
-    "Evidence does not clearly separate discogenic pain from other low back pain phenotypes."
-  ]
+    "No placebo-controlled trial was found for NSAIDs in discogenic low back pain specifically.",
+    "Evidence comes mostly from mixed low back pain or observational studies, so certainty is low.",
+    "Short follow-up dominates; long-term pain relief and function from NSAIDs remain unclear.",
+    "Applicability to patients without Modic changes or with acute flares is uncertain."
+  ],
+  "answer": {
+    "answer": "NSAIDs may help some discogenic low back pain patients short term, but current cards do not show clear NSAID-specific benefit; the key caveat is that evidence is either uncontrolled stepped care or a short-term trial without effect sizes or CIs.",
+    "certainty": "very low",
+    "provisional": false,
+    "actions": [
+      "Do not present NSAIDs as proven discogenic-specific treatment.",
+      "If used, frame benefit as possible short-term symptom relief only.",
+      "Do not rely on the stepped-care cohort to justify NSAIDs alone.",
+      "Prefer shared decision-making: evidence is uncertain and comparative advantages are unclear.",
+      "Do not change practice solely because all groups improved in the ketoprofen trial.",
+      "Reassess early and progress care if response is inadequate."
+    ],
+    "comparison": [
+      {
+        "item_id": "mine-81d622e7",
+        "title": "Mechanical methods vs NSAIDs for discogenic low back pain",
+        "design": "randomised 4-group comparative trial",
+        "n": "280",
+        "finding": "All groups improved; MIT was best on VAS and Schober, McKenzie best on Laitinen; ketoprofen not clearly best.",
+        "verdict": "unclear",
+        "risk_of_bias": "some concerns",
+        "certainty": "low"
+      },
+      {
+        "item_id": "mine-3024aa71",
+        "title": "Stepped care for Modic discogenic low back pain: 53.6% met the …",
+        "design": "observational cohort using routine care data",
+        "n": "833",
+        "finding": "53.6% responded at 12 months after stepped care starting with celecoxib, but no control group.",
+        "verdict": "descriptive",
+        "risk_of_bias": "high",
+        "certainty": "very low"
+      }
+    ],
+    "agreement": [
+      "Both cards suggest improvement can occur in discogenic low back pain care pathways.",
+      "Both cards do not establish a clear NSAID-specific treatment effect.",
+      "Both are limited for choosing NSAIDs confidently in practice."
+    ],
+    "conflicts": [
+      "The trial suggests mechanical treatments may outperform ketoprofen on some outcomes.",
+      "The cohort cannot separate celecoxib effects from later injections, antibiotics, natural history, or expectancy.",
+      "Trial evidence is short term; cohort follow-up is 12 months but uncontrolled."
+    ],
+    "based_on": [
+      "mine-81d622e7",
+      "mine-3024aa71"
+    ],
+    "updated_at": "2026-11-11T08:22:37.360589+00:00"
+  }
 }

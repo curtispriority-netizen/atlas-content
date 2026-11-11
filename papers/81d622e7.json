@@ -1,0 +1,290 @@
+{
+  "schema_version": 1,
+  "paper_id": "81d622e7",
+  "added_at": "2026-11-11T08:22:37.360589+00:00",
+  "study": {
+    "region": "lumbar",
+    "title": "Mechanical methods vs NSAIDs for discogenic low back pain",
+    "evidence_tag": "emerging",
+    "evidence_note": "Single randomised trial; no effect sizes or confidence intervals were reported.",
+    "confidence": "likely",
+    "confidence_note": "Methods and key results were stated clearly, but reporting was sparse for attrition, blinding, and effect estimates.",
+    "impact": "set_expectations",
+    "impact_line": "Short-term pain and mobility improved in all groups; MIT looked best, but the report gives no effect sizes or CIs.",
+    "summary": [
+      "4 groups of 70 patients each were compared: Saunders traction, McKenzie, MIT, and ketoprofen.",
+      "All groups improved after treatment and at follow-up, but the paper reports no mean differences or CIs.",
+      "MIT was reported as best on VAS and Schober; McKenzie was best on Laitinen.",
+      "Randomisation and concealed allocation were reported, but outcome assessment was self-reported and unblinded."
+    ],
+    "pico": {
+      "p": "Adults aged 30–60 years with chronic discogenic low back pain",
+      "i": "Multiple impulse therapy, McKenzie method, or Saunders lumbar traction",
+      "c": "Ketoprofen pharmacotherapy; also active method-to-method comparisons",
+      "o": "Pain on Laitinen and VAS, and mobility on the Schober test"
+    },
+    "key_numbers": [
+      {
+        "value": "280",
+        "label": "Total participants"
+      },
+      {
+        "value": "70",
+        "label": "Per group"
+      },
+      {
+        "value": "30–60",
+        "label": "Age range"
+      },
+      {
+        "value": "p=0.821",
+        "label": "Baseline age ANOVA"
+      }
+    ],
+    "limits": [
+      "No effect sizes or confidence intervals were reported for the main comparisons.",
+      "Pain was self-reported, and participants knew their treatment.",
+      "Follow-up was short.",
+      "No attrition details or protocol were reported.",
+      "All patients also received Sollux lamp treatment."
+    ],
+    "condition": "Discogenic low back pain",
+    "playbook_step": "treat",
+    "bottom_line": "All four groups improved short term. MIT was favoured on VAS and Schober, while McKenzie led Laitinen. With no effect sizes or CIs, this is hypothesis-generating, not a basis to choose one treatment.",
+    "methods": {
+      "design": "Randomised 4-group comparative trial",
+      "setting": "Motor Rehabilitation Center in Piotrkow Trybunalski, Poland",
+      "participants": "280 patients aged 30–60 years with chronic discogenic low back pain confirmed by imaging",
+      "intervention": "Saunders traction, McKenzie method, multiple impulse therapy, or ketoprofen",
+      "comparator": "Active treatment groups plus pharmacotherapy comparator",
+      "follow_up": "Immediately after treatment and follow-up",
+      "primary_outcome": "Subjective pain on Laitinen and VAS; Schober test for mobility"
+    },
+    "results": [
+      {
+        "outcome": "Laitinen pain",
+        "timepoint": "post and follow-up",
+        "result": "McKenzie was reported as best; Saunders was similarly effective",
+        "detail": "The paper states that McKenzie produced the best Laitinen results and that Saunders was similarly effective, but it does not report the underlying values.",
+        "verdict": "descriptive"
+      },
+      {
+        "outcome": "VAS pain",
+        "timepoint": "post and 30 d",
+        "result": "Between-group differences favoured MIT",
+        "detail": "ANOVA after treatment and Welch testing at 30 days found MIT differed from the other groups; all groups also improved within group.",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "Schober test",
+        "timepoint": "post and 30 d",
+        "result": "MIT was best vs McKenzie and drugs",
+        "detail": "The paper reports MIT had slightly but significantly better Schober results than McKenzie, and better results than drug treatment, with greater flexion at 30 days.",
+        "verdict": "unclear"
+      }
+    ],
+    "how_to_apply": [
+      "Treat the finding as short-term comparative information, not proof that MIT is superior.",
+      "Expect all groups to improve over treatment and follow-up.",
+      "Do not use the paper alone to choose MIT over McKenzie or traction.",
+      "Remember every group also received blue-filter Sollux lamp treatment.",
+      "Use the result as a hypothesis-generating study for discogenic low back pain."
+    ],
+    "applies_to": [
+      "Adults 30–60 years with imaging-confirmed discogenic low back pain",
+      "Short-term supervised rehabilitation in a clinic setting"
+    ],
+    "not_for": [
+      "Non-discogenic low back pain",
+      "Long-term management decisions",
+      "Patients outside the age range"
+    ],
+    "appraisal": {
+      "certainty": "low",
+      "strengths": [
+        "Random allocation was reported.",
+        "Allocation concealment was reported.",
+        "Four groups were equal in size.",
+        "Baseline age and sex balance looked similar."
+      ],
+      "weaknesses": [
+        "No blinding was reported.",
+        "Pain outcomes were self-reported.",
+        "No effect sizes or confidence intervals were reported.",
+        "Short follow-up.",
+        "Co-intervention with Sollux lamp across all groups."
+      ],
+      "funding_conflicts": "No external funding; authors declared no conflicts of interest.",
+      "appraised_from": "full_text",
+      "tool": "RoB 2",
+      "overall_risk_of_bias": "some concerns",
+      "domains": [
+        {
+          "domain": "Randomisation process",
+          "judgement": "low",
+          "reason": "Random sequence generation and concealed assignment were reported.",
+          "support": "Methods P43: Random Allocation Software generated sequences and concealed assignment until allocation."
+        },
+        {
+          "domain": "Deviations from intended interventions",
+          "judgement": "some concerns",
+          "reason": "Blinding and adherence handling were not reported, so performance effects could not be excluded.",
+          "support": "Methods P14-P17, P41: distinct treatments were given; blinding and adherence handling not reported."
+        },
+        {
+          "domain": "Missing outcome data",
+          "judgement": "unclear",
+          "reason": "No attrition or missing-data handling was reported.",
+          "support": "Not reported."
+        },
+        {
+          "domain": "Measurement of the outcome",
+          "judgement": "some concerns",
+          "reason": "Pain was self-reported, and participants knew which treatment they received.",
+          "support": "Methods P41: subjective pain was scored by patients before and after treatment."
+        },
+        {
+          "domain": "Selection of the reported result",
+          "judgement": "unclear",
+          "reason": "No protocol or prespecified outcome analysis plan was reported.",
+          "support": "Not reported."
+        }
+      ],
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "serious",
+          "reason": "Self-reported outcomes were measured in an unblinded trial, with no attrition reporting or protocol."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "not applicable",
+          "reason": "Single trial."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "not serious",
+          "reason": "Adults with imaging-confirmed discogenic low back pain match the condition of interest."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "serious",
+          "reason": "No effect sizes or 95% CIs were reported, so precision cannot be judged."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "not applicable",
+          "reason": "Single trial."
+        }
+      ],
+      "clinical_significance": [
+        "No MCID or smallest worthwhile change can be applied because the paper does not report the mean changes or confidence intervals.",
+        "The report says MIT was best on VAS and Schober, but the size of benefit is unknown.",
+        "The result could be clinically important, trivial, or uncertain; the paper does not let us distinguish that."
+      ],
+      "comparator_fairness": [
+        "The comparators were credible active treatments, not a pure wait-list.",
+        "Dose and contact time were not matched across groups.",
+        "The ketoprofen arm had less therapist contact than the physical treatment arms.",
+        "All groups also received Sollux lamp treatment, which blurs the contrast."
+      ],
+      "alternative_explanations": [
+        "Natural recovery may explain part of the improvement.",
+        "Regression to the mean may have contributed.",
+        "Expectation and therapist-contact effects could favour the physical methods.",
+        "The shared Sollux lamp co-intervention may have influenced all groups."
+      ],
+      "spin": [
+        "The conclusion claims MIT is a valuable and safe modality, but the paper does not provide effect sizes or blinded outcome assessment.",
+        "Conclusions favour MIT over McKenzie and traction despite mixed outcome leaders and no effect estimates."
+      ],
+      "fit_with_evidence": [
+        "Consistent with the 2021 JOSPT low back pain guideline’s support for exercise and manual therapy, but MIT itself remains much less established.",
+        "Best read as a small comparative study rather than practice-changing evidence."
+      ],
+      "external_validity": [
+        "✓ Adults with chronic discogenic low back pain",
+        "✓ Clinic-based rehabilitation similar to outpatient care",
+        "✗ Single Polish centre",
+        "✗ Age limited to 30–60 years and no athletes-specific sample"
+      ],
+      "would_change_my_mind": [
+        "A larger blinded trial with prespecified outcomes and effect sizes.",
+        "A head-to-head study showing MIT clearly beats active physiotherapy on a clinically important outcome.",
+        "Longer follow-up showing durable benefit beyond follow-up."
+      ],
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+        "checked_at": "2026-11-11T08:22:37.360589+00:00",
+        "disagreements": [
+          {
+            "item": "bottom line",
+            "first": "This trial suggests short-term improvement with all four approaches, with MIT …",
+            "second": "All four groups improved short term. MIT was favoured on VAS …",
+            "why": "Fixes word-cap violation without losing key facts.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[1]",
+            "first": "{\"outcome\": \"VAS pain\", \"timepoint\": \"post and follow-up\", \"result\": \"MIT differed from …",
+            "second": "{\"outcome\": \"VAS pain\", \"timepoint\": \"post and 30 d\", \"result\": \"Between-group differences …",
+            "why": "Needs direction, timepoints, and unclear verdict for missing estimates.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[2]",
+            "first": "{\"outcome\": \"Schober test\", \"timepoint\": \"post and follow-up\", \"result\": \"MIT was reported …",
+            "second": "{\"outcome\": \"Schober test\", \"timepoint\": \"post and 30 d\", \"result\": \"MIT was …",
+            "why": "Comparison is not descriptive; estimates are missing so verdict is unclear.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.spin[1]",
+            "first": "The abstract-level emphasis on MIT superiority may overstate what the data …",
+            "second": "Conclusions favour MIT over McKenzie and traction despite mixed outcome leaders …",
+            "why": "Current spin mentions abstract emphasis not provided in source.",
+            "resolved": "Second reader's version used."
+          }
+        ],
+        "external": [],
+        "external_searched": "External ratings not searched for this automated edition."
+      }
+    },
+    "patient_explanation": "This study compared three physical treatments with an anti-inflammatory medicine for disc-related back pain. All groups improved, but the paper does not give enough numbers to tell how much better one treatment was than another.",
+    "open_questions": [
+      "How much of the improvement came from the shared Sollux lamp?",
+      "Would the findings hold beyond follow-up?",
+      "Are the between-group differences clinically important?"
+    ],
+    "key_findings": [
+      "Four equal groups were treated for a short period.",
+      "All groups improved on pain and mobility.",
+      "MIT was reported as best on VAS and Schober; McKenzie was best on Laitinen.",
+      "The study reports randomisation, but not blinding or effect sizes."
+    ],
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-81d622e7",
+    "read_level": "full_text",
+    "source_ids": [
+      "paper"
+    ],
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read the full source by AI; numbers checked against it."
+    },
+    "first_published": "2025-09-08"
+  },
+  "sources": [
+    {
+      "id": "paper",
+      "citation": "Pingot J, Słupiński M, Lipski A, Woldańska-Okońska M. A Comparison Between Physical Methods Based on Mechanical Action and Pharmacotherapy in the Treatment of Discogenic Low Back Pain. Healthcare (Basel, Switzerland) 2025.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40941590/",
+      "doi": "10.3390/healthcare13172238",
+      "pmid": "40941590"
+    }
+  ]
+}
