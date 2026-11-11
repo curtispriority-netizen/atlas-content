@@ -1,5 +1,5 @@
 {
-  "query": "(tendinopathy OR \"sports rehabilitation\" OR \"sports injury\" OR \"low back pain\" OR \"neck pain\" OR \"anterior cruciate ligament\") AND (rehabilitation OR exercise OR physiotherapy) AND (PUB_TYPE:\"randomized controlled trial\" OR PUB_TYPE:\"systematic review\" OR PUB_TYPE:\"meta analysis\" OR PUB_TYPE:\"practice guideline\")",
+  "query": "(tendinopathy OR \"achilles\" OR \"groin pain\" OR \"adductor\" OR \"low back pain\" OR \"lumbar disc\" OR \"neck pain\" OR \"cervical radiculopathy\" OR \"sports rehabilitation\" OR \"sports injury\" OR \"anterior cruciate ligament\" OR \"hamstring\") AND (rehabilitation OR exercise OR physiotherapy OR \"physical therapy\") AND (PUB_TYPE:\"randomized controlled trial\" OR PUB_TYPE:\"systematic review\" OR PUB_TYPE:\"meta analysis\" OR PUB_TYPE:\"practice guideline\")",
   "lookback_days": 28,
   "search_limit": 35,
   "max_candidates": 16,
@@ -9,5 +9,5 @@
   "critic": true,
   "auto_publish": true,
   "allow_paywalled_uploads": false,
-  "focus": "Private-practice sports and musculoskeletal physiotherapy with active adults and athletes. Priority conditions: tendinopathy (Achilles, patellar), low back pain including discogenic pain, neck pain including referred pain, adductor-related groin pain, ACL and knee, hamstring and running injuries. Priority content: exercise and load management, rehabilitation dosing, return to sport, outcome measures and strength testing. Prefer randomised trials, systematic reviews and guidelines that could change or confirm treatment."
+  "focus": "Private-practice sports and musculoskeletal physiotherapy with active adults and athletes. Rank first, in this order: (1) Achilles tendinopathy, discogenic low back pain, referred or radicular neck pain, adductor-related groin pain; (2) other tendinopathy (patellar, hamstring, gluteal), ACL and knee rehabilitation, hamstring and running injuries; (3) other low back or neck pain trials a physiotherapist could apply. Wanted content: exercise and load management, rehabilitation dosing, return to sport, education, prognosis, outcome measures and strength testing, delivered or prescribed by a physiotherapist. Leave out: surgical technique, anaesthesia, nerve blocks and perioperative analgesia; drug, injection-only or device-only trials with no rehabilitation question; health-economic and cost-effectiveness analyses; virtual-reality, app or gadget trials unless the comparison is a rehabilitation programme; dry needling, acupuncture and passive modalities unless compared with exercise; paediatric, elderly-frailty, neurological, cancer and pregnancy populations; qualitative-only or methods-only reviews. Prefer randomised trials, systematic reviews and guidelines that could change or confirm treatment."
 }
