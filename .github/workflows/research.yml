@@ -12,6 +12,7 @@ name: Atlas research
       - schema/**
       - APPRAISAL.md
       - CARD_STYLE.md
+      - questions/**
   workflow_dispatch:
     inputs:
       mode:
@@ -35,8 +36,16 @@ name: Atlas research
       max_new:
         description: For stage only. Most search-found cards to add in this run (blank = fill the week to 8)
         type: string
+      queue_only:
+        description: For stage only. Drive queue, questions and deletions, without the weekly search
+        type: boolean
+        default: false
   schedule:
+    # Weekly: Drive queue, questions and the weekly search.
     - cron: '23 7 * * 3'
+      timezone: Australia/Hobart
+    # Daily evening: Drive queue, questions and deletions only. No model calls when nothing is new.
+    - cron: '41 19 * * *'
       timezone: Australia/Hobart
 
 permissions:
@@ -117,6 +126,8 @@ jobs:
           CARD_EDITS: ${{ inputs.card_edits }}
           BENCHMARK_PMID: ${{ inputs.benchmark_pmid }}
           MAX_NEW: ${{ inputs.max_new }}
+          QUEUE_ONLY: ${{ inputs.queue_only }}
+          SCHEDULE: ${{ github.event.schedule }}
         run: |
           git config user.name 'Atlas research'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -133,6 +144,9 @@ jobs:
             extra+=(--benchmark-pmid "$BENCHMARK_PMID")
           fi
           if [[ "$mode" == stage && "$MAX_NEW" =~ ^[0-9]+$ ]]; then extra+=(--max-new "$MAX_NEW"); fi
+          if [[ "$mode" == stage && ( "$QUEUE_ONLY" == true || "$SCHEDULE" == '41 19 * * *' ) ]]; then
+            extra+=(--queue-only)
+          fi
           python scripts/research.py "$mode" --state .atlas-state "${extra[@]}"
       - name: Notify about published research
         if: >-

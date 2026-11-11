@@ -19,6 +19,8 @@ from preflight import EDITION_MAX, ROOT, PDF_NAME, edition_items, read_json, wee
 from research_appraisal import (PRIMARY, SCREEN, BudgetExceeded, OpenAI, apply_edits, brief, digest, evaluate, object_schema,
                                 reading_schema, strip_refs)
 from card_style import check_card
+from research_questions import (DELETE_NAME, build_answer, checked_cards, item_ids, known_keys, paper_ids,
+                                parse_marker, question_document, reading_list, stamp, strip_item)
 from research_review import LABELS, render_review, review_entry
 from research_sources import (
     MAX_SOURCE, Drive, Literature, Review, Unavailable, doi, extract_pdf, pmid,
@@ -47,6 +49,9 @@ def git(root, *args):
                               capture_output=True, text=True).stdout.strip()
     except subprocess.CalledProcessError:
         raise Unavailable(f"git_{args[0]}_failed") from None
+
+
+CHALLENGE_LABEL = "Challenge pick: chosen to test usual physio practice."
 
 
 class Journal:
@@ -172,7 +177,9 @@ class Pipeline:
         self.config, self.anchors, self.retry_holds = config, anchors or {}, retry_holds
         self.staged, self.seen, self.ids = [], set(), set()
         self.retried = set()
-        self.attempts = 0
+        self.attempts = self.question_attempts = 0
+        # Questions to answer, papers linked to a question by a queue marker, and delete markers.
+        self.questions, self.linked, self.deletions = [], {}, {}
         self.max_new, self.backfilled = None, False
         self.rules = "\n\n".join((feed.root / name).read_text(encoding="utf-8")
                                   for name in ("APPRAISAL.md", "CARD_STYLE.md"))
@@ -305,12 +312,21 @@ class Pipeline:
             result.update(external=anchor["external"], external_searched=anchor["external_searched"])
         return result
 
-    def attempt(self, key, subject, action, static=False, discovered=False):
-        if self.attempts >= self.config["max_candidates"]:
+    def full(self, question=False):
+        """Question papers have their own cap, so a question never starves the weekly run."""
+        if question:
+            return self.question_attempts >= self.config.get("max_question_papers", 8)
+        return self.attempts >= self.config["max_candidates"]
+
+    def attempt(self, key, subject, action, static=False, discovered=False, question=False):
+        if self.full(question):
             return
         if static and key in self.journal.data["holds"] and not self.retry_holds:
             return
-        self.attempts += 1
+        if question:
+            self.question_attempts += 1
+        else:
+            self.attempts += 1
         try:
             action()
         except SourceUnavailable as error:
@@ -325,12 +341,34 @@ class Pipeline:
                 self.journal.save()
 
     def queue(self):
-        for entry in self.drive.entries():
-            if self.attempts >= self.config["max_candidates"]:
-                break
+        entries = list(self.drive.entries())
+        # Drive is read-only, so a deleted paper's PDF or marker stays there. Never rebuild its card.
+        gone = self.journal.data.setdefault("deleted", {})
+        self.deletions = {match[1]: entry for entry in entries
+                          if (match := DELETE_NAME.fullmatch(entry["name"])) and match[1] not in gone}
+        removed = gone.keys() | self.deletions.keys()
+        newest = {}
+        for entry in entries:
             name = entry["name"]
             key = digest([entry["id"], entry.get("md5Checksum"), name, self.protocol])
-            if name.startswith("queue__") and name.endswith(".txt"):
+            if name.startswith("question__") and name.endswith(".txt"):
+                try:
+                    marker = parse_marker(self.drive.download(entry, 256_000))
+                except Review:
+                    self.hold(key, "invalid_question_marker", name)
+                    continue
+                for paper in marker["papers"]:
+                    paper_id = paper.get("id") if isinstance(paper, dict) else None
+                    if (not isinstance(paper_id, str) or not PAPER_ID.fullmatch(paper_id) or paper_id in removed
+                            or paper_id in self.feed.paper_ids or paper_id in self.ids or self.full(True)):
+                        continue
+                    # Papers the app's search found: a paywalled or held one is skipped quietly.
+                    self.queue_paper(paper, key, question=True, quiet=True)
+                # A question sent twice leaves two markers in Drive. Only the newest one is answered.
+                sent = entry.get("modifiedTime", "")
+                if sent >= newest.get(marker["id"], ("",))[0]:
+                    newest[marker["id"]] = (sent, marker, stamp(entry))
+            elif name.startswith("queue__") and name.endswith(".txt"):
                 try:
                     marker = json.loads(self.drive.download(entry, 256_000))
                     if marker.get("kind") != "queue" or not isinstance(marker.get("papers"), list):
@@ -338,9 +376,8 @@ class Pipeline:
                 except (UnicodeError, ValueError, AttributeError, Review):
                     self.hold(key, "invalid_queue_marker", name)
                     continue
-                if marker.get("question_id"):
-                    # The legacy question job owns these, including linked answers.
-                    continue
+                question = marker.get("question_id")
+                question = question if isinstance(question, str) and PAPER_ID.fullmatch(question) else None
                 for paper in marker["papers"]:
                     if not isinstance(paper, dict):
                         self.hold(key, "invalid_queue_paper", name)
@@ -349,24 +386,30 @@ class Pipeline:
                     if not isinstance(paper_id, str) or not PAPER_ID.fullmatch(paper_id):
                         self.hold(key, "invalid_queue_paper_id", name)
                         continue
+                    if paper_id in removed:
+                        continue
+                    if question:
+                        # A paper added to a question: that question's answer is rebuilt once it has a card.
+                        self.linked.setdefault(question, set()).add(paper_id)
                     if paper_id in self.feed.paper_ids or paper_id in self.ids:
                         continue
-                    if self.attempts >= self.config["max_candidates"]:
-                        break
-                    self.queue_paper(paper, key)
+                    if self.full(bool(question)):
+                        continue
+                    self.queue_paper(paper, key, question=bool(question))
             elif match := PDF_NAME.fullmatch(name):
                 paper_id = match[1]
                 if (PAPER_ID.fullmatch(paper_id) and paper_id not in self.feed.paper_ids
-                        and paper_id not in self.ids):
+                        and paper_id not in self.ids and paper_id not in removed and not self.full()):
                     # Revisit anchor holds when the private review file changes.
                     self.attempt(digest([key, digest(self.anchors)]), name,
                                  lambda: self.pdf(entry, paper_id, name[10:-4]), static=True)
+        self.questions = [(marker, sent) for _, marker, sent in newest.values()]
 
-    def queue_paper(self, paper, marker_key):
+    def queue_paper(self, paper, marker_key, question=False, quiet=False):
         key = digest([marker_key, paper["id"]])
         if any(paper.get(field) is not None and not isinstance(paper[field], (str, int))
                for field in ("doi", "pmid", "url", "title")):
-            self.hold(key, "invalid_queue_paper_metadata", paper["id"])
+            self.hold(key, "invalid_queue_paper_metadata", paper["id"], notify=not quiet)
             return
         try:
             record = self.literature.identify(doi(str(paper.get("doi") or paper.get("url") or "")),
@@ -375,11 +418,11 @@ class Pipeline:
             self.run.setdefault("source_errors", {})[key] = {"reason": str(error), "subject": paper["id"]}
             return
         except Review as error:
-            self.hold(key, str(error), paper["id"])
+            self.hold(key, str(error), paper["id"], notify=not quiet)
             return
         self.attempt(digest([key, self.record_key(record)]), record.doi or record.pmid, lambda: self.candidate(
             record, paper["id"], lambda: self.literature.source(record), self.now.isoformat()),
-            static=True)
+            static=True, discovered=quiet, question=question)
 
     def record_key(self, record):
         return digest([record.doi or record.pmid, record.pmcid, record.open_access,
@@ -442,6 +485,7 @@ class Pipeline:
                 self.attempt(key, record.doi or record.pmid,
                              lambda: self.discovery_candidate(record, pending), static=True, discovered=True)
 
+        self.challenge(usable, work, min(self.config.get("challenge_slots", 0), room))
         found = usable(self.literature.discover(self.config["query"], self.today,
                                                 self.config["lookback_days"], self.config["search_limit"]))
         work((*resumed, *sorted(self.screen(found), key=lambda r: not r.open_access)), room)
@@ -460,15 +504,39 @@ class Pipeline:
         self.run["backfill"] = {"offered": len(older), "staged": len(self.staged) - before}
         self.backfilled = len(self.staged) > before
 
-    def screen(self, records, tag=None):
+    def challenge(self, usable, work, slots):
+        """Reserved slots for papers picked to test the clinician's habits, from a wider search than the main one.
+        Skipped unless the screen ranked them: an unranked paper is not a challenge pick."""
+        if slots <= 0 or not self.config.get("challenge_query") or not self.config.get("challenge_focus"):
+            return
+        try:
+            found = usable(self.literature.discover(
+                self.config["challenge_query"], self.today,
+                self.config.get("challenge_days", self.config["lookback_days"]), self.config["search_limit"]))
+        except Unavailable:
+            return
+        ranked = self.screen(found, "challenge", self.config["challenge_focus"])
+        if "screened_challenge" not in self.run:
+            return
+        before = len(self.staged)
+        work(ranked, slots)
+        for fingerprint in self.staged[before:]:
+            card = self.journal.data["review"][fingerprint]["card"]
+            note = card.get("evidence_note") or []
+            words = " ".join([note] if isinstance(note, str) else note).split()
+            card["evidence_note"] = " ".join(CHALLENGE_LABEL.split() + words[:30 - len(CHALLENGE_LABEL.split())])
+        self.run["challenge"] = {"offered": len(found), "staged": len(self.staged) - before}
+
+    def screen(self, records, tag=None, focus=None):
         """One cheap call ranks abstracts against the clinician's focus. Any failure keeps the search order."""
-        if not self.config.get("focus") or len(records) < 2:
+        focus = focus or self.config.get("focus")
+        if not focus or len(records) < 2:
             return records
         papers = [{"n": n, "title": r.title, "types": r.publication_types, "abstract": r.abstract[:1800]}
                   for n, r in enumerate(records)]
         try:
             reply = self.model.generate(digest(["screen", self.today.isoformat(), *([tag] if tag else [])]), PRIMARY, "screen", SCREEN,
-                                        {"focus": self.config["focus"], "papers": papers}, SCREEN_SCHEMA, 3000)
+                                        {"focus": focus, "papers": papers}, SCREEN_SCHEMA, 3000)
         except (Review, Unavailable):
             return records
         order = list(dict.fromkeys(n for n in reply["ranked"] if 0 <= n < len(records)))
@@ -484,15 +552,94 @@ class Pipeline:
             pending.pop(key)
             raise
 
-    def process(self):
+    def process(self, discover=True):
+        """The Drive queue, then the weekly search. The daily run skips the search."""
         # Leave capacity for weekly search even if the Drive queue has a backlog.
         limit = self.config["max_candidates"]
-        self.config["max_candidates"] = max(1, limit - max(3, self.config.get("weekly_minimum", 0)))
+        reserve = max(3, self.config.get("weekly_minimum", 0))
+        self.config["max_candidates"] = max(1, limit - reserve) if discover else limit
         try:
             self.queue()
         finally:
             self.config["max_candidates"] = limit
-        self.discover()
+        if discover:
+            self.discover()
+
+    def delete_papers(self):
+        """Apply delete markers: remove the card, its index entry and its rows in question answers."""
+        changed = []
+        for paper_id, entry in self.deletions.items():
+            path = f"papers/{paper_id}.json"
+            if paper_id in self.feed.paper_ids:
+                (self.feed.root / path).unlink(missing_ok=True)
+                self.feed.papers["papers"] = [row for row in self.feed.papers["papers"] if row["id"] != paper_id]
+                self.feed.paper_ids.discard(paper_id)
+                write_json(self.feed.root / "papers/index.json", self.feed.papers)
+                changed += [path, "papers/index.json", *strip_item(self.feed.root, f"mine-{paper_id}")]
+            self.journal.data["deleted"][paper_id] = {"marker": entry["id"], "at": self.now.isoformat()}
+        self.run["deleted"] = len(self.deletions)
+        return changed
+
+    def answer_questions(self):
+        """Write questions/<id>.json for each new or changed question. Called only when publishing is allowed,
+        after this run's cards are in the feed, so an answer can only cite cards the app can open."""
+        changed = []
+        state = self.journal.data.setdefault("questions", {})
+        for question, papers in self.linked.items():
+            record = state.setdefault(question, {})
+            record["extra"] = sorted(set(record.get("extra", [])) | papers)
+        now = self.now.isoformat()
+        for marker, sent in self.questions:
+            qid = marker["id"]
+            record = state.setdefault(qid, {})
+            papers = paper_ids(marker)
+            cards = checked_cards(self.feed.root, [*item_ids(marker["linked_items"]), *papers,
+                                                   *record.get("extra", [])])
+            basis = digest([sent, sorted(cards)])
+            path = self.feed.root / "questions" / f"{qid}.json"
+            previous = read_json(path) if path.is_file() else {}
+            if record.get("done") == basis and previous:
+                continue
+            job = digest(["question", qid])
+            try:
+                if record.get("marker") == sent and previous:
+                    # Same question, new cards: keep the reading list and only rebuild the answer.
+                    held = self.feed.keys | self.seen
+                    listing = {**previous, "pico": previous.get("pico") or {}, "suggestions": [
+                        row for row in previous.get("suggestions", [])
+                        if not {row.get("doi"), row.get("pmid")} & held]}
+                else:
+                    skip = self.feed.keys | self.feed.titles | self.seen | known_keys(
+                        [*marker["already_in_library"], *marker["papers"]])
+                    try:
+                        listing = reading_list(self.model, self.literature, job, marker, skip)
+                    except Review:
+                        listing = {"pico": previous.get("pico") or {}, "suggestions": [], "searches": 0,
+                                   "screened": 0, "gaps": ["Reading list could not be built this run; "
+                                                           "send the question again to retry."]}
+                answer = None
+                if cards:
+                    try:
+                        answer = build_answer(self.model, job, marker, cards, now)
+                    except Review as error:
+                        self.hold(digest(["answer", qid, basis]), str(error), qid)
+                based = set((previous.get("answer") or {}).get("based_on") or [])
+                if not answer and based and len(checked_cards(self.feed.root, based)) == len(based):
+                    answer = previous["answer"]  # Keep an earlier answer whose cards all still exist.
+            except BudgetExceeded:
+                self.run["reason"] = "run_or_month_budget"
+                break
+            except Unavailable as error:
+                self.run.setdefault("source_errors", {})[job] = {"reason": str(error), "subject": qid}
+                continue
+            unread = len([paper for paper in papers if f"mine-{paper}" not in cards])
+            path.parent.mkdir(exist_ok=True)
+            write_json(path, question_document(marker, listing, answer, unread, now))
+            record.update(done=basis, marker=sent, updated_at=now)
+            changed.append(f"questions/{qid}.json")
+        self.run["questions"] = len(changed)
+        self.journal.save()
+        return changed
 
     def benchmark(self, paper_pmid):
         record = self.literature.identify("", paper_pmid, "")
@@ -541,6 +688,7 @@ def main():
     parser.add_argument("mode", choices=("stage", "promote"))
     parser.add_argument("--state", type=Path, required=True)
     parser.add_argument("--retry-holds", action="store_true")
+    parser.add_argument("--queue-only", action="store_true", help="Daily run: Drive queue and questions, no weekly search")
     parser.add_argument("--benchmark-pmid")
     parser.add_argument("--max-new", type=int, help="Cap on search-found cards for this run")
     parser.add_argument("--promote-ids", default="", help="Comma-separated fingerprint prefixes (12+ characters)")
@@ -608,7 +756,7 @@ def main():
                 if args.benchmark_pmid:
                     pipeline.benchmark(args.benchmark_pmid)
                 else:
-                    pipeline.process()
+                    pipeline.process(discover=not args.queue_only)
             except BudgetExceeded:
                 run["reason"] = "run_or_month_budget"
             run["staged"] = len(pipeline.staged)
@@ -628,16 +776,19 @@ def main():
                     reviewed = False
                     changed = feed.publish(papers, studies, pipeline.today, now.isoformat(), reviewed=False,
                                            quiet=pipeline.backfilled)
+                # Deletions and question answers go out through the same gate as cards.
+                changed = list(dict.fromkeys([*changed, *pipeline.delete_papers(), *pipeline.answer_questions()]))
         if changed:
             # No model-supplied content is printed in the public Actions log.
             if subprocess.run([sys.executable, "-X", "utf8", str(root / "scripts/validate.py")],
                               capture_output=True).returncode:
                 raise Unavailable("atlas_schema_or_style_validation_failed")
             git(root, "add", "--", *changed)
-            git(root, "commit", "-m", "Publish clinician-approved Atlas research" if reviewed
-                else "Publish AI-checked Atlas research")
+            git(root, "commit", "-m", "Publish clinician-approved Atlas research" if args.mode == "promote"
+                else "Publish AI-checked Atlas research" if run.get("verified")
+                else "Update Atlas question answers and paper deletions")
             git(root, "push", "origin", "HEAD:refs/heads/main")
-            run["published"] = run["verified"]
+            run["published"] = run.get("verified", 0)
             run["publication_commit"] = git(root, "rev-parse", "HEAD")
             for fingerprint in ids:
                 for key, entry in journal.data["review"].items():
@@ -666,7 +817,8 @@ def main():
         with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as output:
             print(f"published={run['publication_commit']}", file=output)
     print(f"Atlas research {run['status']}. Staged for review: {run.get('staged', 0)}. "
-          f"Published: {run.get('published', 0)}. New holds: {run['new_holds']}.")
+          f"Published: {run.get('published', 0)}. Questions answered: {run.get('questions', 0)}. "
+          f"New holds: {run['new_holds']}.")
     if checks := run.get("benchmark_checks"):
         print("Benchmark gates passed: " + ", ".join(f"{name}={passed}" for name, passed in checks.items()))
     if args.benchmark_pmid:

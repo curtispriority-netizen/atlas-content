@@ -2,12 +2,24 @@
 
 Curt writes a question in Atlas (e.g. "HSR vs eccentrics for mid-portion Achilles?"). When he taps **Find studies now**, the phone searches Europe PMC, saves the 6 best-evidence papers as draft cards linked to the question, and saves `question__<id>__<title>.txt` to the Drive "Atlas papers" folder. That one file holds the question, the drafts to check (`papers`), and every card already linked to it (`linked_items`).
 
-The daily paper-cards task then:
-1. Gives every paper in `papers` the normal checked read (section 5): both passes, free full text where it exists.
+The GitHub pipeline (`scripts/research.py`, daily evening run and the weekly run) then:
+1. Gives every paper in `papers` the normal checked read (section 5): one reading plus the second-model critic, free full text only.
 2. Writes a **reading list** of anything the quick search missed (sections 1–3). It never writes cards for those; Curt taps Add.
 3. Writes the **answer** (section 6) from the CHECKED cards only.
 
 All of it goes in `questions/<id>.json`.
+
+## How the pipeline does it (`scripts/research_questions.py`)
+- Question work runs only when publishing is on (`auto_publish`, `ATLAS_PUBLISH_ENABLED=true`, main branch). Up to `max_question_papers` (8) question papers are read per run, separate from the weekly cap.
+- Papers without free full text are **not read** (no abstract-only cards). They are skipped without a failure notice, and the first `gaps` line says how many were not read.
+- Reading list: one cheap model call writes the PICO and 2–3 Europe PMC queries. Code runs them and drops anything retracted, already in the library, or in the marker. A second cheap call only ranks those records. Every suggestion is a real Europe PMC record; title, citation, DOI, PMID, year and open access come from the record, never from the model.
+- Answer: one call to the stronger model sees only the checked cards. Code refuses any item id that was not supplied, any number that is not on a card (comparison rows: on that row's own card), and any cap overrun. One repair is allowed; after that the answer is left out and the run fails so Curt is told. `risk_of_bias`, `certainty` and `title` in each comparison row are copied from the card.
+- `search_summary` is written by code and ends "AI-checked, not clinician-reviewed."
+- Drive is read-only, so markers are never trashed. Private state remembers each marker (file id + md5) and the cards it used. An unchanged question costs nothing. A changed or re-sent marker is searched and answered again. New checked cards for the same marker rebuild only the answer.
+- A queue marker with `question_id` links its papers to that question; the answer is rebuilt once they have cards.
+- `delete__<id>.txt` removes `papers/<id>.json`, its index entry and its rows in any answer. The id is remembered so the PDF or marker left in Drive never rebuilds the card.
+
+Sections 1–3 and 6 below are the standard the output is held to. Where they describe steps the pipeline does not take (PubMed, Cochrane and guideline searches, abstract-level cards, trashing markers), the list above wins.
 
 ## 1. Search like a reviewer
 - Turn the question into a PICO. Use the `context` and `region` Curt gave.
