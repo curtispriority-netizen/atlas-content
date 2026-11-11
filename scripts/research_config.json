@@ -3,6 +3,7 @@
   "lookback_days": 28,
   "search_limit": 35,
   "max_candidates": 8,
+  "max_question_papers": 8,
   "critic": true,
   "auto_publish": true,
   "allow_paywalled_uploads": false,

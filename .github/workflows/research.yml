@@ -12,6 +12,7 @@ name: Atlas research
       - schema/**
       - APPRAISAL.md
       - CARD_STYLE.md
+      - questions/**
   workflow_dispatch:
     inputs:
       mode:
@@ -32,8 +33,16 @@ name: Atlas research
       benchmark_pmid:
         description: Optional PMID to stage a single public paper privately
         type: string
+      queue_only:
+        description: For stage only. Drive queue, questions and deletions, without the weekly search
+        type: boolean
+        default: false
   schedule:
+    # Weekly: Drive queue, questions and the weekly search.
     - cron: '23 7 * * 3'
+      timezone: Australia/Hobart
+    # Daily evening: Drive queue, questions and deletions only. No model calls when nothing is new.
+    - cron: '41 19 * * *'
       timezone: Australia/Hobart
 
 permissions:
@@ -113,6 +122,8 @@ jobs:
           PROMOTE_IDS: ${{ inputs.promote_ids }}
           CARD_EDITS: ${{ inputs.card_edits }}
           BENCHMARK_PMID: ${{ inputs.benchmark_pmid }}
+          QUEUE_ONLY: ${{ inputs.queue_only }}
+          SCHEDULE: ${{ github.event.schedule }}
         run: |
           git config user.name 'Atlas research'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -127,6 +138,9 @@ jobs:
           if [[ "$RETRY_HOLDS" == true ]]; then extra+=(--retry-holds); fi
           if [[ "$mode" == stage && -n "$BENCHMARK_PMID" ]]; then
             extra+=(--benchmark-pmid "$BENCHMARK_PMID")
+          fi
+          if [[ "$mode" == stage && ( "$QUEUE_ONLY" == true || "$SCHEDULE" == '41 19 * * *' ) ]]; then
+            extra+=(--queue-only)
           fi
           python scripts/research.py "$mode" --state .atlas-state "${extra[@]}"
       - name: Notify about published research

@@ -319,7 +319,7 @@ class Drive:
     def entries(self):
         params = {
             "q": f"'{self.folder}' in parents and trashed = false",
-            "fields": "nextPageToken,incompleteSearch,files(id,name,version,md5Checksum,size)",
+            "fields": "nextPageToken,incompleteSearch,files(id,name,version,md5Checksum,size,modifiedTime)",
             "pageSize": 1000,
             "supportsAllDrives": "true",
             "includeItemsFromAllDrives": "true",

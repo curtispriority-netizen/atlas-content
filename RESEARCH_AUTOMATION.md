@@ -22,7 +22,7 @@ When a reading fails, the private journal keeps the latest failure per job and a
 
 To recheck a retained structured reading locally, run `python scripts/revalidate_research.py <private-state-json> <job-key> <article.xml-or-text>` with the exact original Europe PMC XML or the UTF-8 article text as supplied to the model. The command checks the source hash and prints validation codes and field locations. Keep the files in a private location. A subsequent workflow removes diagnostic entries aged 30 days or more from the current journal. Earlier private Git commits retain their history, so this limits the current journal only.
 
-Keep the legacy question, linked queue, deletion and measure-of-the-week workflows available. This migration leaves question reading lists and answers with their existing writer. Published cards and answers are preserved. A different Atlas ID for an already published DOI or PMID is held so the app's item references can be reconciled. The worker uses read-only access to Drive and leaves PDFs and markers in place. Uploaded-PDF anchor review is manual. Automatic editions record that external ratings were not searched.
+Questions, linked queue markers and deletions now run in this pipeline (see QUESTIONS.md), on a daily evening run that skips the weekly search and makes no model calls when nothing is new. The measure of the week still has no writer. Published cards and answers are preserved. A different Atlas ID for an already published DOI or PMID is held so the app's item references can be reconciled. The worker uses read-only access to Drive and leaves PDFs and markers in place. Uploaded-PDF anchor review is manual. Automatic editions record that external ratings were not searched.
 
 ## Operating cost
 
