@@ -49,6 +49,9 @@ def git(root, *args):
         raise Unavailable(f"git_{args[0]}_failed") from None
 
 
+CHALLENGE_LABEL = "Challenge pick: chosen to test usual physio practice."
+
+
 class Journal:
     def __init__(self, path, persist=lambda: None):
         self.path = path
@@ -442,6 +445,7 @@ class Pipeline:
                 self.attempt(key, record.doi or record.pmid,
                              lambda: self.discovery_candidate(record, pending), static=True, discovered=True)
 
+        self.challenge(usable, work, min(self.config.get("challenge_slots", 0), room))
         found = usable(self.literature.discover(self.config["query"], self.today,
                                                 self.config["lookback_days"], self.config["search_limit"]))
         work((*resumed, *sorted(self.screen(found), key=lambda r: not r.open_access)), room)
@@ -460,15 +464,39 @@ class Pipeline:
         self.run["backfill"] = {"offered": len(older), "staged": len(self.staged) - before}
         self.backfilled = len(self.staged) > before
 
-    def screen(self, records, tag=None):
+    def challenge(self, usable, work, slots):
+        """Reserved slots for papers picked to test the clinician's habits, from a wider search than the main one.
+        Skipped unless the screen ranked them: an unranked paper is not a challenge pick."""
+        if slots <= 0 or not self.config.get("challenge_query") or not self.config.get("challenge_focus"):
+            return
+        try:
+            found = usable(self.literature.discover(
+                self.config["challenge_query"], self.today,
+                self.config.get("challenge_days", self.config["lookback_days"]), self.config["search_limit"]))
+        except Unavailable:
+            return
+        ranked = self.screen(found, "challenge", self.config["challenge_focus"])
+        if "screened_challenge" not in self.run:
+            return
+        before = len(self.staged)
+        work(ranked, slots)
+        for fingerprint in self.staged[before:]:
+            card = self.journal.data["review"][fingerprint]["card"]
+            note = card.get("evidence_note") or []
+            words = " ".join([note] if isinstance(note, str) else note).split()
+            card["evidence_note"] = " ".join(CHALLENGE_LABEL.split() + words[:30 - len(CHALLENGE_LABEL.split())])
+        self.run["challenge"] = {"offered": len(found), "staged": len(self.staged) - before}
+
+    def screen(self, records, tag=None, focus=None):
         """One cheap call ranks abstracts against the clinician's focus. Any failure keeps the search order."""
-        if not self.config.get("focus") or len(records) < 2:
+        focus = focus or self.config.get("focus")
+        if not focus or len(records) < 2:
             return records
         papers = [{"n": n, "title": r.title, "types": r.publication_types, "abstract": r.abstract[:1800]}
                   for n, r in enumerate(records)]
         try:
             reply = self.model.generate(digest(["screen", self.today.isoformat(), *([tag] if tag else [])]), PRIMARY, "screen", SCREEN,
-                                        {"focus": self.config["focus"], "papers": papers}, SCREEN_SCHEMA, 3000)
+                                        {"focus": focus, "papers": papers}, SCREEN_SCHEMA, 3000)
         except (Review, Unavailable):
             return records
         order = list(dict.fromkeys(n for n in reply["ranked"] if 0 <= n < len(records)))
