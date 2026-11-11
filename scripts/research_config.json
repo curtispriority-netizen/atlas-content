@@ -7,6 +7,7 @@
   "weekly_minimum": 4,
   "backfill_days": 1825,
   "max_question_papers": 8,
+  "question_auto_papers": 4,
   "challenge_slots": 2,
   "challenge_days": 180,
   "challenge_query": "(tendinopathy OR \"achilles\" OR \"low back pain\" OR sciatica OR \"disc herniation\" OR \"neck pain\" OR radiculopathy OR \"groin pain\" OR \"anterior cruciate ligament\" OR \"hamstring\" OR \"musculoskeletal pain\" OR \"sports injury\") AND (placebo OR sham OR injection OR corticosteroid OR \"platelet-rich plasma\" OR surgery OR surgical OR medication OR \"wait and see\" OR \"natural history\" OR \"no treatment\" OR overtreatment OR \"low-value care\" OR \"diagnostic accuracy\" OR reliability) AND (PUB_TYPE:\"randomized controlled trial\" OR PUB_TYPE:\"systematic review\" OR PUB_TYPE:\"meta analysis\" OR PUB_TYPE:\"practice guideline\")",

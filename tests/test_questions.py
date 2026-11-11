@@ -1,3 +1,4 @@
+import shutil
 import json
 import os
 import sys
@@ -96,10 +97,10 @@ class QuestionTest(base.ResearchTest):
                            "output": [{"type": "message", "content": [
                                {"type": "output_text", "text": json.dumps(value)}]}]}).encode()
 
-    def stage(self, files, env=OPEN, library=None, run="1", argv=("--queue-only",), auto=True):
+    def stage(self, files, env=OPEN, library=None, run="1", argv=("--queue-only",), auto=True, **config):
         state = self.root / "private"
         state.mkdir(exist_ok=True)
-        write_json(self.root / "scripts/research_config.json", {**base.CONFIG, "auto_publish": auto, "critic": True})
+        write_json(self.root / "scripts/research_config.json", {**base.CONFIG, "auto_publish": auto, "critic": True, **config})
         self.phases.clear()
         stdout = StringIO()
         with patch("research.ROOT", self.root), patch("research.Literature", return_value=library or Library()), \
@@ -143,6 +144,25 @@ class QuestionTest(base.ResearchTest):
         self.stage(files, run="3")
         self.assertEqual(["question_search", "question_picks", "question_answer"], self.phases)
         self.stage(files, run="4")
+        self.assertEqual([], self.phases)
+
+    def test_one_step_question_appraises_its_best_free_papers_and_answers_in_the_same_run(self):
+        files = {"question__0a1b2c3d__Isometrics.txt": {**MARKER, "papers": []}}
+        code, run, journal, out = self.stage(files, question_auto_papers=2)
+        self.assertEqual(0, code, out)
+        self.assertEqual(["question_search", "question_picks", "primary", "critic", "question_answer"], self.phases)
+        doc = self.question()
+        (paper,) = (path for path in (self.root / "papers").glob("*.json") if path.stem != "index")
+        self.assertEqual([f"mine-{paper.stem}"], doc["answer"]["based_on"])
+        self.assertEqual([paper.stem], journal.data["questions"]["0a1b2c3d"]["extra"])
+        # The paper that became a card is no longer offered as a suggestion.
+        self.assertNotIn(RECORD.doi, [row["key"] for row in doc["suggestions"]])
+        code, run, journal, out = self.stage(files, run="2", question_auto_papers=2)
+        self.assertEqual((0, [], 0), (code, self.phases, run["questions"]))
+        # Gate closed: no reading list, no appraisal, nothing spent.
+        shutil.rmtree(self.root / "private")
+        code, run, journal, out = self.stage({"question__0a1b2c3e__Other.txt": {**MARKER, "id": "0a1b2c3e", "papers": []}},
+                                             env={"ATLAS_PUBLISH_ENABLED": "false"}, run="3", question_auto_papers=2)
         self.assertEqual([], self.phases)
 
     def test_a_resent_question_is_refreshed_and_new_cards_rebuild_only_the_answer(self):
