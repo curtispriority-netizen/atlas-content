@@ -46,6 +46,7 @@ LABELS = {
     "unreported_bias_domain_overclaim": "A bias judgement was made where the paper reports nothing.",
     "single_trial_inconsistency_overclaim": "GRADE inconsistency should be 'not applicable' for one trial.",
     "abstract_overclaim": "Low risk of bias claimed from an abstract only.",
+    "certainty_corrected": "Certainty did not match the GRADE rows, so code corrected it. Check the rows.",
 }
 
 
@@ -66,6 +67,18 @@ def warning_block(warnings):
     return out + [""]
 
 
+def critic_block(critic):
+    if critic.get("status") != "done":
+        return ["Second-reader check: not run." if not critic else "Second-reader check: unavailable this run.", ""]
+    out = ["## Second reader (AI critic)", ""]
+    out += [f"- Changed `{edit['path']}`: {edit['before']} → {edit['after']}. Why: {edit['why']}"
+            for edit in critic.get("kept", [])] or ["- No changes made."]
+    out += [f"- Concern left open: {text}" for text in critic.get("concerns", [])]
+    if critic.get("dropped"):
+        out.append(f"- {critic['dropped']} proposed change(s) were discarded because they broke a check.")
+    return out + [""]
+
+
 def render_review(entry):
     card, record = entry["card"], entry["record"]
     app = card["appraisal"]
@@ -73,10 +86,11 @@ def render_review(entry):
            f"- Status: **{entry['status']}**  ·  staged {entry['staged_at'][:10]}",
            f"- Source: {entry['citation'].get('url', '')}  ·  fingerprint `{entry['fingerprint'][:12]}`",
            f"- Appraised from: {app['appraised_from']}  ·  tool: **{app['tool']}**", "",
-           "This reading was produced by one AI pass. Code checked that every number in the card appears in "
-           "the passages it cites. It did not check whether the judgements below are *right*. That is your call. "
+           "This reading was produced by AI. Code checked that every number in the card appears in "
+           "the passages it cites. Nobody has checked whether the judgements below are *right*. That is your call. "
            "See REVIEW.md for a 5-minute method.", "",
            *warning_block(entry.get("warnings") or []),
+           *critic_block(entry.get("critic") or {}),
            "## What the card says", "",
            f"**{card['title']}**", "", card.get("impact_line", ""), "", card.get("bottom_line", ""), "",
            "Key findings:", bullets(card.get("key_findings")), "", "Limits:", bullets(card.get("limits")), "",
@@ -114,6 +128,8 @@ def render_review(entry):
             f"Funding and conflicts: {app.get('funding_conflicts')}", "",
             "## Decide", "",
             "Approve: run the *Atlas research* workflow with mode `promote` and "
-            f"`promote_ids` = `{entry['fingerprint'][:12]}`. Reject: leave it, or tell Claude what to change.",
+            f"`promote_ids` = `{entry['fingerprint'][:12]}`. To fix wording or a judgement first, also fill "
+            f"`card_edits`, e.g. `{{\"{entry['fingerprint'][:12]}\": {{\"appraisal.certainty\": \"low\", "
+            "\"limits[+]\": \"New limit.\"}}}}` (see REVIEW.md). Reject: leave it, or tell Claude what to change.",
             "", f"_Generated {datetime.now(timezone.utc).strftime('%Y-%m-%d')}._", ""]
     return "\n".join(out)

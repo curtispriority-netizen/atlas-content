@@ -11,6 +11,7 @@ from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 from io import BytesIO, StringIO
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 from urllib.error import HTTPError
 
@@ -19,7 +20,7 @@ from jsonschema import Draft202012Validator
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from research import Feed, Journal, Pipeline, approved, main, write_json
+from research import Feed, Journal, Pipeline, apply_edits, approved, main, write_json
 from research_appraisal import (OpenAI, PRIMARY, BudgetExceeded, GRADE, appraisal_checks, drop_null,
                                 excerpt_diagnostics, passage_id, ref_sample, strip_refs)
 from research_sources import (Drive, Literature, Record, Review, Unavailable, get, passages,
@@ -87,7 +88,7 @@ def reading(level, schema):
         "results": [{"outcome": "Pain", "result": "Uncertain between-group effect", "verdict": "unclear",
                      "evidence_refs": [GOOD]}],
         "appraisal": {
-            "appraised_from": level, "tool": "RoB 2", "certainty": "low",
+            "appraised_from": level, "tool": "RoB 2", "certainty": "very low",
             "overall_risk_of_bias": "not assessable",
             "domains": [{"domain": domain, "judgement": "unclear", "reason": "Details were unavailable.",
                          "support": "Not reported"} for domain in (
@@ -173,6 +174,9 @@ class ResearchTest(unittest.TestCase):
         self.run = {"new_holds": 0}
         self.phases = []
         self.repair_payloads = []
+        self.critic_payloads = []
+        self.critic_reply = {"edits": [], "concerns": []}
+        self.ranked = []
         self.response_mode = ""
         self.addCleanup(patch.stopall)
         patch.dict(os.environ, {"OPENAI_API_KEY": "fixture-only"}).start()
@@ -186,6 +190,15 @@ class ResearchTest(unittest.TestCase):
         Draft202012Validator.check_schema(schema)
         self.phases.append(phase)
         self.assertFalse(request["store"])
+        if phase in ("critic", "screen"):
+            if self.response_mode == "critic_down":
+                raise Unavailable("http_500")
+            value = self.critic_reply if phase == "critic" else {"ranked": self.ranked}
+            self.critic_payloads.append(payload)
+            return json.dumps({"status": "completed", "model": request["model"],
+                               "usage": {"input_tokens": 5000, "output_tokens": 500},
+                               "output": [{"type": "message", "content": [
+                                   {"type": "output_text", "text": json.dumps(value)}]}]}).encode()
         if phase == "repair":
             self.assertEqual({"record", "source_level", "article", "draft", "violations"}, payload.keys())
             self.assertTrue(payload["violations"])
@@ -232,11 +245,107 @@ class ResearchTest(unittest.TestCase):
                                {"type": "output_text", "text": json.dumps(value)}]}]}).encode()
 
     def pipeline(self, records=(), level="full_text", drive=None, limits=(3_000_000, 15_000_000),
-                 run_id="test", journal=None, anchors=None):
+                 run_id="test", journal=None, anchors=None, **config):
         journal = journal or self.journal
         return StagedPipeline(Feed(self.root), journal, StubLiterature(records, level),
                         drive or StubDrive(), OpenAI(journal, run_id, "2026-11", *limits),
-                        NOW, self.run, CONFIG.copy(), anchors)
+                        NOW, self.run, {**CONFIG, **config}, anchors)
+
+    def test_critic_edits_are_kept_only_when_the_card_stays_valid_and_shown_on_the_card(self):
+        self.critic_reply = {"edits": [
+            {"path": "limits[+]", "value_json": json.dumps("Groups differed at baseline."), "why": "Baseline table."},
+            {"path": "card.appraisal.certainty", "value_json": json.dumps("certain"), "why": "Not a level."},
+            {"path": "bottom_line", "value_json": json.dumps(" ".join(["word"] * 60)), "why": "Too long."},
+            {"path": "limits[+]", "value_json": json.dumps("Pain fell by 99 points."), "why": "Invented number."},
+            {"path": "nope[3].x", "value_json": "not json", "why": "Broken."},
+        ], "concerns": ["Authors read a null superiority result as equivalence."]}
+        pipeline = self.pipeline([RECORD], critic=True)
+        pipeline.process()
+        self.assertEqual(["primary", "critic"], self.phases)
+        self.assertEqual({"record", "source_level", "article", "draft", "violations"}, self.critic_payloads[0].keys())
+        (fingerprint,) = pipeline.staged
+        entry = self.journal.data["review"][fingerprint]
+        self.assertEqual({"status": "done", "kept": 1, "dropped": 4},
+                         {"status": entry["critic"]["status"], "kept": len(entry["critic"]["kept"]),
+                          "dropped": entry["critic"]["dropped"]})
+        card = entry["card"]
+        self.assertIn("Groups differed at baseline.", card["limits"])
+        self.assertNotIn("99", json.dumps(card["limits"]))
+        verification = card["appraisal"]["verification"]
+        self.assertEqual("disagreements", verification["status"])
+        self.assertIn("not clinician-reviewed", verification["checked_by"])
+        self.assertEqual({"left open", "Second reader's version used."},
+                         {row["resolved"] for row in verification["disagreements"]})
+        self.assertIn("Second reader (AI critic)", render_review(entry))
+        self.publish(pipeline)  # the published shape passes validate.py
+
+    def test_clean_critic_pass_marks_agreement_and_a_failed_critic_never_blocks(self):
+        pipeline = self.pipeline([RECORD], critic=True)
+        pipeline.process()
+        (fingerprint,) = pipeline.staged
+        self.assertEqual("agrees", self.journal.data["review"][fingerprint]["card"]["appraisal"]["verification"]["status"])
+        self.response_mode = "critic_down"
+        other = Journal(self.root / "other-state.json")
+        pipeline = self.pipeline([RECORD], critic=True, journal=other)
+        pipeline.process()
+        (fingerprint,) = pipeline.staged
+        verification = other.data["review"][fingerprint]["card"]["appraisal"]["verification"]
+        self.assertEqual("not checked", verification["status"])
+        self.assertIn("one AI reading", verification["checked_by"])
+
+    def weekly_main(self, config, env, argv=()):
+        state = self.root / "private"
+        state.mkdir(exist_ok=True)
+        write_json(self.root / "scripts/research_config.json", {**CONFIG, **config})
+        literature = StubLiterature([RECORD])
+        stdout = StringIO()
+        with patch("research.ROOT", self.root), patch("research.Literature", return_value=literature), \
+                patch("research.Drive", return_value=StubDrive()), patch("research.git") as git, \
+                patch.dict(os.environ, {"GITHUB_RUN_ID": "77", "GITHUB_RUN_ATTEMPT": "1",
+                                        "ATLAS_DRIVE_READER_JSON": "{}", "ATLAS_DRIVE_FOLDER_ID": "x", **env}), \
+                patch.object(sys, "argv", ["research", "stage", "--state", str(state), *argv]), \
+                redirect_stdout(stdout), redirect_stderr(StringIO()):
+            git.side_effect = lambda path, *args: (state.as_posix() if args[:2] == ("rev-parse", "--show-toplevel")
+                                                   else "c" * 40 if args[0] == "rev-parse" else "")
+            code = main()
+        return code, Journal(state / "research-state.json"), git, stdout.getvalue()
+
+    def test_weekly_run_publishes_ai_checked_cards_with_an_honest_label(self):
+        code, journal, git, out = self.weekly_main(
+            {"auto_publish": True, "critic": True},
+            {"ATLAS_PUBLISH_ENABLED": "true", "GITHUB_REF": "refs/heads/main", "GITHUB_EVENT_NAME": "schedule"})
+        self.assertEqual(0, code, out)
+        run = journal.data["runs"]["77.1"]
+        self.assertEqual(("complete", 1, 1), (run["status"], run["staged"], run["published"]))
+        edition = json.loads(next((self.root / "editions").glob("*.json")).read_text(encoding="utf-8"))
+        self.assertIn("AI-checked, not clinician-reviewed", edition["verdict"])
+        self.assertIn("not clinician-reviewed", edition["items"][0]["appraisal"]["verification"]["checked_by"])
+        (entry,) = journal.data["review"].values()
+        self.assertEqual(("published", False), (entry["status"], entry["reviewed"]))
+        self.assertIn("Publish AI-checked Atlas research", [call.args[3] for call in git.call_args_list
+                                                           if call.args[1] == "commit"])
+
+    def test_weekly_run_only_stages_when_publishing_is_off_or_the_card_breaks_style(self):
+        code, journal, git, out = self.weekly_main(
+            {"auto_publish": True}, {"ATLAS_PUBLISH_ENABLED": "false", "GITHUB_REF": "refs/heads/main"})
+        self.assertEqual(0, code, out)
+        self.assertEqual([], list((self.root / "editions").glob("*.json")))
+        self.assertEqual("needs_review", journal.data["runs"]["77.1"]["status"])
+        (entry,) = journal.data["review"].values()
+        self.assertEqual("pending", entry["status"])
+
+    def test_abstract_screen_orders_and_drops_candidates_and_falls_back_on_failure(self):
+        other = replace(RECORD, doi="10.1234/other", pmid="12346", title="Another exercise trial")
+        self.ranked = [1, 7, 1]
+        pipeline = self.pipeline([RECORD, other], focus="tendinopathy")
+        pipeline.process()
+        self.assertEqual("screen", self.phases[0])
+        self.assertEqual([other.doi], [record.doi for record, _ in pipeline.studies])
+        self.assertEqual({"offered": 2, "kept": 1}, self.run["screened"])
+        self.response_mode = "critic_down"
+        fallback = self.pipeline([RECORD, other], focus="tendinopathy", journal=Journal(self.root / "o.json"))
+        fallback.process()
+        self.assertEqual(2, len(fallback.staged))
 
     def publish(self, pipeline):
         paths = pipeline.feed.publish(pipeline.papers, pipeline.studies, pipeline.today, NOW.isoformat())
@@ -734,14 +843,19 @@ class ResearchTest(unittest.TestCase):
             with self.assertRaisesRegex(Unavailable, "incomplete_drive_listing"):
                 drive.entries()
 
-    def test_uploaded_pdf_requires_review_of_exact_bytes_before_model_use(self):
+    def test_uploaded_pdf_is_appraised_without_an_anchor_and_shows_one_when_reviewed(self):
         pdf = {"test": "pdf"}
         drive = StubDrive([{"id": "abc", "name": "00abcdef__Example exercise trial.pdf"}], pdf)
         article = f"{RECORD.title}\n{RECORD.doi}\f{ARTICLE}"
         with patch("research.extract_pdf", return_value=article):
-            self.pipeline([RECORD], drive=drive).queue()
-            self.assertIn("pdf_external_anchor_review_needed", self.reasons(self.journal.data["holds"]))
-            self.assertEqual([], self.phases)
+            first = self.pipeline([RECORD], drive=drive, journal=Journal(self.root / "other-state.json"))
+            first.queue()
+            self.assertEqual(1, len(first.staged))
+            closed = replace(RECORD, open_access=False)
+            blocked = self.pipeline([closed], drive=drive, journal=Journal(self.root / "third-state.json"))
+            blocked.queue()
+            self.assertEqual([], blocked.staged)
+            self.assertIn("pdf_open_access_unconfirmed", self.reasons(blocked.journal.data["holds"]))
             anchors = {RECORD.doi: {"pdf_sha256": sha256(json.dumps(pdf).encode()).hexdigest(),
                                    "external": [], "reviewed_by": "Reviewer",
                                    "external_searched": "PEDro and review citation search completed."}}
@@ -801,3 +915,54 @@ class NumericValuesTest(unittest.TestCase):
     def test_negative_still_distinct(self):
         from research_appraisal import numeric_values
         self.assertEqual(numeric_values("-3.2") - numeric_values("3.2"), {"-3.2"})
+
+
+class CardEditsTest(unittest.TestCase):
+    CARD = {"bottom_line": "Old.", "limits": ["A.", "B."],
+            "appraisal": {"certainty": "moderate", "domains": [{"judgement": "low"}],
+                          "verification": {"checked_by": "one AI reading"}}}
+
+    def test_paths_set_append_delete(self):
+        card = apply_edits(self.CARD, {"bottom_line": "New.", "limits[+]": "C.", "limits[0]": None,
+                                       "appraisal.certainty": "low",
+                                       "appraisal.domains[0].judgement": "some concerns"})
+        self.assertEqual("New.", card["bottom_line"])
+        self.assertEqual(["B.", "C."], card["limits"])
+        self.assertEqual("low", card["appraisal"]["certainty"])
+        self.assertEqual("some concerns", card["appraisal"]["domains"][0]["judgement"])
+        self.assertEqual("moderate", self.CARD["appraisal"]["certainty"])  # original untouched
+
+    def test_bad_or_protected_paths_are_refused(self):
+        for path in ("limits[9]", "type", "appraisal.verification.status", "a..b", "limits[0].x", "nope.x"):
+            with self.subTest(path=path), self.assertRaisesRegex(Unavailable, "card_edit_path_invalid"):
+                apply_edits(self.CARD, {path: "x"})
+
+    def test_edits_only_for_approved_ids_and_marked_in_verification(self):
+        fingerprint = "ab" * 32
+        journal = SimpleNamespace(data={"review": {fingerprint: {
+            "status": "pending", "fingerprint": fingerprint, "card": self.CARD, "citation": {},
+            "added_at": "x", "paper_id": None, "record": {"doi": None}}}})
+        with self.assertRaisesRegex(Unavailable, "card_edits_for_unapproved_id"):
+            approved(journal, [fingerprint[:12]], {"cd" * 6: {"bottom_line": "x"}})
+        _, studies = approved(journal, [fingerprint[:12]], {fingerprint[:12]: {"appraisal.certainty": "low"}})
+        card = studies[0][1]["study"]
+        self.assertEqual("low", card["appraisal"]["certainty"])
+        self.assertIn("edited by the clinician", card["appraisal"]["verification"]["checked_by"])
+        self.assertEqual("one AI reading", self.CARD["appraisal"]["verification"]["checked_by"])
+
+
+class CertaintyTest(unittest.TestCase):
+    def test_single_rct_certainty_follows_grade_rows(self):
+        from research_appraisal import correct_certainty, expected_certainty
+        rows = [{"domain": d, "judgement": j} for d, j in (
+            ("risk of bias", "serious"), ("inconsistency", "not applicable"), ("indirectness", "not serious"),
+            ("imprecision", "serious"), ("publication bias", "not applicable"))]
+        app = {"tool": "RoB 2", "certainty": "moderate", "grade": rows}
+        self.assertEqual("low", expected_certainty(app))
+        warning = correct_certainty({"card": {"appraisal": app}})
+        self.assertEqual("certainty_corrected", warning["check"])
+        self.assertEqual("low", app["certainty"])
+        self.assertIsNone(correct_certainty({"card": {"appraisal": app}}))
+        rows[0]["judgement"] = "very serious"
+        self.assertEqual("very low", expected_certainty(app))
+        self.assertIsNone(expected_certainty({"tool": "ROBINS-I", "grade": rows}))
