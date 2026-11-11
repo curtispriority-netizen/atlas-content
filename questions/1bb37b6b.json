@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "question_id": "1bb37b6b",
+  "question": "NSAIDs for Discogenic lower back pain, does it help?",
+  "searched_at": "2026-11-11T08:15:14.906615+00:00",
+  "search_summary": "Europe PMC: 3 searches, 34 new records screened, 5 suggested. Answer uses checked cards only. AI-checked, not clinician-reviewed.",
+  "pico": {
+    "p": "Adults with discogenic lumbar low back pain",
+    "i": "NSAIDs",
+    "c": "Placebo or other analgesics",
+    "o": "Pain relief or improved function"
+  },
+  "suggestions": [
+    {
+      "key": "10.1038/s41413-026-00572-y",
+      "title": "Multidisciplinary expert consensus on clinical diagnosis and therapies for low back pain.",
+      "citation": "Gao B, Chai R, Wang G, Song Y, Shang L, Huang J, Cao X, Hai Y, Luo Z, Chinese Society for the Study of the Lumbar Spine, Chinese Association of Spine. Multidisciplinary expert consensus on clinical diagnosis and therapies for low back pain. Bone research 2026.",
+      "doi": "10.1038/s41413-026-00572-y",
+      "pmid": "42660880",
+      "year": "2026",
+      "design": "Guideline",
+      "priority": "core",
+      "open_access": true,
+      "why": "Recent consensus likely summarizes current low back pain medication recommendations, including NSAID use."
+    },
+    {
+      "key": "21418678",
+      "title": "Low back pain (chronic).",
+      "citation": "Chou R. Low back pain (chronic). BMJ clinical evidence 2010.",
+      "doi": "",
+      "pmid": "21418678",
+      "year": "2010",
+      "design": "Systematic review",
+      "priority": "core",
+      "open_access": false,
+      "why": "Reviews oral drugs for chronic low back pain and likely provides the best broad NSAID evidence."
+    },
+    {
+      "key": "10.3390/healthcare13172238",
+      "title": "A Comparison Between Physical Methods Based on Mechanical Action and Pharmacotherapy in the Treatment of Discogenic Low Back Pain.",
+      "citation": "Pingot J, Słupiński M, Lipski A, Woldańska-Okońska M. A Comparison Between Physical Methods Based on Mechanical Action and Pharmacotherapy in the Treatment of Discogenic Low Back Pain. Healthcare (Basel, Switzerland) 2025.",
+      "doi": "10.3390/healthcare13172238",
+      "pmid": "40941590",
+      "year": "2025",
+      "design": "Other",
+      "priority": "core",
+      "open_access": true,
+      "why": "Directly compares NSAID pharmacotherapy with physical treatments in discogenic low back pain."
+    },
+    {
+      "key": "10.1111/papr.70062",
+      "title": "14. Discogenic Low Back Pain.",
+      "citation": "van Os WKM, Alvarez-Jimenez R, Cohen SP, Stojanovic MP, Ruiz-Lopez R, Van Zundert J, Kallewaard JW. 14. Discogenic Low Back Pain. Pain practice : the official journal of World Institute of Pain 2025.",
+      "doi": "10.1111/papr.70062",
+      "pmid": "40717265",
+      "year": "2025",
+      "design": "Systematic review",
+      "priority": "useful",
+      "open_access": true,
+      "why": "Discogenic low back pain review outlines conservative care and where NSAIDs fit clinically."
+    },
+    {
+      "key": "10.1371/journal.pone.0322929",
+      "title": "The effectiveness of non-pharmacological interventions for low back pain in China: A systematic review and network meta-analysis.",
+      "citation": "Liu J, Peng WK, Jia Y. The effectiveness of non-pharmacological interventions for low back pain in China: A systematic review and network meta-analysis. PloS one 2025.",
+      "doi": "10.1371/journal.pone.0322929",
+      "pmid": "40343982",
+      "year": "2025",
+      "design": "Systematic review",
+      "priority": "useful",
+      "open_access": true,
+      "why": "Network meta-analysis suggests pharmaceuticals often reduce pain better than non-pharmacological options in low back pain."
+    }
+  ],
+  "gaps": [
+    "Discogenic-specific NSAID trials are scarce; most evidence comes from mixed chronic low back pain populations.",
+    "Head-to-head comparisons with other analgesics or exercise-based care are largely missing.",
+    "Follow-up is usually short, so durability of benefit and harms remain uncertain.",
+    "Evidence does not clearly separate discogenic pain from other low back pain phenotypes."
+  ]
+}
