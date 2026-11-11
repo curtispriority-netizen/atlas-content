@@ -67,6 +67,17 @@ def weekly_work(root, hobart_date):
     return False
 
 
+EDITION_MAX = 8
+
+
+def edition_items(root, hobart_date):
+    """How many cards this ISO week's edition already holds (0 when there is none yet)."""
+    if weekly_work(root, hobart_date):
+        return 0
+    year, week, _ = hobart_date.isocalendar()
+    return len(read_json(root / f"editions/{year}-W{week:02d}.json")["items"])
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     modes = parser.add_subparsers(dest="mode", required=True)
