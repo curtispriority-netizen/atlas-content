@@ -12,9 +12,9 @@
     {
       "id": "2026-W46",
       "path": "editions/2026-W46.json",
-      "published_at": "2026-11-11T02:48:16.655146+00:00",
-      "item_count": 1,
-      "verdict": "1 full-text study: drafted by one AI reading with numbers checked against the source, then approved by a clinician before publication. Not independently verified by a second reader."
+      "published_at": "2026-11-11T03:01:30.327553+00:00",
+      "item_count": 6,
+      "verdict": "6 full-text studies. Each card states how it was checked: AI-checked unless it says a clinician approved it."
     }
   ]
 }

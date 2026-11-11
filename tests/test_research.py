@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from research import Feed, Journal, Pipeline, apply_edits, approved, main, write_json
+from card_style import as_list, check_card
 from research_appraisal import (OpenAI, PRIMARY, BudgetExceeded, GRADE, appraisal_checks, drop_null,
                                 excerpt_diagnostics, passage_id, ref_sample, strip_refs)
 from research_sources import (Drive, Literature, Record, Review, Unavailable, get, passages,
@@ -132,14 +133,14 @@ class StubLiterature:
     def __init__(self, records, level="full_text"):
         self.records, self.level = records, level
         self.fetches = 0
-        self.older, self.backfills = [], 0
+        self.older, self.backfills, self.by_query = [], 0, {}
 
     def backfill(self, *args):
         self.backfills += 1
         return self.older
 
     def discover(self, *args):
-        return self.records
+        return self.by_query.get(args[0], self.records)
 
     def identify(self, *args):
         return self.records[0]
@@ -359,6 +360,30 @@ class ResearchTest(unittest.TestCase):
         limited.max_new = 1
         limited.process()
         self.assertEqual(1, len(limited.staged))
+
+    def test_challenge_slots_come_from_their_own_ranked_search_and_are_labelled(self):
+        picks = [replace(RECORD, doi=f"10.1234/c{n}", pmid=f"4000{n}", title=f"Sham comparison trial {n}")
+                 for n in range(3)]
+        config = dict(weekly_target=8, challenge_slots=1, challenge_query="challenge-q", challenge_focus="test habits")
+        self.ranked = [1, 0]
+        pipeline = self.pipeline([RECORD], **config)
+        pipeline.literature.by_query = {"challenge-q": picks}
+        pipeline.process()
+        self.assertEqual([picks[1].doi, RECORD.doi], [record.doi for record, _ in pipeline.studies])
+        self.assertEqual({"offered": 3, "staged": 1}, self.run["challenge"])
+        first, second = (self.journal.data["review"][fingerprint]["card"] for fingerprint in pipeline.staged)
+        self.assertTrue(first["evidence_note"].startswith("Challenge pick:"))
+        self.assertLessEqual(len(first["evidence_note"].split()), 30)
+        self.assertEqual([], check_card("card", first))
+        self.assertNotIn("Challenge pick", " ".join(as_list(second.get("evidence_note"))))
+        # Without a ranking there is no challenge pick: one unranked paper is not treated as one.
+        self.run.clear()
+        self.run.update(new_holds=0)
+        unranked = self.pipeline([RECORD], journal=Journal(self.root / "other-state.json"), **config)
+        unranked.literature.by_query = {"challenge-q": picks[:1]}
+        unranked.process()
+        self.assertEqual([RECORD.doi], [record.doi for record, _ in unranked.studies])
+        self.assertNotIn("challenge", self.run)
 
     def test_quiet_week_tops_up_to_the_minimum_with_older_papers_only(self):
         older = [replace(RECORD, doi=f"10.1234/old{n}", pmid=f"3000{n}", title=f"Older exercise trial {n}")
