@@ -32,6 +32,9 @@ name: Atlas research
       benchmark_pmid:
         description: Optional PMID to stage a single public paper privately
         type: string
+      max_new:
+        description: For stage only. Most search-found cards to add in this run (blank = fill the week to 8)
+        type: string
   schedule:
     - cron: '23 7 * * 3'
       timezone: Australia/Hobart
@@ -113,6 +116,7 @@ jobs:
           PROMOTE_IDS: ${{ inputs.promote_ids }}
           CARD_EDITS: ${{ inputs.card_edits }}
           BENCHMARK_PMID: ${{ inputs.benchmark_pmid }}
+          MAX_NEW: ${{ inputs.max_new }}
         run: |
           git config user.name 'Atlas research'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -128,6 +132,7 @@ jobs:
           if [[ "$mode" == stage && -n "$BENCHMARK_PMID" ]]; then
             extra+=(--benchmark-pmid "$BENCHMARK_PMID")
           fi
+          if [[ "$mode" == stage && "$MAX_NEW" =~ ^[0-9]+$ ]]; then extra+=(--max-new "$MAX_NEW"); fi
           python scripts/research.py "$mode" --state .atlas-state "${extra[@]}"
       - name: Notify about published research
         if: >-

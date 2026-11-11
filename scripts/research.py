@@ -15,7 +15,7 @@ from zoneinfo import ZoneInfo
 
 from jsonschema import Draft202012Validator
 
-from preflight import ROOT, PDF_NAME, read_json, weekly_work
+from preflight import EDITION_MAX, ROOT, PDF_NAME, edition_items, read_json, weekly_work
 from research_appraisal import (PRIMARY, SCREEN, BudgetExceeded, OpenAI, apply_edits, brief, digest, evaluate, object_schema,
                                 reading_schema, strip_refs)
 from card_style import check_card
@@ -97,7 +97,7 @@ class Feed:
     def duplicate(self, record):
         return bool(self.keys & record.keys) or title_key(record.title) in self.titles
 
-    def publish(self, papers, studies, day, timestamp, reviewed=True):
+    def publish(self, papers, studies, day, timestamp, reviewed=True, quiet=False):
         changed = []
         for paper_id, draft in papers:
             path = f"papers/{paper_id}.json"
@@ -113,13 +113,21 @@ class Feed:
             write_json(self.root / "papers/index.json", self.papers)
             changed.append("papers/index.json")
         if studies:
-            if not weekly_work(self.root, day):
-                raise Unavailable("edition_already_exists")
+            # A later run in the same ISO week adds its cards to that week's edition.
+            fresh = weekly_work(self.root, day)
             year, week, _ = day.isocalendar()
             edition_id = f"{year}-W{week:02}"
             path = f"editions/{edition_id}.json"
-            cards, sources = [], []
-            for number, (record, draft) in enumerate(studies, 1):
+            edition = None if fresh else read_json(self.root / path)
+            cards, sources = ([], []) if fresh else (edition["items"], edition["sources"])
+            if len(cards) + len(studies) > EDITION_MAX:
+                raise Unavailable("edition_full")
+            taken = {card["item_id"] for card in cards} | {source["id"] for source in sources}
+            number = len(cards)
+            for record, draft in studies:
+                number += 1
+                while f"{edition_id}-{number}" in taken or f"study-{number}" in taken:
+                    number += 1
                 card, source = copy.deepcopy((draft["study"], draft["citation"]))
                 card["item_id"] = f"{edition_id}-{number}"
                 source["id"] = f"study-{number}"
@@ -133,12 +141,21 @@ class Feed:
                 "clinician before publication. Not independently verified by a second reader." if reviewed else
                 ": AI-appraised, then checked by a second AI model and by code against the source. "
                 "AI-checked, not clinician-reviewed. Treat judgements as a first draft.")
-            write_json(self.root / path, {"schema_version": 1, "edition_id": edition_id,
-                       "published_at": timestamp, "verdict": verdict, "quiet_week": False,
-                       "items": cards, "on_the_radar": [], "filtered_out": [], "sources": sources})
-            self.editions["editions"].append({"id": edition_id, "path": path,
-                                             "published_at": timestamp, "item_count": len(cards),
-                                             "verdict": verdict})
+            if fresh:
+                write_json(self.root / path, {"schema_version": 1, "edition_id": edition_id,
+                           "published_at": timestamp, "verdict": verdict, "quiet_week": quiet,
+                           "items": cards, "on_the_radar": [], "filtered_out": [], "sources": sources})
+                self.editions["editions"].append({"id": edition_id, "path": path,
+                                                 "published_at": timestamp, "item_count": len(cards),
+                                                 "verdict": verdict})
+            else:
+                verdict = (f"{len(cards)} full-text studies. Each card states how it was checked: "
+                           "AI-checked unless it says a clinician approved it.")
+                edition.update(published_at=timestamp, verdict=verdict,
+                               quiet_week=bool(edition.get("quiet_week") or quiet))
+                write_json(self.root / path, edition)
+                (entry,) = [row for row in self.editions["editions"] if row["id"] == edition_id]
+                entry.update(published_at=timestamp, item_count=len(cards), verdict=verdict)
             self.editions["latest"] = max(entry["id"] for entry in self.editions["editions"])
             write_json(self.root / "index.json", self.editions)
             write_json(self.root / "shown.json", self.shown)
@@ -156,6 +173,7 @@ class Pipeline:
         self.staged, self.seen, self.ids = [], set(), set()
         self.retried = set()
         self.attempts = 0
+        self.max_new, self.backfilled = None, False
         self.rules = "\n\n".join((feed.root / name).read_text(encoding="utf-8")
                                   for name in ("APPRAISAL.md", "CARD_STYLE.md"))
         defs = read_json(feed.root / "schema/edition.schema.json")["$defs"]
@@ -388,7 +406,10 @@ class Pipeline:
                        self.now.isoformat(), anchor=anchor)
 
     def discover(self):
-        if not weekly_work(self.feed.root, self.today):
+        target = min(self.config.get("weekly_target", 3), EDITION_MAX)
+        have = edition_items(self.feed.root, self.today)
+        room = target - have if self.max_new is None else min(target - have, self.max_new)
+        if room <= 0:
             return
         pending = self.journal.data.setdefault("pending_discovery", {})
         resumed = []
@@ -403,35 +424,55 @@ class Pipeline:
             except Review as error:
                 del pending[key]
                 self.hold(key, str(error), key)
-        found = self.literature.discover(self.config["query"], self.today,
-                                        self.config["lookback_days"], self.config["search_limit"])
-        attempted = set()
-        found = [record for record in found
-                 if record.keys and not record.excluded and not self.feed.duplicate(record)]
-        for record in (*resumed, *sorted(self.screen(found), key=lambda r: not r.open_access)):
-            if len(self.staged) >= 3 or self.attempts >= self.config["max_candidates"]:
-                break
-            if (not record.keys or record.excluded or self.feed.duplicate(record)
-                    or record.keys & (self.seen | attempted)):
-                continue
-            attempted.update(record.keys)
-            key = self.record_key(record)
-            self.attempt(key, record.doi or record.pmid,
-                         lambda: self.discovery_candidate(record, pending), static=True, discovered=True)
+        start, attempted = len(self.staged), set()
 
-    def screen(self, records):
+        def usable(records):
+            return [record for record in records
+                    if record.keys and not record.excluded and not self.feed.duplicate(record)]
+
+        def work(records, limit):
+            for record in records:
+                if len(self.staged) - start >= limit or self.attempts >= self.config["max_candidates"]:
+                    break
+                if (not record.keys or record.excluded or self.feed.duplicate(record)
+                        or record.keys & (self.seen | attempted)):
+                    continue
+                attempted.update(record.keys)
+                key = self.record_key(record)
+                self.attempt(key, record.doi or record.pmid,
+                             lambda: self.discovery_candidate(record, pending), static=True, discovered=True)
+
+        found = usable(self.literature.discover(self.config["query"], self.today,
+                                                self.config["lookback_days"], self.config["search_limit"]))
+        work((*resumed, *sorted(self.screen(found), key=lambda r: not r.open_access)), room)
+        # Quiet week: top up to the weekly minimum with older, well-cited open-access papers not shown before.
+        floor = min(self.config.get("weekly_minimum", 0) - have, room)
+        if (len(self.staged) - start >= floor or not self.config.get("backfill_days")
+                or self.attempts >= self.config["max_candidates"]):
+            return
+        try:
+            older = usable(self.literature.backfill(self.config["query"], self.today, self.config["lookback_days"],
+                                                    self.config["backfill_days"], self.config["search_limit"]))
+        except Unavailable:
+            return
+        before = len(self.staged)
+        work(self.screen(older, "backfill"), floor)
+        self.run["backfill"] = {"offered": len(older), "staged": len(self.staged) - before}
+        self.backfilled = len(self.staged) > before
+
+    def screen(self, records, tag=None):
         """One cheap call ranks abstracts against the clinician's focus. Any failure keeps the search order."""
         if not self.config.get("focus") or len(records) < 2:
             return records
         papers = [{"n": n, "title": r.title, "types": r.publication_types, "abstract": r.abstract[:1800]}
                   for n, r in enumerate(records)]
         try:
-            reply = self.model.generate(digest(["screen", self.today.isoformat()]), PRIMARY, "screen", SCREEN,
+            reply = self.model.generate(digest(["screen", self.today.isoformat(), *([tag] if tag else [])]), PRIMARY, "screen", SCREEN,
                                         {"focus": self.config["focus"], "papers": papers}, SCREEN_SCHEMA, 3000)
         except (Review, Unavailable):
             return records
         order = list(dict.fromkeys(n for n in reply["ranked"] if 0 <= n < len(records)))
-        self.run["screened"] = {"offered": len(records), "kept": len(order)}
+        self.run["screened_" + tag if tag else "screened"] = {"offered": len(records), "kept": len(order)}
         return [records[n] for n in order]
 
     def discovery_candidate(self, record, pending):
@@ -446,7 +487,7 @@ class Pipeline:
     def process(self):
         # Leave capacity for weekly search even if the Drive queue has a backlog.
         limit = self.config["max_candidates"]
-        self.config["max_candidates"] = max(1, limit - 3)
+        self.config["max_candidates"] = max(1, limit - max(3, self.config.get("weekly_minimum", 0)))
         try:
             self.queue()
         finally:
@@ -501,6 +542,7 @@ def main():
     parser.add_argument("--state", type=Path, required=True)
     parser.add_argument("--retry-holds", action="store_true")
     parser.add_argument("--benchmark-pmid")
+    parser.add_argument("--max-new", type=int, help="Cap on search-found cards for this run")
     parser.add_argument("--promote-ids", default="", help="Comma-separated fingerprint prefixes (12+ characters)")
     parser.add_argument("--card-edits", default="", help="JSON: {fingerprint prefix: {path: new value}}")
     args = parser.parse_args()
@@ -549,6 +591,7 @@ def main():
             os.environ["ATLAS_DRIVE_READER_JSON"], os.environ["ATLAS_DRIVE_FOLDER_ID"])
         pipeline = Pipeline(feed, journal, Literature(), drive, model, now, run, config,
                             read_json(anchors) if anchors.exists() else {}, args.retry_holds)
+        pipeline.max_new = args.max_new
         changed, reviewed = [], True
         if args.mode == "promote":
             try:
@@ -583,7 +626,8 @@ def main():
                     papers, studies = approved(journal, ids, reviewed=False)
                     run["verified"] = len(papers) + len(studies)
                     reviewed = False
-                    changed = feed.publish(papers, studies, pipeline.today, now.isoformat(), reviewed=False)
+                    changed = feed.publish(papers, studies, pipeline.today, now.isoformat(), reviewed=False,
+                                           quiet=pipeline.backfilled)
         if changed:
             # No model-supplied content is printed in the public Actions log.
             if subprocess.run([sys.executable, "-X", "utf8", str(root / "scripts/validate.py")],

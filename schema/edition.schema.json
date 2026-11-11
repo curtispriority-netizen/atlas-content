@@ -46,7 +46,7 @@
     "items": {
       "type": "array",
       "minItems": 0,
-      "maxItems": 3,
+      "maxItems": 8,
       "items": {
         "$ref": "#/$defs/study"
       }
