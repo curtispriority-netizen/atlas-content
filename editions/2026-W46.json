@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "edition_id": "2026-W46",
+  "published_at": "2026-11-11T02:48:16.655146+00:00",
+  "verdict": "1 full-text study: drafted by one AI reading with numbers checked against the source, then approved by a clinician before publication. Not independently verified by a second reader.",
+  "quiet_week": false,
+  "items": [
+    {
+      "region": "lower limb",
+      "title": "More rest between sessions did not improve patellar tendinopathy rehab",
+      "evidence_tag": "established",
+      "evidence_note": "Randomised trial in sports-active adults with patellar tendinopathy.",
+      "confidence": "certain",
+      "confidence_note": "Primary outcome, methods, and main results were clearly reported.",
+      "impact": "changes_what_i_say",
+      "impact_line": "Do not promise extra benefit from extending rest between rehab sessions; both schedules improved.",
+      "summary": [
+        "52 sports-active adults with patellar tendinopathy were randomised to 3 vs 1 exercise session per week for 12 weeks.",
+        "VISA-P improved in both groups, but extended restitution was not better than short restitution.",
+        "Pain and strength also improved, while tendon structure did not.",
+        "The primary outcome was self-reported, so blinding limits certainty a little."
+      ],
+      "pico": {
+        "p": "Sports-active adults with patellar tendinopathy.",
+        "i": "12 weeks of exercise-based rehab with 1 session per week.",
+        "c": "The same program with 3 sessions per week.",
+        "o": "Change in VISA-P at 12 weeks."
+      },
+      "key_numbers": [
+        {
+          "value": "52",
+          "label": "randomised"
+        },
+        {
+          "value": "13",
+          "label": "VISA-P MCID"
+        },
+        {
+          "value": "55.9",
+          "label": "SR baseline VISA-P"
+        },
+        {
+          "value": "48.8",
+          "label": "ER baseline VISA-P"
+        }
+      ],
+      "limits": [
+        "No non-exercise control group.",
+        "Total exercise volume differed between groups.",
+        "Primary outcome was self-reported.",
+        "Baseline BMI differed between groups.",
+        "ER had more bilateral cases (14/24 vs 9/28)."
+      ],
+      "condition": "Patellar tendinopathy",
+      "playbook_step": "treat",
+      "bottom_line": "In this single-centre RCT, 12 weeks of exercise-based rehab improved VISA-P, pain, and strength in both groups, but adding more rest between sessions did not add benefit over three sessions per week.",
+      "methods": {
+        "design": "Randomised controlled, single-blinded, superiority trial.",
+        "setting": "Bispebjerg and Frederiksberg Hospital, Copenhagen, Denmark.",
+        "participants": "52 sports-active adults aged 18–60 years with patellar tendinopathy.",
+        "intervention": "12-week exercise-based rehab with one session weekly plus impact-load restriction.",
+        "comparator": "Same program with three sessions weekly plus impact-load restriction.",
+        "follow_up": "12 weeks for this report.",
+        "primary_outcome": "Change in VISA-P from baseline to 12 weeks."
+      },
+      "results": [
+        {
+          "outcome": "VISA-P",
+          "timepoint": "12 weeks",
+          "result": "No group or interaction effect; both groups improved.",
+          "meaning": "Extended rest was not better.",
+          "detail": "Mean VISA-P rose from 55.9 to 68.3 in the SR group and from 48.8 to 63.9 in the ER group. The paper reports no significant group effect (p = 0.16) and no interaction effect (p = 0.54).",
+          "verdict": "no_difference"
+        },
+        {
+          "outcome": "Pain",
+          "timepoint": "12 weeks",
+          "result": "Pain on activity, daily activity, rest, and decline squat fell in both groups.",
+          "meaning": "Symptoms improved with either schedule.",
+          "detail": "The paper reports significant time effects for pain during physical activity, daily activity, rest, and single-leg decline squat, with no group or interaction effects for the pain measures used for the main comparison.",
+          "verdict": "descriptive"
+        },
+        {
+          "outcome": "Strength",
+          "timepoint": "12 weeks",
+          "result": "Peak torque increased in both groups.",
+          "meaning": "Strength improved with either schedule.",
+          "detail": "The paper reports a significant time effect for maximal isokinetic peak torque, with no group or interaction effect.",
+          "verdict": "descriptive"
+        }
+      ],
+      "how_to_apply": [
+        "A longer gap between sessions is not needed to get the measured 12-week benefits.",
+        "The program still used impact-load restriction in both groups.",
+        "Expect improvement, but not full recovery, over 12 weeks.",
+        "Use patient preference when choosing between these two frequencies."
+      ],
+      "applies_to": [
+        "Sports-active adults with patellar tendinopathy.",
+        "Exercise-based rehab with impact-load restriction."
+      ],
+      "not_for": [
+        "Non-exercise treatment choices.",
+        "People outside the study's age and activity range."
+      ],
+      "appraisal": {
+        "certainty": "low",
+        "strengths": [
+          "Randomised design.",
+          "Allocation concealment was described.",
+          "Primary outcome and analysis plan were pre-registered.",
+          "Intention-to-treat analysis was used."
+        ],
+        "weaknesses": [
+          "Primary outcome was self-reported.",
+          "Participants and therapists were unblinded.",
+          "No non-exercise control group.",
+          "Groups differed in total exercise volume.",
+          "Baseline BMI was higher in the ER group."
+        ],
+        "funding_conflicts": "Supported by Lundbeck Foundation, Bispebjerg and Frederiksberg Hospital, Danish Society of Physiotherapy, and Danish Society of Sports Physiotherapy; authors reported no conflicts.",
+        "appraised_from": "full_text",
+        "tool": "RoB 2",
+        "overall_risk_of_bias": "some concerns",
+        "domains": [
+          {
+            "domain": "Randomisation process",
+            "judgement": "low",
+            "reason": "Computer-generated blocked randomisation with stratification and concealed access were reported.",
+            "support": "Methods P27-P28: randomisation and concealment described."
+          },
+          {
+            "domain": "Deviations from intended interventions",
+            "judgement": "some concerns",
+            "reason": "Participants and therapists were unblinded, so performance differences could have affected behaviour.",
+            "support": "Methods P29-P33: no blinding of participants/physiotherapists; intervention contact differed."
+          },
+          {
+            "domain": "Missing outcome data",
+            "judgement": "low",
+            "reason": "Attrition was small and balanced, with one dropout in each group and ITT analysis.",
+            "support": "Results P87 and Methods P81: one dropout per group; analyses were intention-to-treat."
+          },
+          {
+            "domain": "Measurement of the outcome",
+            "judgement": "some concerns",
+            "reason": "The primary outcome was participant-reported VISA-P, and participants knew their allocation.",
+            "support": "Methods P29 and P55-P58: VISA-P was self-reported; allocation could not be blinded."
+          },
+          {
+            "domain": "Selection of the reported result",
+            "judgement": "low",
+            "reason": "The trial was preregistered and used a predefined statistical analysis plan.",
+            "support": "Methods P15 and P80-P81: registration and SAP stated."
+          }
+        ],
+        "grade": [
+          {
+            "domain": "risk of bias",
+            "judgement": "serious",
+            "reason": "Primary outcome was self-reported and participants were unblinded."
+          },
+          {
+            "domain": "inconsistency",
+            "judgement": "not applicable",
+            "reason": "Single trial."
+          },
+          {
+            "domain": "indirectness",
+            "judgement": "not serious",
+            "reason": "Population, intervention, comparator, and outcome match the clinical question closely."
+          },
+          {
+            "domain": "imprecision",
+            "judgement": "serious",
+            "reason": "No between-group effect size or 95% CI was reported for the primary comparison, so the size of any benefit is uncertain."
+          },
+          {
+            "domain": "publication bias",
+            "judgement": "not applicable",
+            "reason": "Single trial."
+          }
+        ],
+        "clinical_significance": [
+          "The VISA-P MCID was 13 points.",
+          "Both groups improved by about 12 to 14 points, so the within-group change was around the MCID.",
+          "No between-group effect estimate or CI was reported, so an added benefit from more rest cannot be ruled in or out.",
+          "The finding supports no clear advantage for 1 session weekly over 3 sessions weekly over 12 weeks."
+        ],
+        "comparator_fairness": [
+          "The comparator was credible active rehab, not wait-and-see or sham.",
+          "Dose and supervision were not identical because session frequency and total volume differed.",
+          "Expectation was probably similar because both groups received active exercise and load restriction."
+        ],
+        "alternative_explanations": [
+          "Natural history could explain some improvement over 12 weeks.",
+          "Regression to the mean is plausible in a symptomatic sports sample.",
+          "Impact-load restriction and other co-interventions could have driven change.",
+          "Differential compliance may have influenced results; ER adherence was higher."
+        ],
+        "spin": [
+          "The abstract and conclusion match the primary outcome.",
+          "Authors call improvement 'comparable' and suggest choosing by preference; a non-significant superiority result does not show equivalence.",
+          "Claims are limited to no added benefit from extended restitution in this setting."
+        ],
+        "fit_with_evidence": [
+          "Fits the cited 2021 patellar tendinopathy exercise trial and the 2021 network meta-analysis that support loading-based rehab.",
+          "Extends dose-component evidence by testing session spacing rather than load magnitude.",
+          "Consistent with the playbook idea that loading helps, but the optimal configuration is still uncertain."
+        ],
+        "external_validity": [
+          "Reasonable match for active patients with patellar tendinopathy seen in sports physiotherapy.",
+          "Single-centre Danish sample, so healthcare context may differ from Australian private practice.",
+          "Mostly recreational athletes, not elite performers.",
+          "Short-term 12-week data; longer-term transfer is uncertain."
+        ],
+        "would_change_my_mind": [
+          "A larger trial with a blinded or objective primary outcome and a between-group CI favouring one schedule.",
+          "A trial that keeps total exercise volume equal while varying rest only.",
+          "Long-term data showing better durable recovery with one session weekly."
+        ],
+        "verification": {
+          "status": "not checked",
+          "checked_by": "one AI reading; every number checked against the passages it cites; approved by a clinician before publication; edited by the clinician",
+          "checked_at": "2026-11-10T23:20:11.244807+00:00",
+          "disagreements": [],
+          "external": [],
+          "external_searched": "External ratings not searched for this automated edition."
+        }
+      },
+      "patient_explanation": "Both exercise schedules helped people with patellar tendinopathy over 12 weeks, but having more rest between sessions did not clearly improve results. The main takeaway is that you may be able to choose the frequency that suits the person best.",
+      "open_questions": [
+        "Does equal total training volume change the result?",
+        "Would longer follow-up show a difference?",
+        "Does a more objective outcome change the conclusion?"
+      ],
+      "key_findings": [
+        "Both groups improved on VISA-P over 12 weeks.",
+        "Extended restitution was not superior to short restitution.",
+        "Pain and strength improved in both groups.",
+        "Tendon structure did not clearly improve.",
+        "The trial was preregistered and randomised."
+      ],
+      "type": "study",
+      "format": 2,
+      "item_id": "2026-W46-1",
+      "read_level": "full_text",
+      "source_ids": [
+        "study-1"
+      ],
+      "full_text": {
+        "status": "read",
+        "worth_getting": false,
+        "why": "Read the full source in one AI pass; numbers checked against it."
+      },
+      "first_published": "2026-03-01"
+    }
+  ],
+  "on_the_radar": [],
+  "filtered_out": [],
+  "sources": [
+    {
+      "id": "study-1",
+      "citation": "Agergaard AS, Svensson RB, Hoeffner R, Gillani SZ, Magnusson SP. Extended Restitution Between Sessions Does Not Enhance the Benefits of 12 Weeks Exercise-Based Treatment for Patellar Tendinopathy: A Randomized Controlled Clinical Trial (The TEREX Trial). Scandinavian journal of medicine & science in sports 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41796988/",
+      "doi": "10.1111/sms.70235",
+      "pmid": "41796988"
+    }
+  ]
+}
