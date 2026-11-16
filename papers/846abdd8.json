@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "paper_id": "846abdd8",
+  "added_at": "2026-11-16T10:25:03.447455+00:00",
+  "study": {
+    "region": "lumbar",
+    "title": "Core training for chronic low back pain: modest pooled benefit, very mixed trials",
+    "evidence_tag": "established",
+    "evidence_note": "Direct head-to-head RCT synthesis in CNLBP.",
+    "confidence": "certain",
+    "confidence_note": "Results and methods are clearly reported in the article.",
+    "impact": "set_expectations",
+    "impact_line": "Across active comparisons, experimental regimens pooled better than comparators, but heterogeneity was extreme and regimens varied widely.",
+    "summary": [
+      "15 RCTs; 693 people for pain and 677 for function.",
+      "Pain and function both favoured core training overall.",
+      "I2 was >90% for both primary outcomes.",
+      "Subgroup signals suggest 8+ weeks may matter for pain, not clearly for function."
+    ],
+    "pico": {
+      "p": "Adults with chronic non-specific low back pain",
+      "i": "Different active core muscle training regimens",
+      "c": "Another active core regimen",
+      "o": "Pain and lumbar function"
+    },
+    "key_numbers": [
+      {
+        "value": "15",
+        "label": "RCTs"
+      },
+      {
+        "value": "-0.56",
+        "label": "Pain SMD"
+      },
+      {
+        "value": "-0.81",
+        "label": "Function SMD"
+      },
+      {
+        "value": "90%+",
+        "label": "Heterogeneity"
+      }
+    ],
+    "limits": [
+      "Very high heterogeneity across comparison types.",
+      "Primary outcomes are subjective and unblinded in many trials.",
+      "Regimens, dose and co-interventions varied widely.",
+      "Follow-up was mainly short term.",
+      "Evidence base was largely Chinese and Korean trials."
+    ],
+    "condition": "Chronic non-specific low back pain",
+    "playbook_step": "treat",
+    "bottom_line": "In active-comparator trials, experimental regimens had better short-term pain and function on average, but extreme heterogeneity means this does not identify one best core method.",
+    "methods": {
+      "design": "Systematic review and meta-analysis of RCTs",
+      "setting": "Six databases; studies published through the search date",
+      "participants": "15 RCTs in adults with CNLBP",
+      "intervention": "Head-to-head comparisons of active core training regimens, including single and combined protocols",
+      "comparator": "Another active core training regimen",
+      "follow_up": "Post-intervention; some subgroup analyses by duration",
+      "primary_outcome": "Pain intensity and lumbar disability/function"
+    },
+    "results": [
+      {
+        "outcome": "Pain",
+        "timepoint": "Post-intervention",
+        "result": "SMD -0.56 (95% CI -1.08 to -0.03)",
+        "effect": "Between-group pooled difference across active comparisons",
+        "meaning": "Favours experimental regimens",
+        "detail": "14 RCTs, 693 participants. Post-intervention pooled between-group effect across diverse active comparisons; I2 = 90%.",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "Function",
+        "timepoint": "Post-intervention",
+        "result": "SMD -0.81 (95% CI -1.38 to -0.25)",
+        "effect": "SMD -0.81 (95% CI -1.38 to -0.25)",
+        "meaning": "Favours core training overall",
+        "detail": "15 RCTs, 677 participants. Heterogeneity was high (I2 = 91%). The estimate is statistically significant but imprecise.",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "Pain subgroup",
+        "timepoint": "≥ 8 weeks",
+        "result": "SMD -0.86 (95% CI -1.42 to -0.30)",
+        "effect": "SMD -0.86 (95% CI -1.42 to -0.30)",
+        "meaning": "Longer programmes looked better",
+        "detail": "This subgroup was statistically significant; < 8 weeks was not. The subgroup difference test was not significant.",
+        "verdict": "unclear"
+      }
+    ],
+    "how_to_apply": [
+      "Use as a broad signal, not a single preferred protocol.",
+      "Expect more consistent pain benefit with 8+ week programmes.",
+      "Be cautious about claiming one core method beats another.",
+      "Do not overread combined programmes; subgroup differences were not significant.",
+      "Match expectations to the comparator and co-interventions used in the trial.",
+      "Treat this as short-term evidence only."
+    ],
+    "applies_to": [
+      "Adults with CNLBP",
+      "Short-term core training decisions",
+      "Exercise-based rehabilitation settings"
+    ],
+    "not_for": [
+      "Acute low back pain",
+      "Specific spinal pathology",
+      "Claims about long-term durability"
+    ],
+    "appraisal": {
+      "certainty": "low",
+      "strengths": [
+        "Prospective registration.",
+        "PRISMA reporting.",
+        "Duplicate screening and extraction.",
+        "Subgroup and sensitivity analyses.",
+        "Publication bias explored."
+      ],
+      "weaknesses": [
+        "High heterogeneity.",
+        "Many trials had unclear or high bias domains.",
+        "Unblinded subjective outcomes.",
+        "Diverse regimens pooled together.",
+        "Mostly short follow-up."
+      ],
+      "funding_conflicts": "No financial support reported; authors declared no commercial or financial conflicts.",
+      "appraised_from": "full_text",
+      "tool": "AMSTAR 2",
+      "overall_risk_of_bias": "some concerns",
+      "domains": [
+        {
+          "domain": "Protocol registered before review",
+          "judgement": "low",
+          "reason": "Protocol was registered before the review started.",
+          "support": "P14: PROSPERO registration stated."
+        },
+        {
+          "domain": "Adequate literature search",
+          "judgement": "low",
+          "reason": "Six databases searched with MeSH and free text, no language restriction.",
+          "support": "P25-P27: databases and search terms described."
+        },
+        {
+          "domain": "Justified exclusions",
+          "judgement": "low",
+          "reason": "Reasons for 79 exclusions were listed.",
+          "support": "P55-P56: exclusion counts and reasons reported."
+        },
+        {
+          "domain": "Risk of bias assessed in included studies",
+          "judgement": "low",
+          "reason": "Included trials were appraised with Cochrane RoB 1.0.",
+          "support": "P35-P37: RoB tool and domains named."
+        },
+        {
+          "domain": "Appropriate meta-analytic methods",
+          "judgement": "some concerns",
+          "reason": "Random-effects models were used, but very heterogeneous comparisons were pooled.",
+          "support": "P46, P93-P101: random effects and I2 > 90%."
+        },
+        {
+          "domain": "RoB considered when interpreting results",
+          "judgement": "low",
+          "reason": "Discussion and GRADE linked the findings to methodological limitations.",
+          "support": "P168-P169, P189-P203: RoB and heterogeneity discussed."
+        },
+        {
+          "domain": "Publication bias assessed",
+          "judgement": "low",
+          "reason": "Funnel plots and Egger tests were reported for both primary outcomes.",
+          "support": "P151-P165: publication bias assessment."
+        }
+      ],
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "serious",
+          "reason": "Many included studies had allocation concealment and blinding problems."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "serious",
+          "reason": "Heterogeneity was very high for both primary outcomes (I2 > 90%)."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "not serious",
+          "reason": "Population, interventions and outcomes match the review question."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "not serious",
+          "reason": "Pooled 95% CIs were reported and total samples were 677-693 participants."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "not serious",
+          "reason": "Funnel plots were roughly symmetric and Egger tests were not significant."
+        }
+      ],
+      "clinical_significance": [
+        "No MCID or smallest worthwhile change was reported in the source, so clinical importance cannot be judged against a named threshold.",
+        "Pain CI includes no effect, so a clinically meaningful benefit cannot be confirmed.",
+        "Function CI excludes no effect, but the estimate is still imprecise and highly heterogeneous.",
+        "The pooled effects may be statistically significant yet still not reliably transferable to one regimen."
+      ],
+      "comparator_fairness": [
+        "Comparators were active core regimens, not no-treatment controls.",
+        "This is a fair design for relative effectiveness, not for absolute efficacy.",
+        "Dose, co-interventions and expectation were uneven across studies."
+      ],
+      "alternative_explanations": [
+        "Natural recovery and regression to the mean could contribute in short trials.",
+        "Context and therapist contact may differ between regimens.",
+        "Co-interventions were common in combined arms.",
+        "Baseline differences and differential reporting could also influence the pooled effect."
+      ],
+      "spin": [
+        "The abstract and conclusion mostly match the pooled primary outcomes.",
+        "The conclusion is stronger than the subgroup evidence for a superior modality.",
+        "Sling exercise is highlighted in the conclusion, but the subgroup evidence is not definitive."
+      ],
+      "fit_with_evidence": [
+        "The paper cites a 2025 systematic review reporting benefit versus controls, which is broadly consistent with these pooled positive effects.",
+        "This review extends that work by comparing active regimens head-to-head.",
+        "It fits the Atlas lumbar playbook as exercise-based care, but not as proof of one best core method."
+      ],
+      "external_validity": [
+        "Reasonable for adult CNLBP seen in sports physiotherapy.",
+        "Most studies were from China and Korea, so transfer to Australian practice needs caution.",
+        "Programmes were short term and varied widely, unlike many routine caseloads.",
+        "The sample is not clearly athlete-focused."
+      ],
+      "would_change_my_mind": [
+        "A larger, preregistered head-to-head RCT with standardised dose and longer follow-up.",
+        "A network or direct-comparison review with lower heterogeneity and consistent superiority of one regimen.",
+        "Replication in an Australian clinical population with clear patient-relevant thresholds."
+      ],
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+        "checked_at": "2026-11-16T10:25:03.447455+00:00",
+        "disagreements": [
+          {
+            "item": "impact line",
+            "first": "Pooled effects favour core training, but heterogeneity is extreme and the …",
+            "second": "Across active comparisons, experimental regimens pooled better than comparators, but heterogeneity …",
+            "why": "Avoids implying absolute efficacy of core training.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "bottom line",
+            "first": "Core muscle training probably helps pain and function on average in …",
+            "second": "In active-comparator trials, experimental regimens had better short-term pain and function …",
+            "why": "Clarifies relative, not absolute, effect.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "key findings",
+            "first": "[\"Overall pain and function improved versus other active core regimens.\", \"Very …",
+            "second": "[\"14 RCTs for pain; 15 for function.\", \"Experimental regimens pooled better …",
+            "why": "Fixes overstatement and subgroup interpretation.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[0]",
+            "first": "{\"outcome\": \"Pain\", \"timepoint\": \"Post-intervention\", \"result\": \"SMD -0.56 (95% CI -1.08 to …",
+            "second": "{\"outcome\": \"Pain\", \"timepoint\": \"Post-intervention\", \"result\": \"SMD -0.56 (95% CI -1.08 to …",
+            "why": "States correct comparison and direction.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.grade[3].judgement",
+            "first": "serious",
+            "second": "not serious",
+            "why": "Keeps certainty consistent with GRADE rows.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.grade[3].reason",
+            "first": "Pain CI crosses no effect; both CIs are wide and estimates …",
+            "second": "Pooled 95% CIs were reported and total samples were 677-693 participants.",
+            "why": "Justifies no downgrade for imprecision.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.domains[5].domain",
+            "first": "Risk of bias considered when interpreting results",
+            "second": "RoB considered when interpreting results",
+            "why": "Matches required AMSTAR 2 domain name.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "Second reader's concern",
+            "first": "Not raised in the first reading",
+            "second": "Raised by the second reader",
+            "why": "Some included comparisons were adjunctive or non-core controls, not pure head-to-head core regimens.",
+            "resolved": "left open"
+          },
+          {
+            "item": "Second reader's concern",
+            "first": "Not raised in the first reading",
+            "second": "Raised by the second reader",
+            "why": "Pooling arbitrary experimental versus control labels limits any claim that core training itself is effective.",
+            "resolved": "left open"
+          },
+          {
+            "item": "Second reader's concern",
+            "first": "Not raised in the first reading",
+            "second": "Raised by the second reader",
+            "why": "AMSTAR 2 justified exclusions may be optimistic without a study-level exclusion list.",
+            "resolved": "left open"
+          },
+          {
+            "item": "Automated check",
+            "first": "unsupported number",
+            "second": "card.results[0], card.key_numbers[1]",
+            "why": "Numbers not found in the passages the card cites. Check each against the paper.",
+            "resolved": "left open"
+          }
+        ],
+        "external": [],
+        "external_searched": "External ratings not searched for this automated edition."
+      }
+    },
+    "patient_explanation": "Core exercise programmes for long-term low back pain seem to help on average, but the studies are mixed and no single version is clearly best. Longer programmes may help pain more, but the evidence is still uncertain.",
+    "open_questions": [
+      "Which core regimen is best for which patient subgroup?",
+      "Does benefit persist after treatment ends?",
+      "How much of the effect is due to the added co-interventions?"
+    ],
+    "key_findings": [
+      "14 RCTs for pain; 15 for function.",
+      "Experimental regimens pooled better for pain and function overall.",
+      "I2 was 90% for pain and 91% for function.",
+      "8+ week programmes had better pain estimates, but subgroup differences were not significant.",
+      "Combined programmes improved function, but superiority over single-modality training was not shown."
+    ],
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-846abdd8",
+    "read_level": "full_text",
+    "source_ids": [
+      "paper"
+    ],
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read the full source by AI; numbers checked against it."
+    },
+    "first_published": "2026-04-20"
+  },
+  "sources": [
+    {
+      "id": "paper",
+      "citation": "Liu Y, Yu Y, Lu F, Liu J. Comparative effectiveness of different core muscle training regimens for chronic non-specific low back pain: a systematic review and meta-analysis. Frontiers in medicine 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42089060/",
+      "doi": "10.3389/fmed.2026.1814834",
+      "pmid": "42089060"
+    }
+  ]
+}

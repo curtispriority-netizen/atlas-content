@@ -1,0 +1,362 @@
+{
+  "schema_version": 1,
+  "paper_id": "71ad07a5",
+  "added_at": "2026-11-16T10:25:03.447455+00:00",
+  "study": {
+    "region": "lumbar",
+    "title": "Exercise may help mental health, QoL and pain in osteoporosis",
+    "evidence_tag": "established",
+    "evidence_note": "Based on 23 RCTs, with pooled effects and GRADE reported in the review.",
+    "confidence": "certain",
+    "confidence_note": "Full text reported the methods, pooled results, subgroup analyses and GRADE tables.",
+    "impact": "changes_what_i_say",
+    "impact_line": "Exercise is reasonable to recommend for symptoms, but the best dose and mode are still unclear.",
+    "summary": [
+      "Exercise improved mental health, QoL and pain in pooled analyses.",
+      "Heterogeneity was high for the main outcomes.",
+      "Clinical Pilates and resistance-based programmes often looked best in subgroups.",
+      "Pain benefit was small on the pooled SMD scale.",
+      "Most participants were older women."
+    ],
+    "pico": {
+      "p": "Adults with osteoporosis",
+      "i": "Exercise or physical activity programmes",
+      "c": "Treatment as usual, no intervention, or unsupervised activity advice",
+      "o": "Mental health, quality of life, pain and physical function"
+    },
+    "key_numbers": [
+      {
+        "value": "23",
+        "label": "RCTs included"
+      },
+      {
+        "value": "0.53",
+        "label": "Mental health SMD"
+      },
+      {
+        "value": "0.62",
+        "label": "QoL SMD"
+      },
+      {
+        "value": "0.36",
+        "label": "Pain SMD"
+      }
+    ],
+    "limits": [
+      "Mostly older women; findings may not transfer well to men.",
+      "Exercise content, intensity and progression were inconsistently reported.",
+      "Heterogeneity was substantial or considerable for several pooled outcomes.",
+      "Some subgroup effects came from small numbers of studies.",
+      "One study had self-reported osteoporosis and was sensitivity-tested out."
+    ],
+    "condition": "Osteoporosis",
+    "playbook_step": "treat",
+    "bottom_line": "Exercise probably helps mental health, quality of life and pain in osteoporosis, but the pooled effects are heterogeneous and the best exercise recipe is still uncertain.",
+    "methods": {
+      "design": "Systematic review and meta-analysis of RCTs",
+      "setting": "Six databases searched; studies from multiple countries",
+      "participants": "Adults with clinically diagnosed osteoporosis; 2120 participants across 23 studies",
+      "intervention": "Exercise or physical activity programmes of varied type, dose and supervision",
+      "comparator": "Treatment as usual, no intervention, or unsupervised physical activity advice",
+      "follow_up": "Varied by study",
+      "primary_outcome": "Mental health, quality of life and pain"
+    },
+    "results": [
+      {
+        "outcome": "Mental health",
+        "timepoint": "post-intervention",
+        "result": "SMD 0.53 [0.25, 0.81], p = 0.0002",
+        "effect": "SMD 0.53 [0.25, 0.81]",
+        "meaning": "Improvement likely",
+        "detail": "20 RCTs, 1676 participants. Heterogeneity was considerable: I2 = 85%, p < 0.00001. GRADE was moderate.",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "Quality of life",
+        "timepoint": "post-intervention",
+        "result": "SMD 0.62 [0.29, 0.95], p = 0.0003",
+        "effect": "SMD 0.62 [0.29, 0.95]",
+        "meaning": "Improvement likely",
+        "detail": "12 RCTs, 1130 participants. Heterogeneity was considerable: I2 = 84%, p < 0.00001. GRADE was moderate.",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "Pain",
+        "timepoint": "post-intervention",
+        "result": "SMD 0.36 [0.17, 0.55], p = 0.0002",
+        "effect": "SMD 0.36 [0.17, 0.55]",
+        "meaning": "Likely small benefit",
+        "detail": "16 RCTs, 1452 participants. Heterogeneity was substantial: I2 = 63%, p = 0.0004. GRADE was low.",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "Pain at rest",
+        "timepoint": "post-intervention",
+        "result": "MD −1.69 [−2.38, −0.99], p < 0.00001",
+        "effect": "MD −1.69 [−2.38, −0.99]",
+        "meaning": "May be clinically relevant",
+        "detail": "4 RCTs, 229 participants. Heterogeneity was substantial: I2 = 63%, p = 0.02. GRADE was moderate, downgraded for imprecision.",
+        "verdict": "unclear"
+      }
+    ],
+    "how_to_apply": [
+      "Use supervised exercise when possible.",
+      "Progressive resistance and balance work were the most consistent elements.",
+      "Three sessions per week often looked best in subgroup analyses.",
+      "Do not over-interpret subgroup results from small study sets.",
+      "Expect benefit on symptoms, not guaranteed bone outcomes.",
+      "Pilates may help, but the evidence base was small."
+    ],
+    "applies_to": [
+      "Older women with osteoporosis",
+      "People with vertebral fracture history",
+      "Supervised clinic or gym programmes"
+    ],
+    "not_for": [
+      "Men with osteoporosis only",
+      "Very frail patients excluded from trials",
+      "Claims about bone density change from this review"
+    ],
+    "appraisal": {
+      "certainty": "moderate",
+      "strengths": [
+        "Prospective protocol registered",
+        "Large pooled sample for symptoms",
+        "Broad search across six databases",
+        "Sensitivity analyses and subgroup analyses were reported"
+      ],
+      "weaknesses": [
+        "High heterogeneity for main outcomes",
+        "Many studies had incomplete reporting",
+        "Clinical significance thresholds were not uniform",
+        "Some subgroup findings rested on small studies"
+      ],
+      "funding_conflicts": "Open Access funding via CAUL member institutions; philanthropic grant and PhD scholarship. Authors reported no conflicts of interest.",
+      "appraised_from": "full_text",
+      "tool": "AMSTAR 2",
+      "overall_risk_of_bias": "some concerns",
+      "domains": [
+        {
+          "domain": "Protocol registered before review",
+          "judgement": "low",
+          "reason": "Protocol was registered in PROSPERO.",
+          "support": "P18: PROSPERO CRD42023440020"
+        },
+        {
+          "domain": "Adequate literature search",
+          "judgement": "low",
+          "reason": "Six databases were searched and the strategy was updated three times.",
+          "support": "P40-P41: six databases, updates to Dec 15 2025"
+        },
+        {
+          "domain": "Justified exclusions",
+          "judgement": "some concerns",
+          "reason": "Full-text exclusions were summarised, but excluded studies were not listed individually with reasons.",
+          "support": "P86: exclusions listed; one paper not retrieved"
+        },
+        {
+          "domain": "Risk of bias assessed in included studies",
+          "judgement": "low",
+          "reason": "Included studies were appraised with a JBI randomised trial checklist.",
+          "support": "P71-P72: JBI checklist used independently"
+        },
+        {
+          "domain": "Appropriate meta-analytic methods",
+          "judgement": "some concerns",
+          "reason": "Random-effects meta-analysis was used, but pooled within-group data and split control arms may affect interpretability.",
+          "support": "P60-P62: within-group MDs and split control groups"
+        },
+        {
+          "domain": "RoB considered when interpreting results",
+          "judgement": "low",
+          "reason": "Sensitivity analyses removed high-risk studies and discussion linked findings to study quality.",
+          "support": "P67, P81, P356-P360"
+        },
+        {
+          "domain": "Publication bias assessed",
+          "judgement": "low",
+          "reason": "Funnel plots were inspected for primary outcomes.",
+          "support": "P64-P75: funnel plots and publication bias"
+        }
+      ],
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "not serious",
+          "reason": "Most trials were low risk or had some concerns; four mental-health studies were high risk for statistical conclusion validity."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "serious",
+          "reason": "Mental health heterogeneity was considerable: I2 = 85%, p < 0.00001."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "not serious",
+          "reason": "Adults with osteoporosis, exercise comparators and patient-important outcomes matched the review question."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "not serious",
+          "reason": "Pooled mental-health estimate was statistically significant with 1676 participants across 20 RCTs."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "not serious",
+          "reason": "Funnel plots were inspected; publication bias was not flagged for mental health."
+        }
+      ],
+      "clinical_significance": [
+        "Mental health and QoL improved, but the paper does not give an MCID for the SMDs, so clinical importance is uncertain.",
+        "Pain SMD looks small; the review itself calls the clinical meaning variable.",
+        "For QUALEFFO-41 pain, the change may be clinically relevant.",
+        "For VAS pain at rest, the change may or may not be meaningful."
+      ],
+      "comparator_fairness": [
+        "Comparators were credible overall: usual care, no intervention, or unsupervised advice.",
+        "Dose and contact time were often lower than the active programmes, so expectation control was limited.",
+        "This is not a sham-controlled exercise trial."
+      ],
+      "alternative_explanations": [
+        "Natural history may explain part of the change in a chronic condition.",
+        "Regression to the mean is plausible, especially in small studies.",
+        "Non-specific attention and group contact may have contributed.",
+        "Co-interventions and differential attrition could have influenced some trials."
+      ],
+      "spin": [
+        "The abstract and conclusion broadly match the pooled results.",
+        "The paper emphasises favourable subgroups despite high heterogeneity and small subgroup sizes.",
+        "Some subgroup language is stronger than the data support."
+      ],
+      "fit_with_evidence": [
+        "The review is broadly consistent with prior systematic reviews cited by the authors and with exercise guidance for osteoporosis.",
+        "It extends the evidence by pooling mental health and pain outcomes together, but does not settle the optimal prescription."
+      ],
+      "external_validity": [
+        "✓ Mostly older adults with osteoporosis, similar to many outpatient caseloads",
+        "✓ Supervised clinic/gym and home programmes both featured",
+        "✗ 95.1% female, so male transfer is limited",
+        "✗ Many studies excluded severe comorbidity; real-world caseloads are messier"
+      ],
+      "would_change_my_mind": [
+        "A large, well-reported RCT showing no symptom benefit despite low attrition and prespecified MCIDs would weaken this conclusion.",
+        "A consistent effect in men, frailer adults, or higher-quality trials would strengthen it."
+      ],
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+        "checked_at": "2026-11-16T10:25:03.447455+00:00",
+        "disagreements": [
+          {
+            "item": "appraisal.domains[2].judgement",
+            "first": "low",
+            "second": "some concerns",
+            "why": "Excluded full texts were not individually listed with reasons.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.domains[2].reason",
+            "first": "Full-text exclusions were described by reason, and one unattainable paper was noted.",
+            "second": "Full-text exclusions were summarised, but excluded studies were not listed individually …",
+            "why": "AMSTAR 2 needs specific justified exclusions.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.grade",
+            "first": "[{\"domain\": \"risk of bias\", \"judgement\": \"serious\", \"reason\": \"Included trials had variable …",
+            "second": "[{\"domain\": \"risk of bias\", \"judgement\": \"not serious\", \"reason\": \"Most trials were …",
+            "why": "Current GRADE rows contradict moderate certainty.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[0].verdict",
+            "first": "meaningful",
+            "second": "unclear",
+            "why": "No MCID was reported for pooled mental-health SMD.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[1].verdict",
+            "first": "meaningful",
+            "second": "unclear",
+            "why": "No MCID was reported for pooled QoL SMD.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[2].verdict",
+            "first": "below_mcid",
+            "second": "unclear",
+            "why": "Pooled pain SMD lacks a validated between-group MCID.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[3]",
+            "first": "{\"outcome\": \"Pain at rest\", \"timepoint\": \"post-intervention\", \"result\": \"MD -1.69 [-2.38, -0.99], …",
+            "second": "{\"outcome\": \"Pain at rest\", \"timepoint\": \"post-intervention\", \"result\": \"MD −1.69 [−2.38, −0.99], …",
+            "why": "Fix unsupported number formatting and add supporting passages.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.would change my mind[0]",
+            "first": "A large, well-reported RCT with concealed allocation, blinded outcome assessment, low …",
+            "second": "A large, well-reported RCT showing no symptom benefit despite low attrition …",
+            "why": "Shorten to the word cap.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "Second reader's concern",
+            "first": "Not raised in the first reading",
+            "second": "Raised by the second reader",
+            "why": "One author screened titles and abstracts alone.",
+            "resolved": "left open"
+          },
+          {
+            "item": "Second reader's concern",
+            "first": "Not raised in the first reading",
+            "second": "Raised by the second reader",
+            "why": "Change-score meta-analysis used imputed p-values in some trials.",
+            "resolved": "left open"
+          }
+        ],
+        "external": [],
+        "external_searched": "External ratings not searched for this automated edition."
+      }
+    },
+    "patient_explanation": "Exercise seems to help pain, mood and daily function in people with osteoporosis. The best programme is not settled, but supervised, progressive exercise is a reasonable option.",
+    "open_questions": [
+      "Which exercise dose is best?",
+      "Does benefit differ by fracture history or sex?",
+      "Which outcome measure best captures mental health in osteoporosis?"
+    ],
+    "key_findings": [
+      "Exercise improved mental health, QoL and pain in pooled analyses.",
+      "Heterogeneity was high, so average effects are uncertain.",
+      "Clinical Pilates and resistance-based programmes often looked best in subgroups.",
+      "Pain benefit was small on the pooled SMD scale.",
+      "Most participants were older women."
+    ],
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-71ad07a5",
+    "read_level": "full_text",
+    "source_ids": [
+      "paper"
+    ],
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read the full source by AI; numbers checked against it."
+    },
+    "first_published": "2026-02-20"
+  },
+  "sources": [
+    {
+      "id": "paper",
+      "citation": "Fitzgerald C, Burley C, Wright K, McLeod K, Asadi S, Parmenter B. Exercise improves quality of life, mental health and pain in people living with osteoporosis: a systematic review and meta-analysis. Osteoporosis international : a journal established as result of cooperation between the European Foundation for Osteoporosis and the National Osteoporosis Foundation of the USA 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41718839/",
+      "doi": "10.1007/s00198-026-07876-z",
+      "pmid": "41718839"
+    }
+  ]
+}

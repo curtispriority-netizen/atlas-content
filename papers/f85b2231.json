@@ -1,0 +1,345 @@
+{
+  "schema_version": 1,
+  "paper_id": "f85b2231",
+  "added_at": "2026-11-16T10:25:03.447455+00:00",
+  "study": {
+    "region": "lower limb",
+    "title": "Active exercise may help balance, but certainty is low",
+    "evidence_tag": "emerging",
+    "evidence_note": "Network meta-analysis of older-adult and rehabilitation contexts; sparse, heterogeneous evidence.",
+    "confidence": "certain",
+    "confidence_note": "Numbers and methods were directly reported in the full text.",
+    "impact": "set_expectations",
+    "impact_line": "Balance gains are plausible across active exercise formats, but the evidence is too mixed for a clear best choice.",
+    "summary": [
+      "Active exercise generally beat control for balance-related outcomes.",
+      "Technology-assisted exercise favoured control, but certainty was low and the digital node was broad.",
+      "Pilates and technology-delivered Pilates were promising, but evidence was sparse.",
+      "The planned AR/VR focus was broadened to a wider digital exercise node."
+    ],
+    "pico": {
+      "p": "Older adults, aging-related rehabilitation groups, and some indirect non-geriatric populations with balance or postural-control outcomes.",
+      "i": "Pilates, technology-assisted exercise, or technology-delivered Pilates.",
+      "c": "Control, conventional exercise, or other active exercise nodes.",
+      "o": "Post-intervention balance or postural-control performance."
+    },
+    "key_numbers": [
+      {
+        "value": "12",
+        "label": "primary studies"
+      },
+      {
+        "value": "491",
+        "label": "primary participants"
+      },
+      {
+        "value": "0.69",
+        "label": "tech-assisted g"
+      },
+      {
+        "value": "0.38",
+        "label": "tech-assisted CI low"
+      }
+    ],
+    "limits": [
+      "Technology-assisted node pooled multiple digital formats.",
+      "One study used nonrandom allocation and stayed outside the RCT network.",
+      "Many trials were small and not purely geriatric.",
+      "Fall incidence and durability were not tested.",
+      "Baseline-adjusted synthesis was not available."
+    ],
+    "condition": "Balance and postural-control rehabilitation",
+    "playbook_step": "treat",
+    "bottom_line": "This review suggests active exercise may improve balance-related outcomes versus control, but the network was small, heterogeneous, and low or very low certainty. No active format clearly outperformed the others.",
+    "methods": {
+      "design": "Systematic review and exploratory network meta-analysis",
+      "setting": "PubMed, Embase, Web of Science, CENTRAL, ClinicalTrials.gov, CINAHL, PsycInfo, Scopus",
+      "participants": "14 source-verified randomised studies contributed to at least one network layer; older adults and mixed rehabilitation populations",
+      "intervention": "Pilates, technology-assisted exercise, technology-delivered Pilates, conventional exercise",
+      "comparator": "Control, conventional exercise, or other active intervention nodes; one nonrandomised study was kept outside the RCT network",
+      "follow_up": "Immediate post-intervention",
+      "primary_outcome": "Balance or postural-control performance"
+    },
+    "results": [
+      {
+        "outcome": "Tech-assisted vs control",
+        "timepoint": "post-intervention",
+        "result": "Hedges’ g 0.69, 95% CI 0.38 to 1.01",
+        "effect": "0.69 (95% CI 0.38 to 1.01)",
+        "meaning": "Favourable estimate",
+        "detail": "Broad digital exercise node; heterogeneous platforms and populations.",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "Pilates vs control",
+        "timepoint": "post-intervention",
+        "result": "Hedges’ g 0.64, 95% CI 0.18 to 1.09",
+        "effect": "0.64 (95% CI 0.18 to 1.09)",
+        "meaning": "Favourable estimate",
+        "detail": "Sparse evidence; potential local direct-indirect disagreement was noted.",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "Conventional exercise vs control",
+        "timepoint": "post-intervention",
+        "result": "Hedges’ g 0.33, 95% CI −0.04 to 0.69",
+        "effect": "0.33 (95% CI −0.04 to 0.69)",
+        "meaning": "Favourable point estimate",
+        "detail": "CI crossed zero in the primary network.",
+        "verdict": "unclear"
+      }
+    ],
+    "how_to_apply": [
+      "Use as a broad expectation-setting review, not a treatment-ranking tool.",
+      "Prefer supervised active exercise over inactive control when balance training is the goal.",
+      "Do not assume technology-assisted exercise means AR/VR alone.",
+      "Match delivery to access, supervision needs, and fall risk.",
+      "Treat technology-delivered Pilates as preliminary.",
+      "Use extra caution when extrapolating to frail or neurologically complex patients."
+    ],
+    "applies_to": [
+      "Community-dwelling older adults",
+      "Older adults in rehabilitation",
+      "People with balance or postural-control impairment"
+    ],
+    "not_for": [
+      "Claiming a best single intervention",
+      "Platform-specific AR/VR decisions",
+      "Unsupservised digital exercise for high-risk patients"
+    ],
+    "appraisal": {
+      "certainty": "very low",
+      "strengths": [
+        "Protocol registered before synthesis",
+        "Large structured search",
+        "Source verification of randomised trials",
+        "Explicit node definitions",
+        "Sensitivity and transitivity checks",
+        "Reproducible analysis package"
+      ],
+      "weaknesses": [
+        "Small sparse network",
+        "Heterogeneous nodes and comparators",
+        "Outcome-domain sensitivity",
+        "Some local incoherence",
+        "Post-intervention synthesis only",
+        "Broadening beyond the registered AR/VR focus"
+      ],
+      "funding_conflicts": "Supported by the Ministry of Education of the Republic of Korea and the National Research Foundation of Korea (NRF-2025S1A5A8011276); authors reported no commercial or financial conflicts.",
+      "appraised_from": "full_text",
+      "tool": "AMSTAR 2",
+      "overall_risk_of_bias": "some concerns",
+      "domains": [
+        {
+          "domain": "Protocol registered before review",
+          "judgement": "low",
+          "reason": "Protocol was registered in PROSPERO before quantitative synthesis.",
+          "support": "P25: PROSPERO registration before synthesis"
+        },
+        {
+          "domain": "Adequate literature search",
+          "judgement": "low",
+          "reason": "Multiple major databases and trial registers were searched without language limits.",
+          "support": "P39: databases and registers searched"
+        },
+        {
+          "domain": "Justified exclusions",
+          "judgement": "low",
+          "reason": "Full-text exclusions were logged with hierarchical reasons and a PRISMA audit trail.",
+          "support": "P42-P44: exclusion log and audit trail"
+        },
+        {
+          "domain": "Risk of bias assessed in included studies",
+          "judgement": "low",
+          "reason": "RoB 2 was applied to the 14 source-verified randomised trials.",
+          "support": "P81-P83: RoB 2 for all randomised trials"
+        },
+        {
+          "domain": "Appropriate meta-analytic methods",
+          "judgement": "low",
+          "reason": "Random-effects network meta-analysis with transitivity, heterogeneity, inconsistency, and sensitivity checks was used.",
+          "support": "P69-P78: NMA methods and diagnostics"
+        },
+        {
+          "domain": "RoB considered when interpreting results",
+          "judgement": "low",
+          "reason": "Certainty ratings and discussion incorporated bias, indirectness, imprecision, and incoherence.",
+          "support": "P88-P93, P222-P225: certainty framework"
+        },
+        {
+          "domain": "Publication bias assessed",
+          "judgement": "some concerns",
+          "reason": "Funnel plots were used descriptively, but the sparse network limited interpretability.",
+          "support": "P78, P215, P217: comparison-adjusted funnel plot described as exploratory"
+        }
+      ],
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "serious",
+          "reason": "All 14 randomised trials had some concerns overall under RoB 2."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "serious",
+          "reason": "Sparse networks limited inconsistency testing, and outcome-restricted analyses plus local direct-indirect disagreement suggested unstable estimates."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "serious",
+          "reason": "The network mixed older adults, neurological rehabilitation, healthy adults, and athletes, and the tech node pooled multiple platforms."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "serious",
+          "reason": "Several comparisons were based on few small studies; some CIs crossed zero and others were wide."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "serious",
+          "reason": "38 full texts lacked usable arm-level data, and funnel plots were exploratory only in this sparse network."
+        }
+      ],
+      "clinical_significance": [
+        "The authors used an analytical reference range, not a validated MCID.",
+        "The reported effects are statistically favourable for tech-assisted exercise and Pilates, but clinical importance remains uncertain.",
+        "The CI for conventional exercise crosses zero, so a meaningful effect cannot be confirmed or excluded.",
+        "No fall-incidence or durability threshold was reported, so longer-term clinical importance is unknown."
+      ],
+      "comparator_fairness": [
+        "Control was heterogeneous: waitlist, usual care, education-only, minimal contact, and no exercise.",
+        "That makes the control less like a pure placebo and more like mixed usual-care comparators.",
+        "Dose and expectation were not standardised across all nodes."
+      ],
+      "alternative_explanations": [
+        "Natural recovery or regression to the mean could contribute, especially in small trials.",
+        "Contextual effects may matter because several outcomes were performance-based.",
+        "Control-node heterogeneity could inflate apparent benefits.",
+        "Baseline imbalance was checked, but not fully adjusted in the main analysis."
+      ],
+      "spin": [
+        "The abstract and conclusions were mostly cautious and matched the primary outcome direction.",
+        "The paper repeatedly warns against ranking claims, which limits spin.",
+        "The broad technology-assisted label could still be read too specifically if the scope caveat is missed."
+      ],
+      "fit_with_evidence": [
+        "Broadly consistent with prior exercise-for-balance reviews that usually find active exercise helpful, but the evidence remains low certainty.",
+        "The review extends earlier work by comparing multiple active nodes in one network, while also showing why ranking is fragile.",
+        "Fits the playbook only as broad balance-oriented exercise evidence, not as support for a single preferred intervention."
+      ],
+      "external_validity": [
+        "Reasonable for older-adult balance rehab, especially supervised community or outpatient exercise.",
+        "Less direct for Australian private sports physio because the network also included neurological and non-geriatric groups.",
+        "Technology results may transfer only if local access, supervision, and digital literacy are similar.",
+        "High-risk frail patients should not be assumed to match the trial populations."
+      ],
+      "would_change_my_mind": [
+        "A larger head-to-head trial with a single technology format, adequate power, and longer follow-up.",
+        "Consistent effects on falls, function, or durability, not just balance tests.",
+        "A better geriatric-only network with narrower comparators and less indirectness.",
+        "A direct trial showing no advantage of active exercise over a credible matched control."
+      ],
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+        "checked_at": "2026-11-16T10:25:03.447455+00:00",
+        "disagreements": [
+          {
+            "item": "key findings[1]",
+            "first": "Technology-assisted exercise had the strongest control comparison.",
+            "second": "Technology-assisted exercise had a favourable estimate versus control, but certainty was low.",
+            "why": "Avoids unsupported ranking claim.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "summary[1]",
+            "first": "Technology-assisted exercise had the strongest control comparison.",
+            "second": "Technology-assisted exercise favoured control, but certainty was low and the digital …",
+            "why": "Fixes implied superiority over other active nodes.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "bottom line",
+            "first": "This review suggests active exercise can improve balance-related outcomes versus control, …",
+            "second": "This review suggests active exercise may improve balance-related outcomes versus control, …",
+            "why": "Removes overstatement of a best option.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "pico.p",
+            "first": "Older-adult and aging-related rehabilitation populations with balance or postural-control outcomes.",
+            "second": "Older adults, aging-related rehabilitation groups, and some indirect non-geriatric populations with …",
+            "why": "Sample included non-geriatric groups too.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "methods.setting",
+            "first": "PubMed, Embase, Web of Science, CENTRAL, ClinicalTrials.gov, CINAHL, PsycInfo, Scopus; searches …",
+            "second": "PubMed, Embase, Web of Science, CENTRAL, ClinicalTrials.gov, CINAHL, PsycInfo, Scopus",
+            "why": "Removes unsupported year flagged by validator.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.grade[0].reason",
+            "first": "All trials had some concerns overall, and the review relied on …",
+            "second": "All 14 randomised trials had some concerns overall under RoB 2.",
+            "why": "Keeps RoB separate from imprecision.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.grade[1]",
+            "first": "{\"domain\": \"inconsistency\", \"judgement\": \"not applicable\", \"reason\": \"Single review synthesis; no separate …",
+            "second": "{\"domain\": \"inconsistency\", \"judgement\": \"serious\", \"reason\": \"Sparse networks limited inconsistency testing, and …",
+            "why": "Inconsistency is not N/A for a meta-analysis.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.grade[4]",
+            "first": "{\"domain\": \"publication bias\", \"judgement\": \"not applicable\", \"reason\": \"A single review cannot …",
+            "second": "{\"domain\": \"publication bias\", \"judgement\": \"serious\", \"reason\": \"38 full texts lacked usable …",
+            "why": "Publication bias can be assessed in a review.",
+            "resolved": "Second reader's version used."
+          }
+        ],
+        "external": [],
+        "external_searched": "External ratings not searched for this automated edition."
+      }
+    },
+    "patient_explanation": "Exercise programmes that include Pilates or technology-based balance practice may help people feel steadier, but this review could not show one best option. The evidence is still too mixed and limited to know which approach works best for each person.",
+    "open_questions": [
+      "Which specific digital format works best?",
+      "Do benefits last beyond the programme?",
+      "Does any approach reduce actual falls?",
+      "What is best for frail older adults?"
+    ],
+    "key_findings": [
+      "Active exercise was generally better than control for balance-related outcomes.",
+      "Technology-assisted exercise had a favourable estimate versus control, but certainty was low.",
+      "Pilates and technology-delivered Pilates looked promising, but evidence was sparse.",
+      "The planned AR/VR focus was broadened to a wider digital exercise node."
+    ],
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-f85b2231",
+    "read_level": "full_text",
+    "source_ids": [
+      "paper"
+    ],
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read the full source by AI; numbers checked against it."
+    },
+    "first_published": "2026-08-07"
+  },
+  "sources": [
+    {
+      "id": "paper",
+      "citation": "Zhao Y, Son TJ, Shin M. Pilates and AR/VR-based and other technology-assisted exercise for balance and postural control in older-adult and aging-related rehabilitation contexts: a systematic review and exploratory network meta-analysis. Frontiers in public health 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42630909/",
+      "doi": "10.3389/fpubh.2026.1899309",
+      "pmid": "42630909"
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "question_id": "342b3f1a",
+  "question": "Pilates vs Strength training for Lower back pain",
+  "searched_at": "2026-11-16T10:25:03.447455+00:00",
+  "search_summary": "Europe PMC: 3 searches, 40 new records screened, 6 suggested. Answer uses checked cards only. AI-checked, not clinician-reviewed.",
+  "pico": {
+    "p": "People with lumbar low back pain",
+    "i": "Pilates exercise",
+    "c": "Strength training",
+    "o": "Pain and function"
+  },
+  "suggestions": [
+    {
+      "key": "10.3389/fphys.2026.1836061",
+      "title": "Comparative effects of exercise modalities and dose parameters on chronic low back pain in adults: a systematic review and network meta-analysis.",
+      "citation": "Wang L, Zhou C, Zhai C. Comparative effects of exercise modalities and dose parameters on chronic low back pain in adults: a systematic review and network meta-analysis. Frontiers in physiology 2026.",
+      "doi": "10.3389/fphys.2026.1836061",
+      "pmid": "42222290",
+      "year": "2026",
+      "design": "Systematic review",
+      "priority": "core",
+      "open_access": true,
+      "why": "Ranks exercise modalities and dose parameters, helping contextualize strength training for chronic low back pain."
+    },
+    {
+      "key": "10.3389/fphys.2025.1694330",
+      "title": "Effects of different exercise interventions on lower back pain: a systematic review and meta-analysis.",
+      "citation": "Liu X, Gao W, Wu P, Huang J, Han J, Xu X, Chen W. Effects of different exercise interventions on lower back pain: a systematic review and meta-analysis. Frontiers in physiology 2025.",
+      "doi": "10.3389/fphys.2025.1694330",
+      "pmid": "41567878",
+      "year": "2026",
+      "design": "Systematic review",
+      "priority": "useful",
+      "open_access": true,
+      "why": "Broad evidence that Pilates and core training improve pain and function in non-specific low back pain."
+    },
+    {
+      "key": "10.3390/sports14090407",
+      "title": "Effects of Pilates Programs on Body Composition, Flexibility, Muscular Strength, Balance, Functional Performance and Respiratory Function in Adult Women: A Systematic Review and Meta-Analysis.",
+      "citation": "Bajčetić Č, Rudović V, Novaković M, Vještica M, Atanasov R, Ralić V, Manojlović M, Drid P. Effects of Pilates Programs on Body Composition, Flexibility, Muscular Strength, Balance, Functional Performance and Respiratory Function in Adult Women: A Systematic Review and Meta-Analysis. Sports (Basel, Switzerland) 2026.",
+      "doi": "10.3390/sports14090407",
+      "pmid": "42784403",
+      "year": "2026",
+      "design": "Systematic review",
+      "priority": "useful",
+      "open_access": true,
+      "why": "Summarizes Pilates benefits in adult women, including strength and functional outcomes."
+    },
+    {
+      "key": "10.1177/10538127261448967",
+      "title": "Effects of whole-body strength training on pain and strength in chronic low back pain. A Randomized controlled trial.",
+      "citation": "Tomschi F, Meder K, Hilberg T. Effects of whole-body strength training on pain and strength in chronic low back pain. A Randomized controlled trial. Journal of back and musculoskeletal rehabilitation 2026.",
+      "doi": "10.1177/10538127261448967",
+      "pmid": "42117614",
+      "year": "2026",
+      "design": "RCT",
+      "priority": "useful",
+      "open_access": true,
+      "why": "Directly tests whole-body strength training effects on pain and trunk strength in chronic low back pain."
+    },
+    {
+      "key": "10.13107/jocr.2026.v16.i07.7706",
+      "title": "Effectiveness of Conventional Kinesiotherapy and Pilates in Reducing Disability among Patients with Chronic Non-specific Low Back Pain.",
+      "citation": "Mahajan S, Rathore KS, Choubey R, Saharan AK, Srivastava N, Saharan M. Effectiveness of Conventional Kinesiotherapy and Pilates in Reducing Disability among Patients with Chronic Non-specific Low Back Pain. Journal of orthopaedic case reports 2026.",
+      "doi": "10.13107/jocr.2026.v16.i07.7706",
+      "pmid": "42428359",
+      "year": "2026",
+      "design": "RCT",
+      "priority": "useful",
+      "open_access": true,
+      "why": "Directly compares Pilates added to conventional kinesiotherapy against kinesiotherapy alone for disability and pain."
+    },
+    {
+      "key": "10.1016/j.bjpt.2026.101597",
+      "title": "The effects of core stabilizing exercise in postpartum women with lumbopelvic pain: A systematic review with meta-analysis.",
+      "citation": "Yin YT, Lin KY, Chen CY, Yeh CN, Li YT. The effects of core stabilizing exercise in postpartum women with lumbopelvic pain: A systematic review with meta-analysis. Brazilian journal of physical therapy 2026.",
+      "doi": "10.1016/j.bjpt.2026.101597",
+      "pmid": "41930536",
+      "year": "2026",
+      "design": "Meta-analysis",
+      "priority": "background",
+      "open_access": true,
+      "why": "Shows core stabilizing exercise improves postpartum lumbopelvic pain, relevant when the caseload includes postpartum patients."
+    }
+  ],
+  "gaps": [
+    "1 of 6 papers found were not read: no free full text, or held by a check.",
+    "No true head-to-head trial of Pilates versus pure strength training in the same low back pain population.",
+    "Most evidence is in chronic nonspecific low back pain, not acute, postpartum, athlete, or older adult cases.",
+    "Follow-up is usually short-term; long-term recurrence, adherence, and return-to-sport remain unclear."
+  ],
+  "answer": {
+    "answer": "No clear winner in chronic nonspecific low back pain: Pilates and strength-type core training both help, but neither is proven superior. Biggest caveat: evidence is mostly indirect to generic strength training and very heterogeneous, with non-significant subgroup differences.",
+    "certainty": "very low",
+    "provisional": false,
+    "actions": [
+      "Use core training when exercise is appropriate for chronic nonspecific low back pain.",
+      "Do not switch to Pilates solely to improve pain over strength training.",
+      "Do not switch to core resistance solely to improve disability over Pilates.",
+      "Set expectations around short-term gains rather than proven long-term durability.",
+      "If choosing core regimens, consider eight or more weeks; shorter programmes looked less convincing.",
+      "Progress using pain, disability, and tolerance rather than assumed modality superiority."
+    ],
+    "comparison": [
+      {
+        "item_id": "mine-42d3ff5d",
+        "title": "Core training helps pain and function",
+        "design": "systematic review and meta-analysis of RCTs",
+        "n": "57 randomized controlled trials; 7,705 patients",
+        "finding": "Pain SMD 1.03 and ODI SMD -0.70 versus control; Pilates/resistance subgroup differences were not significant.",
+        "verdict": "unclear",
+        "risk_of_bias": "high",
+        "certainty": "very low"
+      },
+      {
+        "item_id": "mine-846abdd8",
+        "title": "Core training for chronic low back pain: modest pooled benefit, very …",
+        "design": "systematic review and meta-analysis of RCTs",
+        "n": "15 RCTs in adults with CNLBP",
+        "finding": "Across active regimens, pain SMD -0.56 and function SMD -0.81; no best core method identified.",
+        "verdict": "unclear",
+        "risk_of_bias": "some concerns",
+        "certainty": "low"
+      },
+      {
+        "item_id": "mine-d87fa1b3",
+        "title": "Core training may help chronic low back pain, but heterogeneity is high",
+        "design": "systematic review and meta-analysis of RCTs",
+        "n": "Adults with chronic non-specific low back pain, 33 RCTs",
+        "finding": "Overall pain SMD −0.95 and function SMD −1.09; best modality unclear, Pilates function crossed no effect.",
+        "verdict": "unclear",
+        "risk_of_bias": "high",
+        "certainty": "very low"
+      }
+    ],
+    "agreement": [
+      "All reviews support exercise-based core training over control for short-term pain or function in chronic nonspecific low back pain.",
+      "Reviews mentioning Pilates and resistance-type options did not confirm a superior modality.",
+      "Heterogeneity was high or very high across studies."
+    ],
+    "conflicts": [
+      "Numerical winners differed: Pilates for pain in one review, core resistance for ODI in one, SET in another.",
+      "Pilates function ranged from favourable pooled rankings to crossing no effect, likely from mixed comparators and scales.",
+      "Active-comparator pooling favoured experimental regimens overall, but could not show whether Pilates or strength work drove the effect."
+    ],
+    "based_on": [
+      "mine-42d3ff5d",
+      "mine-846abdd8",
+      "mine-d87fa1b3"
+    ],
+    "updated_at": "2026-11-16T10:25:03.447455+00:00"
+  }
+}

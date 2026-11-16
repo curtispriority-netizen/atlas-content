@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "paper_id": "f0b35c74",
+  "added_at": "2026-11-16T10:25:03.447455+00:00",
+  "study": {
+    "region": "lumbar",
+    "title": "Prenatal Pilates may ease pain; disability and mood effects are less certain",
+    "evidence_tag": "established",
+    "evidence_note": "Pain, disability, mood and sleep were synthesised from prenatal studies.",
+    "confidence": "certain",
+    "confidence_note": "Full text with tables and GRADE summary was available.",
+    "impact": "set_expectations",
+    "impact_line": "Prenatal Pilates probably helps pregnancy-related pain, but disability, mood and sleep estimates are less secure and mostly compare against usual care or low-intensity controls.",
+    "summary": [
+      "Pain improved versus control in four RCTs.",
+      "Disability improved, but certainty was low and heterogeneity was very high.",
+      "Psychological status improved; sleep did not show a clear benefit.",
+      "Controls were mostly usual care or weak exercise comparators."
+    ],
+    "pico": {
+      "p": "Pregnant women with musculoskeletal pain or discomfort",
+      "i": "Pilates during pregnancy",
+      "c": "Usual antenatal care, no exercise, or other low-intensity controls",
+      "o": "Pain, disability, psychological status, sleep quality"
+    },
+    "key_numbers": [
+      {
+        "value": "-2.59",
+        "label": "pain MD"
+      },
+      {
+        "value": "-1.82",
+        "label": "disability SMD"
+      },
+      {
+        "value": "-0.86",
+        "label": "psychology SMD"
+      },
+      {
+        "value": "-1.93",
+        "label": "sleep MD"
+      }
+    ],
+    "limits": [
+      "Mostly short-term follow-up.",
+      "No direct comparisons with other prenatal exercise.",
+      "Pain and disability were self-reported.",
+      "Heterogeneity was substantial to considerable.",
+      "One non-randomised study contributed to synthesis."
+    ],
+    "condition": "Pregnancy-related musculoskeletal pain",
+    "playbook_step": "treat",
+    "bottom_line": "This review suggests prenatal Pilates can reduce pregnancy-related musculoskeletal pain and may improve disability and psychological symptoms, but disability, mood and sleep findings remain uncertain because evidence is small, heterogeneous and mostly versus usual care.",
+    "methods": {
+      "design": [
+        "P20",
+        "P31",
+        "P53",
+        "P62"
+      ],
+      "setting": [
+        "P22",
+        "P67",
+        "P72"
+      ],
+      "participants": [
+        "P31",
+        "P161",
+        "P165"
+      ],
+      "intervention": [
+        "P12",
+        "P169",
+        "P170"
+      ],
+      "comparator": [
+        "P175",
+        "P177"
+      ],
+      "follow_up": [
+        "P29",
+        "P182"
+      ],
+      "primary_outcome": [
+        "P24",
+        "P63",
+        "P188",
+        "P192"
+      ]
+    },
+    "results": [
+      {
+        "outcome": "Pain",
+        "timepoint": "post-intervention",
+        "result": "MD -2.59 VAS points; 95% CI -4.19 to -1.00",
+        "effect": "MD -2.59 (95% CI -4.19 to -1.00)",
+        "meaning": "Likely clinically important",
+        "detail": "Four studies, 127 participants. The paper set a pain MID of 0.95 points on VAS; the CI stayed beyond that threshold in favour of Pilates.",
+        "verdict": "meaningful"
+      },
+      {
+        "outcome": "Disability",
+        "timepoint": "post-intervention",
+        "result": "SMD -1.82; 95% CI -2.99 to -0.66",
+        "effect": "SMD -1.82 (95% CI -2.99 to -0.66)",
+        "meaning": "Likely clinically important",
+        "detail": "Five studies, 286 participants. Different disability scales were standardised; the paper judged the CI wholly beyond the 0.65 SMD threshold in favour of Pilates.",
+        "verdict": "meaningful"
+      },
+      {
+        "outcome": "Psychological status",
+        "timepoint": "post-intervention",
+        "result": "SMD -0.86; 95% CI -1.31 to -0.42",
+        "effect": "SMD -0.86 (95% CI -1.31 to -0.42)",
+        "meaning": "Likely clinically important",
+        "detail": "Five RCTs, 289 participants. The CI lay beyond the paper’s 0.65 SMD threshold in favour of Pilates.",
+        "verdict": "meaningful"
+      },
+      {
+        "outcome": "Sleep quality",
+        "timepoint": "post-intervention",
+        "result": "MD -1.93 PSQI points; 95% CI -4.70 to 0.84",
+        "effect": "MD -1.93 (95% CI -4.70 to 0.84)",
+        "meaning": "Could not confirm benefit",
+        "detail": "Three studies, 204 participants. The CI crossed no effect and the paper said it also crossed the accepted PSQI MID of 3 points.",
+        "verdict": "unclear"
+      }
+    ],
+    "how_to_apply": [
+      "Use as a prenatal exercise option when pain is the main complaint.",
+      "Expect a supervised or structured programme.",
+      "Trials were usually 50 to 60 min, two to three times weekly, for 8 to 12 weeks.",
+      "Do not assume it is superior to other prenatal exercise.",
+      "Screen for pregnancy exercise contraindications first."
+    ],
+    "applies_to": [
+      "Second or third trimester pregnancy.",
+      "Mild to moderate low back or pelvic girdle pain.",
+      "Structured Pilates programmes.",
+      "Usual-care settings similar to the trials."
+    ],
+    "not_for": [
+      "Head-to-head claims versus other prenatal exercise.",
+      "Late-postpartum outcomes.",
+      "Severe obstetric complications or exercise contraindications.",
+      "Proving long-term benefit."
+    ],
+    "appraisal": {
+      "certainty": "moderate",
+      "strengths": [
+        "Protocol registered.",
+        "Search was broad and no language limits used.",
+        "Risk of bias and GRADE were assessed.",
+        "Sensitivity analyses were done."
+      ],
+      "weaknesses": [
+        "Publication bias was not formally assessed.",
+        "Most outcomes were short term.",
+        "Controls were often usual care or low-dose exercise.",
+        "One non-randomised study was included in synthesis.",
+        "Self-reported outcomes are vulnerable to expectation effects."
+      ],
+      "funding_conflicts": "Supported by Henan Province medical science and technology research project (LHGJ20250671); authors declared none.",
+      "appraised_from": "full_text",
+      "tool": "AMSTAR 2",
+      "overall_risk_of_bias": "high",
+      "domains": [
+        {
+          "domain": "Protocol registered before review",
+          "judgement": "low",
+          "reason": "Protocol was prospectively registered on PROSPERO.",
+          "support": "Methods p.4: PROSPERO CRD42024628027."
+        },
+        {
+          "domain": "Adequate literature search",
+          "judgement": "low",
+          "reason": "Search covered five databases, citation screening and no language limits.",
+          "support": "Methods p.4-5: databases through 14 January 2026."
+        },
+        {
+          "domain": "Justified exclusions",
+          "judgement": "low",
+          "reason": "Full-text exclusions were documented.",
+          "support": "Results p.8: excluded studies and reasons in supplement."
+        },
+        {
+          "domain": "Risk of bias assessed in included studies",
+          "judgement": "low",
+          "reason": "Included studies were assessed with RoB 2.0 by two reviewers.",
+          "support": "Methods p.6 and Results p.10."
+        },
+        {
+          "domain": "Appropriate meta-analytic methods",
+          "judgement": "low",
+          "reason": "Random-effects models, multivariate methods and sensitivity analyses were used where needed.",
+          "support": "Methods p.7-8."
+        },
+        {
+          "domain": "RoB considered when interpreting results",
+          "judgement": "low",
+          "reason": "Discussion and GRADE linked conclusions to risk of bias and imprecision.",
+          "support": "Discussion p.16-18."
+        },
+        {
+          "domain": "Publication bias assessed",
+          "judgement": "high",
+          "reason": "Formal publication-bias assessment was not performed because no outcome had more than ten studies.",
+          "support": "Methods p.8 and Results p.16."
+        }
+      ],
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "not serious",
+          "reason": "Pain pooled 4 RCTs; only 15/127 participants came from low-quality studies."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "not serious",
+          "reason": "I² was 91%, but all 4 trial effects favoured Pilates and CIs overlapped."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "not serious",
+          "reason": "Pregnant participants, Pilates, comparators and pain outcomes matched the review question."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "serious",
+          "reason": "Only 127 participants; sample was below the review’s optimal information size of 400."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "not serious",
+          "reason": "Only 4 trials contributed pain, so formal assessment was limited and not downgraded by authors."
+        }
+      ],
+      "clinical_significance": [
+        "Pain: the paper set a clinically meaningful threshold of 0.95 VAS points; the pooled estimate exceeded it.",
+        "Disability and psychological status: the paper used a 0.65 SMD threshold and judged both CIs clinically relevant.",
+        "Sleep: the CI crossed both no effect and the paper’s 3-point PSQI MID.",
+        "Because comparators were mostly usual care or weak controls, the apparent effect may not equal superiority over other exercise."
+      ],
+      "comparator_fairness": [
+        "Mostly credible usual-care controls, but not an active, well-matched prenatal exercise comparator.",
+        "One control was below the minimal beneficial Pilates dose.",
+        "Expectation and contact time were not consistently balanced across studies."
+      ],
+      "alternative_explanations": [
+        "Natural symptom fluctuation during pregnancy.",
+        "Regression to the mean from symptomatic enrolment.",
+        "Expectation and placebo effects from exercise participation.",
+        "Co-interventions or usual-care differences not fully described."
+      ],
+      "spin": [
+        "Authors concluded Pilates is safe and effective, but adverse events were not reviewed.",
+        "Benefit was clearer for pain than for disability, mood or sleep, and no head-to-head exercise trials."
+      ],
+      "fit_with_evidence": [
+        "Fits the review's own finding that prenatal Pilates may help pain.",
+        "The paper itself notes the lack of direct comparisons with other prenatal exercise.",
+        "External guideline evidence was unavailable in the supplied source."
+      ],
+      "external_validity": [
+        "Moderate fit for pregnant women with low back or pelvic girdle pain in structured programmes.",
+        "Less certain for Australian private sports-physio caseloads needing comparison with other exercise options.",
+        "Most studies were from non-Australian settings and used tightly defined protocols.",
+        "Not a long-term or postpartum evidence base."
+      ],
+      "would_change_my_mind": [
+        "A large blinded outcome-assessment trial against an active, dose-matched prenatal exercise comparator showing little or no difference.",
+        "Consistent long-term benefit with fewer limitations and better precision.",
+        "A head-to-head trial showing Pilates is clearly superior to another credible prenatal exercise programme."
+      ],
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+        "checked_at": "2026-11-16T10:25:03.447455+00:00",
+        "disagreements": [
+          {
+            "item": "condition",
+            "first": "Discogenic low back pain",
+            "second": "Pregnancy-related musculoskeletal pain",
+            "why": "Review is not about discogenic low back pain.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.certainty",
+            "first": "low",
+            "second": "moderate",
+            "why": "Primary outcome pain was moderate certainty, not low.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.grade",
+            "first": "[{\"domain\": \"risk of bias\", \"judgement\": \"serious\", \"reason\": \"Pain was downgraded only …",
+            "second": "[{\"domain\": \"risk of bias\", \"judgement\": \"not serious\", \"reason\": \"Pain pooled 4 …",
+            "why": "GRADE should reflect the primary outcome pain only.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.spin",
+            "first": "[\"The abstract and conclusion emphasise benefit, but sleep was not clearly …",
+            "second": "[\"Authors concluded Pilates is safe and effective, but adverse events were …",
+            "why": "Conclusion overreaches on safety and non-pain outcomes.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[2].evidence refs",
+            "first": "[\"P198\", \"P274\"]",
+            "second": "[\"P198\", \"P238\", \"P239\", \"P274\"]",
+            "why": "Add sources containing 289 participants and 5 RCTs.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[3].evidence refs",
+            "first": "[\"P203\", \"P273\"]",
+            "second": "[\"P203\", \"P247\", \"P248\", \"P273\"]",
+            "why": "Add sources containing 204 participants and 3 RCTs.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "Second reader's concern",
+            "first": "Not raised in the first reading",
+            "second": "Raised by the second reader",
+            "why": "Baseline tables were not in the supplied text, so imbalance checks were limited.",
+            "resolved": "left open"
+          }
+        ],
+        "external": [],
+        "external_searched": "External ratings not searched for this automated edition."
+      }
+    },
+    "patient_explanation": "Pilates during pregnancy may help reduce back or pelvic pain, and it might also help mood. The evidence is less clear for sleep, and we do not yet know if it works better than other pregnancy exercise.",
+    "open_questions": [
+      "Is Pilates better than other prenatal exercise?",
+      "Which dosage works best?",
+      "Do benefits last after birth?",
+      "Are there any harms that were missed?"
+    ],
+    "key_findings": [
+      "Pain improved versus control.",
+      "Disability and psychological scores improved, but certainty was low or very low.",
+      "Sleep benefit was not clear.",
+      "Most trials compared Pilates with usual care, not another exercise."
+    ],
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-f0b35c74",
+    "read_level": "full_text",
+    "source_ids": [
+      "paper"
+    ],
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read the full source by AI; numbers checked against it."
+    },
+    "first_published": "2026-05-11"
+  },
+  "sources": [
+    {
+      "id": "paper",
+      "citation": "Song C, Shen Y, Tang X, Li Z, Li X, Zhang X, Xiang Y, Ma J, Tian X, Li H, Li F, Li H. Pilates during pregnancy for maternal musculoskeletal pain and discomfort: a systematic review and meta-analysis. BMJ open 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42114864/",
+      "doi": "10.1136/bmjopen-2025-112441",
+      "pmid": "42114864"
+    }
+  ]
+}

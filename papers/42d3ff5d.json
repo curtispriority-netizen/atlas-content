@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "paper_id": "42d3ff5d",
+  "added_at": "2026-11-16T10:25:03.447455+00:00",
+  "study": {
+    "region": "lumbar",
+    "title": "Core training helps pain and function",
+    "evidence_tag": "established",
+    "evidence_note": "57 RCTs, 7,705 participants; pain and function improved, but heterogeneity was high.",
+    "confidence": "certain",
+    "confidence_note": "Numbers and design were clear in the full text.",
+    "impact": "changes_what_i_say",
+    "impact_line": "Core training is reasonable, but the best choice may differ for pain versus function.",
+    "summary": [
+      "57 RCTs included; 7,705 participants with chronic nonspecific low back pain.",
+      "Pain improved versus control in pooled analyses, with Pilates showing the largest pain effect.",
+      "Function improved too, with core resistance training looking strongest for ODI.",
+      "Quality-of-life mental health effects were small or absent."
+    ],
+    "pico": {
+      "p": "Adults with chronic nonspecific low back pain",
+      "i": "Core resistance training, core stability training, or Pilates",
+      "c": "No exercise, usual care, or non-specific activity",
+      "o": "Pain, disability, functional status, quality of life"
+    },
+    "key_numbers": [
+      {
+        "value": "57",
+        "label": "RCTs included"
+      },
+      {
+        "value": "7705",
+        "label": "Participants"
+      },
+      {
+        "value": "1.03",
+        "label": "Pain vs control"
+      },
+      {
+        "value": "0.70",
+        "label": "ODI vs control"
+      }
+    ],
+    "limits": [
+      "High heterogeneity for pain and ODI.",
+      "Most trials were short.",
+      "Included-study mean ages reached 69.57 despite the 18–65 years inclusion criterion.",
+      "Publication bias assessment was not reported.",
+      "Dose-response findings came from meta-regression."
+    ],
+    "condition": "Chronic nonspecific low back pain",
+    "playbook_step": "treat",
+    "bottom_line": "Core training improved pain and disability versus control in pooled RCTs for chronic nonspecific low back pain. Pilates and core resistance ranked highest numerically, but subgroup differences were not significant and heterogeneity was high.",
+    "methods": {
+      "design": "Systematic review and meta-analysis of RCTs",
+      "setting": "Four databases to May; adult CNSLBP",
+      "participants": "57 randomized controlled trials; 7,705 patients",
+      "intervention": "Core resistance training, core stability training, Pilates",
+      "comparator": "No exercise, standard care, or non-specific activity",
+      "follow_up": "Mostly short term; many interventions 2-12 weeks",
+      "primary_outcome": "Pain intensity and functional status"
+    },
+    "results": [
+      {
+        "outcome": "Pain",
+        "timepoint": "Short term",
+        "result": "SMD 1.03; 95% CI 0.81 to 1.24",
+        "effect": "Large pooled benefit versus control",
+        "meaning": "Largest numerical subgroup effect",
+        "detail": "30 studies: pain improved versus control. Pilates had the largest subgroup SMD, but between-subgroup difference was not significant (P=0.24).",
+        "verdict": "meaningful"
+      },
+      {
+        "outcome": "Function",
+        "timepoint": "Pooled ODI",
+        "result": "SMD -0.70; 95% CI -0.94 to -0.46",
+        "effect": "Significant disability improvement versus control",
+        "meaning": "Largest numerical ODI subgroup",
+        "detail": "29 ODI studies: disability improved versus control. Core resistance had the largest subgroup SMD, but between-subgroup differences were not significant.",
+        "verdict": "meaningful"
+      },
+      {
+        "outcome": "Mental health",
+        "timepoint": "SF-36 MCS",
+        "result": "SMD 0.18; 95% CI -0.10 to 0.46",
+        "effect": "No clear benefit",
+        "meaning": "Likely little mental-health change",
+        "detail": "Adjusted analysis after removing high-heterogeneity studies remained non-significant.",
+        "verdict": "no_difference"
+      }
+    ],
+    "how_to_apply": [
+      "Use core training for chronic nonspecific low back pain if exercise is appropriate.",
+      "Do not treat Pilates as proven superior for pain; subgroup differences were not significant.",
+      "Do not treat core resistance as proven superior for function; subgroup differences were not significant.",
+      "Expect short-term gains rather than proven long-term durability.",
+      "Use dose suggestions cautiously; meta-regression is observational.",
+      "Do not expect meaningful mental-health change from core training alone."
+    ],
+    "applies_to": [
+      "Adults with chronic nonspecific low back pain",
+      "Exercise-based outpatient rehab",
+      "Short-term symptom and function goals"
+    ],
+    "not_for": [
+      "Specific spinal pathology",
+      "Non-exercise treatment decisions",
+      "Claims about long-term durability"
+    ],
+    "appraisal": {
+      "certainty": "very low",
+      "strengths": [
+        "Large review with 57 RCTs.",
+        "Protocol was registered.",
+        "Four databases plus reference checking.",
+        "Separate pain and function analyses."
+      ],
+      "weaknesses": [
+        "High heterogeneity in key pooled outcomes.",
+        "Many included studies had some concerns or high bias.",
+        "Publication bias was not reported.",
+        "Most trials were short.",
+        "Dose-response findings are observational within the review."
+      ],
+      "funding_conflicts": [
+        "Funded by Sichuan Provincial Society of Sports Science, Aviation Sports Research Institute, and Central Universities funds.",
+        "Authors reported no commercial or financial conflict."
+      ],
+      "appraised_from": "full_text",
+      "tool": "AMSTAR 2",
+      "overall_risk_of_bias": "high",
+      "domains": [
+        {
+          "domain": "Protocol registered before review",
+          "judgement": "low",
+          "reason": "Prospectively registered in PROSPERO.",
+          "support": "P15: CRD420251054431 registered"
+        },
+        {
+          "domain": "Adequate literature search",
+          "judgement": "low",
+          "reason": "Searched four databases and screened reference lists.",
+          "support": "P16, P27: four databases plus manual checking"
+        },
+        {
+          "domain": "Justified exclusions",
+          "judgement": "some concerns",
+          "reason": "Reasons were summarised, but excluded full-text studies were not listed individually.",
+          "support": "P53: counts and reasons only"
+        },
+        {
+          "domain": "Risk of bias assessed in included studies",
+          "judgement": "low",
+          "reason": "Included trials were appraised with RoB 2.0.",
+          "support": "P42, P61: RoB 2.0 used"
+        },
+        {
+          "domain": "Appropriate meta-analytic methods",
+          "judgement": "low",
+          "reason": "Used fixed or random effects and sensitivity analyses for heterogeneity.",
+          "support": "P48-P49, P71, P144"
+        },
+        {
+          "domain": "RoB considered when interpreting results",
+          "judgement": "some concerns",
+          "reason": "Limitations were discussed, but RoB was not clearly integrated into pooled conclusions.",
+          "support": "P201-P205: limitations noted"
+        },
+        {
+          "domain": "Publication bias assessed",
+          "judgement": "unclear",
+          "reason": "Not reported in the text supplied.",
+          "support": "Not reported"
+        }
+      ],
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "serious",
+          "reason": "Most included studies were rated some concerns or high risk overall, and blinding was difficult in exercise trials."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "serious",
+          "reason": "Pain and disability analyses showed high heterogeneity before sensitivity analyses."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "not serious",
+          "reason": "Population, interventions, comparators, and outcomes match the review question."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "serious",
+          "reason": "CIs are precise for direction but no MCID or smallest worthwhile change is reported."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "serious",
+          "reason": "No publication-bias assessment is reported in the supplied text."
+        }
+      ],
+      "clinical_significance": [
+        "No MCID or smallest worthwhile change was reported, so clinical size cannot be mapped to a threshold.",
+        "Pain and ODI effects were large in SMD terms, but heterogeneity makes exact clinical size uncertain.",
+        "The review suggests meaningful short-term benefit, not proof of a single best exercise for all patients.",
+        "A useful NNT cannot be derived from the supplied data."
+      ],
+      "comparator_fairness": [
+        "Comparators were mixed: no exercise, standard care, or non-specific activity.",
+        "Some controls may have been weaker than a true exercise comparator.",
+        "Expectation balance was not fully described for all trials."
+      ],
+      "alternative_explanations": [
+        "Natural recovery may explain some improvement in short trials.",
+        "Regression to the mean could inflate pre-post change.",
+        "Contextual effects and supervised attention may contribute.",
+        "Co-interventions and uneven control care may have influenced results."
+      ],
+      "spin": [
+        "The discussion emphasises modality rankings beyond the non-significant between-group comparisons.",
+        "Dose-response recommendations come from meta-regression, not head-to-head dose trials.",
+        "The conclusion is stronger than the heterogeneity allows."
+      ],
+      "fit_with_evidence": [
+        "Fits prior reviews cited by the authors showing exercise helps chronic low back pain.",
+        "Extends earlier work by comparing core resistance, Pilates, and core stability directly.",
+        "Still consistent with exercise-first playbook advice for chronic nonspecific low back pain."
+      ],
+      "external_validity": [
+        "Likely relevant to an Australian sports-physio caseload for exercise-based low back pain care.",
+        "Most studies were short and many participants were younger than typical mixed general practice.",
+        "Settings were international and not specifically Australian.",
+        "Transfer is best for supervised exercise, not for long-term prognosis claims."
+      ],
+      "would_change_my_mind": [
+        "A large head-to-head RCT with low bias and long follow-up showing no difference between modalities.",
+        "A review with consistent effects after publication-bias adjustment and lower heterogeneity.",
+        "Trials showing durable functional benefit beyond 12 weeks with clear adverse-event reporting."
+      ],
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+        "checked_at": "2026-11-16T10:25:03.447455+00:00",
+        "disagreements": [
+          {
+            "item": "bottom line",
+            "first": "Core training improved pain and disability in pooled RCTs for chronic …",
+            "second": "Core training improved pain and disability versus control in pooled RCTs …",
+            "why": "Current wording overstates subgroup rankings.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "key findings",
+            "first": "[\"Pilates looked best for pain.\", \"Core resistance training looked best for …",
+            "second": "[\"Pain improved versus control in pooled analyses.\", \"Disability improved versus control …",
+            "why": "Glance bullets should not imply proven superiority.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "how to apply",
+            "first": "[\"Use core training for chronic nonspecific low back pain if exercise …",
+            "second": "[\"Use core training for chronic nonspecific low back pain if exercise …",
+            "why": "Application advice currently overstates comparative effects.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[0]",
+            "first": "{\"outcome\": \"Pain\", \"timepoint\": \"Short term\", \"result\": \"SMD 1.03; 95% CI 0.81 …",
+            "second": "{\"outcome\": \"Pain\", \"timepoint\": \"Short term\", \"result\": \"SMD 1.03; 95% CI 0.81 …",
+            "why": "Needs the non-significant subgroup comparison.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[1]",
+            "first": "{\"outcome\": \"Function\", \"timepoint\": \"Pooled ODI\", \"result\": \"SMD -0.70; 95% CI -0.94 …",
+            "second": "{\"outcome\": \"Function\", \"timepoint\": \"Pooled ODI\", \"result\": \"SMD -0.70; 95% CI -0.94 …",
+            "why": "Needs subgroup ranking framed as numerical only.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "limits[2]",
+            "first": "Quality-of-life mental health results were not significant.",
+            "second": "Included-study mean ages reached 69.57 despite the 18–65 years inclusion criterion.",
+            "why": "Adds visible eligibility inconsistency; current item is a result, not a limit.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.domains[2]",
+            "first": "{\"domain\": \"Justified exclusions\", \"judgement\": \"low\", \"reason\": \"Full-text exclusions were counted and …",
+            "second": "{\"domain\": \"Justified exclusions\", \"judgement\": \"some concerns\", \"reason\": \"Reasons were summarised, but …",
+            "why": "AMSTAR exclusion listing was incomplete.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.overall risk of bias",
+            "first": "some concerns",
+            "second": "high",
+            "why": "Critical AMSTAR domains were not fully met.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "Second reader's concern",
+            "first": "Not raised in the first reading",
+            "second": "Raised by the second reader",
+            "why": "Core stability meta-regression p-values conflict with reported confidence intervals.",
+            "resolved": "left open"
+          },
+          {
+            "item": "Automated check",
+            "first": "unsupported number",
+            "second": "card.results[1], card.results[2], card.key_numbers[1]",
+            "why": "Numbers not found in the passages the card cites. Check each against the paper.",
+            "resolved": "left open"
+          }
+        ],
+        "external": [],
+        "external_searched": "External ratings not searched for this automated edition."
+      }
+    },
+    "patient_explanation": "Exercise-based core training can help chronic low back pain, especially in the short term. Pilates may help pain most, while strength-style core work may help function more, but no one approach suits everyone.",
+    "open_questions": [
+      "Which modality works best long term?",
+      "Are benefits maintained after supervision stops?",
+      "Which patient subgroups benefit most?"
+    ],
+    "key_findings": [
+      "Pain improved versus control in pooled analyses.",
+      "Disability improved versus control in pooled analyses.",
+      "Pilates and resistance ranked highest numerically; subgroup differences were not significant.",
+      "Mental-health benefit was not clear."
+    ],
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-42d3ff5d",
+    "read_level": "full_text",
+    "source_ids": [
+      "paper"
+    ],
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read the full source by AI; numbers checked against it."
+    },
+    "first_published": "2025-10-16"
+  },
+  "sources": [
+    {
+      "id": "paper",
+      "citation": "Guo XB, Lan Q, Ding J, Tang L, Yang M. Effects of different types of core training on pain and functional status in patients with chronic nonspecific low back pain: a systematic review and meta-analysis. Frontiers in physiology 2025.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41178988/",
+      "doi": "10.3389/fphys.2025.1672010",
+      "pmid": "41178988"
+    }
+  ]
+}

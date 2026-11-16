@@ -1,0 +1,309 @@
+{
+  "schema_version": 1,
+  "paper_id": "89f5d753",
+  "added_at": "2026-11-16T10:25:03.447455+00:00",
+  "study": {
+    "region": "lumbar",
+    "title": "Tai Chi ranked highest, but evidence is unstable",
+    "evidence_tag": "practice_gap",
+    "evidence_note": "23 RCTs; sparse network and wide CIs limit certainty.",
+    "confidence": "certain",
+    "confidence_note": "Full text reported methods, numbers, and caveats.",
+    "impact": "set_expectations",
+    "impact_line": "Tai Chi led the rankings, but the network was small, imprecise, and partly inconsistent.",
+    "summary": [
+      "23 RCTs included 728 intervention and 757 control participants.",
+      "Tai Chi had the highest SUCRA, but active-comparison CIs were often wide and crossed zero.",
+      "Pilates rankings were especially unstable because only two RCTs informed it.",
+      "39% of included trials had high overall risk of bias."
+    ],
+    "pico": {
+      "p": "Older adults with depressive symptoms",
+      "i": "Mind–body exercise types, including Tai Chi, Qigong, Yoga, Pilates, and square dance",
+      "c": "No intervention, routine care, health education, or other mind–body exercise",
+      "o": "Depressive symptom scores"
+    },
+    "key_numbers": [
+      {
+        "value": "23",
+        "label": "RCTs included"
+      },
+      {
+        "value": "728",
+        "label": "Intervention participants"
+      },
+      {
+        "value": "757",
+        "label": "Control participants"
+      },
+      {
+        "value": "83.3%",
+        "label": "Tai Chi SUCRA"
+      }
+    ],
+    "limits": [
+      "Only English full texts were included.",
+      "Several nodes had only two to four RCTs.",
+      "Local inconsistency affected Tai Chi and Pilates.",
+      "No long-term follow-up was available.",
+      "Control conditions varied across trials."
+    ],
+    "condition": "Depressive symptoms in older adults",
+    "playbook_step": "treat",
+    "bottom_line": "This network meta-analysis suggests Tai Chi is the most promising mind–body option for older adults’ depressive symptoms, but rankings are tentative because the network was sparse, some comparisons were inconsistent, and 39% of included RCTs were high risk of bias.",
+    "methods": {
+      "design": "Systematic review and frequentist network meta-analysis of RCTs",
+      "setting": "PubMed, Cochrane Library, Embase, Web of Science; records to late 2025",
+      "participants": "Older adults; 23 RCTs; English full texts only",
+      "intervention": "Tai Chi, Qigong, Yoga, Pilates, square dance exercise",
+      "comparator": "No intervention, routine care, health education, home-based exercise instructions, CBT, or another exercise type",
+      "follow_up": "Immediate post-intervention data only",
+      "primary_outcome": "Validated depression severity scales"
+    },
+    "results": [
+      {
+        "outcome": "Ranking",
+        "timepoint": "Post-intervention",
+        "result": "Tai Chi ranked first; Pilates second; Yoga third; Qigong fourth",
+        "effect": "SUCRA 83.3%, 71.0%, 66.3%, 59.4%",
+        "meaning": "Useful for ranking only",
+        "detail": "Ranking favoured Tai Chi, but the authors warned that some pairwise comparisons were non-significant, Pilates rested on only two RCTs, and the network had local inconsistency.",
+        "verdict": "descriptive"
+      },
+      {
+        "outcome": "Qigong vs no intervention",
+        "timepoint": "Post-intervention",
+        "result": "Better improvement with Qigong",
+        "effect": "SMD −4.00 (95% CI −7.32 to −0.68)",
+        "meaning": "Statistical benefit; size unclear",
+        "detail": "The comparison was reported as statistically significant, but the interval was wide.",
+        "verdict": "unclear"
+      }
+    ],
+    "how_to_apply": [
+      "Use Tai Chi as a cautious reference option, not a proven best treatment.",
+      "Do not treat the SUCRA rank as proof of superiority.",
+      "Expect uncertainty when choosing Pilates because only two RCTs informed it.",
+      "Check whether routine care in your setting is comparable to the trial controls."
+    ],
+    "applies_to": [
+      "Cognitively intact older adults",
+      "Older adults without major psychiatric or neurological disease",
+      "Settings where supervised mind–body exercise is feasible"
+    ],
+    "not_for": [
+      "Younger adults",
+      "People with diagnosed cognitive impairment",
+      "People whose depression care depends on long-term outcome data"
+    ],
+    "appraisal": {
+      "certainty": "very low",
+      "strengths": [
+        "Prospective registration",
+        "PRISMA reporting",
+        "Dual screening and extraction",
+        "RoB 2 applied to included trials",
+        "Network inconsistency and ranking instability were checked"
+      ],
+      "weaknesses": [
+        "English-only search",
+        "Sparse evidence for Pilates",
+        "Variable control conditions",
+        "Wide CIs for many comparisons",
+        "No long-term follow-up",
+        "Some included RCTs had baseline age imbalance"
+      ],
+      "funding_conflicts": "No financial support reported; authors declared no commercial or financial conflicts.",
+      "appraised_from": "full_text",
+      "tool": "AMSTAR 2",
+      "overall_risk_of_bias": "high",
+      "domains": [
+        {
+          "domain": "Protocol registered before review",
+          "judgement": "low",
+          "reason": "Protocol was registered before the review was completed.",
+          "support": "P21: PROSPERO registration CRD420261289637"
+        },
+        {
+          "domain": "Adequate literature search",
+          "judgement": "low",
+          "reason": "Four databases were searched and reference lists were checked.",
+          "support": "P24-P25"
+        },
+        {
+          "domain": "Justified exclusions",
+          "judgement": "high",
+          "reason": "Reasons for excluded full texts were listed, but excluded studies were not fully documented.",
+          "support": "P73-P74: reasons given for exclusions, no exclusion list"
+        },
+        {
+          "domain": "Risk of bias assessed in included studies",
+          "judgement": "low",
+          "reason": "Included RCTs were appraised with RoB 2.",
+          "support": "P58, P203"
+        },
+        {
+          "domain": "Appropriate meta-analytic methods",
+          "judgement": "some concerns",
+          "reason": "Frequentist NMA was used, but several nodes were sparse and some estimates were unstable.",
+          "support": "P62-P67, P214-P215"
+        },
+        {
+          "domain": "RoB considered when interpreting results",
+          "judgement": "low",
+          "reason": "Discussion and conclusions repeatedly tempered the rankings using trial bias and inconsistency.",
+          "support": "P274-P276, P300, P314-P316"
+        },
+        {
+          "domain": "Publication bias assessed",
+          "judgement": "low",
+          "reason": "Funnel plot plus Begg and Egger tests were reported.",
+          "support": "P257-P259"
+        }
+      ],
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "serious",
+          "reason": "39% of trials were high risk overall, and some key comparisons were unstable."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "serious",
+          "reason": "Local inconsistency was found for comparisons involving Tai Chi and Pilates."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "not serious",
+          "reason": "The review targeted older adults with depressive symptoms, matching the question."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "very serious",
+          "reason": "Many CIs were very wide and crossed zero, so a meaningful effect cannot be ruled out."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "not serious",
+          "reason": "Funnel plot and Begg/Egger tests did not suggest important bias."
+        }
+      ],
+      "clinical_significance": [
+        "No MCID or smallest worthwhile change was reported for these depression scales, so clinical size cannot be judged against a threshold.",
+        "The SUCRA ranking is not a clinical effect size and should not be treated as one.",
+        "For many comparisons, the 95% CI crossed zero, so a clinically important effect cannot be ruled out.",
+        "No NNT can be derived from the network estimates given."
+      ],
+      "comparator_fairness": [
+        "Controls varied from no intervention to routine care and health education.",
+        "Some comparators may have delivered less contact and expectation than the exercise arms.",
+        "Routine care was heterogeneous and poorly standardised."
+      ],
+      "alternative_explanations": [
+        "Natural history and regression to the mean may explain some improvement.",
+        "Attention, group contact, and expectation could contribute.",
+        "Background care differed across trials.",
+        "Sparse networks and single-study nodes may distort rankings."
+      ],
+      "spin": [
+        "The authors do caution that Tai Chi is only a tentative option.",
+        "The conclusion still promotes Tai Chi as the preferred reference intervention despite wide CIs and inconsistency.",
+        "Ranking language is stronger than the comparative data support for some modalities."
+      ],
+      "fit_with_evidence": [
+        "Fits with prior reviews suggesting mind-body exercise can help depressive symptoms in older adults.",
+        "Extends earlier work by ranking exercise types, but the authors themselves note the evidence is limited.",
+        "Consistent with a cautious playbook approach for non-pharmacological exercise options."
+      ],
+      "external_validity": [
+        "Sample sizes were small, and many participants were Chinese or institutionalised.",
+        "Controls and delivery formats were mixed, so transfer to a private Australian sports-physio caseload is only partial.",
+        "Tai Chi is plausible to implement, but Pilates and square dance evidence is too thin for confident transfer."
+      ],
+      "would_change_my_mind": [
+        "A larger, preregistered head-to-head trial with standardised controls and blinded outcome assessment.",
+        "Consistent longer-term benefit with narrower CIs across multiple independent trials.",
+        "Replication showing stable Pilates or Yoga superiority without local inconsistency."
+      ],
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+        "checked_at": "2026-11-16T10:25:03.447455+00:00",
+        "disagreements": [
+          {
+            "item": "bottom line",
+            "first": "This network meta-analysis suggests Tai Chi may be the most promising …",
+            "second": "This network meta-analysis suggests Tai Chi is the most promising mind–body …",
+            "why": "Fixes 40-word cap without losing key caveats.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[1].verdict",
+            "first": "meaningful",
+            "second": "unclear",
+            "why": "No MCID; meaningful overstates clinical importance.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[1].meaning",
+            "first": "Shows a benefit in this network",
+            "second": "Statistical benefit; size unclear",
+            "why": "Matches wide CI and absent MCID.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results[1].evidence refs",
+            "first": "[\"P225\", \"P236\"]",
+            "second": "[\"P225\"]",
+            "why": "Current second ref does not contain this number.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.weaknesses[+]",
+            "first": "(nothing)",
+            "second": "Some included RCTs had baseline age imbalance",
+            "why": "Visible baseline imbalance should appear in weaknesses.",
+            "resolved": "Second reader's version used."
+          }
+        ],
+        "external": [],
+        "external_searched": "External ratings not searched for this automated edition."
+      }
+    },
+    "patient_explanation": "These exercise programs may help mood in older adults, but the evidence is not strong enough to say one is clearly best. Tai Chi looks most promising, yet the studies were small and the results were uncertain.",
+    "open_questions": [
+      "Which exercise is best when longer follow-up is measured?",
+      "Do benefits differ by depression severity or comorbidity?",
+      "Are the rankings stable in larger, non-Chinese samples?"
+    ],
+    "key_findings": [
+      "Tai Chi had the highest ranking, but the advantage was not definitive.",
+      "Pilates ranking was highly unstable because only two trials informed it.",
+      "Wide CIs limit confidence in most active comparisons.",
+      "The review found substantial trial bias and some network inconsistency."
+    ],
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-89f5d753",
+    "read_level": "full_text",
+    "source_ids": [
+      "paper"
+    ],
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read the full source by AI; numbers checked against it."
+    },
+    "first_published": "2026-08-31"
+  },
+  "sources": [
+    {
+      "id": "paper",
+      "citation": "Wang Z, Zhu Y, Li W, Wang P, Liu Y, Yin Y, Li C, Qin Q, Wang H. Effects of different types of mind-body exercises on depressive symptoms in older adults: a systematic review and network meta-analysis. Frontiers in public health 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42741013/",
+      "doi": "10.3389/fpubh.2026.1888299",
+      "pmid": "42741013"
+    }
+  ]
+}

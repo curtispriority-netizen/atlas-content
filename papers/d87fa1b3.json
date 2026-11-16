@@ -1,0 +1,362 @@
+{
+  "schema_version": 1,
+  "paper_id": "d87fa1b3",
+  "added_at": "2026-11-16T10:25:03.447455+00:00",
+  "study": {
+    "region": "lumbar",
+    "title": "Core training may help chronic low back pain, but heterogeneity is high",
+    "evidence_tag": "established",
+    "evidence_note": "33 RCTs; pain and function pooled with SMDs.",
+    "confidence": "likely",
+    "confidence_note": "Methods and pooled estimates were clearly reported.",
+    "impact": "set_expectations",
+    "impact_line": "Possible overall benefit, but certainty is very low and the best modality or dose remains unclear.",
+    "summary": [
+      "33 RCTs; 1,757 participants; chronic non-specific low back pain.",
+      "Overall pain and function favoured core training, but heterogeneity was very high.",
+      "SET and Pilates often looked better than simple core stability, yet subgroup results were unstable.",
+      "Many comparisons were with usual care, general exercise, or passive therapy."
+    ],
+    "pico": {
+      "p": "Adults with chronic non-specific low back pain",
+      "i": "Core muscle training: core stability, SET, Pilates, breathing exercises",
+      "c": "Controls without targeted core training",
+      "o": "Pain and functional disability"
+    },
+    "key_numbers": [
+      {
+        "value": "33",
+        "label": "RCTs included"
+      },
+      {
+        "value": "1,757",
+        "label": "Total participants"
+      },
+      {
+        "value": "−0.95",
+        "label": "Pain SMD overall"
+      },
+      {
+        "value": "−1.09",
+        "label": "Function SMD overall"
+      }
+    ],
+    "limits": [
+      "Heterogeneity was very high in the main analyses.",
+      "Control conditions varied a lot across trials.",
+      "Many subgroup estimates were based on small or single studies.",
+      "Publication bias was suggested for pain and function.",
+      "Different outcome scales limited direct MCID use."
+    ],
+    "condition": "Chronic non-specific low back pain",
+    "playbook_step": "treat",
+    "bottom_line": "Core training may help chronic non-specific low back pain, but certainty is very low. Extreme heterogeneity, trial limitations, mixed comparators, and possible publication bias make the best modality or dose unclear.",
+    "methods": {
+      "design": "Systematic review and meta-analysis of RCTs",
+      "setting": "English and Chinese databases plus trial registries and grey literature",
+      "participants": "Adults with chronic non-specific low back pain, 33 RCTs",
+      "intervention": "Core stability training, SET, Pilates, breathing exercises",
+      "comparator": "Usual care, general exercise, passive therapy, or no intervention",
+      "follow_up": "Post-intervention; closest time point used for main analysis",
+      "primary_outcome": "Pain intensity; functional disability"
+    },
+    "results": [
+      {
+        "outcome": "Pain",
+        "timepoint": "post-intervention",
+        "result": "33 RCTs; SMD −0.95, 95% CI −1.35 to −0.55",
+        "effect": "SMD −0.95 (95% CI −1.35 to −0.55)",
+        "meaning": "Favoured core training",
+        "detail": "Between-group pooled pain reduction favoured core training, but heterogeneity was very high (I2 = 93%).",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "Function",
+        "timepoint": "post-intervention",
+        "result": "30 RCTs; SMD −1.09, 95% CI −1.63 to −0.55",
+        "effect": "SMD −1.09 (95% CI −1.63 to −0.55)",
+        "meaning": "Favoured core training",
+        "detail": "Between-group pooled function improvement favoured core training, but heterogeneity was very high (I2 = 95%).",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "SET pain",
+        "timepoint": "post-intervention",
+        "result": "9 RCTs; SMD −1.43, 95% CI −1.93 to −0.94",
+        "effect": "SMD −1.43 (95% CI −1.93 to −0.94)",
+        "meaning": "Favoured SET",
+        "detail": "Between-group SET subgroup estimate favoured SET, with high heterogeneity (I2 = 86%).",
+        "verdict": "unclear"
+      },
+      {
+        "outcome": "Pilates function",
+        "timepoint": "post-intervention",
+        "result": "7 RCTs; SMD −0.78, 95% CI −2.03 to 0.48",
+        "effect": "SMD −0.78 (95% CI −2.03 to 0.48)",
+        "meaning": "Uncertain",
+        "detail": "Between-group Pilates subgroup crossed no effect and was very heterogeneous (I2 = 96%).",
+        "verdict": "unclear"
+      }
+    ],
+    "how_to_apply": [
+      "Expect benefit, but not a clearly superior core-training method.",
+      "SET may be a reasonable option when a more dynamic programme suits the patient.",
+      "Pilates may help pain, but function results were inconsistent.",
+      "Simple core stability alone was less convincing in several subgroup analyses.",
+      "Use outcomes and tolerance to guide progression rather than assuming one mode fits all."
+    ],
+    "applies_to": [
+      "Adults with chronic non-specific low back pain",
+      "Exercise-based rehabilitation settings"
+    ],
+    "not_for": [
+      "Specific spinal pathology",
+      "Pregnancy",
+      "Severe cardiorespiratory disease"
+    ],
+    "appraisal": {
+      "certainty": "very low",
+      "strengths": [
+        "33 RCTs were included.",
+        "Searches covered multiple English and Chinese databases plus trial registries.",
+        "Two reviewers screened, extracted, and assessed risk of bias.",
+        "Publication bias was explored for the main outcomes."
+      ],
+      "weaknesses": [
+        "Most pooled estimates had extreme heterogeneity.",
+        "Many trials had unclear allocation concealment.",
+        "Some subgroup results relied on very small or single-study strata.",
+        "Comparator care varied substantially.",
+        "Outcome scales differed across studies, limiting direct MCID use."
+      ],
+      "funding_conflicts": "No financial support; authors reported no commercial or financial conflicts.",
+      "appraised_from": "full_text",
+      "tool": "AMSTAR 2",
+      "overall_risk_of_bias": "high",
+      "domains": [
+        {
+          "domain": "Protocol registered before review",
+          "judgement": "unclear",
+          "reason": "Protocol registration was not reported.",
+          "support": "Methods; not reported"
+        },
+        {
+          "domain": "Adequate literature search",
+          "judgement": "low",
+          "reason": "Multiple databases and grey literature sources were searched.",
+          "support": "P37-P39"
+        },
+        {
+          "domain": "Justified exclusions",
+          "judgement": "high",
+          "reason": "Only aggregate full-text exclusion categories were reported; no study-level excluded list.",
+          "support": "P44, P57: 63 full-text exclusions by category"
+        },
+        {
+          "domain": "Risk of bias assessed in included studies",
+          "judgement": "low",
+          "reason": "Two reviewers assessed study bias with the Cochrane tool.",
+          "support": "P114-P115"
+        },
+        {
+          "domain": "Appropriate meta-analytic methods",
+          "judgement": "low",
+          "reason": "Random-effects models were used for high heterogeneity and split controls were handled.",
+          "support": "P50-P53"
+        },
+        {
+          "domain": "RoB considered when interpreting results",
+          "judgement": "some concerns",
+          "reason": "Interpretation emphasised heterogeneity and outliers, but not how trial bias affected conclusions.",
+          "support": "P336-P367: conclusions stay positive; trial bias not integrated"
+        },
+        {
+          "domain": "Publication bias assessed",
+          "judgement": "low",
+          "reason": "Funnel plots, Egger testing, and trim-and-fill were reported.",
+          "support": "P52, P123-P124, P134-P135"
+        }
+      ],
+      "grade": [
+        {
+          "domain": "risk of bias",
+          "judgement": "serious",
+          "reason": "Many trials had unclear allocation concealment and some had high risk in random sequence generation."
+        },
+        {
+          "domain": "inconsistency",
+          "judgement": "serious",
+          "reason": "Heterogeneity was very high for the main outcomes and some subgroup results were unstable."
+        },
+        {
+          "domain": "indirectness",
+          "judgement": "not serious",
+          "reason": "Population, interventions, and outcomes match the review question."
+        },
+        {
+          "domain": "imprecision",
+          "judgement": "not serious",
+          "reason": "Main pooled CIs excluded no effect, and totals were 1,757 for pain and 1,619 for function."
+        },
+        {
+          "domain": "publication bias",
+          "judgement": "serious",
+          "reason": "Egger tests and funnel plots suggested small-study effects for both main outcomes."
+        }
+      ],
+      "clinical_significance": [
+        "SMDs of −0.95 for pain and −1.09 for function are large by Cohen's benchmarks, but these are pooled across mixed scales.",
+        "The authors cite ODI and VAS MCIDs, but the review could not map pooled SMDs directly to those thresholds.",
+        "SET and some combined interventions may reach clinically meaningful benefit, but certainty is limited by heterogeneity and bias."
+      ],
+      "comparator_fairness": [
+        "Some controls were credible active comparators.",
+        "Others were usual care, passive therapy, or waiting list controls and may have favoured the intervention.",
+        "Contact time and expectation were not consistently balanced across trials."
+      ],
+      "alternative_explanations": [
+        "Natural history and regression to the mean could contribute, especially in short trials.",
+        "Co-interventions varied across studies.",
+        "Differential expectation and contextual effects are plausible.",
+        "Small-study effects likely inflated some pooled estimates."
+      ],
+      "spin": [
+        "The abstract and discussion emphasise overall benefit, but the subgroup results are more mixed.",
+        "The paper highlights large effects even where heterogeneity was extreme.",
+        "The conclusion may overstate confidence in choosing a single best modality."
+      ],
+      "fit_with_evidence": [
+        "Consistent with the cited 2025 review and other recent meta-analyses on core training, breathing exercises, and SET.",
+        "This review extends those findings by separating modalities and intervention duration.",
+        "The pattern fits the broader low back pain exercise evidence base, where exercise helps but no single mode is clearly dominant."
+      ],
+      "external_validity": [
+        "✓ Chronic non-specific low back pain matches common physio caseloads.",
+        "✓ Many interventions were exercise-based and feasible in outpatient rehab.",
+        "✗ Several studies were in China, Korea, and other settings with variable usual care.",
+        "✗ Some samples were young or sport-specific, so transfer to mixed Australian private practice needs caution."
+      ],
+      "would_change_my_mind": [
+        "A preregistered review with tighter control of heterogeneity and no small-study effects.",
+        "Large head-to-head RCTs comparing SET, Pilates, and standard core stability with matched dose and expectation.",
+        "Consistent MCID-level gains on the same pain and disability measures across trials."
+      ],
+      "verification": {
+        "status": "disagreements",
+        "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+        "checked_at": "2026-11-16T10:25:03.447455+00:00",
+        "disagreements": [
+          {
+            "item": "appraisal.domains[2]",
+            "first": "{\"domain\": \"Justified exclusions\", \"judgement\": \"low\", \"reason\": \"Full-text exclusions and reasons were …",
+            "second": "{\"domain\": \"Justified exclusions\", \"judgement\": \"high\", \"reason\": \"Only aggregate full-text exclusion categories …",
+            "why": "Aggregate reasons are not justified exclusions.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.domains[5]",
+            "first": "{\"domain\": \"RoB considered when interpreting results\", \"judgement\": \"low\", \"reason\": \"Discussion noted …",
+            "second": "{\"domain\": \"RoB considered when interpreting results\", \"judgement\": \"some concerns\", \"reason\": \"Interpretation …",
+            "why": "Bias assessment was not clearly integrated into conclusions.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.overall risk of bias",
+            "first": "some concerns",
+            "second": "high",
+            "why": "Critical AMSTAR concerns make overall bias high.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.grade[3]",
+            "first": "{\"domain\": \"imprecision\", \"judgement\": \"serious\", \"reason\": \"The pooled CIs were wide and …",
+            "second": "{\"domain\": \"imprecision\", \"judgement\": \"not serious\", \"reason\": \"Main pooled CIs excluded no …",
+            "why": "Main pooled estimates were precise enough.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "appraisal.certainty",
+            "first": "low",
+            "second": "very low",
+            "why": "Three serious downgrades from high certainty.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "impact line",
+            "first": "Likely benefit overall, but the best modality and dose are still unclear.",
+            "second": "Possible overall benefit, but certainty is very low and the best …",
+            "why": "Current wording overstates certainty.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "bottom line",
+            "first": "Core training probably helps chronic non-specific low back pain, but the …",
+            "second": "Core training may help chronic non-specific low back pain, but certainty …",
+            "why": "Current bottom line overstates confidence.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "results",
+            "first": "[{\"outcome\": \"Pain\", \"timepoint\": \"post-treatment\", \"result\": \"33 RCTs; SMD −0.95, 95% CI …",
+            "second": "[{\"outcome\": \"Pain\", \"timepoint\": \"post-intervention\", \"result\": \"33 RCTs; SMD −0.95, 95% CI …",
+            "why": "Current verdicts imply clinical importance not shown by pooled SMDs.",
+            "resolved": "Second reader's version used."
+          },
+          {
+            "item": "Second reader's concern",
+            "first": "Not raised in the first reading",
+            "second": "Raised by the second reader",
+            "why": "Modality subgroup comparisons were indirect, not head-to-head.",
+            "resolved": "left open"
+          },
+          {
+            "item": "Second reader's concern",
+            "first": "Not raised in the first reading",
+            "second": "Raised by the second reader",
+            "why": "Mixed active and passive controls likely inflated some subgroup effects.",
+            "resolved": "left open"
+          }
+        ],
+        "external": [],
+        "external_searched": "External ratings not searched for this automated edition."
+      }
+    },
+    "patient_explanation": "Exercise-based core programmes can help chronic low back pain, but the best type is not settled. Some approaches like sling exercise and Pilates looked promising, yet the evidence is mixed and the study results varied a lot.",
+    "open_questions": [
+      "Which core-training style is best when dose is matched?",
+      "Do benefits persist beyond treatment?",
+      "Which patients respond best to SET or Pilates?",
+      "Are the larger effects real or driven by small studies?"
+    ],
+    "key_findings": [
+      "Core training reduced pain and disability overall.",
+      "The evidence was very heterogeneous.",
+      "SET and Pilates often had larger point estimates.",
+      "Study quality and comparators limited certainty.",
+      "Best modality and dose remain unclear."
+    ],
+    "type": "study",
+    "format": 2,
+    "item_id": "mine-d87fa1b3",
+    "read_level": "full_text",
+    "source_ids": [
+      "paper"
+    ],
+    "full_text": {
+      "status": "read",
+      "worth_getting": false,
+      "why": "Read the full source by AI; numbers checked against it."
+    },
+    "first_published": "2026-04-29"
+  },
+  "sources": [
+    {
+      "id": "paper",
+      "citation": "Liu Y, Li H, Yu Y, Zhang C, Zhou Z. Meta-analysis of the therapeutic effects of different core muscle training on pain and function in patients with chronic non-specific low back pain. Frontiers in pain research (Lausanne, Switzerland) 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42137906/",
+      "doi": "10.3389/fpain.2026.1804665",
+      "pmid": "42137906"
+    }
+  ]
+}
