@@ -1,0 +1,1275 @@
+{
+  "schema_version": 1,
+  "edition_id": "2026-W47",
+  "published_at": "2026-11-17T21:12:16.555365+00:00",
+  "verdict": "4 full-text studies: AI-appraised, then checked by a second AI model and by code against the source. AI-checked, not clinician-reviewed. Treat judgements as a first draft.",
+  "quiet_week": true,
+  "items": [
+    {
+      "region": "lumbar",
+      "title": "Lidocaine trigger-point injection beat dry needling for 1-hour ED pain relief",
+      "evidence_tag": "practice_gap",
+      "evidence_note": "Challenge pick: chosen to test usual physio practice. Single small ED trial in acute myofascial low back pain; no placebo arm and short follow-up.",
+      "confidence": "certain",
+      "confidence_note": "Numbers and design were clearly reported in the full text.",
+      "impact": "changes_what_i_say",
+      "impact_line": "This supports saying trigger-point injection may give faster short-term relief than dry needling in the ED, but the comparison is unblinded and preliminary.",
+      "summary": [
+        "49 adults were analysed after randomisation.",
+        "Trigger-point injection reduced pain more than dry needling over the first hour.",
+        "65.2% in the dry-needling group needed rescue fentanyl; 0% in the injection group.",
+        "No procedure-related adverse events were reported during the ED stay."
+      ],
+      "pico": {
+        "p": "Adults with acute myofascial low back pain in an emergency department",
+        "i": "Trigger-point injection with lidocaine",
+        "c": "Dry needling",
+        "o": "Short-term pain reduction and rescue analgesic use"
+      },
+      "key_numbers": [
+        {
+          "value": "53.9",
+          "label": "Percentage-point greater 30-min pain reduction"
+        },
+        {
+          "value": "47.1",
+          "label": "Adjusted 30-min difference"
+        },
+        {
+          "value": "65.2%",
+          "label": "Rescue fentanyl in dry-needling group"
+        },
+        {
+          "value": "0%",
+          "label": "Rescue fentanyl in injection group"
+        }
+      ],
+      "limits": [
+        "Single centre",
+        "Open label",
+        "No long-term follow-up",
+        "No placebo or saline control",
+        "Baseline imbalances in pain duration, temperature, and oxygen saturation"
+      ],
+      "condition": "Acute myofascial low back pain",
+      "playbook_step": "treat",
+      "bottom_line": "In this small, open-label ED trial, lidocaine trigger-point injection gave greater short-term pain relief than dry needling and reduced rescue fentanyl use, but baseline imbalance, no blinding, and no placebo arm limit certainty.",
+      "methods": {
+        "design": "Prospective randomised comparative trial",
+        "setting": "Emergency department, Atatürk University Faculty of Medicine Research Hospital, Türkiye",
+        "participants": "Adults with acute myofascial low back pain",
+        "intervention": "Trigger-point injection with 2% lidocaine",
+        "comparator": "Dry needling",
+        "follow_up": "5, 15, 30 and 60 minutes",
+        "primary_outcome": "Between-group difference in percentage pain reduction at 30 minutes"
+      },
+      "results": [
+        {
+          "outcome": "Pain reduction",
+          "timepoint": "30 min",
+          "result": "86.85% vs 32.98% reduction",
+          "effect": "53.9 percentage points greater reduction",
+          "meaning": "Injection lowered pain more",
+          "detail": "Primary outcome was %ΔNRS-30; adjusted analysis also favoured injection, 47.1 percentage points greater reduction.",
+          "verdict": "meaningful"
+        },
+        {
+          "outcome": "Rescue fentanyl",
+          "timepoint": "60 min",
+          "result": "0 vs 15 participants",
+          "effect": "absolute difference 65.2 percentage points",
+          "meaning": "Less rescue analgesia with injection",
+          "detail": "Rescue fentanyl was given only after the final pain score; the dry-needling group needed it much more often.",
+          "verdict": "meaningful"
+        },
+        {
+          "outcome": "Adverse events",
+          "timepoint": "ED stay",
+          "result": "0 in both groups",
+          "meaning": "No events observed",
+          "detail": "Nausea, vomiting, dizziness, hypotension, bleeding, and hematoma were each 0 in both groups during the observation window.",
+          "verdict": "descriptive"
+        }
+      ],
+      "how_to_apply": [
+        "If choosing between these two procedures in the ED, injection may give faster pain relief.",
+        "Do not treat this as proof that lidocaine is superior in general.",
+        "Expect the result to be less certain in non-ED, chronic, or longer-term care.",
+        "Monitor for adverse events, but this study was too small to assess rare harms."
+      ],
+      "applies_to": [
+        "Acute myofascial low back pain",
+        "Emergency department care",
+        "Adults able to report pain"
+      ],
+      "not_for": [
+        "Chronic low back pain",
+        "Long-term outcomes",
+        "Claims about rare adverse events"
+      ],
+      "appraisal": {
+        "certainty": "low",
+        "strengths": [
+          "Randomised design",
+          "Allocation concealment described",
+          "Primary outcome prespecified",
+          "Standardised pain assessments",
+          "No post-rescue contamination of scheduled scores"
+        ],
+        "weaknesses": [
+          "Open-label design",
+          "Small sample",
+          "Large baseline imbalance in pain duration",
+          "No formal sample size calculation",
+          "No placebo or saline control",
+          "No long-term follow-up"
+        ],
+        "funding_conflicts": "No financial support declared; no conflict of interest declared. Authors disclosed ChatGPT use for editing only.",
+        "appraised_from": "full_text",
+        "tool": "RoB 2",
+        "overall_risk_of_bias": "high",
+        "domains": [
+          {
+            "domain": "Randomisation process",
+            "judgement": "some concerns",
+            "reason": "Computer sequence and opaque envelopes were used, but major baseline imbalance in pain duration raises concern.",
+            "support": "P44, P60-P61: pain duration 4 h vs 48 h; concealed block randomisation"
+          },
+          {
+            "domain": "Deviations from intended interventions",
+            "judgement": "some concerns",
+            "reason": "Participants and treating clinician were unblinded, but both groups received the assigned procedure as planned.",
+            "support": "Methods P61: interventions could not be blinded"
+          },
+          {
+            "domain": "Missing outcome data",
+            "judgement": "low",
+            "reason": "Three withdrew before any post-randomisation outcome, leaving 49 analysed.",
+            "support": "Methods P19, P84: 3 withdrew before first assessment; mITT used"
+          },
+          {
+            "domain": "Measurement of the outcome",
+            "judgement": "high",
+            "reason": "Pain was self-reported on NRS and participants knew their treatment, so reporting could have been influenced.",
+            "support": "Methods P73-P75, P61: patient-reported NRS and no blinding"
+          },
+          {
+            "domain": "Selection of the reported result",
+            "judgement": "some concerns",
+            "reason": "The trial was not prospectively registered and a post hoc adjusted analysis was added for the primary outcome.",
+            "support": "Methods P15, P85-P86, P83: no registration; post hoc ANCOVA"
+          }
+        ],
+        "grade": [
+          {
+            "domain": "risk of bias",
+            "judgement": "serious",
+            "reason": "Open-label self-reported pain outcome, small sample, and baseline imbalance weaken confidence."
+          },
+          {
+            "domain": "inconsistency",
+            "judgement": "not applicable",
+            "reason": "Single trial."
+          },
+          {
+            "domain": "indirectness",
+            "judgement": "not serious",
+            "reason": "Population, comparator, and primary outcome directly match the study question of ED short-term analgesia."
+          },
+          {
+            "domain": "imprecision",
+            "judgement": "serious",
+            "reason": "n=49; 95% CI 44.78 to 62.94 excludes no effect, but sample is far below optimal information size."
+          },
+          {
+            "domain": "publication bias",
+            "judgement": "not applicable",
+            "reason": "Single trial cannot assess publication bias."
+          }
+        ],
+        "clinical_significance": [
+          "No MCID or smallest worthwhile change for %ΔNRS-30 was reported, so the clinical size cannot be benchmarked directly.",
+          "The effect was large numerically at 30 minutes, but the study did not link it to function or longer-term recovery.",
+          "The rescue-analgesia difference is clinically relevant, but it is short-term and procedure-specific."
+        ],
+        "comparator_fairness": [
+          "Both procedures were brief and directly comparable at the point of care.",
+          "Expectation was not matched because the trial was open label and one arm included lidocaine.",
+          "No placebo or saline arm means the comparison was not a fully balanced control."
+        ],
+        "alternative_explanations": [
+          "Natural history over the first hour could contribute to improvement in both groups.",
+          "The much longer baseline pain duration in the dry-needling group could partly affect response.",
+          "Open-label patient reporting and clinician behaviour could amplify differences.",
+          "Rescue analgesia was allowed only after 60 minutes, so it did not contaminate scheduled pain scores."
+        ],
+        "spin": [
+          "The abstract and conclusions track the primary outcome.",
+          "Discussion extends to rescue analgesia, but that was a secondary outcome.",
+          "No overclaim of long-term benefit was made."
+        ],
+        "fit_with_evidence": [
+          "Consistent with the cited 2022 review for cervical myofascial pain, which also favoured trigger-point injection short term.",
+          "This extends evidence into acute low back pain in the ED, but only as one small trial.",
+          "It fits the playbook as a short-term symptom-relief option, not a definitive superiority claim."
+        ],
+        "external_validity": [
+          "✓ Acute ED myofascial low back pain matches a common frontline scenario.",
+          "✓ Adult patients who can cooperate with needling and pain scoring.",
+          "✗ Single-centre Turkish ED sample.",
+          "✗ Short symptom duration and 60-minute follow-up limit transfer to chronic or outpatient cases."
+        ],
+        "would_change_my_mind": [
+          "A larger blinded trial with a sham or saline control and longer follow-up.",
+          "Replication in outpatient sports-physio or primary-care settings.",
+          "A study showing no difference with adequate power and balanced baseline pain duration."
+        ],
+        "verification": {
+          "status": "disagreements",
+          "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+          "checked_at": "2026-11-17T21:12:16.555365+00:00",
+          "disagreements": [
+            {
+              "item": "key numbers[0].evidence refs",
+              "first": "[\"P108\", \"P127\"]",
+              "second": "[\"P143\"]",
+              "why": "53.9 is printed there, not in current refs.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "results[0].evidence refs",
+              "first": "[\"P108\", \"P127\"]",
+              "second": "[\"P108\", \"P127\", \"P143\"]",
+              "why": "Add passages containing all reported numbers.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "limits[+]",
+              "first": "(nothing)",
+              "second": "Baseline imbalances in pain duration, temperature, and oxygen saturation",
+              "why": "Visible baseline imbalances should appear in limits.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.domains[0]",
+              "first": "{\"domain\": \"Randomisation process\", \"judgement\": \"low\", \"reason\": \"Sequence generation and sealed opaque …",
+              "second": "{\"domain\": \"Randomisation process\", \"judgement\": \"some concerns\", \"reason\": \"Computer sequence and opaque …",
+              "why": "Large baseline imbalance weakens a low-risk randomisation judgement.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.grade[2]",
+              "first": "{\"domain\": \"indirectness\", \"judgement\": \"serious\", \"reason\": \"ED-only population and short-term pain endpoint …",
+              "second": "{\"domain\": \"indirectness\", \"judgement\": \"not serious\", \"reason\": \"Population, comparator, and primary outcome …",
+              "why": "This is direct evidence for the study question.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.grade[3]",
+              "first": "{\"domain\": \"imprecision\", \"judgement\": \"serious\", \"reason\": \"Small sample and no reported MCID; …",
+              "second": "{\"domain\": \"imprecision\", \"judgement\": \"serious\", \"reason\": \"n=49; 95% CI 44.78 to 62.94 …",
+              "why": "Imprecision should cite the reported CI and small sample.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.certainty",
+              "first": "low",
+              "second": "moderate",
+              "why": "With serious risk of bias and imprecision only, certainty is moderate.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "Second reader's concern",
+              "first": "Not raised in the first reading",
+              "second": "Raised by the second reader",
+              "why": "Impact rating may overstate one small unblinded trial.",
+              "resolved": "left open"
+            },
+            {
+              "item": "Automated check",
+              "first": "unsupported number",
+              "second": "card.key_numbers[0]",
+              "why": "Numbers not found in the passages the card cites. Check each against the paper.",
+              "resolved": "left open"
+            },
+            {
+              "item": "Automated check",
+              "first": "certainty corrected",
+              "second": "card.appraisal.certainty",
+              "why": "Certainty did not match the GRADE rows, so code corrected it. Check the rows.",
+              "resolved": "left open"
+            }
+          ],
+          "external": [],
+          "external_searched": "External ratings not searched for this automated edition."
+        }
+      },
+      "patient_explanation": "In this small emergency-department study, the injection gave faster pain relief than dry needling over the first hour. Because the study was small and unblinded, we should treat it as promising but not definitive.",
+      "open_questions": [
+        "Does the benefit last beyond 1 hour?",
+        "Would results hold with sham control and blinding?",
+        "Which patients benefit most from injection versus dry needling?"
+      ],
+      "key_findings": [
+        "Injection lowered pain more than dry needling at 30 and 60 minutes.",
+        "Two-thirds of the dry-needling group needed rescue fentanyl.",
+        "No adverse events were seen during the ED stay.",
+        "The evidence is preliminary because the trial was small and open label."
+      ],
+      "type": "study",
+      "format": 2,
+      "item_id": "2026-W47-1",
+      "read_level": "full_text",
+      "source_ids": [
+        "study-1"
+      ],
+      "full_text": {
+        "status": "read",
+        "worth_getting": false,
+        "why": "Read the full source by AI; numbers checked against it."
+      },
+      "first_published": "2026-11-01"
+    },
+    {
+      "region": "lumbar",
+      "title": "Lumbar foraminal stenosis: no single test ruled it in",
+      "evidence_tag": "established",
+      "evidence_note": "Challenge pick: chosen to test usual physio practice. Systematic review of diagnostic accuracy studies; no meta-analysis.",
+      "confidence": "certain",
+      "confidence_note": "Methods and tables were reported in full text.",
+      "impact": "know_dont_act",
+      "impact_line": "Useful for setting expectations: positive tests are common, but no single clinical finding is strong enough alone.",
+      "summary": [
+        "15 studies, 1,439 participants; mostly hospital and surgical candidates.",
+        "MRI-verified FS was the reference standard in all studies.",
+        "SLR was least often positive in FS; lumbar extension and leg pain at rest were more often positive.",
+        "Specificity was not calculated, so the review cannot tell how well findings rule FS in."
+      ],
+      "pico": {
+        "p": "Adults with low back pain and unilateral radiating symptoms or radiculopathy suspected of lumbar foraminal stenosis.",
+        "i": "History and physical examination findings.",
+        "c": "MRI-verified foraminal stenosis and, in some studies, CSS or disc herniation.",
+        "o": "Proportion of positive findings as a proxy for sensitivity."
+      },
+      "key_numbers": [
+        {
+          "value": "15",
+          "label": "included studies"
+        },
+        {
+          "value": "1,439",
+          "label": "participants"
+        },
+        {
+          "value": "33%",
+          "label": "SLR positive in FS, average"
+        },
+        {
+          "value": "66%",
+          "label": "lumbar extension positive in FS, average"
+        }
+      ],
+      "limits": [
+        "Only sensitivity was analysed; specificity could not be calculated.",
+        "Most studies were hospital based and often surgical candidates.",
+        "Index test methods and timing were often insufficiently reported.",
+        "Clinical findings were heterogeneous across studies.",
+        "No meta-analysis was performed."
+      ],
+      "condition": "Lumbar foraminal stenosis",
+      "playbook_step": "classify",
+      "bottom_line": "In suspected lumbar foraminal stenosis, SLR is often negative and lumbar extension or leg pain at rest are more often positive, but the review cannot support any single test as a stand-alone diagnostic rule-in or rule-out.",
+      "methods": {
+        "design": "Systematic review of diagnostic test accuracy studies; no meta-analysis.",
+        "setting": "PubMed, Embase, CINAHL, MEDLINE; studies mostly hospital settings.",
+        "participants": "Adults with low back pain and unilateral symptoms or radiculopathy; 1,439 participants across 15 studies.",
+        "intervention": "History taking and clinical examination tests for FS.",
+        "comparator": "MRI-verified FS; some studies also compared with MRI-verified CSS or disc herniation.",
+        "follow_up": "Not reported as a follow-up study; diagnostic accuracy studies.",
+        "primary_outcome": "Proportion of positive findings for each index test."
+      },
+      "results": [
+        {
+          "outcome": "SLR",
+          "timepoint": "study-level",
+          "result": "Positive findings ranged from 14% to 65% in FS",
+          "meaning": "Weak detector",
+          "detail": "Across 10 studies, positive SLR findings in FS ranged from 14% to 65%. The review’s pooled-style table shows 33% positive overall for FS.",
+          "verdict": "descriptive"
+        },
+        {
+          "outcome": "Lumbar extension",
+          "timepoint": "study-level",
+          "result": "Positive findings ranged from 41% to 81% in FS",
+          "meaning": "More often positive",
+          "detail": "Across 11 studies, positive lumbar extension findings in FS ranged from 41% to 81%. The review’s table shows 66% positive overall for FS.",
+          "verdict": "descriptive"
+        },
+        {
+          "outcome": "Pain at rest",
+          "timepoint": "study-level",
+          "result": "Positive findings ranged from 46% to 88% in FS",
+          "meaning": "More often positive",
+          "detail": "Across five studies, pain at rest in FS ranged from 46% to 88%. The review’s table shows 72% positive overall for FS.",
+          "verdict": "descriptive"
+        },
+        {
+          "outcome": "Sensory deficit",
+          "timepoint": "study-level",
+          "result": "Positive findings ranged from 20% to 88% in FS",
+          "meaning": "Variable finding",
+          "detail": "Across seven studies, sensory deficit in FS ranged from 20% to 88%. The review’s summary table shows 47% positive for FS.",
+          "verdict": "descriptive"
+        }
+      ],
+      "how_to_apply": [
+        "Do not use a single finding to diagnose FS on its own.",
+        "Use history and examination to raise or lower suspicion, then confirm with MRI when clinically indicated.",
+        "Expect SLR to be less helpful than some other findings in this review.",
+        "Be cautious applying these findings to primary care patients."
+      ],
+      "applies_to": [
+        "Adults with unilateral radiating leg symptoms",
+        "Hospital or pre-surgical populations",
+        "MRI-based diagnostic work-up"
+      ],
+      "not_for": [
+        "Primary care screening",
+        "Standalone diagnostic decisions",
+        "Patients with mixed disc herniation and foraminal stenosis"
+      ],
+      "appraisal": {
+        "certainty": "very low",
+        "strengths": [
+          "Pre-registered protocol.",
+          "Duplicate screening and extraction.",
+          "QUADAS-2 used.",
+          "Clear reference standard.",
+          "Broad search across four databases."
+        ],
+        "weaknesses": [
+          "Most studies had some concerns on QUADAS-2.",
+          "Specificity could not be calculated.",
+          "Many studies were hospital based.",
+          "Index tests were inconsistently described.",
+          "Heterogeneous studies prevented meta-analysis."
+        ],
+        "funding_conflicts": "Hemborg’s fund of orthopaedic research; open access funding from Lund University; authors reported no competing interests.",
+        "appraised_from": "full_text",
+        "tool": "QUADAS-2",
+        "overall_risk_of_bias": "some concerns",
+        "domains": [
+          {
+            "domain": "Patient selection",
+            "judgement": "low",
+            "reason": "Most studies used consecutive or clearly described recruitment.",
+            "support": "Table 2 and Methods P26, P48"
+          },
+          {
+            "domain": "Index test",
+            "judgement": "some concerns",
+            "reason": "Blinding and test procedures were often insufficiently reported.",
+            "support": "Table 2 and P151"
+          },
+          {
+            "domain": "Reference standard",
+            "judgement": "low",
+            "reason": "MRI was the reference standard in all studies.",
+            "support": "P19, P90"
+          },
+          {
+            "domain": "Flow and timing",
+            "judgement": "some concerns",
+            "reason": "Timing between tests and MRI was often not reported.",
+            "support": "Table 2 and P151"
+          }
+        ],
+        "grade": [
+          {
+            "domain": "risk of bias",
+            "judgement": "serious",
+            "reason": "Most included studies had some concerns, mainly unclear index-test and flow/timing reporting."
+          },
+          {
+            "domain": "inconsistency",
+            "judgement": "serious",
+            "reason": "Findings varied widely across studies, and heterogeneity prevented meta-analysis."
+          },
+          {
+            "domain": "indirectness",
+            "judgement": "serious",
+            "reason": "Evidence came mainly from hospital and surgical candidates, not typical primary-care patients."
+          },
+          {
+            "domain": "imprecision",
+            "judgement": "very serious",
+            "reason": "No pooled estimates or confidence intervals were reported, and specificity was unavailable."
+          },
+          {
+            "domain": "publication bias",
+            "judgement": "serious",
+            "reason": "The review was limited to English-language studies, and publication bias was not assessed."
+          }
+        ],
+        "clinical_significance": [
+          "No MCID applies because the review reports diagnostic proportions, not a treatment effect.",
+          "The review cannot rule in or rule out FS with one test because specificity was unavailable.",
+          "A positive lumbar extension or leg pain at rest is more promising than SLR, but the data remain descriptive.",
+          "Meaningful diagnostic value cannot be quantified from the review alone."
+        ],
+        "comparator_fairness": [
+          "MRI was a credible reference standard for this question.",
+          "Comparators were not treatment arms; this was an accuracy review.",
+          "No sham or dose issue applies."
+        ],
+        "alternative_explanations": [
+          "Spectrum bias is likely because many participants were surgical candidates.",
+          "Natural history is irrelevant here, but referral pathway could enrich positive findings.",
+          "Selection of hospital patients may inflate apparent clinical finding rates.",
+          "Unclear test execution and interpretation could affect results."
+        ],
+        "spin": [
+          "The conclusions stay cautious and match the primary finding.",
+          "The discussion adds practice suggestions, but the main limitation remains the lack of specificity.",
+          "No major overclaim is evident."
+        ],
+        "fit_with_evidence": [
+          "External evidence was unavailable in the supplied source.",
+          "Cautious conclusion fits the Atlas approach: assess clinically, but do not over-weight single tests."
+        ],
+        "external_validity": [
+          "✓ Lumbar radicular symptom assessment",
+          "✓ MRI-based secondary care work-up",
+          "✗ Mostly surgical or pre-surgical patients",
+          "✗ Mostly hospital settings, not Australian private sports physio caseloads"
+        ],
+        "would_change_my_mind": [
+          "A primary-care accuracy study with both sensitivity and specificity.",
+          "A meta-analysis with clearer test methods and narrower uncertainty.",
+          "Evidence that a specific cluster meaningfully changes post-test probability."
+        ],
+        "verification": {
+          "status": "disagreements",
+          "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+          "checked_at": "2026-11-17T21:12:16.555365+00:00",
+          "disagreements": [
+            {
+              "item": "appraisal.grade",
+              "first": "[{\"domain\": \"risk of bias\", \"judgement\": \"serious\", \"reason\": \"Most included studies had …",
+              "second": "[{\"domain\": \"risk of bias\", \"judgement\": \"serious\", \"reason\": \"Most included studies had …",
+              "why": "Current GRADE rows misclassify inconsistency and publication bias.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.certainty",
+              "first": "low",
+              "second": "very low",
+              "why": "Observational evidence plus multiple downgrades reaches very low certainty.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "results[1].evidence refs",
+              "first": "[\"P88\", \"P189\", \"P191\", \"P201\", \"P256\", \"P258\"]",
+              "second": "[\"P88\", \"P189\", \"P191\", \"P196\", \"P256\", \"P258\"]",
+              "why": "Add passages containing 81% and 41%.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "results[2].evidence refs",
+              "first": "[\"P154\", \"P166\", \"P170\", \"P259\", \"P261\"]",
+              "second": "[\"P154\", \"P164\", \"P168\", \"P169\", \"P259\", \"P261\"]",
+              "why": "Add passages containing 46% and 88%.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "results[3].evidence refs",
+              "first": "[\"P173\", \"P204\", \"P212\", \"P247\", \"P249\"]",
+              "second": "[\"P173\", \"P204\", \"P206\", \"P211\", \"P247\", \"P249\"]",
+              "why": "Add passages containing 88% and 20%.",
+              "resolved": "Second reader's version used."
+            }
+          ],
+          "external": [],
+          "external_searched": "External ratings not searched for this automated edition."
+        }
+      },
+      "patient_explanation": "These tests can help your clinician suspect a nerve pinch in the lower back, but no single exam finding can confirm it on its own. MRI is still needed when the diagnosis needs to be checked more firmly.",
+      "open_questions": [
+        "How accurate are these tests in primary care?",
+        "Does a test cluster outperform single findings?",
+        "What is the specificity of these findings?"
+      ],
+      "key_findings": [
+        "15 studies and 1,439 participants were included.",
+        "All studies used MRI as the reference standard.",
+        "SLR was least often positive in FS; lumbar extension and leg pain at rest were more often positive.",
+        "Most studies were hospital based and had some risk-of-bias concerns."
+      ],
+      "type": "study",
+      "format": 2,
+      "item_id": "2026-W47-2",
+      "read_level": "full_text",
+      "source_ids": [
+        "study-2"
+      ],
+      "full_text": {
+        "status": "read",
+        "worth_getting": false,
+        "why": "Read the full source by AI; numbers checked against it."
+      },
+      "first_published": "2026-11-03"
+    },
+    {
+      "region": "lower limb",
+      "title": "PDRN and PN show low-certainty pain signals",
+      "evidence_tag": "practice_gap",
+      "evidence_note": "Mixed-condition review; strongest human data were knee and foot trials.",
+      "confidence": "certain",
+      "confidence_note": "Methods and GRADE were clearly reported.",
+      "impact": "set_expectations",
+      "impact_line": "Signals of benefit are inconsistent and usually low certainty, so I would not present PDRN or PN as established treatment.",
+      "summary": [
+        "38 studies included: 28 clinical and 10 preclinical.",
+        "Pain improvement was usually within-group; between-group effects varied.",
+        "GRADE rated controlled pain evidence low to very low.",
+        "No major safety signal was identified, but adverse-event reporting was incomplete."
+      ],
+      "pico": {
+        "p": "Adults with musculoskeletal and related neurological pain disorders",
+        "i": "PDRN or PN injection, alone or combined",
+        "c": "Placebo, hyaluronic acid, corticosteroid, physiotherapy, exercise, or no treatment",
+        "o": "Pain, function, quality of life, adverse events"
+      },
+      "key_numbers": [
+        {
+          "value": "38",
+          "label": "studies included"
+        },
+        {
+          "value": "28",
+          "label": "clinical studies"
+        },
+        {
+          "value": "10",
+          "label": "preclinical studies"
+        },
+        {
+          "value": "low",
+          "label": "pain certainty"
+        }
+      ],
+      "limits": [
+        "No meta-analysis was done because studies were heterogeneous.",
+        "Most comparative evidence came from small, site-specific trials.",
+        "Many studies were from Korea; generalisability is limited.",
+        "Adverse events were not uniformly or fully reported.",
+        "Some conclusions rely on uncontrolled studies and case series."
+      ],
+      "condition": "General musculoskeletal pain treated with PDRN/PN",
+      "playbook_step": "educate",
+      "bottom_line": "PDRN and PN may help some pain conditions, but controlled evidence is weak and uneven.",
+      "methods": {
+        "design": "Systematic review",
+        "setting": [
+          "10 databases; English, Chinese, Japanese and Korean sources"
+        ],
+        "participants": "Adults with musculoskeletal or musculoskeletal-related neurological pain; plus animal models in preclinical studies",
+        "intervention": "PDRN or PN injection, alone or combined",
+        "comparator": "No treatment, placebo, hyaluronic acid, corticosteroid, exercise or physiotherapy",
+        "follow_up": "Varied by study",
+        "primary_outcome": "Pain; secondary outcomes included function, quality of life and adverse events"
+      },
+      "results": [
+        {
+          "outcome": "Study yield",
+          "timepoint": "search",
+          "result": "13,267 found; 10,023 screened; 38 included",
+          "meaning": "Evidence base is small and mixed",
+          "detail": "28 clinical studies and 10 preclinical studies were included after full-text review.",
+          "verdict": "descriptive"
+        },
+        {
+          "outcome": "Pain evidence",
+          "timepoint": "controlled studies",
+          "result": "Comparative pain effects varied by site and comparator",
+          "meaning": "No single reliable estimate",
+          "detail": "The review’s GRADE table rated controlled pain evidence low to very low across comparisons, with inconsistency and imprecision common.",
+          "verdict": "descriptive"
+        },
+        {
+          "outcome": "Safety",
+          "timepoint": "clinical studies",
+          "result": "No major safety signal was identified",
+          "meaning": "Reassuring but incomplete",
+          "detail": "Most studies reported no serious adverse events or no intervention-related events, but reporting was inconsistent and sometimes absent.",
+          "verdict": "descriptive"
+        }
+      ],
+      "how_to_apply": [
+        "Treat the findings as hypothesis-generating rather than practice-changing.",
+        "Expect the best human data to come from knee and plantar fasciitis trials.",
+        "Check the comparator carefully before assuming a treatment effect.",
+        "Do not over-read within-group improvement as proof of efficacy.",
+        "Discuss the limited safety reporting before using these injections routinely."
+      ],
+      "applies_to": [
+        "Knee osteoarthritis",
+        "Plantar fasciitis",
+        "Some TMJ and elbow pain trials"
+      ],
+      "not_for": [
+        "Claiming established efficacy across musculoskeletal disorders",
+        "Assuming safety is fully characterised",
+        "Extrapolating preclinical mechanisms to clinical benefit"
+      ],
+      "appraisal": {
+        "certainty": "very low",
+        "strengths": [
+          "Protocol was registered.",
+          "Search covered multiple languages and databases.",
+          "Study selection and data extraction were done independently.",
+          "Risk of bias and GRADE were assessed."
+        ],
+        "weaknesses": [
+          "No meta-analysis was possible.",
+          "Most controlled comparisons were small.",
+          "Many studies were single-site and from Korea.",
+          "Comparators and follow-up were heterogeneous.",
+          "Adverse-event reporting was incomplete.",
+          "At least 1 RCT had baseline pain imbalance."
+        ],
+        "funding_conflicts": "Supported by KHIDI grant 2025-02310152; authors reported no commercial or financial conflicts.",
+        "appraised_from": "full_text",
+        "tool": "AMSTAR 2",
+        "overall_risk_of_bias": "low",
+        "domains": [
+          {
+            "domain": "Protocol registered before review",
+            "judgement": "low",
+            "reason": "Protocol was registered before the review was done.",
+            "support": "Methods P15: CRD420261363033 and CRD420261363211 registered."
+          },
+          {
+            "domain": "Adequate literature search",
+            "judgement": "low",
+            "reason": "Search covered many databases and languages.",
+            "support": "Methods P18-P19: 10 databases, no language or year restrictions."
+          },
+          {
+            "domain": "Justified exclusions",
+            "judgement": "some concerns",
+            "reason": "The paper gives counts of exclusions, but not a full list with reasons.",
+            "support": "Results P140: 76 reports excluded for not being clinical/preclinical or other reasons."
+          },
+          {
+            "domain": "Risk of bias assessed in included studies",
+            "judgement": "low",
+            "reason": "Clinical and preclinical studies were formally appraised with design-specific tools.",
+            "support": "Methods P128-P131; Results P158-P170."
+          },
+          {
+            "domain": "Appropriate meta-analytic methods",
+            "judgement": "low",
+            "reason": "No meta-analysis was done because the studies were too heterogeneous.",
+            "support": "Methods P134: qualitative synthesis only."
+          },
+          {
+            "domain": "RoB considered when interpreting results",
+            "judgement": "low",
+            "reason": "The discussion repeatedly limits conclusions by low certainty and study quality.",
+            "support": "Discussion P304-P314."
+          },
+          {
+            "domain": "Publication bias assessed",
+            "judgement": "unclear",
+            "reason": "No publication-bias assessment was reported.",
+            "support": "Methods/Results P134-P135 and P255-P270: no publication-bias analysis reported."
+          }
+        ],
+        "grade": [
+          {
+            "domain": "risk of bias",
+            "judgement": "serious",
+            "reason": "Most controlled comparisons rested on small studies with some concerns or high risk of bias."
+          },
+          {
+            "domain": "inconsistency",
+            "judgement": "serious",
+            "reason": "Results varied across sites and comparators, especially in knee osteoarthritis."
+          },
+          {
+            "domain": "indirectness",
+            "judgement": "not serious",
+            "reason": "Population, interventions and outcomes match the review question."
+          },
+          {
+            "domain": "imprecision",
+            "judgement": "serious",
+            "reason": "Most comparisons used a single small trial or a few small studies, so estimates are unstable."
+          },
+          {
+            "domain": "publication bias",
+            "judgement": "serious",
+            "reason": "The review did not assess publication bias, and the evidence base is small and selective."
+          }
+        ],
+        "clinical_significance": [
+          "No pooled estimate or MCID-based summary is available for the review as a whole.",
+          "The review shows possible benefit in some individual trials, but the controlled evidence is too inconsistent for a confident clinical threshold call.",
+          "A clinically meaningful effect remains plausible in some indications, but cannot be generalised across conditions."
+        ],
+        "comparator_fairness": [
+          "Some controls were credible active comparators such as hyaluronic acid, corticosteroid, exercise or physiotherapy.",
+          "Some studies were uncontrolled or single-arm, which is not a fair efficacy test.",
+          "Comparator quality varied by site and study."
+        ],
+        "alternative_explanations": [
+          "Natural history and regression to the mean could explain some before-after improvement.",
+          "Expectation and contextual effects are plausible in open-label injection studies.",
+          "Co-interventions and continued conservative care could contribute in some trials.",
+          "Baseline imbalance was reported in at least one RCT."
+        ],
+        "spin": [
+          "The abstract and conclusion stay fairly cautious.",
+          "The review still highlights broad potential benefit despite low-certainty evidence.",
+          "Within-group improvements are discussed alongside controlled effects, which could overstate confidence if read casually."
+        ],
+        "fit_with_evidence": [
+          "No external guideline or systematic review was supplied here for direct comparison.",
+          "The review itself says its evidence is limited and heterogeneous, which fits a cautious playbook stance."
+        ],
+        "external_validity": [
+          "✓ Australian private sports-physio topics: knee, plantar fascia, some tendon disorders",
+          "✗ Evidence is concentrated in Korea and Italy, not Australia",
+          "✗ Many studies are small and highly selected",
+          "✗ Intervention delivery is specialised and not always typical of routine practice"
+        ],
+        "would_change_my_mind": [
+          "A large, well-blinded RCT with clear allocation concealment and standardised adverse-event reporting.",
+          "A consistent between-group benefit replicated across several sites and comparators.",
+          "A direct head-to-head trial showing a clear advantage of PDRN or PN over a credible active comparator."
+        ],
+        "verification": {
+          "status": "disagreements",
+          "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+          "checked_at": "2026-11-17T21:12:16.555365+00:00",
+          "disagreements": [
+            {
+              "item": "results[0].result",
+              "first": "13,267 records screened; 38 studies included",
+              "second": "13,267 found; 10,023 screened; 38 included",
+              "why": "Paper reports 13,267 identified, not screened.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.domains[6].judgement",
+              "first": "some concerns",
+              "second": "unclear",
+              "why": "Publication-bias assessment was not reported.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.overall risk of bias",
+              "first": "some concerns",
+              "second": "low",
+              "why": "AMSTAR 2 overall should drop for missing publication-bias assessment.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.certainty",
+              "first": "low",
+              "second": "very low",
+              "why": "Current GRADE rows downgrade four levels from high.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.weaknesses[+]",
+              "first": "(nothing)",
+              "second": "At least 1 RCT had baseline pain imbalance.",
+              "why": "Baseline imbalance should appear in weaknesses.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "Second reader's concern",
+              "first": "Not raised in the first reading",
+              "second": "Raised by the second reader",
+              "why": "One GRADE line summarises mixed comparisons, not one primary comparison.",
+              "resolved": "left open"
+            }
+          ],
+          "external": [],
+          "external_searched": "External ratings not searched for this automated edition."
+        }
+      },
+      "patient_explanation": "These injections might help some people with joint or tendon pain, but the overall evidence is still weak and mixed. We also do not have strong proof yet about how safe or effective they are compared with better-known treatments.",
+      "open_questions": [
+        "Which conditions, if any, benefit most?",
+        "Are PDRN and PN meaningfully different clinically?",
+        "How much does active comparator choice change the result?",
+        "What is the true adverse-event rate with standard reporting?"
+      ],
+      "key_findings": [
+        "Most clinical evidence is from small, single-country studies.",
+        "Some trials favoured PDRN or PN, especially in knee and foot conditions.",
+        "Controlled evidence is low to very low certainty.",
+        "Safety looks reassuring, but reporting was incomplete."
+      ],
+      "type": "study",
+      "format": 2,
+      "item_id": "2026-W47-3",
+      "read_level": "full_text",
+      "source_ids": [
+        "study-3"
+      ],
+      "full_text": {
+        "status": "read",
+        "worth_getting": false,
+        "why": "Read the full source by AI; numbers checked against it."
+      },
+      "first_published": "2026-10-28"
+    },
+    {
+      "region": "lower limb",
+      "title": "ACL rehab guideline: early motion, loading and criteria-based progression",
+      "evidence_tag": "practice_gap",
+      "evidence_note": "Broad guideline; many recommendations rely on low-certainty evidence and expert consensus.",
+      "confidence": "certain",
+      "confidence_note": "Methods and recommendations are explicit in full text.",
+      "impact": "changes_what_i_say",
+      "impact_line": "Use criteria-based, early active rehabilitation; be cautious about modalities and return-to-sport claims.",
+      "summary": [
+        "140 RCTs informed the guideline, but most studies had some concerns or high risk of bias.",
+        "Early motion, progressive weight-bearing and exercise are the backbone of rehab after isolated ACLR.",
+        "Several adjuncts may help short-term symptoms, but many effects are small, conflicting or very low certainty.",
+        "Return-to-running and return-to-sport criteria are proposed, but the paper says they are not fully validated."
+      ],
+      "pico": {
+        "p": "People after anterior cruciate ligament reconstruction",
+        "i": "Rehabilitation components and progression criteria",
+        "c": "Alternative rehab strategies, no intervention, usual care, placebo",
+        "o": "Strength, pain, swelling, laxity, function, return to activity"
+      },
+      "key_numbers": [
+        {
+          "value": "140",
+          "label": "RCTs included"
+        },
+        {
+          "value": "5231",
+          "label": "participants studied"
+        },
+        {
+          "value": "27.9",
+          "label": "mean age, years"
+        }
+      ],
+      "limits": [
+        "Guideline evidence is summarised; many effect sizes are not reported in the main text.",
+        "Most included studies had some concerns or high risk of bias.",
+        "Several recommendations depend on expert consensus, not direct trial evidence.",
+        "Return-to-running and return-to-sport criteria are explicitly noted as not fully validated.",
+        "All panel members were from one institution, and patient focus groups were not used."
+      ],
+      "condition": "Anterior cruciate ligament reconstruction rehabilitation",
+      "playbook_step": "educate",
+      "bottom_line": "This guideline supports early active rehabilitation after ACL reconstruction, with progressive loading and criteria-based progression. It also suggests some adjuncts for early symptoms, but most evidence is low certainty and the return-to-running and return-to-sport criteria remain provisional.",
+      "methods": {
+        "design": "Clinical practice guideline using systematic reviews of RCTs and selected reviews for return-to-activity questions",
+        "setting": "Outpatient rehabilitation",
+        "participants": "Patients after ACL reconstruction; 140 RCTs, 5231 participants",
+        "intervention": "Rehabilitation components and progression criteria",
+        "comparator": "Usual care, no intervention, placebo, or alternative rehabilitation components",
+        "follow_up": "Varied by included study",
+        "primary_outcome": "Effectiveness of rehabilitation components; return-to-running and return-to-sport criteria"
+      },
+      "results": [
+        {
+          "outcome": "Overall guideline",
+          "timepoint": "Across studies",
+          "result": "140 RCTs, 5231 participants; most studies had some concerns or high risk of bias",
+          "meaning": "Evidence base is large but uneven",
+          "detail": "The guideline synthesised rehabilitation trials and graded certainty with GRADE. It reports widespread risk-of-bias concerns and uses expert agreement for recommendations.",
+          "verdict": "descriptive"
+        },
+        {
+          "outcome": "Pre-op rehab",
+          "timepoint": "Early postop",
+          "result": "Can improve knee flexion and extension; may improve quadriceps strength at 3 months",
+          "meaning": "Possible short-term benefit",
+          "detail": "The main text gives summary statements rather than pooled numeric effects for these outcomes.",
+          "verdict": "descriptive"
+        },
+        {
+          "outcome": "Return to run",
+          "timepoint": "Proposed criteria",
+          "result": "95% flexion, full extension, no effusion, LSI >80%, pain-free hopping",
+          "meaning": "Suggested screening criteria, not validated thresholds",
+          "detail": "The paper states there is an absence of research findings and these are proposed criteria based on the authors' judgement.",
+          "verdict": "descriptive"
+        }
+      ],
+      "how_to_apply": [
+        "Start active knee motion immediately after surgery, unless the surgeon says otherwise.",
+        "Use progressive, controlled weight-bearing in the first week as tolerated.",
+        "Consider supervised or less supervised rehab based on access, cost and adherence.",
+        "Use exercise as the foundation; adjunct modalities are optional and mostly early-phase tools.",
+        "Do not treat the proposed running and sport criteria as fully validated clearance rules."
+      ],
+      "applies_to": [
+        "Isolated ACL reconstruction",
+        "Outpatient physiotherapy",
+        "Patients able to follow progressive exercise"
+      ],
+      "not_for": [
+        "Complex concomitant knee injury without surgical guidance",
+        "Using return-to-sport criteria as proven injury-prevention tests"
+      ],
+      "appraisal": {
+        "certainty": "very low",
+        "strengths": [
+          "Large evidence base",
+          "Explicit search and selection methods",
+          "Uses RoB 2 and GRADE",
+          "Clear clinical recommendations"
+        ],
+        "weaknesses": [
+          "Many studies had bias concerns",
+          "Several recommendations are consensus-driven",
+          "Key return-to-activity criteria lack direct validation",
+          "Main text often gives qualitative rather than numeric effects"
+        ],
+        "funding_conflicts": "No specific grant declared; none declared conflicts",
+        "appraised_from": "full_text",
+        "tool": "JBI",
+        "overall_risk_of_bias": "high",
+        "domains": [
+          {
+            "domain": "Protocol registered before review",
+            "judgement": "unclear",
+            "reason": "No review protocol or prospective registration is reported.",
+            "support": "Methods P43-P48: AGREE II followed; protocol not mentioned"
+          },
+          {
+            "domain": "Adequate literature search",
+            "judgement": "low",
+            "reason": "Five databases were searched from inception to 27 December 2021.",
+            "support": "Methods P64-P66: MEDLINE, EMBASE, Cochrane, CINAHL, SPORTDiscus"
+          },
+          {
+            "domain": "Justified exclusions",
+            "judgement": "unclear",
+            "reason": "Eligibility criteria are listed, but a full excluded-studies list with reasons is not reported.",
+            "support": "Methods P67-P77: inclusion/exclusion criteria only"
+          },
+          {
+            "domain": "Risk of bias assessed in included studies",
+            "judgement": "low",
+            "reason": "Pairs assessed trial risk of bias with RoB 2.",
+            "support": "Methods P80-P109: dual appraisal using RoB 2"
+          },
+          {
+            "domain": "Appropriate meta-analytic methods",
+            "judgement": "low",
+            "reason": "Random-effects SMDs and RRs with 95% CIs were used when pooling was possible.",
+            "support": "Methods P98-P105: SMD/RR, random effects, 95% CI"
+          },
+          {
+            "domain": "RoB considered when interpreting results",
+            "judgement": "low",
+            "reason": "They acknowledge widespread bias concerns and mostly low or very-low certainty evidence.",
+            "support": "Results P177-P180; Discussion P804-P806"
+          },
+          {
+            "domain": "Publication bias assessed",
+            "judgement": "high",
+            "reason": "Publication bias was not formally assessed, and they say they did not downgrade for it.",
+            "support": "Methods P119-P120; Limitations P879-P883"
+          }
+        ],
+        "grade": [
+          {
+            "domain": "risk of bias",
+            "judgement": "serious",
+            "reason": "Most included studies were judged some concerns or high risk of bias."
+          },
+          {
+            "domain": "inconsistency",
+            "judgement": "not applicable",
+            "reason": "This is a guideline, not a single estimate or one pooled primary outcome."
+          },
+          {
+            "domain": "indirectness",
+            "judgement": "serious",
+            "reason": "Some recommendations use expert consensus or indirect evidence, especially return-to-activity criteria."
+          },
+          {
+            "domain": "imprecision",
+            "judgement": "serious",
+            "reason": "The paper often gives no effect sizes or CIs in the main text, and some questions rely on single small studies."
+          },
+          {
+            "domain": "publication bias",
+            "judgement": "serious",
+            "reason": "Publication bias was not formally assessed, and the authors say they did not downgrade for it."
+          }
+        ],
+        "clinical_significance": [
+          "The paper does not give MCIDs or effect estimates for most recommendations, so clinical size cannot be checked directly.",
+          "For return to running and sport, the authors themselves say the criteria are not fully validated, so the thresholds should be treated as provisional.",
+          "Adjuncts like cryotherapy and NMES are positioned for early symptom or activation support, not as replacements for exercise.",
+          "No NNT can be derived from the information reported in the main text."
+        ],
+        "comparator_fairness": [
+          "Comparators were usually credible: usual care, active motion, or supervised vs home programmes.",
+          "Some modality comparisons are less informative when the control is under-dosed or a no-treatment comparator.",
+          "The return-to-sport discussion is not an intervention comparison, so comparator fairness is not directly applicable there."
+        ],
+        "alternative_explanations": [
+          "Natural recovery after ACLR could explain some improvement, especially in early postoperative outcomes.",
+          "Regression to the mean and postoperative symptom fluctuation could contribute to short-term changes.",
+          "Co-interventions and differing surgical instructions could affect outcomes across trials.",
+          "Differential adherence is likely important in supervised versus unsupervised rehabilitation."
+        ],
+        "spin": [
+          "The abstract and conclusion broadly match the main message: exercise and criteria-based progression are central.",
+          "The paper is careful to label many findings as low certainty or expert consensus.",
+          "Some recommendations may read stronger than the underlying evidence for specific adjuncts."
+        ],
+        "fit_with_evidence": [
+          "Consistent with prior ACL rehabilitation reviews and the OPTIKNEE synthesis cited by the guideline.",
+          "It aligns with the broader move towards criterion-based rehabilitation rather than time alone.",
+          "The return-to-sport section also acknowledges uncertainty in prognostic evidence."
+        ],
+        "external_validity": [
+          "Reasonable for an Australian private sports-physio caseload: postoperative ACL rehab, exercise-based care, progressive loading, and return-to-sport planning.",
+          "Less direct for complex multi-ligament cases, paediatric patients, or settings without access to equipment such as pools or Alter-G.",
+          "The main studies are international, not Australian-specific, but the clinical workflow is similar."
+        ],
+        "would_change_my_mind": [
+          "A large, well-reported RCT showing a clearer superiority of one rehab model with patient-important outcomes and low bias.",
+          "Direct validation of the proposed return-to-running and return-to-sport criteria against reinjury or return-to-performance outcomes.",
+          "High-quality evidence that a specific adjunct adds clinically important benefit beyond exercise and progression criteria."
+        ],
+        "verification": {
+          "status": "disagreements",
+          "checked_by": "AI critic pass by a second model (full text); every number checked against the passages it cites; not clinician-reviewed",
+          "checked_at": "2026-11-17T21:12:16.555365+00:00",
+          "disagreements": [
+            {
+              "item": "appraisal.domains",
+              "first": "[{\"domain\": \"Clarity of review question\", \"judgement\": \"low\", \"reason\": \"The purpose, population …",
+              "second": "[{\"domain\": \"Protocol registered before review\", \"judgement\": \"unclear\", \"reason\": \"No review protocol …",
+              "why": "Replace bespoke domains with APPRAISAL.md review domains.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.overall risk of bias",
+              "first": "some concerns",
+              "second": "high",
+              "why": "Several critical review-process domains are unclear or high risk.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.certainty",
+              "first": "low",
+              "second": "very low",
+              "why": "Current GRADE rows downgrade three or more levels.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "appraisal.grade[4]",
+              "first": "{\"domain\": \"publication bias\", \"judgement\": \"not applicable\", \"reason\": \"Not assessable from this …",
+              "second": "{\"domain\": \"publication bias\", \"judgement\": \"serious\", \"reason\": \"Publication bias was not formally …",
+              "why": "This is not a single trial; publication bias is assessable and unaddressed.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "results[2].evidence refs",
+              "first": "[\"P743\", \"P755\"]",
+              "second": "[\"P744\", \"P745\", \"P746\", \"P748\", \"P749\", \"P750\", \"P751\", \"P752\", \"P753\", \"P754\"]",
+              "why": "These passages contain the proposed criteria and thresholds.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "limits[+]",
+              "first": "(nothing)",
+              "second": "All panel members were from one institution, and patient focus groups …",
+              "why": "Authors report possible recommendation bias and limited patient input.",
+              "resolved": "Second reader's version used."
+            },
+            {
+              "item": "Second reader's concern",
+              "first": "Not raised in the first reading",
+              "second": "Raised by the second reader",
+              "why": "No single primary outcome, so overall certainty is only a broad judgement.",
+              "resolved": "left open"
+            }
+          ],
+          "external": [],
+          "external_searched": "External ratings not searched for this automated edition."
+        }
+      },
+      "patient_explanation": "After ACL reconstruction, the best-supported approach is early, active rehabilitation with steadily increasing exercise and loading. Some extra treatments may help in the early phase, but many of them have limited or uncertain benefit, and return-to-running or sport criteria are still being refined.",
+      "open_questions": [
+        "Which specific exercise dose is best at each rehab phase?",
+        "Which return-to-sport test battery best predicts safe reintegration?",
+        "Which adjuncts add meaningful benefit beyond exercise?"
+      ],
+      "key_findings": [
+        "Exercise-based rehab is the foundation after ACL reconstruction.",
+        "Early motion and progressive weight-bearing are supported.",
+        "Adjunct modalities have mixed, mostly low-certainty evidence.",
+        "Return-to-sport criteria are proposed but not fully validated."
+      ],
+      "type": "study",
+      "format": 2,
+      "item_id": "2026-W47-4",
+      "read_level": "full_text",
+      "source_ids": [
+        "study-4"
+      ],
+      "full_text": {
+        "status": "read",
+        "worth_getting": false,
+        "why": "Read the full source by AI; numbers checked against it."
+      },
+      "first_published": "2023-02-02"
+    }
+  ],
+  "on_the_radar": [],
+  "filtered_out": [],
+  "sources": [
+    {
+      "id": "study-1",
+      "citation": "Şengün E, Gür STA. Short-Term Pain Outcomes of Trigger Point Injection Versus Dry Needling for Acute Myofascial Low Back Pain in the Emergency Department: A Prospective Randomized Comparative Study. Medical science monitor : international medical journal of experimental and clinical research 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42966884/",
+      "doi": "10.12659/msm.953682",
+      "pmid": "42966884"
+    },
+    {
+      "id": "study-2",
+      "citation": "Ekedahl H, Av Kák Gustafsson ME, Larsson C. Clinical findings associated with diagnosing lumbar foraminal stenosis: systematic review. BMC musculoskeletal disorders 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43009940/",
+      "doi": "10.1186/s12891-026-10614-5",
+      "pmid": "43009940"
+    },
+    {
+      "id": "study-3",
+      "citation": "Lee SH, Ha IH, Baek SH, Lee YJ. Polydeoxyribonucleotide and polynucleotide effects in musculoskeletal disorders: a systematic review. Frontiers in pharmacology 2026.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43017077/",
+      "doi": "10.3389/fphar.2026.1965494",
+      "pmid": "43017077"
+    },
+    {
+      "id": "study-4",
+      "citation": "Kotsifaki R, Korakakis V, King E, Barbosa O, Maree D, Pantouveris M, Bjerregaard A, Luomajoki J, Wilhelmsen J, Whiteley R. Aspetar clinical practice guideline on rehabilitation after anterior cruciate ligament reconstruction. British journal of sports medicine 2023.",
+      "verified": true,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36731908/",
+      "doi": "10.1136/bjsports-2022-106158",
+      "pmid": "36731908"
+    }
+  ]
+}
